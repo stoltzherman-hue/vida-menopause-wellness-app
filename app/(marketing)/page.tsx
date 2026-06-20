@@ -1,149 +1,246 @@
 import Link from 'next/link'
-import { Button } from '@/components/ui/button'
-import { Heart, MessageCircle, Users, TrendingUp, Shield, Sparkles } from 'lucide-react'
+import { Heart, MessageCircle, Users, TrendingUp, Shield, Sparkles, ArrowRight } from 'lucide-react'
+
+const features = [
+  { icon: Heart, title: 'Daily check-in', desc: 'Track symptoms, sleep, mood and triggers in under 2 minutes. See patterns emerge over time.', bg: '#fff7f3', iconBg: 'rgba(196,122,90,0.12)', iconColor: '#c47a5a' },
+  { icon: TrendingUp, title: 'Pattern insights', desc: 'Understand what affects how you feel and why. 30-day trend charts that actually make sense.', bg: '#f4faf6', iconBg: 'rgba(107,158,128,0.12)', iconColor: '#5a8a6b' },
+  { icon: MessageCircle, title: 'AI companion', desc: 'A warm, evidence-informed coach — available any time. Supportive friend, wellness coach, or doctor prep mode.', bg: '#f6f3fc', iconBg: 'rgba(184,169,201,0.15)', iconColor: '#9b8ab8', premium: true },
+  { icon: Users, title: 'Community', desc: 'Forums and Circles with women at the exact same stage. Real conversations, zero judgment.', bg: '#f4faf6', iconBg: 'rgba(107,158,128,0.12)', iconColor: '#5a8a6b' },
+  { icon: Shield, title: 'Doctor prep', desc: 'Generate a clear symptom summary to bring to your appointment. Walk in feeling prepared and heard.', bg: '#fff7f3', iconBg: 'rgba(196,122,90,0.12)', iconColor: '#c47a5a', premium: true },
+  { icon: Sparkles, title: 'Privacy first', desc: 'Your health data is yours. Encrypted at rest, never sold, always deletable. No exceptions.', bg: '#fffbf2', iconBg: 'rgba(201,169,110,0.12)', iconColor: '#a8843a' },
+]
+
+const stats = [
+  { value: '12,000+', label: 'women supported' },
+  { value: '4.9 ★', label: 'average rating' },
+  { value: '98%', label: 'feel less alone' },
+  { value: 'Free', label: 'to get started' },
+]
 
 export default function MarketingHomePage() {
   return (
-    <div className="min-h-screen bg-[#fdf8f4] blob-bg overflow-x-hidden">
+    <div style={{ minHeight: '100vh', background: '#fdf8f4', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
 
-      <header className="sticky top-0 z-40 bg-white/70 backdrop-blur-xl border-b border-[#ede0d8]/60">
-        <div className="max-w-5xl mx-auto px-6 h-16 flex items-center justify-between">
-          <span className="font-serif text-2xl font-bold text-[#3d2c35] tracking-tight">vida<span className="text-[#6b9e80]">.</span></span>
-          <div className="flex items-center gap-2">
-            <Link href="/login"><Button variant="ghost" size="sm" className="text-[#8a7a72]">Sign in</Button></Link>
-            <Link href="/signup"><Button size="sm">Join free</Button></Link>
+      {/* ── Navigation ── */}
+      <header style={{ position: 'sticky', top: 0, zIndex: 50 }}>
+        <div className="m-nav-glass">
+          <div style={{ maxWidth: 1100, margin: '0 auto', padding: '0 28px', height: 70, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
+            <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#3d2c35', letterSpacing: '-0.02em' }}>
+              vida<span style={{ color: '#6b9e80' }}>.</span>
+            </Link>
+            <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Link href="/login" className="m-btn m-btn-ghost-sm">Sign in</Link>
+              <Link href="/signup" className="m-btn m-btn-sage-sm">Join free</Link>
+            </nav>
           </div>
         </div>
       </header>
 
-      <section className="relative max-w-4xl mx-auto px-6 pt-20 pb-24 text-center">
-        <div className="absolute top-8 left-1/2 -translate-x-1/2 w-[600px] h-[600px] rounded-full border border-[#6b9e80]/8 pointer-events-none" />
-        <div className="absolute top-16 left-1/2 -translate-x-1/2 w-[450px] h-[450px] rounded-full border border-[#c4959e]/8 pointer-events-none" />
-        <div className="relative">
-          <div className="inline-flex items-center gap-2 bg-[#e8f2ec] text-[#4a7a5b] text-xs font-medium px-4 py-2 rounded-full mb-8">
-            <span className="w-1.5 h-1.5 rounded-full bg-[#6b9e80] animate-pulse" />
-            Trusted by thousands of women navigating menopause
+      {/* ── Hero ── */}
+      <section style={{
+        position: 'relative',
+        minHeight: 'calc(100vh - 70px)',
+        display: 'flex', alignItems: 'center', justifyContent: 'center',
+        padding: '80px 28px 100px',
+        overflow: 'hidden',
+        background: 'radial-gradient(ellipse 110% 75% at 50% -15%, rgba(107,158,128,0.22) 0%, transparent 65%), radial-gradient(ellipse 75% 65% at 90% 110%, rgba(196,149,158,0.16) 0%, transparent 60%), radial-gradient(ellipse 55% 45% at 8% 85%, rgba(201,169,110,0.1) 0%, transparent 55%), #fdf8f4',
+      }}>
+        {/* Decorative rings */}
+        {[600, 440, 290].map((size, i) => (
+          <div key={i} style={{
+            position: 'absolute', borderRadius: '50%',
+            width: size, height: size,
+            border: `1px solid rgba(107,158,128,${0.06 - i * 0.015})`,
+            top: '50%', left: '50%',
+            transform: 'translate(-50%, -65%)',
+            pointerEvents: 'none',
+          }} />
+        ))}
+
+        <div style={{ position: 'relative', maxWidth: 820, textAlign: 'center' }}>
+          {/* Badge */}
+          <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, background: 'rgba(107,158,128,0.1)', border: '1px solid rgba(107,158,128,0.2)', borderRadius: 9999, padding: '8px 18px', marginBottom: 44 }}>
+            <span className="pulse-dot" />
+            <span style={{ fontSize: 13, fontWeight: 500, color: '#4a7a5b', letterSpacing: '-0.01em' }}>Trusted by 12,000+ women navigating menopause</span>
           </div>
-          <h1 className="font-serif text-5xl md:text-6xl font-bold text-[#3d2c35] leading-[1.15] mb-6">
+
+          {/* Headline */}
+          <h1 style={{
+            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontSize: 'clamp(46px, 7vw, 80px)',
+            fontWeight: 700, lineHeight: 1.06,
+            letterSpacing: '-0.03em', color: '#3d2c35',
+            marginBottom: 26,
+          }}>
             You deserve to understand<br />
             <span className="gradient-text">what your body is doing.</span>
           </h1>
-          <p className="text-lg text-[#8a7a72] max-w-xl mx-auto leading-relaxed mb-10">
+
+          <p style={{ fontSize: 'clamp(17px, 2.2vw, 20px)', color: '#8a7a72', maxWidth: 580, margin: '0 auto 52px', lineHeight: 1.7 }}>
             Vida is a wellness companion for women navigating perimenopause and menopause —
             combining community, symptom tracking, and an AI coach that actually <em>gets it</em>.
           </p>
-          <div className="flex flex-col sm:flex-row gap-3 justify-center items-center">
-            <Link href="/signup"><Button size="lg" className="w-full sm:w-auto px-10">Start for free</Button></Link>
-            <Link href="/community"><Button size="lg" variant="outline" className="w-full sm:w-auto px-10">Explore community</Button></Link>
+
+          {/* CTAs */}
+          <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14, justifyContent: 'center', marginBottom: 36 }}>
+            <Link href="/signup" className="m-btn m-btn-primary" style={{ fontSize: 16, padding: '16px 42px' }}>
+              Start for free <ArrowRight size={16} />
+            </Link>
+            <Link href="/community" className="m-btn m-btn-outline" style={{ fontSize: 16, padding: '15px 38px' }}>
+              Explore community
+            </Link>
           </div>
-          <p className="mt-5 text-sm text-[#b8a9a0]">Community is always free · No credit card required</p>
+
+          <p style={{ fontSize: 13, color: '#c0b4ac', letterSpacing: '0.01em' }}>Community is always free &middot; No credit card required</p>
         </div>
       </section>
 
-      <div className="bg-white/60 backdrop-blur-sm border-y border-[#ede0d8]/60 py-5">
-        <div className="flex gap-12 justify-center flex-wrap px-6 text-sm text-[#8a7a72]">
-          {[{stat:'12,000+',label:'women supported'},{stat:'4.9★',label:'average rating'},{stat:'98%',label:'feel less alone'},{stat:'Free',label:'to get started'}].map(({stat,label})=>(
-            <div key={label} className="text-center">
-              <p className="font-serif text-2xl font-bold text-[#3d2c35]">{stat}</p>
-              <p className="text-xs text-[#b8a9a0] mt-0.5">{label}</p>
+      {/* ── Stats strip ── */}
+      <div style={{ background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderTop: '1px solid rgba(237,224,216,0.55)', borderBottom: '1px solid rgba(237,224,216,0.55)', padding: '30px 28px' }}>
+        <div style={{ maxWidth: 900, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '24px 48px', justifyContent: 'center' }}>
+          {stats.map(({ value, label }) => (
+            <div key={label} style={{ textAlign: 'center' }}>
+              <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 30, fontWeight: 700, color: '#3d2c35', lineHeight: 1.1 }}>{value}</p>
+              <p style={{ fontSize: 13, color: '#b8a9a0', marginTop: 3 }}>{label}</p>
             </div>
           ))}
         </div>
       </div>
 
-      <section className="max-w-5xl mx-auto px-6 py-20">
-        <div className="text-center mb-14">
-          <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#3d2c35] mb-4">Everything you need in one place</h2>
-          <p className="text-[#8a7a72] max-w-md mx-auto">Built specifically for perimenopause and menopause — because generic wellness apps miss the point.</p>
+      {/* ── Features ── */}
+      <section style={{ maxWidth: 1100, margin: '0 auto', padding: '100px 28px' }}>
+        <div style={{ textAlign: 'center', marginBottom: 72 }}>
+          <p style={{ fontSize: 12, fontWeight: 600, color: '#6b9e80', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>Built for you</p>
+          <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(30px, 4.5vw, 50px)', fontWeight: 700, color: '#3d2c35', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 18 }}>
+            Everything you need in one place
+          </h2>
+          <p style={{ color: '#8a7a72', fontSize: 18, maxWidth: 500, margin: '0 auto', lineHeight: 1.65 }}>
+            Built specifically for perimenopause and menopause — because generic wellness apps miss the point.
+          </p>
         </div>
-        <div className="grid sm:grid-cols-2 lg:grid-cols-3 gap-5">
-          {[
-            {icon:Heart,title:'Daily check-in',desc:'Track symptoms, sleep, mood, and triggers in under 2 minutes. See what changes over time.',bg:'bg-[#fdf0ec]',iconColor:'#c47a5a',iconBg:'bg-[#f5e0d8]'},
-            {icon:TrendingUp,title:'Pattern insights',desc:'See your symptom trends over 30 days. Understand what affects how you feel — and why.',bg:'bg-[#eef5f0]',iconColor:'#6b9e80',iconBg:'bg-[#d8eede]'},
-            {icon:MessageCircle,title:'AI companion',desc:'A warm, evidence-informed coach available any time. Supportive friend, wellness coach, or doctor prep mode.',bg:'bg-[#f5f0fa]',iconColor:'#b8a9c9',iconBg:'bg-[#ede5f5]',premium:true},
-            {icon:Users,title:'Community',desc:'Forums and Circles with women at the same stage. Real conversations, zero judgment.',bg:'bg-[#eef5f0]',iconColor:'#6b9e80',iconBg:'bg-[#d8eede]'},
-            {icon:Shield,title:'Doctor prep',desc:'Generate a clear, concise symptom summary to bring to your appointment. Walk in prepared.',bg:'bg-[#fdf0ec]',iconColor:'#c47a5a',iconBg:'bg-[#f5e0d8]',premium:true},
-            {icon:Sparkles,title:'Privacy first',desc:'Your health data is yours. Encrypted, never sold, always deletable. No exceptions.',bg:'bg-[#fdf8f0]',iconColor:'#c9a96e',iconBg:'bg-[#f5ecdc]'},
-          ].map(({icon:Icon,title,desc,bg,iconColor,iconBg,premium})=>(
-            <div key={title} className={`${bg} rounded-3xl p-6 space-y-4 hover:scale-[1.02] transition-transform duration-300`}>
-              <div className="flex items-start justify-between">
-                <div className={`${iconBg} rounded-2xl p-3`}><Icon size={22} style={{color:iconColor}} strokeWidth={1.8}/></div>
-                {premium&&<span className="text-[10px] bg-white/80 text-[#c9a96e] border border-[#c9a96e]/30 rounded-full px-2.5 py-1 font-medium">Premium</span>}
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(310px, 1fr))', gap: 18 }}>
+          {features.map(({ icon: Icon, title, desc, bg, iconBg, iconColor, premium }) => (
+            <div key={title} className="m-feature-card" style={{ background: bg }}>
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 22 }}>
+                <div style={{ background: iconBg, borderRadius: 16, padding: 13, display: 'inline-flex' }}>
+                  <Icon size={22} style={{ color: iconColor }} strokeWidth={1.8} />
+                </div>
+                {premium && (
+                  <span style={{ fontSize: 11, fontWeight: 600, background: 'rgba(201,169,110,0.1)', color: '#a8843a', border: '1px solid rgba(201,169,110,0.22)', borderRadius: 9999, padding: '5px 11px', letterSpacing: '0.02em' }}>Premium</span>
+                )}
               </div>
-              <div>
-                <h3 className="font-serif font-bold text-[#3d2c35] text-lg mb-1.5">{title}</h3>
-                <p className="text-sm text-[#8a7a72] leading-relaxed">{desc}</p>
-              </div>
+              <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontWeight: 700, fontSize: 20, color: '#3d2c35', marginBottom: 10, letterSpacing: '-0.01em' }}>{title}</h3>
+              <p style={{ fontSize: 14, color: '#8a7a72', lineHeight: 1.7 }}>{desc}</p>
             </div>
           ))}
         </div>
       </section>
 
-      <section className="max-w-3xl mx-auto px-6 py-10">
-        <div className="bg-white/70 backdrop-blur-sm rounded-3xl p-8 md:p-10 text-center shadow-[0_4px_24px_-4px_rgba(107,158,128,0.15)]">
-          <div className="text-4xl mb-4">🌿</div>
-          <blockquote className="font-serif text-xl md:text-2xl text-[#3d2c35] leading-relaxed italic mb-6">
-            &ldquo;For the first time I feel like someone actually understands what I&rsquo;m going through.
-            Vida helped me track my patterns and finally have a proper conversation with my doctor.&rdquo;
-          </blockquote>
-          <div className="flex items-center justify-center gap-3">
-            <div className="w-10 h-10 rounded-full bg-gradient-to-br from-[#6b9e80] to-[#c4959e] flex items-center justify-center text-white font-semibold text-sm">S</div>
-            <div className="text-left">
-              <p className="text-sm font-semibold text-[#3d2c35]">Sarah, 51</p>
-              <p className="text-xs text-[#b8a9a0]">Perimenopause · 8 months with Vida</p>
+      {/* ── Testimonial ── */}
+      <section style={{ padding: '0 28px 0', marginBottom: 0 }}>
+        <div style={{ maxWidth: 1100, margin: '0 auto' }}>
+          <div style={{
+            background: 'linear-gradient(148deg, #3a2832 0%, #52364a 55%, #5e3f54 100%)',
+            borderRadius: 40,
+            padding: 'clamp(48px, 8vw, 80px) clamp(32px, 8vw, 96px)',
+            position: 'relative', overflow: 'hidden', textAlign: 'center',
+          }}>
+            <div style={{ position: 'absolute', top: -80, right: -80, width: 320, height: 320, borderRadius: '50%', background: 'rgba(107,158,128,0.12)' }} />
+            <div style={{ position: 'absolute', bottom: -60, left: -60, width: 260, height: 260, borderRadius: '50%', background: 'rgba(196,149,158,0.1)' }} />
+            <div style={{ position: 'absolute', top: '40%', left: '15%', width: 160, height: 160, borderRadius: '50%', background: 'rgba(201,169,110,0.06)' }} />
+            <div style={{ position: 'relative' }}>
+              <div style={{ fontSize: 48, marginBottom: 32, filter: 'drop-shadow(0 4px 8px rgba(0,0,0,0.2))' }}>🌿</div>
+              <blockquote style={{
+                fontFamily: 'var(--font-playfair), Georgia, serif',
+                fontSize: 'clamp(20px, 3vw, 28px)',
+                color: 'rgba(255,255,255,0.9)',
+                lineHeight: 1.55, fontStyle: 'italic',
+                maxWidth: 680, margin: '0 auto 44px',
+              }}>
+                &ldquo;For the first time I feel like someone actually understands what I&apos;m going through.
+                Vida helped me track my patterns and finally have a proper conversation with my doctor.&rdquo;
+              </blockquote>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
+                <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'linear-gradient(135deg, #6b9e80 0%, #c4959e 100%)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'white', fontWeight: 700, fontSize: 17, boxShadow: '0 4px 16px rgba(0,0,0,0.25)' }}>S</div>
+                <div style={{ textAlign: 'left' }}>
+                  <p style={{ color: 'white', fontWeight: 600, fontSize: 15 }}>Sarah, 51</p>
+                  <p style={{ color: 'rgba(255,255,255,0.45)', fontSize: 13, marginTop: 2 }}>Perimenopause · 8 months with Vida</p>
+                </div>
+              </div>
             </div>
           </div>
         </div>
       </section>
 
-      <section className="max-w-2xl mx-auto px-6 py-16 text-center">
-        <h2 className="font-serif text-3xl md:text-4xl font-bold text-[#3d2c35] mb-3">Simple, honest pricing</h2>
-        <p className="text-[#8a7a72] mb-10">Community is always free. Premium unlocks your AI companion, advanced insights, and more.</p>
-        <div className="grid sm:grid-cols-2 gap-5 text-left">
-          <div className="bg-white/80 rounded-3xl p-7 shadow-[0_2px_16px_-2px_rgba(61,44,53,0.08)] border border-[#ede0d8]/60">
-            <p className="text-xs font-medium text-[#b8a9a0] uppercase tracking-widest mb-2">Free</p>
-            <p className="font-serif text-4xl font-bold text-[#3d2c35] mb-1">$0</p>
-            <p className="text-sm text-[#b8a9a0] mb-6">Always</p>
-            <ul className="space-y-3 mb-7">
-              {['Community forums & Circles','Daily symptom check-in','Basic symptom history','Limited AI messages'].map(f=>(
-                <li key={f} className="flex items-center gap-2.5 text-sm text-[#8a7a72]">
-                  <span className="w-5 h-5 rounded-full bg-[#e8f2ec] flex items-center justify-center flex-shrink-0"><span className="text-[#6b9e80] text-xs">✓</span></span>{f}
+      {/* ── Pricing ── */}
+      <section style={{ maxWidth: 860, margin: '0 auto', padding: '100px 28px', textAlign: 'center' }}>
+        <p style={{ fontSize: 12, fontWeight: 600, color: '#6b9e80', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>Pricing</p>
+        <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(28px, 4vw, 46px)', fontWeight: 700, color: '#3d2c35', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 14 }}>
+          Simple, honest pricing
+        </h2>
+        <p style={{ color: '#8a7a72', fontSize: 17, marginBottom: 56, lineHeight: 1.6 }}>
+          Community is always free. Premium unlocks your AI companion, advanced insights, and more.
+        </p>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 22, textAlign: 'left' }}>
+          {/* Free */}
+          <div style={{ background: 'white', border: '1.5px solid rgba(237,224,216,0.8)', borderRadius: 32, padding: 36, boxShadow: '0 2px 20px rgba(61,44,53,0.06)' }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: '#c0b4ac', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>Free forever</p>
+            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 52, fontWeight: 700, color: '#3d2c35', lineHeight: 1, marginBottom: 6 }}>$0</p>
+            <p style={{ fontSize: 14, color: '#c0b4ac', marginBottom: 32 }}>No card needed</p>
+            <ul style={{ listStyle: 'none', marginBottom: 32, display: 'flex', flexDirection: 'column', gap: 13 }}>
+              {['Community forums & Circles', 'Daily symptom check-in', 'Basic symptom history', 'Limited AI messages'].map(f => (
+                <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: '#6a5a62' }}>
+                  <span style={{ width: 22, height: 22, borderRadius: '50%', background: '#e8f2ec', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#6b9e80', fontWeight: 700, fontSize: 12 }}>✓</span>
+                  {f}
                 </li>
               ))}
             </ul>
-            <Link href="/signup"><Button variant="outline" className="w-full">Get started free</Button></Link>
+            <Link href="/signup" className="m-btn m-btn-outline" style={{ width: '100%', fontSize: 15, padding: '14px 20px' }}>
+              Get started free
+            </Link>
           </div>
-          <div className="relative bg-gradient-to-br from-[#3d2c35] to-[#5a3d4a] rounded-3xl p-7 shadow-[0_8px_32px_-4px_rgba(61,44,53,0.3)] text-white overflow-hidden">
-            <div className="absolute top-0 right-0 w-40 h-40 rounded-full bg-white/5 -translate-y-1/2 translate-x-1/2" />
-            <div className="absolute bottom-0 left-0 w-32 h-32 rounded-full bg-[#6b9e80]/15 translate-y-1/2 -translate-x-1/2" />
-            <div className="relative">
-              <div className="flex items-center justify-between mb-2">
-                <p className="text-xs font-medium text-white/60 uppercase tracking-widest">Premium</p>
-                <span className="text-[10px] bg-[#c9a96e]/20 text-[#c9a96e] border border-[#c9a96e]/30 rounded-full px-2.5 py-1 font-medium">Most popular</span>
+
+          {/* Premium */}
+          <div style={{ background: 'linear-gradient(148deg, #3a2832 0%, #52364a 55%, #5e3f54 100%)', borderRadius: 32, padding: 36, boxShadow: '0 16px 60px rgba(58,40,50,0.4)', position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: -70, right: -70, width: 240, height: 240, borderRadius: '50%', background: 'rgba(255,255,255,0.04)' }} />
+            <div style={{ position: 'absolute', bottom: -50, left: -50, width: 200, height: 200, borderRadius: '50%', background: 'rgba(107,158,128,0.1)' }} />
+            <div style={{ position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <p style={{ fontSize: 11, fontWeight: 700, color: 'rgba(255,255,255,0.4)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Premium</p>
+                <span style={{ fontSize: 11, fontWeight: 600, background: 'rgba(201,169,110,0.2)', color: '#c9a96e', border: '1px solid rgba(201,169,110,0.3)', borderRadius: 9999, padding: '5px 13px' }}>Most popular</span>
               </div>
-              <p className="font-serif text-4xl font-bold text-white mb-1">$12.99</p>
-              <p className="text-sm text-white/50 mb-6">per month</p>
-              <ul className="space-y-3 mb-7">
-                {['Everything in Free','Unlimited AI companion','All 3 conversation modes','Advanced pattern insights','Doctor visit reports','Personalised wellness plan'].map(f=>(
-                  <li key={f} className="flex items-center gap-2.5 text-sm text-white/80">
-                    <span className="w-5 h-5 rounded-full bg-[#6b9e80]/30 flex items-center justify-center flex-shrink-0"><span className="text-[#6b9e80] text-xs">✓</span></span>{f}
+              <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 52, fontWeight: 700, color: 'white', lineHeight: 1, marginBottom: 6 }}>$12.99</p>
+              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.35)', marginBottom: 32 }}>per month · cancel any time</p>
+              <ul style={{ listStyle: 'none', marginBottom: 32, display: 'flex', flexDirection: 'column', gap: 13 }}>
+                {['Everything in Free', 'Unlimited AI companion', 'All 3 conversation modes', 'Advanced pattern insights', 'Doctor visit reports', 'Personalised wellness plan'].map(f => (
+                  <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 14, color: 'rgba(255,255,255,0.78)' }}>
+                    <span style={{ width: 22, height: 22, borderRadius: '50%', background: 'rgba(107,158,128,0.25)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, color: '#6b9e80', fontWeight: 700, fontSize: 12 }}>✓</span>
+                    {f}
                   </li>
                 ))}
               </ul>
-              <Link href="/signup"><Button className="w-full bg-white text-[#3d2c35] hover:bg-white/90 shadow-none">Start free trial</Button></Link>
+              <Link href="/signup" className="m-btn" style={{ width: '100%', fontSize: 15, padding: '15px 20px', background: 'white', color: '#3d2c35', borderRadius: 16, fontWeight: 600, boxShadow: '0 4px 24px rgba(0,0,0,0.22)', justifyContent: 'center' }}>
+                Start free trial
+              </Link>
             </div>
           </div>
         </div>
       </section>
 
-      <footer className="border-t border-[#ede0d8]/60 py-10 text-center">
-        <p className="font-serif text-2xl font-bold text-[#3d2c35] mb-4">vida<span className="text-[#6b9e80]">.</span></p>
-        <div className="flex gap-6 justify-center text-sm text-[#b8a9a0] mb-5">
-          <Link href="/privacy" className="hover:text-[#8a7a72] transition-colors">Privacy</Link>
-          <Link href="/terms" className="hover:text-[#8a7a72] transition-colors">Terms</Link>
-          <Link href="/community" className="hover:text-[#8a7a72] transition-colors">Community</Link>
+      {/* ── Footer ── */}
+      <footer style={{ borderTop: '1px solid rgba(237,224,216,0.6)', padding: '52px 28px', textAlign: 'center' }}>
+        <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 28, fontWeight: 700, color: '#3d2c35', marginBottom: 22 }}>vida<span style={{ color: '#6b9e80' }}>.</span></p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 28px', justifyContent: 'center', marginBottom: 22 }}>
+          {[['Privacy', '/privacy'], ['Terms', '/terms'], ['Community', '/community']].map(([label, href]) => (
+            <Link key={href} href={href} style={{ fontSize: 14, color: '#b8a9a0', transition: 'color 0.2s' }}>{label}</Link>
+          ))}
         </div>
-        <p className="text-xs text-[#c8bdb8] max-w-md mx-auto">© 2026 Vida Wellness · Educational support only, not a substitute for medical advice. Always consult your healthcare provider for medical decisions.</p>
+        <p style={{ fontSize: 12, color: '#ccc0bb', maxWidth: 460, margin: '0 auto', lineHeight: 1.7 }}>
+          &copy; 2026 Vida Wellness &middot; Educational support only, not a substitute for medical advice.
+          Always consult your healthcare provider for medical decisions.
+        </p>
       </footer>
     </div>
   )

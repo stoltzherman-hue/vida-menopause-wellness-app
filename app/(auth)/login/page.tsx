@@ -2,9 +2,6 @@
 import { useState } from 'react'
 import { createBrowserClient } from '@/lib/db/client'
 import { loginSchema } from '@/lib/validations'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -29,28 +26,42 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen blob-bg bg-[#fdf8f4] flex items-center justify-center px-4">
-      <div className="w-full max-w-sm">
-        <div className="text-center mb-10">
-          <Link href="/"><span className="font-serif text-3xl font-bold text-[#3d2c35]">vida<span className="text-[#6b9e80]">.</span></span></Link>
-          <p className="text-[#8a7a72] mt-2 text-sm">Welcome back</p>
+    <div className="auth-bg">
+      <div style={{ width: '100%', maxWidth: 420 }}>
+        {/* Logo */}
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
+          <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 34, fontWeight: 700, color: '#3d2c35', letterSpacing: '-0.02em' }}>
+            vida<span style={{ color: '#6b9e80' }}>.</span>
+          </Link>
+          <p style={{ color: '#a09098', marginTop: 8, fontSize: 15 }}>Welcome back</p>
         </div>
-        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-[0_4px_24px_-4px_rgba(61,44,53,0.12)] border border-white/60">
-          <h1 className="font-serif text-2xl font-bold text-[#3d2c35] mb-6">Sign in</h1>
-          <form onSubmit={handleSubmit} className="space-y-5">
-            {error && <div className="rounded-2xl bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3">{error}</div>}
-            <div className="space-y-1.5">
-              <Label htmlFor="email" className="text-[#3d2c35] text-sm font-medium">Email</Label>
-              <Input id="email" type="email" autoComplete="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="you@example.com" required />
+
+        <div className="auth-card">
+          <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#3d2c35', marginBottom: 28, letterSpacing: '-0.01em' }}>Sign in</h1>
+
+          <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
+            {error && <div className="auth-error">{error}</div>}
+
+            <div>
+              <label className="auth-label" htmlFor="email">Email</label>
+              <input id="email" className="auth-input" type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={e => setEmail(e.target.value)} required />
             </div>
-            <div className="space-y-1.5">
-              <Label htmlFor="password" className="text-[#3d2c35] text-sm font-medium">Password</Label>
-              <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="••••••••" required />
+
+            <div>
+              <label className="auth-label" htmlFor="password">Password</label>
+              <input id="password" className="auth-input" type="password" autoComplete="current-password" placeholder="&bull;&bull;&bull;&bull;&bull;&bull;&bull;&bull;" value={password} onChange={e => setPassword(e.target.value)} required />
             </div>
-            <Button type="submit" className="w-full" size="lg" disabled={loading}>{loading ? 'Signing in…' : 'Sign in'}</Button>
+
+            <button type="submit" className="auth-btn" disabled={loading} style={{ marginTop: 8 }}>
+              {loading ? 'Signing in…' : 'Sign in'}
+            </button>
           </form>
         </div>
-        <p className="text-center text-sm text-[#8a7a72] mt-6">Don&apos;t have an account?{' '}<Link href="/signup" className="text-[#6b9e80] font-semibold hover:underline">Join free</Link></p>
+
+        <p style={{ textAlign: 'center', fontSize: 14, color: '#a09098', marginTop: 24 }}>
+          Don&apos;t have an account?{' '}
+          <Link href="/signup" style={{ color: '#6b9e80', fontWeight: 600 }}>Join free</Link>
+        </p>
       </div>
     </div>
   )
