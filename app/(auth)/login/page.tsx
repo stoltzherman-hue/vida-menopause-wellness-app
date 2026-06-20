@@ -5,7 +5,6 @@ import { loginSchema } from '@/lib/validations'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Link from 'next/link'
 import { useRouter } from 'next/navigation'
 
@@ -30,30 +29,28 @@ export default function LoginPage() {
   }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[#faf8f4]">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-[#5a8a6b]">Vida</h1>
-          <p className="text-[#718096] mt-1">Your menopause wellness companion</p>
+    <div className="min-h-screen blob-bg bg-[#fdf8f4] flex items-center justify-center px-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-10">
+          <Link href="/"><span className="font-serif text-3xl font-bold text-[#3d2c35]">vida<span className="text-[#6b9e80]">.</span></span></Link>
+          <p className="text-[#8a7a72] mt-2 text-sm">Welcome back</p>
         </div>
-        <Card>
-          <CardHeader><CardTitle>Sign in</CardTitle><CardDescription>Welcome back</CardDescription></CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {error && <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">{error}</div>}
-              <div className="space-y-2">
-                <Label htmlFor="email">Email</Label>
-                <Input id="email" type="email" autoComplete="email" value={email} onChange={(e) => setEmail(e.target.value)} required />
-              </div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-              </div>
-              <Button type="submit" className="w-full" disabled={loading}>{loading ? 'Signing in…' : 'Sign in'}</Button>
-            </form>
-          </CardContent>
-        </Card>
-        <p className="text-center text-sm text-[#718096]">Don&apos;t have an account?{' '}<Link href="/signup" className="text-[#5a8a6b] font-medium hover:underline">Create one free</Link></p>
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-[0_4px_24px_-4px_rgba(61,44,53,0.12)] border border-white/60">
+          <h1 className="font-serif text-2xl font-bold text-[#3d2c35] mb-6">Sign in</h1>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && <div className="rounded-2xl bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3">{error}</div>}
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-[#3d2c35] text-sm font-medium">Email</Label>
+              <Input id="email" type="email" autoComplete="email" value={email} onChange={(e)=>setEmail(e.target.value)} placeholder="you@example.com" required />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="password" className="text-[#3d2c35] text-sm font-medium">Password</Label>
+              <Input id="password" type="password" autoComplete="current-password" value={password} onChange={(e)=>setPassword(e.target.value)} placeholder="••••••••" required />
+            </div>
+            <Button type="submit" className="w-full" size="lg" disabled={loading}>{loading ? 'Signing in…' : 'Sign in'}</Button>
+          </form>
+        </div>
+        <p className="text-center text-sm text-[#8a7a72] mt-6">Don&apos;t have an account?{' '}<Link href="/signup" className="text-[#6b9e80] font-semibold hover:underline">Join free</Link></p>
       </div>
     </div>
   )

@@ -5,7 +5,6 @@ import { signUpSchema } from '@/lib/validations'
 import { Button } from '@/components/ui/button'
 import { Input } from '@/components/ui/input'
 import { Label } from '@/components/ui/label'
-import { Card, CardContent, CardHeader, CardTitle, CardDescription } from '@/components/ui/card'
 import Link from 'next/link'
 
 export default function SignupPage() {
@@ -24,8 +23,7 @@ export default function SignupPage() {
     setLoading(true)
     const supabase = createBrowserClient()
     const { error: authError } = await supabase.auth.signUp({
-      email: parsed.data.email,
-      password: parsed.data.password,
+      email: parsed.data.email, password: parsed.data.password,
       options: { data: { display_name: parsed.data.displayName } },
     })
     setLoading(false)
@@ -33,41 +31,46 @@ export default function SignupPage() {
     setDone(true)
   }
 
-  if (done) return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[#faf8f4]">
-      <Card className="w-full max-w-md"><CardContent className="py-12 text-center space-y-3">
-        <div className="text-5xl">🌿</div>
-        <h2 className="text-xl font-semibold text-[#2d3748]">Check your inbox</h2>
-        <p className="text-[#718096]">We sent a confirmation link to <strong>{email}</strong>.</p>
-      </CardContent></Card>
-    </div>
-  )
+  if (done) {
+    return (
+      <div className="min-h-screen blob-bg bg-[#fdf8f4] flex items-center justify-center px-4">
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-10 max-w-sm w-full text-center shadow-[0_4px_24px_-4px_rgba(61,44,53,0.12)] border border-white/60">
+          <div className="text-5xl mb-4">🌿</div>
+          <h2 className="font-serif text-2xl font-bold text-[#3d2c35] mb-2">Check your inbox</h2>
+          <p className="text-[#8a7a72] text-sm">We sent a confirmation link to <strong className="text-[#3d2c35]">{email}</strong>. Click it to activate your account.</p>
+        </div>
+      </div>
+    )
+  }
 
   return (
-    <div className="min-h-screen flex items-center justify-center px-4 bg-[#faf8f4]">
-      <div className="w-full max-w-md space-y-6">
-        <div className="text-center">
-          <h1 className="text-3xl font-bold text-[#5a8a6b]">Vida</h1>
-          <p className="text-[#718096] mt-1">Join thousands of women navigating menopause</p>
+    <div className="min-h-screen blob-bg bg-[#fdf8f4] flex items-center justify-center px-4">
+      <div className="w-full max-w-sm">
+        <div className="text-center mb-10">
+          <Link href="/"><span className="font-serif text-3xl font-bold text-[#3d2c35]">vida<span className="text-[#6b9e80]">.</span></span></Link>
+          <p className="text-[#8a7a72] mt-2 text-sm">Join thousands of women navigating menopause</p>
         </div>
-        <Card>
-          <CardHeader><CardTitle>Create your account</CardTitle><CardDescription>Free forever for community access</CardDescription></CardHeader>
-          <CardContent>
-            <form onSubmit={handleSubmit} className="space-y-4">
-              {error && <div className="rounded-xl bg-red-50 border border-red-200 text-red-700 text-sm px-4 py-3">{error}</div>}
-              <div className="space-y-2"><Label htmlFor="displayName">Display name</Label><Input id="displayName" value={displayName} onChange={(e) => setDisplayName(e.target.value)} required /></div>
-              <div className="space-y-2"><Label htmlFor="email">Email</Label><Input id="email" type="email" value={email} onChange={(e) => setEmail(e.target.value)} required /></div>
-              <div className="space-y-2">
-                <Label htmlFor="password">Password</Label>
-                <Input id="password" type="password" value={password} onChange={(e) => setPassword(e.target.value)} required />
-                <p className="text-xs text-[#a0aec0]">Minimum 8 characters</p>
-              </div>
-              <p className="text-xs text-[#718096]">By creating an account you agree to our <Link href="/privacy" className="text-[#5a8a6b] hover:underline">Privacy Policy</Link>. Your health data is encrypted and never sold.</p>
-              <Button type="submit" className="w-full" disabled={loading}>{loading ? 'Creating account…' : 'Create free account'}</Button>
-            </form>
-          </CardContent>
-        </Card>
-        <p className="text-center text-sm text-[#718096]">Already have an account?{' '}<Link href="/login" className="text-[#5a8a6b] font-medium hover:underline">Sign in</Link></p>
+        <div className="bg-white/80 backdrop-blur-sm rounded-3xl p-8 shadow-[0_4px_24px_-4px_rgba(61,44,53,0.12)] border border-white/60">
+          <h1 className="font-serif text-2xl font-bold text-[#3d2c35] mb-6">Create your account</h1>
+          <form onSubmit={handleSubmit} className="space-y-5">
+            {error && <div className="rounded-2xl bg-red-50 border border-red-100 text-red-600 text-sm px-4 py-3">{error}</div>}
+            <div className="space-y-1.5">
+              <Label htmlFor="displayName" className="text-[#3d2c35] text-sm font-medium">Your name</Label>
+              <Input id="displayName" placeholder="How you'll appear in the community" value={displayName} onChange={(e)=>setDisplayName(e.target.value)} required />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="email" className="text-[#3d2c35] text-sm font-medium">Email</Label>
+              <Input id="email" type="email" autoComplete="email" placeholder="you@example.com" value={email} onChange={(e)=>setEmail(e.target.value)} required />
+            </div>
+            <div className="space-y-1.5">
+              <Label htmlFor="password" className="text-[#3d2c35] text-sm font-medium">Password</Label>
+              <Input id="password" type="password" autoComplete="new-password" placeholder="Min. 8 characters" value={password} onChange={(e)=>setPassword(e.target.value)} required />
+            </div>
+            <p className="text-xs text-[#b8a9a0]">By joining you agree to our <Link href="/privacy" className="text-[#6b9e80] hover:underline">Privacy Policy</Link>. Your health data is encrypted and never sold.</p>
+            <Button type="submit" className="w-full" size="lg" disabled={loading}>{loading ? 'Creating account…' : 'Create free account'}</Button>
+          </form>
+        </div>
+        <p className="text-center text-sm text-[#8a7a72] mt-6">Already have an account?{' '}<Link href="/login" className="text-[#6b9e80] font-semibold hover:underline">Sign in</Link></p>
       </div>
     </div>
   )
