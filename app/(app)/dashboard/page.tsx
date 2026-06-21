@@ -6,6 +6,8 @@ import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import Link from 'next/link'
 import { NotificationSetup } from '@/components/notifications/NotificationSetup'
 import { StreakCard } from '@/components/dashboard/StreakCard'
+import { TrendsChart } from '@/components/dashboard/TrendsChart'
+import { PatternInsights } from '@/components/dashboard/PatternInsights'
 
 export const metadata: Metadata = { title: 'Dashboard · Vida' }
 
@@ -33,7 +35,7 @@ export default async function DashboardPage() {
   const [{ data: checkins }, { data: profile }, { data: todayCheckin }] = await Promise.all([
     supabase
       .from('daily_checkins')
-      .select('checkin_date, mood, energy_level, sleep_quality, hot_flash_severity')
+      .select('checkin_date, mood, overall_wellbeing, energy_level, sleep_hours, sleep_quality, hot_flash_severity, hot_flash_count, triggers')
       .eq('user_id', user!.id)
       .gte('checkin_date', thirtyDaysAgo.toISOString().split('T')[0])
       .order('checkin_date', { ascending: true }),
@@ -51,6 +53,10 @@ export default async function DashboardPage() {
   ])
 
   const list = checkins ?? []
+  const fourteenDaysAgo = new Date()
+  fourteenDaysAgo.setDate(fourteenDaysAgo.getDate() - 14)
+  const fourteenDaysAgoStr = fourteenDaysAgo.toISOString().split('T')[0]
+  const last14 = list.filter((c) => c.checkin_date >= fourteenDaysAgoStr)
   const dateSet = new Set(list.map((c) => c.checkin_date))
   const todayLogged = !!todayCheckin
 
@@ -140,6 +146,16 @@ export default async function DashboardPage() {
 
       {/* ── Streak card ── */}
       <StreakCard streak={streak} longestStreak={longestStreak} totalCheckins={totalCheckins} />
+
+      {/* ── Trends chart ── */}
+      <div style={{ marginBottom: 16 }}>
+        <TrendsChart checkins={last14} />
+      </div>
+
+      {/* ── Pattern insights ── */}
+      <div style={{ marginBottom: 24 }}>
+        <PatternInsights checkins={list} />
+      </div>
 
       {/* ── Header ── */}
       <div style={{ marginBottom: 24 }}>
