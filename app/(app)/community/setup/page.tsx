@@ -3,6 +3,8 @@ import { redirect } from 'next/navigation'
 import { ProfileSetupClient } from '@/components/community/ProfileSetupClient'
 import type { Metadata } from 'next'
 
+export const dynamic = 'force-dynamic'
+
 export const metadata: Metadata = { title: 'Community Profile · Vida' }
 
 export default async function CommunitySetupPage() {

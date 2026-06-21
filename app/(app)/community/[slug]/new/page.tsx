@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { notFound, redirect } from 'next/navigation'
 import { NewPostClient } from '@/components/community/NewPostClient'
