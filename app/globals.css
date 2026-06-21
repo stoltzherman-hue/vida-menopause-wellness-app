@@ -735,3 +735,22 @@ button, a, [role="button"] { min-height: 44px; }
 .fade-in-d1 { animation-delay: 0.08s; }
 .fade-in-d2 { animation-delay: 0.16s; }
 .fade-in-d3 { animation-delay: 0.24s; }
+
+/* ── Marketing hero two-column layout ───────────────────── */
+.hero-grid {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 40px;
+  align-items: center;
+}
+.hero-visual-col { display: none; }
+@media (min-width: 1024px) {
+  .hero-grid {
+    grid-template-columns: 1fr minmax(340px, 460px);
+    gap: 60px;
+  }
+  .hero-visual-col {
+    display: block;
+    position: relative;
+  }
+}
