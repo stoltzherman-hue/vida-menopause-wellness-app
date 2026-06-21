@@ -18,6 +18,22 @@ export const metadata: Metadata = {
   title: { default: 'Vida', template: '%s | Vida' },
   description: 'Your menopause wellness companion — community, tracking, and personalised support.',
   applicationName: 'Vida',
+  manifest: '/manifest.json',
+  appleWebApp: {
+    capable: true,
+    statusBarStyle: 'default',
+    title: 'Vida',
+  },
+  icons: {
+    icon: [
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+      { url: '/icon-512.png', sizes: '512x512', type: 'image/png' },
+    ],
+    apple: [
+      { url: '/icon-152.png', sizes: '152x152', type: 'image/png' },
+      { url: '/icon-192.png', sizes: '192x192', type: 'image/png' },
+    ],
+  },
 }
 
 export const viewport: Viewport = {
