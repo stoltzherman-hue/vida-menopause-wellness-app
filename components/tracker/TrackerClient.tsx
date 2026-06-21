@@ -34,42 +34,47 @@ const card: React.CSSProperties = {
   padding: '18px 20px',
 }
 
-// SVG progress ring
+// SVG progress ring — uses strokeDashoffset for proper animated fill
 function ProgressRing({
-  pct, color, size = 80, stroke = 8, label, value,
+  pct, color, size = 88, stroke = 9, label, value,
 }: { pct: number; color: string; size?: number; stroke?: number; label: string; value: string | number }) {
-  const r = (size - stroke) / 2
+  const r    = (size - stroke) / 2
   const circ = 2 * Math.PI * r
-  const dash = Math.max(0, Math.min(1, pct / 100)) * circ
-  const gap  = circ - dash
-  const isMilestone = pct >= 100 || (typeof value === 'number' && (value === 7 || value === 14 || value === 30))
+  const safePct = Math.max(0, Math.min(100, pct))
+  // strokeDashoffset: full circ = empty ring, 0 = full ring
+  const offset = circ - (safePct / 100) * circ
+  const isMilestone = safePct >= 100 || (typeof value === 'number' && (value === 7 || value === 14 || value === 30))
 
   return (
     <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'center', gap: 8 }}>
-      <div style={{ position: 'relative', width: size, height: size }} className={isMilestone ? 'ring-glow' : ''}>
+      <div
+        style={{ position: 'relative', width: size, height: size }}
+        className={isMilestone ? 'ring-glow' : ''}
+      >
         <svg width={size} height={size} style={{ transform: 'rotate(-90deg)' }}>
           {/* Track */}
-          <circle cx={size/2} cy={size/2} r={r} fill="none" stroke="rgba(237,224,216,0.5)" strokeWidth={stroke} />
-          {/* Fill */}
-          <circle
-            cx={size/2} cy={size/2} r={r} fill="none"
-            stroke={color} strokeWidth={stroke}
-            strokeLinecap="round"
-            strokeDasharray={`${dash} ${gap}`}
-            className="ring-fill-anim"
-            style={{ '--ring-full': circ } as React.CSSProperties}
+          <circle cx={size/2} cy={size/2} r={r} fill="none"
+            stroke="rgba(237,224,216,0.55)" strokeWidth={stroke} />
+          {/* Animated fill — strokeDashoffset animates from circ→offset */}
+          <circle cx={size/2} cy={size/2} r={r} fill="none"
+            stroke={color} strokeWidth={stroke} strokeLinecap="round"
+            strokeDasharray={circ}
+            strokeDashoffset={offset}
+            style={{
+              transition: 'stroke-dashoffset 1.2s cubic-bezier(0.22,1,0.36,1)',
+              filter: isMilestone ? `drop-shadow(0 0 6px ${color}aa)` : undefined,
+            }}
           />
         </svg>
-        {/* Center value */}
+        {/* Center */}
         <div style={{
-          position: 'absolute', inset: 0, display: 'flex',
-          flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
+          position: 'absolute', inset: 0,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', justifyContent: 'center',
         }}>
-          <span style={{
-            fontSize: 18, fontWeight: 800, color,
-            fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: 1,
-          }}>{value}</span>
-          {isMilestone && <span style={{ fontSize: 10 }}>🔥</span>}
+          <span style={{ fontSize: 17, fontWeight: 800, color, fontFamily: 'var(--font-playfair), Georgia, serif', lineHeight: 1 }}>
+            {value}
+          </span>
+          {isMilestone && <span style={{ fontSize: 10, marginTop: 1 }}>🔥</span>}
         </div>
       </div>
       <span style={{ fontSize: 11, color: '#8a7a72', fontWeight: 600, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', textAlign: 'center' }}>{label}</span>

@@ -544,24 +544,27 @@ button, a, [role="button"] { min-height: 44px; }
 }
 
 /* ── Step slide animation (check-in) ────────────────────── */
+/* NOTE: applied via ref + offsetWidth reflow in CheckInForm for guaranteed replay */
 @keyframes stepSlideIn {
-  from { opacity: 0; transform: translateX(28px); }
-  to   { opacity: 1; transform: translateX(0); }
+  0%   { opacity: 0; transform: translateX(40px) scale(0.97); }
+  100% { opacity: 1; transform: translateX(0)    scale(1); }
 }
 @keyframes stepSlideBack {
-  from { opacity: 0; transform: translateX(-28px); }
-  to   { opacity: 1; transform: translateX(0); }
+  0%   { opacity: 0; transform: translateX(-40px) scale(0.97); }
+  100% { opacity: 1; transform: translateX(0)     scale(1); }
 }
-.step-enter      { animation: stepSlideIn  0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
-.step-enter-back { animation: stepSlideBack 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.step-enter      { animation: stepSlideIn  0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.step-enter-back { animation: stepSlideBack 0.38s cubic-bezier(0.22, 1, 0.36, 1) both; }
 
 /* ── Selection pop micro-animation ──────────────────────── */
+/* Applied via ref + offsetWidth reflow for guaranteed replay */
 @keyframes popSelect {
   0%   { transform: scale(1); }
-  45%  { transform: scale(1.08); }
+  40%  { transform: scale(1.14); }
+  70%  { transform: scale(0.96); }
   100% { transform: scale(1); }
 }
-.pop-select { animation: popSelect 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); }
+.pop-select { animation: popSelect 0.28s cubic-bezier(0.34, 1.56, 0.64, 1) both; }
 
 /* ── Confetti sparkles (celebration) ────────────────────── */
 @keyframes sparkle1 {
@@ -640,6 +643,23 @@ button, a, [role="button"] { min-height: 44px; }
 .cal-cell-low    { background: linear-gradient(135deg,#c47a5a,#d4906e); box-shadow: 0 2px 6px rgba(196,122,90,0.28); }
 .cal-cell-rough  { background: linear-gradient(135deg,#e07a5f,#d06050); box-shadow: 0 2px 6px rgba(224,122,95,0.32); }
 .cal-cell-future { background: transparent; }
+
+/* ── Check-in two-column layout ─────────────────────────── */
+.checkin-layout {
+  display: grid;
+  grid-template-columns: 1fr;
+  gap: 16px;
+  align-items: start;
+}
+.checkin-side-col { display: none; }
+@media (min-width: 1024px) {
+  .checkin-layout {
+    grid-template-columns: 1fr 300px;
+    gap: 24px;
+  }
+  .checkin-form-col { min-width: 0; }
+  .checkin-side-col { display: block; }
+}
 
 /* ── Check-in progress bar ───────────────────────────────── */
 .checkin-progress-bar {
