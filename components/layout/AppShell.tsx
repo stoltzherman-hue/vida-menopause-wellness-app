@@ -9,12 +9,14 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       background: '#fdf8f4',
       position: 'relative',
     }}>
-      {/* Ambient colour wash */}
+      {/* Ambient colour wash — vivid enough for glass cards to show contrast */}
       <div style={{
         position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,
         backgroundImage: [
-          'radial-gradient(ellipse 50% 36% at 12% 6%, rgba(107,158,128,0.11) 0%, transparent 58%)',
-          'radial-gradient(ellipse 42% 30% at 88% 90%, rgba(196,149,158,0.09) 0%, transparent 52%)',
+          'radial-gradient(ellipse 70% 55% at 5% 0%, rgba(107,158,128,0.28) 0%, transparent 60%)',
+          'radial-gradient(ellipse 55% 45% at 90% 100%, rgba(196,149,158,0.22) 0%, transparent 55%)',
+          'radial-gradient(ellipse 45% 40% at 50% 50%, rgba(184,169,201,0.12) 0%, transparent 50%)',
+          'radial-gradient(ellipse 40% 35% at 80% 20%, rgba(201,169,110,0.10) 0%, transparent 50%)',
         ].join(', '),
       }} />
 

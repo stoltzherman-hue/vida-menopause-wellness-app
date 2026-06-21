@@ -28,11 +28,12 @@ function ScaleBtn({ value, selected, onClick, color = '#6b9e80' }: { value: numb
 }
 
 const section: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.82)',
-  border: '1.5px solid rgba(237,224,216,0.7)',
+  background: 'rgba(255,255,255,0.35)',
+  border: '1.5px solid rgba(255,255,255,0.55)',
   borderRadius: 20,
-  backdropFilter: 'blur(12px)',
-  WebkitBackdropFilter: 'blur(12px)',
+  backdropFilter: 'blur(18px)',
+  WebkitBackdropFilter: 'blur(18px)',
+  boxShadow: '0 2px 16px rgba(61,44,53,0.06)',
   padding: '18px 20px',
 }
 
@@ -95,7 +96,6 @@ export function CheckInForm() {
 
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
-      {/* Mood */}
       <div style={section}>
         <p style={sLabel}>Mood</p>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -106,7 +106,6 @@ export function CheckInForm() {
         </div>
       </div>
 
-      {/* Energy */}
       <div style={section}>
         <p style={sLabel}>Energy level</p>
         <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
@@ -117,7 +116,6 @@ export function CheckInForm() {
         </div>
       </div>
 
-      {/* Sleep */}
       <div style={section}>
         <p style={sLabel}>Sleep last night</p>
         <p style={{ fontSize: 13, color: '#8a7a72', marginBottom: 10 }}>Hours</p>
@@ -133,7 +131,6 @@ export function CheckInForm() {
         </div>
       </div>
 
-      {/* Hot flashes */}
       <div style={section}>
         <p style={sLabel}>Hot flashes today?</p>
         <div style={{ display: 'flex', gap: 6 }}>
@@ -144,7 +141,6 @@ export function CheckInForm() {
         </div>
       </div>
 
-      {/* Triggers */}
       <div style={section}>
         <p style={sLabel}>Any triggers today?</p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>

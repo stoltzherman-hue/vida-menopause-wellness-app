@@ -6,11 +6,12 @@ import Link from 'next/link'
 export const metadata: Metadata = { title: 'Dashboard · Vida' }
 
 const card: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.55)',
-  border: '1.5px solid rgba(237,224,216,0.6)',
+  background: 'rgba(255,255,255,0.35)',
+  border: '1.5px solid rgba(255,255,255,0.55)',
   borderRadius: 22,
-  backdropFilter: 'blur(14px)',
-  WebkitBackdropFilter: 'blur(14px)',
+  backdropFilter: 'blur(18px)',
+  WebkitBackdropFilter: 'blur(18px)',
+  boxShadow: '0 2px 16px rgba(61,44,53,0.06)',
   padding: '20px 22px',
 }
 
@@ -100,8 +101,7 @@ export default async function DashboardPage() {
         <Link href="/check-in" style={{ textDecoration: 'none', display: 'block', marginBottom: 16 }}>
           <div style={{
             ...clickCard,
-            background: 'rgba(255,255,255,0.55)',
-            border: '1.5px solid rgba(107,158,128,0.22)',
+            border: '1.5px solid rgba(107,158,128,0.30)',
             padding: '22px 24px',
           }}>
             <div style={{
@@ -135,7 +135,7 @@ export default async function DashboardPage() {
               { label: 'Sleep', value: latestCheckin.sleep_quality, color: '#c4959e' },
               { label: 'Hot flash', value: latestCheckin.hot_flash_severity, color: '#b8a9c9' },
             ].map(({ label, value, color }) => (
-              <div key={label} style={{ textAlign: 'center', background: 'rgba(253,248,244,0.8)', borderRadius: 14, padding: '12px 8px' }}>
+              <div key={label} style={{ textAlign: 'center', background: 'rgba(253,248,244,0.6)', borderRadius: 14, padding: '12px 8px' }}>
                 <p style={{ fontSize: 22, fontWeight: 800, color, margin: 0 }}>{value ?? '—'}</p>
                 <p style={{ fontSize: 11, color: '#8a7a72', marginTop: 4 }}>{label}</p>
               </div>
