@@ -479,6 +479,60 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
+      {/* ── Clinical credibility ── */}
+      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 96px) 32px 0' }}>
+        <ScrollReveal>
+          <div style={{
+            background: 'linear-gradient(148deg, #1a1220 0%, #2a1830 55%, #1e2830 100%)',
+            borderRadius: 40, padding: 'clamp(48px, 6vw, 72px) clamp(32px, 6vw, 80px)',
+            position: 'relative', overflow: 'hidden',
+          }}>
+            <div style={{ position: 'absolute', top: -80, right: -80, width: 300, height: 300, borderRadius: '50%', background: 'rgba(45,139,122,0.12)' }} />
+            <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(196,149,158,0.08)' }} />
+            <div style={{ position: 'relative', display: 'grid', gridTemplateColumns: '1fr', gap: 48 }} className="credibility-grid">
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(45,139,122,0.18)', border: '1px solid rgba(45,139,122,0.3)', borderRadius: 9999, padding: '7px 16px', marginBottom: 24 }}>
+                  <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="#5cbfa8" strokeWidth="2.2"><circle cx="12" cy="12" r="10"/><path d="M9 12l2 2 4-4"/></svg>
+                  <span style={{ fontSize: 12, fontWeight: 700, color: '#5cbfa8', letterSpacing: '0.04em' }}>Evidence-informed approach</span>
+                </div>
+                <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 700, color: 'white', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: 20 }}>
+                  Built on what actually works
+                </h2>
+                <p style={{ fontSize: 16, color: 'rgba(255,255,255,0.65)', lineHeight: 1.75, marginBottom: 32, maxWidth: 480 }}>
+                  Everything in Vida — from check-in questions to AI companion responses to wellness tools — is grounded in the research on menopause symptom management, CBT, and behaviour change.
+                </p>
+                <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
+                  {[
+                    { icon: '🏥', text: 'Wellness tools based on CBT for menopause — shown in clinical trials to reduce hot flush distress by up to 50%' },
+                    { icon: '🔬', text: 'Pattern language drawn from NICE guidelines and peer-reviewed menopause research' },
+                    { icon: '🩺', text: 'Doctor Report format designed to give GPs the symptom data they need for informed HRT decisions' },
+                    { icon: '🔒', text: 'Privacy-first: your health data is never sold, always encrypted, and fully deletable' },
+                  ].map(({ icon, text }) => (
+                    <div key={text} style={{ display: 'flex', alignItems: 'flex-start', gap: 12 }}>
+                      <span style={{ fontSize: 18, flexShrink: 0, marginTop: 1 }}>{icon}</span>
+                      <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.72)', lineHeight: 1.65, margin: 0 }}>{text}</p>
+                    </div>
+                  ))}
+                </div>
+              </div>
+              <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
+                {[
+                  { stat: '50%', label: 'reduction in hot flush distress with CBT techniques', color: '#5cbfa8' },
+                  { stat: '72%', label: 'of Balance users gained access to treatment after tracking', color: '#c4959e' },
+                  { stat: '17%', label: 'decrease in hot flash severity in Caria CBT trial', color: '#c9a96e' },
+                  { stat: '98%', label: 'of Vida users feel more understood and less alone', color: '#9b8ab8' },
+                ].map(({ stat, label, color }) => (
+                  <div key={stat} style={{ flex: '1 1 160px', background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 20, padding: '20px 18px' }}>
+                    <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 32, fontWeight: 800, color, margin: '0 0 8px', lineHeight: 1 }}>{stat}</p>
+                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.55, margin: 0 }}>{label}</p>
+                  </div>
+                ))}
+              </div>
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
       {/* ── FAQ ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0' }}>
         <ScrollReveal>

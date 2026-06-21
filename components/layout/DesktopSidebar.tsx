@@ -32,6 +32,30 @@ const NAV = [
     ),
   },
   {
+    href: '/tools',
+    label: 'Wellness Tools',
+    icon: (
+      <svg className="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M12 22s8-4 8-10V5l-8-3-8 3v7c0 6 8 10 8 10z"/>
+      </svg>
+    ),
+    badge: 'NEW',
+    badgeColor: '#2d8b7a',
+  },
+  {
+    href: '/report',
+    label: 'Doctor Report',
+    icon: (
+      <svg className="sidebar-icon" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="1.7" strokeLinecap="round" strokeLinejoin="round">
+        <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+        <polyline points="14 2 14 8 20 8"/>
+        <line x1="16" y1="13" x2="8" y2="13"/>
+        <line x1="16" y1="17" x2="8" y2="17"/>
+        <polyline points="10 9 9 9 8 9"/>
+      </svg>
+    ),
+  },
+  {
     href: '/medication',
     label: 'Medications',
     icon: (
@@ -49,6 +73,7 @@ const NAV = [
         <path d="M21 15a2 2 0 0 1-2 2H7l-4 4V5a2 2 0 0 1 2-2h14a2 2 0 0 1 2 2z"/>
       </svg>
     ),
+    premiumBadge: true,
   },
   {
     href: '/community',
@@ -87,20 +112,18 @@ export function DesktopSidebar() {
 
       {/* Nav links */}
       <nav style={{ display: 'flex', flexDirection: 'column', gap: 2, flex: 1 }}>
-        {NAV.map(({ href, label, icon }) => {
+        {NAV.map((item) => {
+          const { href, label, icon } = item
           const active = pathname === href || (href !== '/dashboard' && pathname.startsWith(href))
           return (
             <Link key={href} href={href} className={`sidebar-link${active ? ' active' : ''}`}>
               {icon}
               <span>{label}</span>
-              {href === '/companion' && (
-                <span style={{
-                  marginLeft: 'auto', fontSize: 9, fontWeight: 700,
-                  color: '#c9a96e',
-                  background: 'rgba(201,169,110,0.12)',
-                  border: '1px solid rgba(201,169,110,0.25)',
-                  borderRadius: 6, padding: '2px 6px', letterSpacing: '0.04em',
-                }}>PRO</span>
+              {(item as { premiumBadge?: boolean }).premiumBadge && (
+                <span style={{ marginLeft: 'auto', fontSize: 9, fontWeight: 700, color: '#c9a96e', background: 'rgba(201,169,110,0.12)', border: '1px solid rgba(201,169,110,0.25)', borderRadius: 6, padding: '2px 6px', letterSpacing: '0.04em' }}>PRO</span>
+              )}
+              {(item as { badge?: string; badgeColor?: string }).badge && (
+                <span style={{ marginLeft: 'auto', fontSize: 9, fontWeight: 700, color: (item as { badgeColor?: string }).badgeColor ?? '#2d8b7a', background: `${(item as { badgeColor?: string }).badgeColor ?? '#2d8b7a'}15`, border: `1px solid ${(item as { badgeColor?: string }).badgeColor ?? '#2d8b7a'}30`, borderRadius: 6, padding: '2px 6px', letterSpacing: '0.04em' }}>{(item as { badge: string }).badge}</span>
               )}
             </Link>
           )

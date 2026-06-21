@@ -865,3 +865,63 @@ button, a, [role="button"] { min-height: 44px; }
     align-items: center;
   }
 }
+
+/* ── Breathing tool pulse ───────────────────────────────── */
+@keyframes breathePulse {
+  0%, 100% { transform: scale(1); opacity: 0.5; }
+  50%       { transform: scale(1.12); opacity: 1; }
+}
+
+/* ── Doctor Report ───────────────────────────────────────── */
+.report-doc {
+  background: white;
+  border: 1.5px solid rgba(237,224,216,0.7);
+  border-radius: 28px;
+  padding: clamp(32px, 5vw, 56px);
+  box-shadow: 0 4px 32px rgba(26,18,32,0.07);
+}
+.report-header {
+  border-bottom: 2px solid rgba(237,224,216,0.6);
+  padding-bottom: 24px;
+  margin-bottom: 32px;
+}
+.report-section {
+  margin-bottom: 36px;
+  padding-bottom: 36px;
+  border-bottom: 1px solid rgba(237,224,216,0.5);
+}
+.report-section:last-child {
+  border-bottom: none;
+  margin-bottom: 0;
+  padding-bottom: 0;
+}
+.report-section-title {
+  font-family: var(--font-playfair), Georgia, serif;
+  font-size: 17px;
+  font-weight: 700;
+  color: #1a1220;
+  margin: 0 0 20px;
+}
+@media print {
+  .no-print { display: none !important; }
+  .app-sidebar { display: none !important; }
+  .mobile-nav-bar { display: none !important; }
+  .report-doc {
+    border: none;
+    box-shadow: none;
+    border-radius: 0;
+    padding: 0;
+  }
+  body { background: white !important; }
+  @page { margin: 20mm; }
+}
+
+/* ── Credibility section grid ────────────────────────────── */
+.credibility-grid {
+  grid-template-columns: 1fr;
+}
+@media (min-width: 860px) {
+  .credibility-grid {
+    grid-template-columns: 1fr 1fr;
+  }
+}

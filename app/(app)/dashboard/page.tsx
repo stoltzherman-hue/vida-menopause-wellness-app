@@ -277,6 +277,31 @@ export default async function DashboardPage() {
             </div>
           )}
 
+          {/* ── RIGHT NOW TOOLS ── */}
+          <div style={{ ...glass, padding: '18px 20px' }}>
+            <p style={{ fontSize: 11, fontWeight: 700, color: '#b8a9a0', letterSpacing: '0.08em', textTransform: 'uppercase', margin: '0 0 12px' }}>
+              Right now
+            </p>
+            <div style={{ display: 'grid', gridTemplateColumns: 'repeat(3, 1fr)', gap: 10 }}>
+              {[
+                { href: '/tools', icon: '🫁', label: 'Breathing', color: '#2d8b7a', bg: 'rgba(45,139,122,0.09)' },
+                { href: '/tools', icon: '🌡️', label: 'Hot flush', color: '#e07a5f', bg: 'rgba(224,122,95,0.09)' },
+                { href: '/tools', icon: '🌿', label: 'Grounding', color: '#9b8ab8', bg: 'rgba(155,138,184,0.09)' },
+              ].map(({ href, icon, label, color, bg }) => (
+                <Link key={label} href={href} style={{ textDecoration: 'none' }}>
+                  <div style={{
+                    background: bg, border: `1px solid ${color}20`,
+                    borderRadius: 14, padding: '14px 10px', textAlign: 'center',
+                    transition: 'transform 0.15s',
+                  }} className="dash-card-hover">
+                    <span style={{ fontSize: 24, display: 'block', marginBottom: 6 }}>{icon}</span>
+                    <span style={{ fontSize: 12, fontWeight: 600, color, display: 'block' }}>{label}</span>
+                  </div>
+                </Link>
+              ))}
+            </div>
+          </div>
+
           {/* ── TIME-OF-DAY TIP ── */}
           <div style={{
             background: timeCard.bg,
@@ -355,6 +380,21 @@ export default async function DashboardPage() {
                     <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c4959e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
                       <rect x="3" y="3" width="18" height="18" rx="4"/>
                       <path d="M12 8v8m-4-4h8"/>
+                    </svg>
+                  ),
+                },
+                {
+                  href: '/report',
+                  color: '#c9a96e',
+                  bg: 'rgba(201,169,110,0.10)',
+                  title: 'Doctor Report',
+                  desc: 'Generate a symptom summary for your GP',
+                  icon: (
+                    <svg width="20" height="20" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
+                      <path d="M14 2H6a2 2 0 0 0-2 2v16a2 2 0 0 0 2 2h12a2 2 0 0 0 2-2V8z"/>
+                      <polyline points="14 2 14 8 20 8"/>
+                      <line x1="16" y1="13" x2="8" y2="13"/>
+                      <line x1="16" y1="17" x2="8" y2="17"/>
                     </svg>
                   ),
                 },
