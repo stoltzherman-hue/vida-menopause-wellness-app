@@ -102,8 +102,8 @@ export const medicationSchema = z.object({
 
 export const forumPostSchema = z.object({
   categoryId: z.string().uuid(),
-  title: z.string().min(3).max(300),
-  body: z.string().min(10).max(10000),
+  title: z.string().min(3, 'Title must be at least 3 characters').max(300),
+  body: z.string().min(1, 'Please write something before posting').max(10000),
 })
 
 export const forumReplySchema = z.object({

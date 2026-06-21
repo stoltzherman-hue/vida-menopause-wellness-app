@@ -78,13 +78,12 @@ export function CompanionChat({
       const res = await fetch('/api/ai', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
-        body: JSON.stringify({ message: text, conversationId, mode }),
+        body: JSON.stringify({ message: text, ...(conversationId ? { conversationId } : {}), mode }),
       })
 
       const json = await res.json()
 
       if (!res.ok) {
-        // API returned an error — show a helpful message
         const msg = res.status === 503
           ? "I can't connect right now. Make sure ANTHROPIC_API_KEY is set in your Vercel environment variables, then redeploy."
           : res.status === 401

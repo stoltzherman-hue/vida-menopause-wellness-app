@@ -88,7 +88,7 @@ export default async function CommunityPage() {
             <div style={{ flex: 1, minWidth: 0 }}>
               <p style={{ fontWeight: 600, color: '#3d2c35', fontSize: 15, margin: 0 }}>{cat.name}</p>
               {cat.description && (
-                <p style={{ color: '#8a7a72', fontSize: 13, marginTop: 2, overflow: 'hidden', textOverflow: 'ellipsis', whiteSpace: 'nowrap' }}>
+                <p style={{ color: '#8a7a72', fontSize: 13, marginTop: 2, lineHeight: 1.4 }}>
                   {cat.description}
                 </p>
               )}
