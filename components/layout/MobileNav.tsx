@@ -1,28 +1,69 @@
 'use client'
 import Link from 'next/link'
 import { usePathname } from 'next/navigation'
-import { Home, Heart, MessageCircle, Users, Settings } from 'lucide-react'
-import { cn } from '@/lib/utils'
 
-const navItems = [
-  { href: '/dashboard', label: 'Home', icon: Home },
-  { href: '/check-in', label: 'Check-in', icon: Heart },
-  { href: '/companion', label: 'Companion', icon: MessageCircle },
-  { href: '/community', label: 'Community', icon: Users },
-  { href: '/settings', label: 'Settings', icon: Settings },
+const NAV = [
+  { href: '/dashboard',  label: 'Home',      emoji: '🏡' },
+  { href: '/check-in',   label: 'Check-in',  emoji: '🤍' },
+  { href: '/companion',  label: 'Companion',  emoji: '💬' },
+  { href: '/community',  label: 'Community',  emoji: '👥' },
+  { href: '/settings',   label: 'Settings',   emoji: '⚙️' },
 ]
 
 export function MobileNav() {
   const pathname = usePathname()
+
   return (
-    <nav className="fixed bottom-0 left-0 right-0 z-50 border-t border-[#e2d9d0] bg-white/95 backdrop-blur-sm dark:bg-[#1a1f2e]/95 dark:border-[#353a4d] md:hidden">
-      <div className="flex items-center justify-around px-2 py-2">
-        {navItems.map(({ href, label, icon: Icon }) => {
-          const active = pathname.startsWith(href)
+    <nav style={{
+      position: 'fixed',
+      bottom: 0,
+      left: 0,
+      right: 0,
+      zIndex: 50,
+      padding: '0 12px 10px',
+    }}>
+      <div style={{
+        background: 'rgba(253,248,244,0.92)',
+        backdropFilter: 'blur(20px)',
+        WebkitBackdropFilter: 'blur(20px)',
+        borderRadius: 28,
+        border: '1.5px solid rgba(255,255,255,0.75)',
+        boxShadow: '0 8px 32px -4px rgba(61,44,53,0.16), 0 2px 8px -2px rgba(61,44,53,0.08)',
+        display: 'flex',
+        alignItems: 'center',
+        justifyContent: 'space-around',
+        padding: '6px 8px',
+      }}>
+        {NAV.map(({ href, label, emoji }) => {
+          const active = pathname === href || (href !== '/dashboard' && pathname.startsWith(href))
           return (
-            <Link key={href} href={href} className={cn('flex flex-col items-center gap-1 rounded-xl px-3 py-2 text-xs transition-colors min-h-[44px] min-w-[44px] justify-center', active ? 'text-[#5a8a6b] font-semibold' : 'text-[#718096] hover:text-[#5a8a6b]')}>
-              <Icon size={22} strokeWidth={active ? 2.5 : 1.8} />
-              <span>{label}</span>
+            <Link
+              key={href}
+              href={href}
+              style={{
+                display: 'flex',
+                flexDirection: 'column',
+                alignItems: 'center',
+                gap: 3,
+                padding: '6px 10px',
+                borderRadius: 18,
+                minHeight: 52,
+                minWidth: 52,
+                justifyContent: 'center',
+                textDecoration: 'none',
+                color: active ? '#3d2c35' : '#b8a9a0',
+                transition: 'color 0.2s',
+                background: active ? 'rgba(107,158,128,0.12)' : 'transparent',
+              }}
+            >
+              <span style={{ fontSize: active ? 22 : 20, lineHeight: 1 }}>{emoji}</span>
+              <span style={{
+                fontSize: 10,
+                fontWeight: active ? 700 : 500,
+                letterSpacing: '0.01em',
+                color: active ? '#6b9e80' : '#b8a9a0',
+                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              }}>{label}</span>
             </Link>
           )
         })}

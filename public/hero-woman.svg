@@ -1,0 +1,123 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 620">
+
+  <!-- ===== HAIR BACK ===== -->
+  <path d="M 52 0 C 47 72 44 152 51 230 C 57 298 65 364 59 433 C 53 498 41 558 45 618 L 52 620 L 124 620 C 121 562 127 500 133 440 C 139 375 137 308 135 242 C 133 176 129 110 139 48 C 124 14 88 -2 52 0 Z" fill="#180c05"/>
+  <path d="M 328 0 C 333 72 336 152 329 230 C 323 298 315 364 321 433 C 327 498 339 558 335 618 L 328 620 L 256 620 C 259 562 253 500 247 440 C 241 375 243 308 245 242 C 247 176 251 110 241 48 C 256 14 292 -2 328 0 Z" fill="#180c05"/>
+
+  <!-- Crown / top of head -->
+  <path d="M 52 0 C 88 -10 142 -16 190 -13 C 238 -10 292 -4 328 0 C 310 40 287 65 258 79 C 234 90 214 97 190 98 C 166 97 146 90 122 79 C 93 65 70 40 52 0 Z" fill="#0e0703"/>
+
+  <!-- ===== NECK ===== -->
+  <path d="M 170 336 C 165 362 163 392 165 420 C 167 443 171 463 169 490 L 211 490 C 209 463 213 443 215 420 C 217 392 215 362 210 336 Z" fill="#cca87e"/>
+
+  <!-- ===== FACE ===== -->
+  <path d="M 143 132 C 147 100 161 79 190 75 C 219 79 233 100 237 132 C 243 167 245 211 241 249 C 237 286 227 318 213 338 C 204 351 197 357 190 357 C 183 357 176 351 167 338 C 153 318 143 286 139 249 C 135 211 137 167 143 132 Z" fill="#deba8a"/>
+
+  <!-- Face edge shadows for depth -->
+  <path d="M 143 132 C 138 167 135 211 139 249 C 143 286 153 318 167 338 C 158 323 151 300 147 272 C 142 242 141 210 143 177 C 143 162 143 146 143 132 Z" fill="#b89060" opacity="0.55"/>
+  <path d="M 237 132 C 242 167 245 211 241 249 C 237 286 227 318 213 338 C 222 323 229 300 233 272 C 238 242 239 210 237 177 C 237 162 237 146 237 132 Z" fill="#b89060" opacity="0.55"/>
+
+  <!-- Forehead shading -->
+  <path d="M 147 120 C 160 96 175 82 190 79 C 205 82 220 96 233 120 C 220 112 207 107 190 106 C 173 107 160 112 147 120 Z" fill="#b89060" opacity="0.28"/>
+
+  <!-- ===== EYEBROWS ===== -->
+  <path d="M 149 185 C 159 176 172 172 185 174 C 177 178 164 182 149 185 Z" fill="#180c05"/>
+  <path d="M 149 184 C 159 175 172 171 185 174" stroke="#180c05" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 231 185 C 221 176 208 172 195 174 C 203 178 216 182 231 185 Z" fill="#180c05"/>
+  <path d="M 231 184 C 221 175 208 171 195 174" stroke="#180c05" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+
+  <!-- ===== LEFT EYE ===== -->
+  <!-- Socket shadow -->
+  <ellipse cx="169" cy="202" rx="22" ry="11" fill="#9a7048" opacity="0.28"/>
+  <!-- White -->
+  <path d="M 148 202 C 156 192 168 189 178 191 C 188 193 194 198 196 203 C 188 210 174 212 163 209 C 155 206 151 204 148 202 Z" fill="#f0ece6"/>
+  <!-- Iris -->
+  <circle cx="172" cy="201" r="9" fill="#6a4320"/>
+  <!-- Pupil -->
+  <circle cx="172" cy="201" r="4.8" fill="#080402"/>
+  <!-- Catchlight -->
+  <ellipse cx="175" cy="198" rx="2.6" ry="2" fill="rgba(255,255,255,0.92)" transform="rotate(-20 175 198)"/>
+  <ellipse cx="168" cy="205" rx="1.2" ry="0.9" fill="rgba(255,255,255,0.4)"/>
+  <!-- Lid -->
+  <path d="M 148 202 C 156 192 168 189 178 191 C 188 193 194 198 196 203 C 190 197 178 194 167 195 C 157 196 152 200 148 202 Z" fill="#100704" opacity="0.65"/>
+  <path d="M 148 202 C 156 193 168 189 178 191 C 188 193 194 198 196 203" stroke="#060302" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+  <!-- Lower lid line -->
+  <path d="M 148 202 C 155 208 167 211 179 209 C 187 207 193 204 196 203" stroke="#a87848" stroke-width="0.8" fill="none" opacity="0.55"/>
+  <!-- Lashes -->
+  <path d="M 151 200 C 148 193 148 186 150 181" stroke="#060302" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  <path d="M 158 198 C 156 191 157 184 159 179" stroke="#060302" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M 165 196 C 164 189 165 182 167 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 172 195 C 172 188 173 181 175 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 179 195 C 180 189 182 183 183 179" stroke="#060302" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <path d="M 185 197 C 187 191 189 186 190 182" stroke="#060302" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+  <!-- ===== RIGHT EYE ===== -->
+  <ellipse cx="211" cy="202" rx="22" ry="11" fill="#9a7048" opacity="0.28"/>
+  <path d="M 232 202 C 224 192 212 189 202 191 C 192 193 186 198 184 203 C 192 210 206 212 217 209 C 225 206 229 204 232 202 Z" fill="#f0ece6"/>
+  <circle cx="208" cy="201" r="9" fill="#6a4320"/>
+  <circle cx="208" cy="201" r="4.8" fill="#080402"/>
+  <ellipse cx="211" cy="198" rx="2.6" ry="2" fill="rgba(255,255,255,0.92)" transform="rotate(-20 211 198)"/>
+  <ellipse cx="204" cy="205" rx="1.2" ry="0.9" fill="rgba(255,255,255,0.4)"/>
+  <path d="M 232 202 C 224 192 212 189 202 191 C 192 193 186 198 184 203 C 190 197 202 194 213 195 C 223 196 228 200 232 202 Z" fill="#100704" opacity="0.65"/>
+  <path d="M 232 202 C 224 193 212 189 202 191 C 192 193 186 198 184 203" stroke="#060302" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+  <path d="M 232 202 C 225 208 213 211 201 209 C 193 207 187 204 184 203" stroke="#a87848" stroke-width="0.8" fill="none" opacity="0.55"/>
+  <path d="M 229 200 C 232 193 232 186 230 181" stroke="#060302" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  <path d="M 222 198 C 224 191 223 184 221 179" stroke="#060302" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M 215 196 C 216 189 215 182 213 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 208 195 C 208 188 207 181 205 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 201 195 C 200 189 198 183 197 179" stroke="#060302" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <path d="M 195 197 C 193 191 191 186 190 182" stroke="#060302" stroke-width="1" stroke-linecap="round" fill="none"/>
+
+  <!-- ===== NOSE ===== -->
+  <path d="M 190 216 C 188 234 185 252 183 266 C 181 276 179 284 182 290" stroke="#a87848" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>
+  <ellipse cx="190" cy="291" rx="12" ry="6.5" fill="#a87848" opacity="0.2"/>
+  <path d="M 182 290 C 178 293 175 297 176 303 C 177 306 180 308 183 305" stroke="#886038" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M 198 290 C 202 293 205 297 204 303 C 203 306 200 308 197 305" stroke="#886038" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+
+  <!-- ===== CHEEK BLUSH ===== -->
+  <ellipse cx="152" cy="242" rx="29" ry="16" fill="#c86058" opacity="0.2" transform="rotate(-12 152 242)"/>
+  <ellipse cx="228" cy="242" rx="29" ry="16" fill="#c86058" opacity="0.2" transform="rotate(12 228 242)"/>
+
+  <!-- ===== LIPS ===== -->
+  <!-- Upper lip -->
+  <path d="M 174 308 C 181 298 188 295 190 295 C 192 295 199 298 206 308 C 199 312 195 315 190 315 C 185 315 181 312 174 308 Z" fill="#b86060"/>
+  <path d="M 174 308 C 180 300 187 296 190 295 C 193 296 200 300 206 308" stroke="#985050" stroke-width="1" fill="none" opacity="0.6"/>
+  <!-- Lower lip -->
+  <path d="M 174 308 C 180 319 185 323 190 324 C 195 323 200 319 206 308 C 200 313 196 315 190 316 C 184 315 180 313 174 308 Z" fill="#cc8080"/>
+  <!-- Highlight -->
+  <ellipse cx="190" cy="318" rx="11" ry="4.5" fill="#eeaaaa" opacity="0.55"/>
+  <!-- Mouth line -->
+  <path d="M 174 308 C 181 310 186 311 190 311 C 194 311 199 310 206 308" stroke="#985050" stroke-width="1" fill="none" opacity="0.5"/>
+
+  <!-- ===== HAIR FRONT ===== -->
+  <path d="M 52 0 C 60 62 70 132 80 200 C 88 255 92 306 90 356 C 88 402 80 445 72 488 C 64 530 52 570 45 618 L 45 620 L 74 620 C 80 575 90 532 98 488 C 106 442 114 396 116 350 C 118 300 114 248 112 196 C 110 142 114 85 132 30 C 116 8 86 -2 52 0 Z" fill="#180c05"/>
+  <path d="M 328 0 C 320 62 310 132 300 200 C 292 255 288 306 290 356 C 292 402 300 445 308 488 C 316 530 328 570 335 618 L 335 620 L 306 620 C 300 575 290 532 282 488 C 274 442 266 396 264 350 C 262 300 266 248 268 196 C 270 142 266 85 248 30 C 264 8 294 -2 328 0 Z" fill="#180c05"/>
+
+  <!-- Hair sheen strands -->
+  <path d="M 65 28 C 73 92 83 164 91 234 C 97 288 100 340 97 390 C 94 437 85 480 79 526" stroke="#382010" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.65"/>
+  <path d="M 80 14 C 87 76 95 148 101 216 C 106 272 108 322 106 370 C 104 416 97 458 93 502" stroke="#382010" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M 315 28 C 307 92 297 164 289 234 C 283 288 280 340 283 390 C 286 437 295 480 301 526" stroke="#382010" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.65"/>
+  <path d="M 300 14 C 293 76 285 148 279 216 C 274 272 272 322 274 370 C 276 416 283 458 287 502" stroke="#382010" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+
+  <!-- ===== WATER DROPS ===== -->
+  <path d="M 77 450 C 77 440 72 432 69 428 C 66 432 61 440 61 450 C 61 459 65 467 69 467 C 73 467 77 459 77 450 Z" fill="#90c0d8" opacity="0.8"/>
+  <path d="M 94 508 C 94 499 90 492 87 488 C 84 492 79 499 79 508 C 79 517 83 524 87 524 C 91 524 94 517 94 508 Z" fill="#90c0d8" opacity="0.75"/>
+  <path d="M 68 564 C 68 555 64 548 61 544 C 58 548 53 555 53 564 C 53 573 57 580 61 580 C 65 580 68 573 68 564 Z" fill="#90c0d8" opacity="0.7"/>
+  <path d="M 303 450 C 303 440 298 432 295 428 C 292 432 287 440 287 450 C 287 459 291 467 295 467 C 299 467 303 459 303 450 Z" fill="#90c0d8" opacity="0.8"/>
+  <path d="M 286 510 C 286 501 282 494 279 490 C 276 494 271 501 271 510 C 271 519 275 526 279 526 C 283 526 286 519 286 510 Z" fill="#90c0d8" opacity="0.75"/>
+  <path d="M 312 568 C 312 559 308 552 305 548 C 302 552 297 559 297 568 C 297 577 301 584 305 584 C 309 584 312 577 312 568 Z" fill="#90c0d8" opacity="0.7"/>
+
+  <!-- Water streams through hair -->
+  <path d="M 63 420 C 62 452 61 484 62 514 C 63 540 65 562 64 586" stroke="#90c0d8" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <path d="M 77 440 C 76 470 75 500 76 528 C 77 552 79 572 78 594" stroke="#90c0d8" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+  <path d="M 317 420 C 318 452 319 484 318 514 C 317 540 315 562 316 586" stroke="#90c0d8" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <path d="M 303 440 C 304 470 305 500 304 528 C 303 552 301 572 302 594" stroke="#90c0d8" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+
+  <!-- Ripples at base -->
+  <ellipse cx="66" cy="608" rx="22" ry="5.5" stroke="#90c0d8" stroke-width="1.3" fill="none" opacity="0.65"/>
+  <ellipse cx="66" cy="612" rx="35" ry="8" stroke="#90c0d8" stroke-width="1" fill="none" opacity="0.45"/>
+  <ellipse cx="66" cy="617" rx="50" ry="10" stroke="#90c0d8" stroke-width="0.8" fill="none" opacity="0.28"/>
+  <ellipse cx="314" cy="608" rx="22" ry="5.5" stroke="#90c0d8" stroke-width="1.3" fill="none" opacity="0.65"/>
+  <ellipse cx="314" cy="612" rx="35" ry="8" stroke="#90c0d8" stroke-width="1" fill="none" opacity="0.45"/>
+  <ellipse cx="314" cy="617" rx="50" ry="10" stroke="#90c0d8" stroke-width="0.8" fill="none" opacity="0.28"/>
+</svg>
