@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { BreathingExercise } from './BreathingExercise'
 import { GroundingExercise } from './GroundingExercise'
 import { HotFlushGuide } from './HotFlushGuide'
+import { TiltCard } from '@/components/ui/TiltCard'
 
 const TOOLS = [
   {
@@ -87,41 +88,46 @@ export function ToolsClient() {
       {/* Tool cards */}
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(260px, 1fr))', gap: 16, marginBottom: 48 }}>
         {TOOLS.map((tool) => (
-          <button
+          <TiltCard
             key={tool.id}
-            onClick={() => setActive(tool.id)}
+            maxTilt={8}
+            scale={1.03}
             style={{
               background: 'rgba(255,255,255,0.82)', border: `1.5px solid rgba(237,224,216,0.7)`,
               borderRadius: 24, padding: '28px 22px', textAlign: 'left', cursor: 'pointer',
-              transition: 'transform 0.2s, box-shadow 0.2s',
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
             }}
             className="learn-card"
           >
-            <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 18 }}>
-              <span style={{ fontSize: 40 }}>{tool.icon}</span>
-              <span style={{
-                fontSize: 11, fontWeight: 600, color: tool.color,
-                background: `${tool.color}14`, border: `1px solid ${tool.color}25`,
-                borderRadius: 9999, padding: '4px 10px',
+            <button
+              onClick={() => setActive(tool.id)}
+              style={{ all: 'unset', display: 'block', width: '100%', cursor: 'pointer' }}
+            >
+              <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 18 }}>
+                <span style={{ fontSize: 40 }}>{tool.icon}</span>
+                <span style={{
+                  fontSize: 11, fontWeight: 600, color: tool.color,
+                  background: `${tool.color}14`, border: `1px solid ${tool.color}25`,
+                  borderRadius: 9999, padding: '4px 10px',
+                }}>
+                  {tool.badge}
+                </span>
+              </div>
+              <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 18, fontWeight: 700, color: '#1a1220', marginBottom: 8, lineHeight: 1.3 }}>
+                {tool.title}
+              </h3>
+              <p style={{ fontSize: 13, color: '#8a7a72', lineHeight: 1.65, marginBottom: 14 }}>{tool.desc}</p>
+              <p style={{
+                fontSize: 12, color: tool.color, fontWeight: 600,
+                display: 'flex', alignItems: 'center', gap: 5, margin: 0,
               }}>
-                {tool.badge}
-              </span>
-            </div>
-            <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 18, fontWeight: 700, color: '#1a1220', marginBottom: 8, lineHeight: 1.3 }}>
-              {tool.title}
-            </h3>
-            <p style={{ fontSize: 13, color: '#8a7a72', lineHeight: 1.65, marginBottom: 14 }}>{tool.desc}</p>
-            <p style={{
-              fontSize: 12, color: tool.color, fontWeight: 600,
-              display: 'flex', alignItems: 'center', gap: 5, margin: 0,
-            }}>
-              <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
-                <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
-              </svg>
-              {tool.evidence}
-            </p>
-          </button>
+                <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
+                  <circle cx="12" cy="12" r="10"/><path d="M12 8v4l3 3"/>
+                </svg>
+                {tool.evidence}
+              </p>
+            </button>
+          </TiltCard>
         ))}
       </div>
 

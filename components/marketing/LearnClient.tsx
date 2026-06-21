@@ -1,6 +1,7 @@
 'use client'
 import { useState } from 'react'
 import Link from 'next/link'
+import { TiltCard } from '@/components/ui/TiltCard'
 
 interface Article {
   slug: string
@@ -49,7 +50,7 @@ export function LearnClient({ articles }: Props) {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20, marginBottom: 80 }}>
         {filtered.map((article) => (
           <Link key={article.slug} href={`/learn/${article.slug}`} style={{ textDecoration: 'none' }}>
-            <div className="learn-card" style={{ background: article.bg }}>
+            <TiltCard className="learn-card" style={{ background: article.bg }} maxTilt={7} scale={1.02}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
                 <span style={{ fontSize: 32 }}>{article.icon}</span>
                 <span style={{
@@ -74,7 +75,7 @@ export function LearnClient({ articles }: Props) {
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 {article.readTime} min read
               </div>
-            </div>
+            </TiltCard>
           </Link>
         ))}
       </div>

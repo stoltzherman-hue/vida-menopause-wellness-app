@@ -2,6 +2,8 @@ import Link from 'next/link'
 import { Heart, MessageCircle, Users, TrendingUp, Shield, Sparkles, ArrowRight, CheckCircle2, BookOpen } from 'lucide-react'
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
 import { ScrollReveal } from '@/components/marketing/ScrollReveal'
+import { HeroParallax } from '@/components/marketing/HeroParallax'
+import { TiltCard } from '@/components/ui/TiltCard'
 
 const features = [
   { icon: Heart,        title: 'Daily check-in',     desc: 'Track symptoms, sleep, mood and triggers in under 2 minutes. See patterns emerge over time.',                                        bg: '#fff7f3', iconBg: 'rgba(196,122,90,0.12)',   iconColor: '#c47a5a' },
@@ -90,78 +92,8 @@ export default function MarketingHomePage() {
           <p style={{ fontSize: 13, color: '#b8a9a0' }}>Community is always free &middot; No credit card required</p>
         </div>
 
-        {/* Right — visual symptom card mockup (desktop only) */}
-        <div className="hero-visual-col" style={{ position: 'relative', zIndex: 1 }}>
-          {/* Main card */}
-          <div style={{
-            background: 'rgba(255,255,255,0.72)', border: '1.5px solid rgba(255,255,255,0.85)',
-            borderRadius: 28, backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)',
-            boxShadow: '0 24px 80px rgba(26,18,32,0.14)',
-            padding: '28px 26px',
-          }}>
-            <div style={{ display: 'flex', alignItems: 'center', gap: 12, marginBottom: 22 }}>
-              <div style={{ width: 40, height: 40, borderRadius: 13, background: 'rgba(45,139,122,0.14)', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                <Heart size={18} strokeWidth={1.8} style={{ color: '#2d8b7a' }} />
-              </div>
-              <div>
-                <p style={{ fontWeight: 700, color: '#1a1220', fontSize: 15, margin: 0 }}>Today&apos;s check-in</p>
-                <p style={{ fontSize: 12, color: '#b8a9a0', margin: '2px 0 0' }}>Takes 2 minutes</p>
-              </div>
-              <div style={{ marginLeft: 'auto', background: 'rgba(45,139,122,0.10)', border: '1px solid rgba(45,139,122,0.20)', borderRadius: 9999, padding: '4px 12px', fontSize: 11, fontWeight: 700, color: '#2d8b7a' }}>STEP 2 / 5</div>
-            </div>
-
-            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 16, fontWeight: 700, color: '#1e3d35', marginBottom: 16 }}>What are you experiencing today?</p>
-
-            {/* Symptom pills */}
-            <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, marginBottom: 20 }}>
-              {SYMPTOMS.map((s, i) => {
-                const selected = i === 0 || i === 2 || i === 4
-                return (
-                  <span key={s} style={{
-                    borderRadius: 22, padding: '7px 14px', fontSize: 12, fontWeight: selected ? 600 : 500,
-                    background: selected ? SYMPTOM_COLORS[i] : 'rgba(237,224,216,0.45)',
-                    color: selected ? 'white' : '#8a7a72',
-                    border: selected ? 'none' : '1px solid rgba(237,224,216,0.7)',
-                    boxShadow: selected ? `0 2px 8px ${SYMPTOM_COLORS[i]}40` : 'none',
-                  }}>{s}</span>
-                )
-              })}
-            </div>
-
-            {/* Progress bar */}
-            <div style={{ height: 5, borderRadius: 9999, background: 'rgba(237,224,216,0.5)', overflow: 'hidden' }}>
-              <div style={{ width: '40%', height: '100%', background: 'linear-gradient(90deg, #2d8b7a, #6b9e80)', borderRadius: 9999 }} />
-            </div>
-          </div>
-
-          {/* Floating insight card */}
-          <div style={{
-            position: 'absolute', bottom: -20, right: -24,
-            background: 'linear-gradient(135deg, #1e6b55 0%, #2d8b7a 100%)',
-            borderRadius: 20, padding: '16px 18px',
-            boxShadow: '0 12px 32px rgba(45,139,122,0.38)',
-            maxWidth: 200,
-          }}>
-            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.6)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 6px' }}>Your insight</p>
-            <p style={{ fontSize: 13, color: 'white', fontWeight: 600, lineHeight: 1.4, margin: 0 }}>
-              Hot flushes peaked on days 3–5 this cycle
-            </p>
-          </div>
-
-          {/* Floating streak badge */}
-          <div style={{
-            position: 'absolute', top: -16, left: -16,
-            background: 'white', borderRadius: 16, padding: '10px 16px',
-            boxShadow: '0 8px 24px rgba(26,18,32,0.12)',
-            display: 'flex', alignItems: 'center', gap: 10,
-          }}>
-            <span style={{ fontSize: 22 }}>🔥</span>
-            <div>
-              <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 800, color: '#2d8b7a', margin: 0, lineHeight: 1 }}>14</p>
-              <p style={{ fontSize: 10, color: '#b8a9a0', margin: 0, fontWeight: 600 }}>Day streak</p>
-            </div>
-          </div>
-        </div>
+        {/* Right — 3D parallax hero visual (desktop only) */}
+        <HeroParallax />
       </section>
 
       {/* ── Stats strip ── */}
@@ -190,7 +122,7 @@ export default function MarketingHomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 18 }}>
           {features.map(({ icon: Icon, title, desc, bg, iconBg, iconColor, premium }) => (
-            <div key={title} className="m-feature-card" style={{ background: bg }}>
+            <TiltCard key={title} className="m-feature-card" style={{ background: bg }} maxTilt={8} scale={1.03}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 22 }}>
                 <div style={{ background: iconBg, borderRadius: 16, padding: 13, display: 'inline-flex' }}>
                   <Icon size={22} style={{ color: iconColor }} strokeWidth={1.8} />
@@ -201,7 +133,7 @@ export default function MarketingHomePage() {
               </div>
               <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontWeight: 700, fontSize: 20, color: '#1a1220', marginBottom: 10, letterSpacing: '-0.01em' }}>{title}</h3>
               <p style={{ fontSize: 14, color: '#8a7a72', lineHeight: 1.7 }}>{desc}</p>
-            </div>
+            </TiltCard>
           ))}
         </div>
       </section>
@@ -342,7 +274,7 @@ export default function MarketingHomePage() {
             },
           ].map(({ step, icon, title, body, color, bg, border }, i) => (
             <ScrollReveal key={step} delay={i * 120}>
-              <div style={{
+              <TiltCard maxTilt={7} scale={1.02} style={{
                 background: bg, border: `1.5px solid ${border}`,
                 borderRadius: 28, padding: '32px 28px', position: 'relative',
               }}>
@@ -359,7 +291,7 @@ export default function MarketingHomePage() {
                   {title}
                 </h3>
                 <p style={{ fontSize: 15, color: '#6a5a6a', lineHeight: 1.7 }}>{body}</p>
-              </div>
+              </TiltCard>
             </ScrollReveal>
           ))}
         </div>
@@ -460,9 +392,10 @@ export default function MarketingHomePage() {
             },
           ].map(({ quote, name, age, duration, initial, color }, i) => (
             <ScrollReveal key={name} delay={i * 80}>
-              <div style={{
+              <TiltCard maxTilt={6} scale={1.02} style={{
                 background: 'rgba(255,255,255,0.75)', border: '1.5px solid rgba(237,224,216,0.65)',
                 borderRadius: 24, padding: '28px 24px', backdropFilter: 'blur(12px)',
+                WebkitBackdropFilter: 'blur(12px)',
               }}>
                 <div style={{ fontSize: 28, color: `${color}40`, fontFamily: 'Georgia, serif', lineHeight: 1, marginBottom: 14 }}>&ldquo;</div>
                 <p style={{ fontSize: 14, color: '#4a3a42', lineHeight: 1.75, marginBottom: 22 }}>{quote}</p>
@@ -473,7 +406,7 @@ export default function MarketingHomePage() {
                     <p style={{ fontSize: 12, color: '#b8a9a0', margin: '2px 0 0' }}>{duration}</p>
                   </div>
                 </div>
-              </div>
+              </TiltCard>
             </ScrollReveal>
           ))}
         </div>
