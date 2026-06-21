@@ -1,5 +1,7 @@
 import Link from 'next/link'
-import { Heart, MessageCircle, Users, TrendingUp, Shield, Sparkles, ArrowRight } from 'lucide-react'
+import { Heart, MessageCircle, Users, TrendingUp, Shield, Sparkles, ArrowRight, CheckCircle2, BookOpen } from 'lucide-react'
+import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
+import { ScrollReveal } from '@/components/marketing/ScrollReveal'
 
 const features = [
   { icon: Heart,        title: 'Daily check-in',     desc: 'Track symptoms, sleep, mood and triggers in under 2 minutes. See patterns emerge over time.',                                        bg: '#fff7f3', iconBg: 'rgba(196,122,90,0.12)',   iconColor: '#c47a5a' },
@@ -32,6 +34,7 @@ export default function MarketingHomePage() {
               vida<span style={{ color: '#2d8b7a' }}>.</span>
             </Link>
             <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
+              <Link href="/learn" style={{ fontSize: 14, fontWeight: 600, color: '#6a5a6a', padding: '8px 14px', display: 'none' }} className="nav-learn-link">Learn</Link>
               <Link href="/login"  className="m-btn m-btn-ghost-sm">Sign in</Link>
               <Link href="/signup" className="m-btn m-btn-sage-sm">Join free</Link>
             </nav>
@@ -291,6 +294,209 @@ export default function MarketingHomePage() {
               </Link>
             </div>
           </div>
+        </div>
+      </section>
+
+      {/* ── How it works ── */}
+      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: 64 }}>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#2d8b7a', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>Getting started</p>
+            <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: '#1a1220', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 16 }}>
+              How Vida works
+            </h2>
+            <p style={{ color: '#8a7a72', fontSize: 17, maxWidth: 480, margin: '0 auto', lineHeight: 1.65 }}>
+              From first check-in to genuine clarity — in three simple steps.
+            </p>
+          </div>
+        </ScrollReveal>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 24 }}>
+          {[
+            {
+              step: '01',
+              icon: '✏️',
+              title: 'Log your day in 2 minutes',
+              body: 'Rate how you feel, tap the symptoms you experienced, note what helped or made things harder. It takes under 2 minutes and builds a powerful longitudinal record.',
+              color: '#2d8b7a',
+              bg: 'rgba(45,139,122,0.06)',
+              border: 'rgba(45,139,122,0.14)',
+            },
+            {
+              step: '02',
+              icon: '📊',
+              title: 'Watch your patterns emerge',
+              body: 'After a few weeks, Vida\'s calendar heat map and trend charts reveal the connections between your sleep, mood, triggers, and symptoms that are invisible day-to-day.',
+              color: '#c47a5a',
+              bg: 'rgba(196,122,90,0.06)',
+              border: 'rgba(196,122,90,0.14)',
+            },
+            {
+              step: '03',
+              icon: '💬',
+              title: 'Get support and take action',
+              body: 'Talk to Vida — your AI companion — for personalised guidance based on your data. Join the community. Generate a symptom report for your next doctor appointment.',
+              color: '#9b8ab8',
+              bg: 'rgba(155,138,184,0.06)',
+              border: 'rgba(155,138,184,0.14)',
+            },
+          ].map(({ step, icon, title, body, color, bg, border }, i) => (
+            <ScrollReveal key={step} delay={i * 120}>
+              <div style={{
+                background: bg, border: `1.5px solid ${border}`,
+                borderRadius: 28, padding: '32px 28px', position: 'relative',
+              }}>
+                <div style={{
+                  position: 'absolute', top: 28, right: 28,
+                  fontFamily: 'var(--font-playfair), Georgia, serif',
+                  fontSize: 48, fontWeight: 800, color: `${color}18`, lineHeight: 1,
+                  userSelect: 'none',
+                }}>
+                  {step}
+                </div>
+                <div style={{ fontSize: 40, marginBottom: 20 }}>{icon}</div>
+                <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 700, color: '#1a1220', marginBottom: 12, lineHeight: 1.3 }}>
+                  {title}
+                </h3>
+                <p style={{ fontSize: 15, color: '#6a5a6a', lineHeight: 1.7 }}>{body}</p>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── Knowledge hub teaser ── */}
+      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 96px) 32px 0' }}>
+        <ScrollReveal>
+          <div style={{
+            background: 'rgba(255,255,255,0.72)', border: '1.5px solid rgba(237,224,216,0.7)',
+            borderRadius: 36, padding: 'clamp(36px, 5vw, 60px)',
+            display: 'grid', gridTemplateColumns: '1fr', gap: 40, alignItems: 'center',
+          }} className="learn-teaser-grid">
+            <div>
+              <div style={{ display: 'inline-flex', alignItems: 'center', gap: 8, background: 'rgba(45,139,122,0.08)', border: '1px solid rgba(45,139,122,0.16)', borderRadius: 9999, padding: '7px 16px', marginBottom: 24 }}>
+                <BookOpen size={13} style={{ color: '#2d8b7a' }} strokeWidth={2} />
+                <span style={{ fontSize: 12, fontWeight: 700, color: '#2d6b5a', letterSpacing: '0.04em' }}>Knowledge Hub</span>
+              </div>
+              <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(24px, 3.5vw, 40px)', fontWeight: 700, color: '#1a1220', letterSpacing: '-0.025em', lineHeight: 1.2, marginBottom: 16 }}>
+                Understand what&apos;s happening in your body
+              </h2>
+              <p style={{ fontSize: 16, color: '#6a5a6a', lineHeight: 1.75, marginBottom: 32, maxWidth: 480 }}>
+                12 in-depth guides on symptoms, stages, lifestyle, and treatment — written clearly, grounded in evidence. Because you deserve real answers, not vague reassurances.
+              </p>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 36 }}>
+                {[
+                  'Hot flushes, night sweats & what actually helps',
+                  'The mood rollercoaster: anxiety, low mood & irritability',
+                  'HRT: common questions answered clearly',
+                  'How to talk to your doctor and be heard',
+                ].map((item) => (
+                  <div key={item} style={{ display: 'flex', alignItems: 'flex-start', gap: 10 }}>
+                    <CheckCircle2 size={16} style={{ color: '#2d8b7a', flexShrink: 0, marginTop: 2 }} strokeWidth={2} />
+                    <span style={{ fontSize: 14, color: '#5a4a5a', lineHeight: 1.5 }}>{item}</span>
+                  </div>
+                ))}
+              </div>
+              <Link href="/learn" className="m-btn m-btn-primary" style={{ fontSize: 15, padding: '13px 32px' }}>
+                Explore the knowledge hub <ArrowRight size={15} />
+              </Link>
+            </div>
+            <div className="learn-teaser-cards">
+              {[
+                { icon: '🔥', cat: 'Symptoms', title: 'Hot flushes & night sweats', color: '#e07a5f', bg: '#fff7f3' },
+                { icon: '🧠', cat: 'Symptoms', title: 'Brain fog explained', color: '#9b8ab8', bg: '#f6f3fc' },
+                { icon: '💊', cat: 'Treatment', title: 'HRT: common questions', color: '#c47a5a', bg: '#fff7f3' },
+                { icon: '🌙', cat: 'Symptoms', title: 'Sleep & menopause', color: '#c4959e', bg: '#fdf4f5' },
+                { icon: '💛', cat: 'Mental health', title: 'Mood & anxiety', color: '#c9a96e', bg: '#fffbf2' },
+                { icon: '🏃‍♀️', cat: 'Lifestyle', title: 'Exercise & movement', color: '#2d8b7a', bg: '#f4faf6' },
+              ].map(({ icon, cat, title, color, bg }) => (
+                <div key={title} className="learn-mini-card" style={{ background: bg }}>
+                  <span style={{ fontSize: 22, display: 'block', marginBottom: 8 }}>{icon}</span>
+                  <span style={{ fontSize: 10, fontWeight: 700, color, textTransform: 'uppercase', letterSpacing: '0.06em', display: 'block', marginBottom: 4 }}>{cat}</span>
+                  <span style={{ fontSize: 13, fontWeight: 600, color: '#1a1220', lineHeight: 1.35 }}>{title}</span>
+                </div>
+              ))}
+            </div>
+          </div>
+        </ScrollReveal>
+      </section>
+
+      {/* ── Testimonials grid ── */}
+      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: 52 }}>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#2d8b7a', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>What women say</p>
+            <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: 700, color: '#1a1220', letterSpacing: '-0.025em', lineHeight: 1.15 }}>
+              Real women, real results
+            </h2>
+          </div>
+        </ScrollReveal>
+
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 18 }}>
+          {[
+            {
+              quote: 'I finally have something to show my GP. After 6 months of dismissal, I walked in with my Vida symptom report and got HRT the same day.',
+              name: 'Sarah', age: 51, duration: '8 months with Vida', initial: 'S', color: '#2d8b7a',
+            },
+            {
+              quote: 'The brain fog was so bad I thought I had early dementia. Seeing it mapped to my sleep quality in the tracker made it make sense. I felt less scared.',
+              name: 'Claire', age: 47, duration: '5 months with Vida', initial: 'C', color: '#9b8ab8',
+            },
+            {
+              quote: 'The community is everything. Women who actually get it — no one telling me to just try yoga. I don\'t feel alone anymore.',
+              name: 'Yvonne', age: 53, duration: '11 months with Vida', initial: 'Y', color: '#c47a5a',
+            },
+            {
+              quote: 'I identified that alcohol — even one glass — was triggering my worst night sweats. I wouldn\'t have made that connection without the tracker.',
+              name: 'Marisol', age: 49, duration: '4 months with Vida', initial: 'M', color: '#c4959e',
+            },
+            {
+              quote: 'The AI companion mode where you prepare for a doctor visit is genuinely brilliant. It turned my anxious notes into something clear and confident.',
+              name: 'Diane', age: 55, duration: '14 months with Vida', initial: 'D', color: '#c9a96e',
+            },
+            {
+              quote: 'I\'m perimenopausal and everyone kept saying I was \'too young\'. Vida helped me document what was happening so I could say — no, this is real.',
+              name: 'Priya', age: 42, duration: '6 months with Vida', initial: 'P', color: '#5a8a6b',
+            },
+          ].map(({ quote, name, age, duration, initial, color }, i) => (
+            <ScrollReveal key={name} delay={i * 80}>
+              <div style={{
+                background: 'rgba(255,255,255,0.75)', border: '1.5px solid rgba(237,224,216,0.65)',
+                borderRadius: 24, padding: '28px 24px', backdropFilter: 'blur(12px)',
+              }}>
+                <div style={{ fontSize: 28, color: `${color}40`, fontFamily: 'Georgia, serif', lineHeight: 1, marginBottom: 14 }}>&ldquo;</div>
+                <p style={{ fontSize: 14, color: '#4a3a42', lineHeight: 1.75, marginBottom: 22 }}>{quote}</p>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
+                  <div style={{ width: 38, height: 38, borderRadius: '50%', background: `${color}20`, border: `1.5px solid ${color}35`, display: 'flex', alignItems: 'center', justifyContent: 'center', color, fontWeight: 700, fontSize: 15, flexShrink: 0 }}>{initial}</div>
+                  <div>
+                    <p style={{ fontWeight: 700, fontSize: 14, color: '#1a1220', margin: 0 }}>{name}, {age}</p>
+                    <p style={{ fontSize: 12, color: '#b8a9a0', margin: '2px 0 0' }}>{duration}</p>
+                  </div>
+                </div>
+              </div>
+            </ScrollReveal>
+          ))}
+        </div>
+      </section>
+
+      {/* ── FAQ ── */}
+      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0' }}>
+        <ScrollReveal>
+          <div style={{ textAlign: 'center', marginBottom: 56 }}>
+            <p style={{ fontSize: 12, fontWeight: 700, color: '#2d8b7a', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 14 }}>FAQ</p>
+            <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(28px, 4vw, 48px)', fontWeight: 700, color: '#1a1220', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 16 }}>
+              Questions women actually ask
+            </h2>
+            <p style={{ color: '#8a7a72', fontSize: 17, maxWidth: 520, margin: '0 auto', lineHeight: 1.65 }}>
+              From what perimenopause actually is, to whether your symptoms are normal, to how to talk to a doctor who dismisses you.
+            </p>
+          </div>
+        </ScrollReveal>
+        <MarketingFAQ />
+        <div style={{ textAlign: 'center', marginTop: 48 }}>
+          <Link href="/learn" style={{ fontSize: 15, color: '#2d8b7a', fontWeight: 600, display: 'inline-flex', alignItems: 'center', gap: 6 }}>
+            Read all guides in the knowledge hub <ArrowRight size={14} />
+          </Link>
         </div>
       </section>
 

@@ -754,3 +754,114 @@ button, a, [role="button"] { min-height: 44px; }
     position: relative;
   }
 }
+
+/* ── Scroll reveal ───────────────────────────────────────── */
+.reveal-hidden {
+  opacity: 0;
+  transform: translateY(28px);
+  transition: opacity 0.58s cubic-bezier(0.22, 1, 0.36, 1),
+              transform 0.58s cubic-bezier(0.22, 1, 0.36, 1);
+}
+.reveal-visible {
+  opacity: 1;
+  transform: translateY(0);
+}
+
+/* ── FAQ accordion ───────────────────────────────────────── */
+.faq-item {
+  border-bottom: 1px solid rgba(237,224,216,0.75);
+}
+.faq-btn {
+  width: 100%;
+  display: flex;
+  align-items: center;
+  justify-content: space-between;
+  gap: 16px;
+  padding: 22px 0;
+  background: none;
+  border: none;
+  cursor: pointer;
+  text-align: left;
+  font-size: 16px;
+  font-weight: 600;
+  color: #1a1220;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  line-height: 1.4;
+  transition: color 0.15s;
+}
+.faq-btn:hover { color: #2d8b7a; }
+.faq-chevron {
+  flex-shrink: 0;
+  color: #b8a9a0;
+  transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.15s;
+}
+.faq-open .faq-chevron {
+  transform: rotate(180deg);
+  color: #2d8b7a;
+}
+.faq-body {
+  display: grid;
+  grid-template-rows: 0fr;
+  transition: grid-template-rows 0.36s cubic-bezier(0.22, 1, 0.36, 1);
+  overflow: hidden;
+}
+.faq-open .faq-body {
+  grid-template-rows: 1fr;
+}
+.faq-answer {
+  font-size: 15px;
+  color: #6a5a6a;
+  line-height: 1.75;
+  padding-bottom: 22px;
+  min-height: 0;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+  margin: 0;
+}
+
+/* ── Knowledge hub teaser grid ───────────────────────────── */
+.learn-teaser-grid {
+  grid-template-columns: 1fr;
+}
+.learn-teaser-cards {
+  display: grid;
+  grid-template-columns: repeat(3, 1fr);
+  gap: 12px;
+}
+.learn-mini-card {
+  border-radius: 16px;
+  padding: 16px 14px;
+  transition: transform 0.18s, box-shadow 0.18s;
+  cursor: default;
+}
+.learn-mini-card:hover {
+  transform: translateY(-3px);
+  box-shadow: 0 8px 24px rgba(26,18,32,0.09);
+}
+@media (min-width: 900px) {
+  .learn-teaser-grid {
+    grid-template-columns: 1fr 340px;
+  }
+}
+
+/* ── Learn page article cards ────────────────────────────── */
+.learn-card {
+  border-radius: 24px;
+  padding: 28px 24px;
+  border: 1.5px solid rgba(237,224,216,0.6);
+  transition: transform 0.22s cubic-bezier(0.22,1,0.36,1), box-shadow 0.22s;
+  cursor: pointer;
+  height: 100%;
+  box-sizing: border-box;
+}
+.learn-card:hover {
+  transform: translateY(-5px);
+  box-shadow: 0 16px 40px rgba(26,18,32,0.10);
+}
+
+/* ── Marketing nav learn link (show on tablet+) ──────────── */
+@media (min-width: 720px) {
+  .nav-learn-link {
+    display: inline-flex !important;
+    align-items: center;
+  }
+}
