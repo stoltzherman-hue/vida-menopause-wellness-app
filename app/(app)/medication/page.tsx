@@ -3,7 +3,7 @@ import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { MedicationList } from '@/components/medication/MedicationList'
 
-export const metadata: Metadata = { title: 'Medications & HRT' }
+export const metadata: Metadata = { title: 'Medications & HRT · Vida' }
 
 export default async function MedicationPage() {
   const user = await getUser()
@@ -17,10 +17,10 @@ export default async function MedicationPage() {
     .order('created_at', { ascending: true })
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
-      <div>
-        <h1 className="text-2xl font-bold text-[#2d3748]">Medications & HRT</h1>
-        <p className="text-[#718096] mt-1 text-sm">Track your prescriptions, HRT, and supplements in one place.</p>
+    <div style={{ maxWidth: 640, margin: '0 auto', padding: '28px 16px 100px' }}>
+      <div style={{ marginBottom: 24 }}>
+        <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#3d2c35', margin: 0 }}>Medications & HRT</h1>
+        <p style={{ color: '#8a7a72', marginTop: 6, fontSize: 14 }}>Track your prescriptions, HRT, and supplements in one place.</p>
       </div>
       <MedicationList initialMeds={meds ?? []} />
     </div>

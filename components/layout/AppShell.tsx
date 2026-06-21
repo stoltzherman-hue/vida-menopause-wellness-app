@@ -1,8 +1,9 @@
 import { MobileNav } from './MobileNav'
+
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div className="min-h-screen flex flex-col">
-      <main className="flex-1 pb-20 md:pb-6">{children}</main>
+    <div style={{ minHeight: '100vh', display: 'flex', flexDirection: 'column', background: '#fdf8f4' }} className="blob-bg">
+      <main style={{ flex: 1, paddingBottom: 90 }}>{children}</main>
       <MobileNav />
     </div>
   )

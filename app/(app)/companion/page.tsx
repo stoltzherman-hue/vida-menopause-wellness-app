@@ -4,7 +4,7 @@ import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { CompanionChat } from '@/components/ai/CompanionChat'
 import type { ConversationMode } from '@/lib/ai/modes'
 
-export const metadata: Metadata = { title: 'AI Companion' }
+export const metadata: Metadata = { title: 'AI Companion · Vida' }
 
 export default async function CompanionPage() {
   const user = await getUser()
@@ -14,7 +14,7 @@ export default async function CompanionPage() {
     .from('subscriptions')
     .select('tier, status')
     .eq('user_id', user!.id)
-    .single()
+    .maybeSingle()
 
   const isPremium = sub?.tier === 'premium' && sub?.status === 'active'
 
@@ -25,7 +25,7 @@ export default async function CompanionPage() {
     .eq('archived', false)
     .order('updated_at', { ascending: false })
     .limit(1)
-    .single()
+    .maybeSingle()
 
   let initialMessages: { role: 'user' | 'assistant'; content: string }[] = []
   let initialConversationId: string | undefined
@@ -34,33 +34,28 @@ export default async function CompanionPage() {
   if (conversation) {
     initialConversationId = conversation.id
     initialMode = (conversation.mode as ConversationMode) ?? 'supportive_friend'
-
     const { data: msgs } = await supabase
       .from('ai_messages')
       .select('role, content')
       .eq('conversation_id', conversation.id)
       .order('created_at', { ascending: true })
       .limit(30)
-
-    initialMessages = (msgs ?? []).map((m) => ({
-      role: m.role as 'user' | 'assistant',
-      content: m.content,
-    }))
+    initialMessages = (msgs ?? []).map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }))
   }
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 flex flex-col h-[calc(100vh-5rem)]">
-      <div className="mb-4 flex items-start justify-between gap-3">
+    <div style={{ maxWidth: 680, margin: '0 auto', padding: '28px 16px 0', display: 'flex', flexDirection: 'column', height: 'calc(100vh - 80px)' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16, flexShrink: 0 }}>
         <div>
-          <h1 className="text-2xl font-bold text-[#2d3748]">AI Companion</h1>
-          <p className="text-xs text-[#a0aec0] mt-1">
-            Educational support only — not medical advice
-          </p>
+          <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 700, color: '#3d2c35', margin: 0 }}>AI Companion</h1>
+          <p style={{ fontSize: 12, color: '#b8a9a0', marginTop: 4 }}>Educational support only — not medical advice</p>
         </div>
         {isPremium && (
-          <span className="text-xs font-medium bg-[#5a8a6b]/10 text-[#5a8a6b] px-2 py-1 rounded-full flex-shrink-0">
-            Premium
-          </span>
+          <span style={{
+            fontSize: 11, fontWeight: 700, color: '#6b9e80',
+            background: 'rgba(107,158,128,0.12)', border: '1px solid rgba(107,158,128,0.3)',
+            borderRadius: 20, padding: '4px 12px',
+          }}>PREMIUM</span>
         )}
       </div>
       <CompanionChat

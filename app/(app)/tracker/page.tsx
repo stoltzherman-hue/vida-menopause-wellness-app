@@ -2,10 +2,9 @@ import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { TrackerClient } from '@/components/tracker/TrackerClient'
-import { Button } from '@/components/ui/button'
 import Link from 'next/link'
 
-export const metadata: Metadata = { title: 'Symptom Tracker' }
+export const metadata: Metadata = { title: 'Symptom Tracker · Vida' }
 
 export default async function TrackerPage() {
   const user = await getUser()
@@ -28,37 +27,29 @@ export default async function TrackerPage() {
   const cursor = new Date()
   const today = cursor.toISOString().split('T')[0]
   if (dateSet.has(today)) {
-    while (true) {
-      const d = cursor.toISOString().split('T')[0]
-      if (!dateSet.has(d)) break
-      streak++
-      cursor.setDate(cursor.getDate() - 1)
-    }
+    while (true) { const d = cursor.toISOString().split('T')[0]; if (!dateSet.has(d)) break; streak++; cursor.setDate(cursor.getDate() - 1) }
   } else {
     cursor.setDate(cursor.getDate() - 1)
-    while (true) {
-      const d = cursor.toISOString().split('T')[0]
-      if (!dateSet.has(d)) break
-      streak++
-      cursor.setDate(cursor.getDate() - 1)
-    }
+    while (true) { const d = cursor.toISOString().split('T')[0]; if (!dateSet.has(d)) break; streak++; cursor.setDate(cursor.getDate() - 1) }
   }
 
   const thisMonth = new Date().toISOString().slice(0, 7)
   const monthCount = list.filter((c) => c.checkin_date.startsWith(thisMonth)).length
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 space-y-5">
-      <div className="flex items-center justify-between">
+    <div style={{ maxWidth: 640, margin: '0 auto', padding: '28px 16px 100px' }}>
+      <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 24 }}>
         <div>
-          <h1 className="text-2xl font-bold text-[#2d3748]">Symptom tracker</h1>
-          <p className="text-[#718096] mt-1 text-sm">Last 30 days of your wellness data</p>
+          <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#3d2c35', margin: 0 }}>Symptom tracker</h1>
+          <p style={{ color: '#8a7a72', marginTop: 6, fontSize: 14 }}>Your last 30 days of wellness data</p>
         </div>
-        <Link href="/check-in">
-          <Button size="sm">+ Check-in</Button>
-        </Link>
+        <Link href="/check-in" style={{
+          background: 'linear-gradient(135deg, #6b9e80 0%, #4a7a5b 100%)',
+          color: 'white', borderRadius: 14, padding: '10px 18px',
+          fontSize: 14, fontWeight: 600, textDecoration: 'none',
+          display: 'inline-flex', alignItems: 'center', gap: 6, minHeight: 44,
+        }}>+ Check-in</Link>
       </div>
-
       <TrackerClient checkins={list} streak={streak} monthCount={monthCount} />
     </div>
   )
