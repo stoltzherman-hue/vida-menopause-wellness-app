@@ -46,9 +46,10 @@ export default function SignupPage() {
   const backdrop = (
     <>
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(ellipse 55% 40% at 10% 8%, rgba(107,158,128,0.16) 0%, transparent 55%), radial-gradient(ellipse 45% 35% at 88% 88%, rgba(196,149,158,0.13) 0%, transparent 50%)' }} />
-      <div style={{ position: 'fixed', right: 0, top: 0, bottom: 0, width: '48vw', maxWidth: 480, pointerEvents: 'none', overflow: 'hidden', display: 'flex', alignItems: 'flex-start', justifyContent: 'flex-end' }}>
+      <div style={{ position: 'fixed', right: 0, top: 0, bottom: 0, width: '48vw', maxWidth: 480, pointerEvents: 'none', overflow: 'hidden' }}>
+        <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(to right, #fdf8f4 0%, transparent 30%)' }} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="/hero-woman.svg" alt="" aria-hidden="true" style={{ height: '100vh', width: 'auto', opacity: 0.45 }} />
+        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=85&auto=format&fit=crop&crop=top" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', opacity: 0.38 }} />
       </div>
     </>
   )
@@ -92,7 +93,7 @@ export default function SignupPage() {
 
             <div>
               <label style={labelStyle}>Your name</label>
-              <input style={inputStyle} placeholder="How you’ll appear in the community" value={displayName} onChange={e => setDisplayName(e.target.value)} required />
+              <input style={inputStyle} placeholder="How you'll appear in the community" value={displayName} onChange={e => setDisplayName(e.target.value)} required />
             </div>
 
             <div>
