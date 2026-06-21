@@ -1,10 +1,5 @@
 'use client'
 import { useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Label } from '@/components/ui/label'
-import { Card, CardContent } from '@/components/ui/card'
-import { cn } from '@/lib/utils'
 
 const TYPES = ['HRT', 'Supplement', 'Prescription', 'OTC', 'Other']
 const FREQUENCIES = ['Daily', 'Twice daily', 'Weekly', 'As needed']
@@ -13,6 +8,28 @@ const TIMES_OF_DAY = ['Morning', 'Midday', 'Evening', 'Bedtime']
 interface Props {
   onSaved: () => void
   onCancel: () => void
+}
+
+const inputStyle: React.CSSProperties = {
+  width: '100%',
+  padding: '10px 14px',
+  borderRadius: 10,
+  border: '1.5px solid #e2d9d0',
+  background: 'rgba(255,255,255,0.85)',
+  fontSize: 14,
+  fontFamily: 'DM Sans, sans-serif',
+  color: '#2d3748',
+  outline: 'none',
+  boxSizing: 'border-box',
+}
+
+const labelStyle: React.CSSProperties = {
+  display: 'block',
+  fontSize: 13,
+  fontWeight: 600,
+  color: '#3d2c35',
+  marginBottom: 6,
+  fontFamily: 'DM Sans, sans-serif',
 }
 
 export function AddMedicationForm({ onSaved, onCancel }: Props) {
@@ -51,122 +68,147 @@ export function AddMedicationForm({ onSaved, onCancel }: Props) {
     }
   }
 
+  function PillBtn({ label, active, onClick, activeColor = '#6b9e80' }: { label: string; active: boolean; onClick: () => void; activeColor?: string }) {
+    return (
+      <button
+        type="button"
+        onClick={onClick}
+        style={{
+          padding: '6px 14px',
+          borderRadius: 999,
+          fontSize: 13,
+          border: active ? `1.5px solid ${activeColor}` : '1.5px solid #e2d9d0',
+          background: active ? activeColor : 'rgba(255,255,255,0.7)',
+          color: active ? '#fff' : '#718096',
+          cursor: 'pointer',
+          fontFamily: 'DM Sans, sans-serif',
+          transition: 'all 0.15s',
+        }}
+      >
+        {label}
+      </button>
+    )
+  }
+
   return (
-    <Card>
-      <CardContent className="p-5">
-        <form onSubmit={handleSubmit} className="space-y-4">
+    <div style={{
+      background: 'rgba(255,255,255,0.85)',
+      backdropFilter: 'blur(12px)',
+      borderRadius: 16,
+      border: '1px solid rgba(107,158,128,0.2)',
+      padding: 20,
+      boxShadow: '0 4px 20px rgba(61,44,53,0.08)',
+    }}>
+      <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 16 }}>
+        <div>
+          <label style={labelStyle}>Name *</label>
+          <input
+            value={name}
+            onChange={(e) => setName(e.target.value)}
+            placeholder="e.g. Estradiol, Vitamin D"
+            style={inputStyle}
+          />
+        </div>
+
+        <div>
+          <label style={labelStyle}>Type *</label>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {TYPES.map((t) => (
+              <PillBtn key={t} label={t} active={type === t} onClick={() => setType(t)} />
+            ))}
+          </div>
+        </div>
+
+        <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12 }}>
           <div>
-            <Label htmlFor="med-name">Name *</Label>
-            <Input
-              id="med-name"
-              value={name}
-              onChange={(e) => setName(e.target.value)}
-              placeholder="e.g. Estradiol, Vitamin D"
-              className="mt-1"
+            <label style={labelStyle}>Dose</label>
+            <input
+              value={dose}
+              onChange={(e) => setDose(e.target.value)}
+              placeholder="e.g. 1mg, 50IU"
+              style={inputStyle}
             />
           </div>
-
           <div>
-            <Label>Type *</Label>
-            <div className="flex gap-2 flex-wrap mt-1">
-              {TYPES.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => setType(t)}
-                  className={cn(
-                    'px-3 py-1.5 rounded-full text-sm border transition-colors',
-                    type === t ? 'bg-[#5a8a6b] text-white border-[#5a8a6b]' : 'border-[#e2d9d0] text-[#718096]'
-                  )}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div className="grid grid-cols-2 gap-3">
-            <div>
-              <Label htmlFor="med-dose">Dose</Label>
-              <Input
-                id="med-dose"
-                value={dose}
-                onChange={(e) => setDose(e.target.value)}
-                placeholder="e.g. 1mg, 50IU"
-                className="mt-1"
-              />
-            </div>
-            <div>
-              <Label htmlFor="med-start">Start date</Label>
-              <Input
-                id="med-start"
-                type="date"
-                value={startDate}
-                onChange={(e) => setStartDate(e.target.value)}
-                className="mt-1"
-              />
-            </div>
-          </div>
-
-          <div>
-            <Label>Frequency *</Label>
-            <div className="flex gap-2 flex-wrap mt-1">
-              {FREQUENCIES.map((f) => (
-                <button
-                  key={f}
-                  type="button"
-                  onClick={() => setFrequency(f)}
-                  className={cn(
-                    'px-3 py-1.5 rounded-full text-sm border transition-colors',
-                    frequency === f ? 'bg-[#5a8a6b] text-white border-[#5a8a6b]' : 'border-[#e2d9d0] text-[#718096]'
-                  )}
-                >
-                  {f}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <Label>Time of day</Label>
-            <div className="flex gap-2 flex-wrap mt-1">
-              {TIMES_OF_DAY.map((t) => (
-                <button
-                  key={t}
-                  type="button"
-                  onClick={() => toggleTime(t)}
-                  className={cn(
-                    'px-3 py-1.5 rounded-full text-sm border transition-colors',
-                    timeOfDay.includes(t) ? 'bg-[#c4959e] text-white border-[#c4959e]' : 'border-[#e2d9d0] text-[#718096]'
-                  )}
-                >
-                  {t}
-                </button>
-              ))}
-            </div>
-          </div>
-
-          <div>
-            <Label htmlFor="med-notes">Notes</Label>
-            <Input
-              id="med-notes"
-              value={notes}
-              onChange={(e) => setNotes(e.target.value)}
-              placeholder="e.g. Take with food"
-              className="mt-1"
+            <label style={labelStyle}>Start date</label>
+            <input
+              type="date"
+              value={startDate}
+              onChange={(e) => setStartDate(e.target.value)}
+              style={inputStyle}
             />
           </div>
+        </div>
 
-          {error && <p className="text-sm text-[#c47a5a]">{error}</p>}
-
-          <div className="flex gap-3">
-            <Button type="button" variant="outline" onClick={onCancel} className="flex-1">Cancel</Button>
-            <Button type="submit" className="flex-1" disabled={saving}>
-              {saving ? 'Saving…' : 'Add medication'}
-            </Button>
+        <div>
+          <label style={labelStyle}>Frequency *</label>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {FREQUENCIES.map((f) => (
+              <PillBtn key={f} label={f} active={frequency === f} onClick={() => setFrequency(f)} />
+            ))}
           </div>
-        </form>
-      </CardContent>
-    </Card>
+        </div>
+
+        <div>
+          <label style={labelStyle}>Time of day</label>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {TIMES_OF_DAY.map((t) => (
+              <PillBtn key={t} label={t} active={timeOfDay.includes(t)} onClick={() => toggleTime(t)} activeColor="#c4959e" />
+            ))}
+          </div>
+        </div>
+
+        <div>
+          <label style={labelStyle}>Notes</label>
+          <input
+            value={notes}
+            onChange={(e) => setNotes(e.target.value)}
+            placeholder="e.g. Take with food"
+            style={inputStyle}
+          />
+        </div>
+
+        {error && <p style={{ fontSize: 13, color: '#c47a5a', fontFamily: 'DM Sans, sans-serif' }}>{error}</p>}
+
+        <div style={{ display: 'flex', gap: 12 }}>
+          <button
+            type="button"
+            onClick={onCancel}
+            style={{
+              flex: 1,
+              padding: '11px 0',
+              borderRadius: 10,
+              border: '1.5px solid #e2d9d0',
+              background: 'transparent',
+              color: '#718096',
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: 'pointer',
+              fontFamily: 'DM Sans, sans-serif',
+            }}
+          >
+            Cancel
+          </button>
+          <button
+            type="submit"
+            disabled={saving}
+            style={{
+              flex: 1,
+              padding: '11px 0',
+              borderRadius: 10,
+              border: 'none',
+              background: saving ? '#a0aec0' : 'linear-gradient(135deg,#6b9e80,#5a8a6b)',
+              color: '#fff',
+              fontSize: 14,
+              fontWeight: 600,
+              cursor: saving ? 'not-allowed' : 'pointer',
+              fontFamily: 'DM Sans, sans-serif',
+            }}
+          >
+            {saving ? 'Saving…' : 'Add medication'}
+          </button>
+        </div>
+      </form>
+    </div>
   )
 }

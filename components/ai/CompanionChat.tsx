@@ -1,9 +1,5 @@
 'use client'
 import { useState, useRef, useEffect } from 'react'
-import { Button } from '@/components/ui/button'
-import { Input } from '@/components/ui/input'
-import { Send, Lock } from 'lucide-react'
-import { cn } from '@/lib/utils'
 import { ModeSelector } from './ModeSelector'
 import { MODES, type ConversationMode } from '@/lib/ai/modes'
 
@@ -103,29 +99,39 @@ export function CompanionChat({
   }
 
   return (
-    <div className="flex flex-col flex-1 min-h-0">
-      <div className="pb-3 border-b border-[#e2d9d0] mb-3">
+    <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
+      {/* Mode selector */}
+      <div style={{ paddingBottom: 12, borderBottom: '1px solid #e2d9d0', marginBottom: 12 }}>
         <ModeSelector value={mode} onChange={handleModeChange} disabled={loading} />
       </div>
 
-      <div className="flex-1 overflow-y-auto space-y-4 pb-4">
+      {/* Messages */}
+      <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, paddingBottom: 16 }}>
         {messages.map((msg, i) => (
           <div
             key={i}
-            className={cn('flex', msg.role === 'user' ? 'justify-end' : 'justify-start')}
+            style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}
           >
             <div
-              className={cn(
-                'max-w-[85%] rounded-2xl px-4 py-3 text-sm leading-relaxed',
-                msg.role === 'user'
-                  ? 'bg-[#5a8a6b] text-white rounded-br-sm'
+              style={{
+                maxWidth: '85%',
+                borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+                padding: '10px 16px',
+                fontSize: 14,
+                lineHeight: 1.6,
+                fontFamily: 'DM Sans, sans-serif',
+                background: msg.role === 'user'
+                  ? 'linear-gradient(135deg,#6b9e80,#5a8a6b)'
                   : msg.flagged
-                  ? 'bg-red-50 border border-red-200 text-red-800 rounded-bl-sm'
-                  : 'bg-white border border-[#e2d9d0] text-[#2d3748] rounded-bl-sm'
-              )}
+                  ? '#fff5f5'
+                  : 'rgba(255,255,255,0.9)',
+                color: msg.role === 'user' ? '#fff' : msg.flagged ? '#9b2c2c' : '#2d3748',
+                border: msg.role === 'user' ? 'none' : msg.flagged ? '1px solid #feb2b2' : '1px solid #e2d9d0',
+                boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+              }}
             >
               {msg.flagged && (
-                <p className="text-xs font-semibold text-red-700 mb-1">⚠️ Important safety information</p>
+                <p style={{ fontSize: 12, fontWeight: 600, color: '#c53030', marginBottom: 4 }}>⚠️ Important safety information</p>
               )}
               {msg.content}
             </div>
@@ -133,14 +139,27 @@ export function CompanionChat({
         ))}
 
         {loading && (
-          <div className="flex justify-start">
-            <div className="bg-white border border-[#e2d9d0] rounded-2xl rounded-bl-sm px-4 py-3">
-              <div className="flex gap-1.5">
+          <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
+            <div style={{
+              background: 'rgba(255,255,255,0.9)',
+              border: '1px solid #e2d9d0',
+              borderRadius: '18px 18px 18px 4px',
+              padding: '10px 16px',
+              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
+            }}>
+              <div style={{ display: 'flex', gap: 6 }}>
                 {[0, 1, 2].map((i) => (
                   <span
                     key={i}
-                    className="w-2 h-2 bg-[#5a8a6b] rounded-full animate-bounce"
-                    style={{ animationDelay: `${i * 0.15}s` }}
+                    style={{
+                      width: 8,
+                      height: 8,
+                      background: '#6b9e80',
+                      borderRadius: '50%',
+                      display: 'inline-block',
+                      animation: 'bounce 1s infinite',
+                      animationDelay: `${i * 0.15}s`,
+                    }}
                   />
                 ))}
               </div>
@@ -151,44 +170,81 @@ export function CompanionChat({
         <div ref={bottomRef} />
       </div>
 
+      {/* Free limit gate */}
       {hitLimit && (
-        <div className="mb-3 rounded-xl border border-[#c47a5a]/30 bg-[#c47a5a]/5 px-4 py-3 text-sm text-center space-y-1">
-          <div className="flex items-center justify-center gap-2 font-medium text-[#2d3748]">
-            <Lock size={14} className="text-[#c47a5a]" />
-            Free message limit reached
+        <div style={{
+          marginBottom: 12,
+          borderRadius: 12,
+          border: '1px solid rgba(196,122,90,0.3)',
+          background: 'rgba(196,122,90,0.05)',
+          padding: '12px 16px',
+          textAlign: 'center',
+          fontFamily: 'DM Sans, sans-serif',
+        }}>
+          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontWeight: 600, color: '#2d3748', fontSize: 14 }}>
+            🔒 Free message limit reached
           </div>
-          <p className="text-xs text-[#718096]">
+          <p style={{ fontSize: 12, color: '#718096', marginTop: 4 }}>
             Upgrade to Premium for unlimited conversations and AI memory.
           </p>
           <a
             href="/settings"
-            className="inline-block mt-1 text-xs font-medium text-[#5a8a6b] underline underline-offset-2"
+            style={{ display: 'inline-block', marginTop: 6, fontSize: 12, fontWeight: 600, color: '#6b9e80', textDecoration: 'underline' }}
           >
             View Premium →
           </a>
         </div>
       )}
 
+      {/* Free message counter */}
       {!isPremium && !hitLimit && userMessageCount > 0 && (
-        <p className="text-xs text-[#a0aec0] text-center mb-2">
+        <p style={{ fontSize: 12, color: '#a0aec0', textAlign: 'center', marginBottom: 8, fontFamily: 'DM Sans, sans-serif' }}>
           {freeMessageLimit - userMessageCount} free message{freeMessageLimit - userMessageCount !== 1 ? 's' : ''} remaining
         </p>
       )}
 
-      <form onSubmit={handleSend} className="flex gap-2 pt-3 border-t border-[#e2d9d0]">
-        <Input
+      {/* Input */}
+      <form onSubmit={handleSend} style={{ display: 'flex', gap: 10, paddingTop: 12, borderTop: '1px solid #e2d9d0' }}>
+        <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={hitLimit ? 'Upgrade to continue…' : "Share what's on your mind…"}
-          className="flex-1"
           disabled={loading || hitLimit}
+          style={{
+            flex: 1,
+            padding: '10px 16px',
+            borderRadius: 999,
+            border: '1.5px solid #e2d9d0',
+            background: 'rgba(255,255,255,0.8)',
+            fontSize: 14,
+            fontFamily: 'DM Sans, sans-serif',
+            color: '#2d3748',
+            outline: 'none',
+          }}
         />
-        <Button type="submit" size="icon" disabled={loading || !input.trim() || hitLimit}>
-          <Send size={18} />
-        </Button>
+        <button
+          type="submit"
+          disabled={loading || !input.trim() || hitLimit}
+          style={{
+            width: 44,
+            height: 44,
+            borderRadius: '50%',
+            border: 'none',
+            background: loading || !input.trim() || hitLimit ? '#e2d9d0' : 'linear-gradient(135deg,#6b9e80,#5a8a6b)',
+            color: '#fff',
+            cursor: loading || !input.trim() || hitLimit ? 'not-allowed' : 'pointer',
+            fontSize: 18,
+            display: 'flex',
+            alignItems: 'center',
+            justifyContent: 'center',
+            flexShrink: 0,
+          }}
+        >
+          ➤
+        </button>
       </form>
 
-      <p className="text-xs text-[#a0aec0] text-center mt-2">
+      <p style={{ fontSize: 11, color: '#a0aec0', textAlign: 'center', marginTop: 8, fontFamily: 'DM Sans, sans-serif' }}>
         Educational support only — not medical advice
       </p>
     </div>

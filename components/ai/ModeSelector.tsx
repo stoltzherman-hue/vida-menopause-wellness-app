@@ -1,6 +1,5 @@
 'use client'
 import { MODES, type ConversationMode } from '@/lib/ai/modes'
-import { cn } from '@/lib/utils'
 
 interface Props {
   value: ConversationMode
@@ -10,19 +9,29 @@ interface Props {
 
 export function ModeSelector({ value, onChange, disabled }: Props) {
   return (
-    <div className="flex gap-2 overflow-x-auto pb-1 scrollbar-none">
+    <div style={{ display: 'flex', gap: 8, overflowX: 'auto', paddingBottom: 4 }}>
       {MODES.map((m) => (
         <button
           key={m.key}
           type="button"
           onClick={() => onChange(m.key)}
           disabled={disabled}
-          className={cn(
-            'flex-shrink-0 flex items-center gap-1.5 px-3 py-1.5 rounded-full text-xs font-medium border transition-colors',
-            value === m.key
-              ? 'bg-[#5a8a6b] text-white border-[#5a8a6b]'
-              : 'border-[#e2d9d0] text-[#718096] hover:border-[#5a8a6b]'
-          )}
+          style={{
+            flexShrink: 0,
+            display: 'flex',
+            alignItems: 'center',
+            gap: 6,
+            padding: '6px 14px',
+            borderRadius: 999,
+            fontSize: 12,
+            fontWeight: 500,
+            border: value === m.key ? '1.5px solid #6b9e80' : '1.5px solid #e2d9d0',
+            background: value === m.key ? 'linear-gradient(135deg,#6b9e80,#5a8a6b)' : 'rgba(255,255,255,0.7)',
+            color: value === m.key ? '#fff' : '#718096',
+            cursor: disabled ? 'not-allowed' : 'pointer',
+            transition: 'all 0.2s',
+            fontFamily: 'DM Sans, sans-serif',
+          }}
         >
           <span>{m.emoji}</span>
           <span>{m.label}</span>
