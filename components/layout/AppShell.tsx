@@ -8,28 +8,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       flexDirection: 'column',
       background: '#fdf8f4',
       position: 'relative',
-      overflow: 'hidden',
     }}>
-      {/* Ambient colour blobs */}
+      {/* Ambient colour wash */}
       <div style={{
-        position: 'fixed',
-        inset: 0,
-        pointerEvents: 'none',
-        zIndex: 0,
+        position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,
         backgroundImage: [
-          'radial-gradient(ellipse 55% 38% at 12% 6%, rgba(107,158,128,0.10) 0%, transparent 58%)',
-          'radial-gradient(ellipse 45% 32% at 85% 88%, rgba(196,149,158,0.09) 0%, transparent 52%)',
+          'radial-gradient(ellipse 50% 36% at 12% 6%, rgba(107,158,128,0.11) 0%, transparent 58%)',
+          'radial-gradient(ellipse 42% 30% at 88% 90%, rgba(196,149,158,0.09) 0%, transparent 52%)',
         ].join(', '),
       }} />
 
-      {/* Woman portrait — fixed full-height right panel */}
+      {/* Portrait watermark — right half, full height */}
       <div style={{
         position: 'fixed',
-        right: '-4vw',
-        top: 0,
-        bottom: 0,
-        width: '56vw',
-        maxWidth: 560,
+        top: 0, bottom: 0,
+        right: 0,
+        width: '52vw',
+        maxWidth: 500,
         pointerEvents: 'none',
         zIndex: 0,
         overflow: 'hidden',
@@ -40,11 +35,11 @@ export function AppShell({ children }: { children: React.ReactNode }) {
           alt=""
           aria-hidden="true"
           style={{
-            height: '100%',
             width: '100%',
+            height: '100%',
             objectFit: 'cover',
-            objectPosition: 'center top',
-            opacity: 0.62,
+            objectPosition: 'top center',
+            opacity: 0.82,
           }}
         />
       </div>

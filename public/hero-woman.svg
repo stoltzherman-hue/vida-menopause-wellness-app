@@ -1,202 +1,123 @@
-<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 400 650">
-  <defs>
-    <radialGradient id="skin" cx="50%" cy="38%" r="58%">
-      <stop offset="0%" stop-color="#f5dfc8"/>
-      <stop offset="55%" stop-color="#eac9a8"/>
-      <stop offset="100%" stop-color="#d4a880"/>
-    </radialGradient>
-    <radialGradient id="skinNeck" cx="50%" cy="30%" r="60%">
-      <stop offset="0%" stop-color="#f0d4b8"/>
-      <stop offset="100%" stop-color="#d8b090"/>
-    </radialGradient>
-    <linearGradient id="hairMain" x1="20%" y1="0%" x2="80%" y2="100%">
-      <stop offset="0%" stop-color="#1a0c06"/>
-      <stop offset="35%" stop-color="#2e1810"/>
-      <stop offset="70%" stop-color="#1a0c06"/>
-      <stop offset="100%" stop-color="#080402"/>
-    </linearGradient>
-    <linearGradient id="hairSheen" x1="0%" y1="0%" x2="100%" y2="60%">
-      <stop offset="0%" stop-color="#4a2c18" stop-opacity="0.8"/>
-      <stop offset="40%" stop-color="#6b3e22" stop-opacity="0.4"/>
-      <stop offset="100%" stop-color="#1a0c06" stop-opacity="0.9"/>
-    </linearGradient>
-    <radialGradient id="irisGrad" cx="42%" cy="38%" r="52%">
-      <stop offset="0%" stop-color="#a07040"/>
-      <stop offset="45%" stop-color="#6b4020"/>
-      <stop offset="85%" stop-color="#3a2010"/>
-      <stop offset="100%" stop-color="#100808"/>
-    </radialGradient>
-    <linearGradient id="waterDrop" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#b8d8e8" stop-opacity="0.7"/>
-      <stop offset="100%" stop-color="#d8eef8" stop-opacity="0.15"/>
-    </linearGradient>
-    <linearGradient id="waterFlow" x1="0%" y1="0%" x2="0%" y2="100%">
-      <stop offset="0%" stop-color="#c8e0f0" stop-opacity="0.55"/>
-      <stop offset="100%" stop-color="#e0f0f8" stop-opacity="0.05"/>
-    </linearGradient>
-    <filter id="softBlur">
-      <feGaussianBlur stdDeviation="1.2"/>
-    </filter>
-    <filter id="verysoft">
-      <feGaussianBlur stdDeviation="2.5"/>
-    </filter>
-  </defs>
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 380 620">
 
-  <!-- ═══ HAIR BACK LAYER ═══ -->
-  <path d="M 60 0 C 55 60 52 130 58 205 C 63 270 72 335 66 405 C 60 470 48 530 52 598 L 58 650 L 115 650 C 112 600 118 545 124 488 C 130 428 128 368 126 308 C 124 245 120 182 128 118 C 134 68 144 28 155 5 C 128 -2 92 -2 60 0 Z" fill="url(#hairMain)"/>
-  <path d="M 340 0 C 345 60 348 130 342 205 C 337 270 328 335 334 405 C 340 470 352 530 348 598 L 342 650 L 285 650 C 288 600 282 545 276 488 C 270 428 272 368 274 308 C 276 245 280 182 272 118 C 266 68 256 28 245 5 C 272 -2 308 -2 340 0 Z" fill="url(#hairMain)"/>
-  <!-- Crown -->
-  <path d="M 60 0 C 95 -8 145 -14 200 -12 C 255 -10 305 -4 340 0 C 322 35 300 58 272 72 C 248 84 225 90 200 91 C 175 90 152 84 128 72 C 100 58 78 35 60 0 Z" fill="#180a04"/>
-  <!-- Hair highlight sheen on crown -->
-  <path d="M 130 12 C 152 0 175 -5 200 -4 C 225 -3 248 2 268 14 C 248 22 225 28 200 29 C 175 28 152 22 130 12 Z" fill="#3a2015" fill-opacity="0.55"/>
+  <!-- ===== HAIR BACK ===== -->
+  <path d="M 52 0 C 47 72 44 152 51 230 C 57 298 65 364 59 433 C 53 498 41 558 45 618 L 52 620 L 124 620 C 121 562 127 500 133 440 C 139 375 137 308 135 242 C 133 176 129 110 139 48 C 124 14 88 -2 52 0 Z" fill="#180c05"/>
+  <path d="M 328 0 C 333 72 336 152 329 230 C 323 298 315 364 321 433 C 327 498 339 558 335 618 L 328 620 L 256 620 C 259 562 253 500 247 440 C 241 375 243 308 245 242 C 247 176 251 110 241 48 C 256 14 292 -2 328 0 Z" fill="#180c05"/>
 
-  <!-- ═══ NECK ═══ -->
-  <path d="M 170 342 C 165 368 163 398 165 428 C 167 452 172 472 170 498 L 230 498 C 228 472 233 452 235 428 C 237 398 235 368 230 342 Z" fill="url(#skinNeck)"/>
-  <!-- Neck shadow lines -->
-  <path d="M 175 350 C 173 378 172 405 174 430" stroke="#c4a080" stroke-width="1" fill="none" stroke-opacity="0.4"/>
-  <path d="M 225 350 C 227 378 228 405 226 430" stroke="#c4a080" stroke-width="1" fill="none" stroke-opacity="0.4"/>
+  <!-- Crown / top of head -->
+  <path d="M 52 0 C 88 -10 142 -16 190 -13 C 238 -10 292 -4 328 0 C 310 40 287 65 258 79 C 234 90 214 97 190 98 C 166 97 146 90 122 79 C 93 65 70 40 52 0 Z" fill="#0e0703"/>
 
-  <!-- ═══ FACE ═══ -->
-  <path d="M 148 128 C 152 96 166 76 200 72 C 234 76 248 96 252 128 C 258 162 260 205 256 244 C 252 280 242 312 228 332 C 218 346 210 352 200 352 C 190 352 182 346 172 332 C 158 312 148 280 144 244 C 140 205 142 162 148 128 Z" fill="url(#skin)"/>
+  <!-- ===== NECK ===== -->
+  <path d="M 170 336 C 165 362 163 392 165 420 C 167 443 171 463 169 490 L 211 490 C 209 463 213 443 215 420 C 217 392 215 362 210 336 Z" fill="#cca87e"/>
 
-  <!-- Face side shadows for depth -->
-  <path d="M 148 128 C 143 162 140 205 144 244 C 148 280 158 312 172 332 C 162 318 154 296 150 268 C 145 238 144 205 146 172 C 147 155 148 140 148 128 Z" fill="#c8a078" fill-opacity="0.45"/>
-  <path d="M 252 128 C 257 162 260 205 256 244 C 252 280 242 312 228 332 C 238 318 246 296 250 268 C 255 238 256 205 254 172 C 253 155 252 140 252 128 Z" fill="#c8a078" fill-opacity="0.45"/>
+  <!-- ===== FACE ===== -->
+  <path d="M 143 132 C 147 100 161 79 190 75 C 219 79 233 100 237 132 C 243 167 245 211 241 249 C 237 286 227 318 213 338 C 204 351 197 357 190 357 C 183 357 176 351 167 338 C 153 318 143 286 139 249 C 135 211 137 167 143 132 Z" fill="#deba8a"/>
+
+  <!-- Face edge shadows for depth -->
+  <path d="M 143 132 C 138 167 135 211 139 249 C 143 286 153 318 167 338 C 158 323 151 300 147 272 C 142 242 141 210 143 177 C 143 162 143 146 143 132 Z" fill="#b89060" opacity="0.55"/>
+  <path d="M 237 132 C 242 167 245 211 241 249 C 237 286 227 318 213 338 C 222 323 229 300 233 272 C 238 242 239 210 237 177 C 237 162 237 146 237 132 Z" fill="#b89060" opacity="0.55"/>
 
   <!-- Forehead shading -->
-  <path d="M 152 118 C 165 95 182 82 200 80 C 218 82 235 95 248 118 C 235 110 220 105 200 104 C 180 105 165 110 152 118 Z" fill="#c8a078" fill-opacity="0.22"/>
+  <path d="M 147 120 C 160 96 175 82 190 79 C 205 82 220 96 233 120 C 220 112 207 107 190 106 C 173 107 160 112 147 120 Z" fill="#b89060" opacity="0.28"/>
 
-  <!-- Temple shadows -->
-  <ellipse cx="148" cy="155" rx="14" ry="22" fill="#b89068" fill-opacity="0.2"/>
-  <ellipse cx="252" cy="155" rx="14" ry="22" fill="#b89068" fill-opacity="0.2"/>
+  <!-- ===== EYEBROWS ===== -->
+  <path d="M 149 185 C 159 176 172 172 185 174 C 177 178 164 182 149 185 Z" fill="#180c05"/>
+  <path d="M 149 184 C 159 175 172 171 185 174" stroke="#180c05" stroke-width="2.2" stroke-linecap="round" fill="none"/>
+  <path d="M 231 185 C 221 176 208 172 195 174 C 203 178 216 182 231 185 Z" fill="#180c05"/>
+  <path d="M 231 184 C 221 175 208 171 195 174" stroke="#180c05" stroke-width="2.2" stroke-linecap="round" fill="none"/>
 
-  <!-- ═══ EYEBROWS ═══ -->
-  <!-- Left brow -->
-  <path d="M 150 184 C 158 176 170 172 182 174 C 174 178 162 182 150 184 Z" fill="#1e1008"/>
-  <path d="M 150 184 C 158 177 170 173 182 174" stroke="#1e1008" stroke-width="2" stroke-linecap="round" fill="none" stroke-opacity="0.7"/>
-  <!-- Right brow -->
-  <path d="M 250 184 C 242 176 230 172 218 174 C 226 178 238 182 250 184 Z" fill="#1e1008"/>
-  <path d="M 250 184 C 242 177 230 173 218 174" stroke="#1e1008" stroke-width="2" stroke-linecap="round" fill="none" stroke-opacity="0.7"/>
-
-  <!-- ═══ EYES ═══ -->
-  <!-- LEFT EYE -->
-  <!-- Eye socket shadow -->
-  <ellipse cx="172" cy="200" rx="24" ry="13" fill="#b89068" fill-opacity="0.22" filter="url(#softBlur)"/>
-  <!-- Sclera (white) -->
-  <path d="M 150 200 C 157 191 167 188 178 189 C 189 191 195 196 197 201 C 189 207 175 209 164 207 C 156 205 152 202 150 200 Z" fill="#f5f0eb"/>
+  <!-- ===== LEFT EYE ===== -->
+  <!-- Socket shadow -->
+  <ellipse cx="169" cy="202" rx="22" ry="11" fill="#9a7048" opacity="0.28"/>
+  <!-- White -->
+  <path d="M 148 202 C 156 192 168 189 178 191 C 188 193 194 198 196 203 C 188 210 174 212 163 209 C 155 206 151 204 148 202 Z" fill="#f0ece6"/>
   <!-- Iris -->
-  <circle cx="173" cy="199" r="9.5" fill="url(#irisGrad)"/>
-  <!-- Iris ring -->
-  <circle cx="173" cy="199" r="9.5" fill="none" stroke="#200e06" stroke-width="0.8" stroke-opacity="0.6"/>
+  <circle cx="172" cy="201" r="9" fill="#6a4320"/>
   <!-- Pupil -->
-  <circle cx="173" cy="199" r="4.8" fill="#0c0604"/>
-  <!-- Eye highlight -->
-  <ellipse cx="176" cy="196" rx="2.5" ry="2" fill="rgba(255,255,255,0.9)" transform="rotate(-20 176 196)"/>
-  <ellipse cx="169" cy="203" rx="1.2" ry="0.9" fill="rgba(255,255,255,0.45)"/>
-  <!-- Upper lid -->
-  <path d="M 150 200 C 157 191 167 188 178 189 C 189 191 195 196 197 201 C 191 195 178 192 167 193 C 157 194 153 197 150 200 Z" fill="#1e1008" fill-opacity="0.6"/>
-  <!-- Lash line -->
-  <path d="M 150 200 C 157 192 167 188 178 189 C 188 190 194 196 197 201" stroke="#0c0604" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <circle cx="172" cy="201" r="4.8" fill="#080402"/>
+  <!-- Catchlight -->
+  <ellipse cx="175" cy="198" rx="2.6" ry="2" fill="rgba(255,255,255,0.92)" transform="rotate(-20 175 198)"/>
+  <ellipse cx="168" cy="205" rx="1.2" ry="0.9" fill="rgba(255,255,255,0.4)"/>
+  <!-- Lid -->
+  <path d="M 148 202 C 156 192 168 189 178 191 C 188 193 194 198 196 203 C 190 197 178 194 167 195 C 157 196 152 200 148 202 Z" fill="#100704" opacity="0.65"/>
+  <path d="M 148 202 C 156 193 168 189 178 191 C 188 193 194 198 196 203" stroke="#060302" stroke-width="1.9" stroke-linecap="round" fill="none"/>
   <!-- Lower lid line -->
-  <path d="M 150 200 C 157 206 168 209 180 207 C 188 205 194 202 197 201" stroke="#b89068" stroke-width="0.7" fill="none" stroke-opacity="0.5"/>
+  <path d="M 148 202 C 155 208 167 211 179 209 C 187 207 193 204 196 203" stroke="#a87848" stroke-width="0.8" fill="none" opacity="0.55"/>
   <!-- Lashes -->
-  <path d="M 152 198 C 149 192 148 186 150 181" stroke="#0c0604" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-  <path d="M 158 196 C 156 190 156 184 158 179" stroke="#0c0604" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M 165 194 C 164 188 164 182 166 177" stroke="#0c0604" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-  <path d="M 172 193 C 172 187 172 181 174 177" stroke="#0c0604" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-  <path d="M 179 193 C 180 188 181 182 182 178" stroke="#0c0604" stroke-width="1" stroke-linecap="round" fill="none"/>
-  <path d="M 185 195 C 187 190 188 185 189 181" stroke="#0c0604" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+  <path d="M 151 200 C 148 193 148 186 150 181" stroke="#060302" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  <path d="M 158 198 C 156 191 157 184 159 179" stroke="#060302" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M 165 196 C 164 189 165 182 167 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 172 195 C 172 188 173 181 175 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 179 195 C 180 189 182 183 183 179" stroke="#060302" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <path d="M 185 197 C 187 191 189 186 190 182" stroke="#060302" stroke-width="1" stroke-linecap="round" fill="none"/>
 
-  <!-- RIGHT EYE -->
-  <!-- Eye socket shadow -->
-  <ellipse cx="228" cy="200" rx="24" ry="13" fill="#b89068" fill-opacity="0.22" filter="url(#softBlur)"/>
-  <!-- Sclera -->
-  <path d="M 250 200 C 243 191 233 188 222 189 C 211 191 205 196 203 201 C 211 207 225 209 236 207 C 244 205 248 202 250 200 Z" fill="#f5f0eb"/>
-  <!-- Iris -->
-  <circle cx="227" cy="199" r="9.5" fill="url(#irisGrad)"/>
-  <circle cx="227" cy="199" r="9.5" fill="none" stroke="#200e06" stroke-width="0.8" stroke-opacity="0.6"/>
-  <!-- Pupil -->
-  <circle cx="227" cy="199" r="4.8" fill="#0c0604"/>
-  <!-- Highlights -->
-  <ellipse cx="230" cy="196" rx="2.5" ry="2" fill="rgba(255,255,255,0.9)" transform="rotate(-20 230 196)"/>
-  <ellipse cx="223" cy="203" rx="1.2" ry="0.9" fill="rgba(255,255,255,0.45)"/>
-  <!-- Upper lid -->
-  <path d="M 250 200 C 243 191 233 188 222 189 C 211 191 205 196 203 201 C 209 195 222 192 233 193 C 243 194 247 197 250 200 Z" fill="#1e1008" fill-opacity="0.6"/>
-  <!-- Lash line -->
-  <path d="M 250 200 C 243 192 233 188 222 189 C 212 190 206 196 203 201" stroke="#0c0604" stroke-width="1.5" stroke-linecap="round" fill="none"/>
-  <!-- Lower lid -->
-  <path d="M 250 200 C 243 206 232 209 220 207 C 212 205 206 202 203 201" stroke="#b89068" stroke-width="0.7" fill="none" stroke-opacity="0.5"/>
-  <!-- Lashes -->
-  <path d="M 248 198 C 251 192 252 186 250 181" stroke="#0c0604" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-  <path d="M 242 196 C 244 190 244 184 242 179" stroke="#0c0604" stroke-width="1.2" stroke-linecap="round" fill="none"/>
-  <path d="M 235 194 C 236 188 236 182 234 177" stroke="#0c0604" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-  <path d="M 228 193 C 228 187 228 181 226 177" stroke="#0c0604" stroke-width="1.1" stroke-linecap="round" fill="none"/>
-  <path d="M 221 193 C 220 188 219 182 218 178" stroke="#0c0604" stroke-width="1" stroke-linecap="round" fill="none"/>
-  <path d="M 215 195 C 213 190 212 185 211 181" stroke="#0c0604" stroke-width="0.9" stroke-linecap="round" fill="none"/>
+  <!-- ===== RIGHT EYE ===== -->
+  <ellipse cx="211" cy="202" rx="22" ry="11" fill="#9a7048" opacity="0.28"/>
+  <path d="M 232 202 C 224 192 212 189 202 191 C 192 193 186 198 184 203 C 192 210 206 212 217 209 C 225 206 229 204 232 202 Z" fill="#f0ece6"/>
+  <circle cx="208" cy="201" r="9" fill="#6a4320"/>
+  <circle cx="208" cy="201" r="4.8" fill="#080402"/>
+  <ellipse cx="211" cy="198" rx="2.6" ry="2" fill="rgba(255,255,255,0.92)" transform="rotate(-20 211 198)"/>
+  <ellipse cx="204" cy="205" rx="1.2" ry="0.9" fill="rgba(255,255,255,0.4)"/>
+  <path d="M 232 202 C 224 192 212 189 202 191 C 192 193 186 198 184 203 C 190 197 202 194 213 195 C 223 196 228 200 232 202 Z" fill="#100704" opacity="0.65"/>
+  <path d="M 232 202 C 224 193 212 189 202 191 C 192 193 186 198 184 203" stroke="#060302" stroke-width="1.9" stroke-linecap="round" fill="none"/>
+  <path d="M 232 202 C 225 208 213 211 201 209 C 193 207 187 204 184 203" stroke="#a87848" stroke-width="0.8" fill="none" opacity="0.55"/>
+  <path d="M 229 200 C 232 193 232 186 230 181" stroke="#060302" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  <path d="M 222 198 C 224 191 223 184 221 179" stroke="#060302" stroke-width="1.3" stroke-linecap="round" fill="none"/>
+  <path d="M 215 196 C 216 189 215 182 213 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 208 195 C 208 188 207 181 205 177" stroke="#060302" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+  <path d="M 201 195 C 200 189 198 183 197 179" stroke="#060302" stroke-width="1.1" stroke-linecap="round" fill="none"/>
+  <path d="M 195 197 C 193 191 191 186 190 182" stroke="#060302" stroke-width="1" stroke-linecap="round" fill="none"/>
 
-  <!-- ═══ NOSE ═══ -->
-  <path d="M 200 214 C 198 228 195 245 193 258 C 191 267 189 274 192 280" stroke="#c0906a" stroke-width="1.5" fill="none" stroke-opacity="0.45" stroke-linecap="round"/>
-  <!-- Nose tip -->
-  <ellipse cx="200" cy="278" rx="12" ry="7" fill="#c8a070" fill-opacity="0.18"/>
-  <!-- Nostrils -->
-  <path d="M 191 278 C 187 280 184 284 185 289 C 186 292 189 293 192 291" stroke="#9a6840" stroke-width="1.4" fill="none" stroke-opacity="0.4" stroke-linecap="round"/>
-  <path d="M 209 278 C 213 280 216 284 215 289 C 214 292 211 293 208 291" stroke="#9a6840" stroke-width="1.4" fill="none" stroke-opacity="0.4" stroke-linecap="round"/>
+  <!-- ===== NOSE ===== -->
+  <path d="M 190 216 C 188 234 185 252 183 266 C 181 276 179 284 182 290" stroke="#a87848" stroke-width="1.6" fill="none" stroke-linecap="round" opacity="0.55"/>
+  <ellipse cx="190" cy="291" rx="12" ry="6.5" fill="#a87848" opacity="0.2"/>
+  <path d="M 182 290 C 178 293 175 297 176 303 C 177 306 180 308 183 305" stroke="#886038" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5"/>
+  <path d="M 198 290 C 202 293 205 297 204 303 C 203 306 200 308 197 305" stroke="#886038" stroke-width="1.4" fill="none" stroke-linecap="round" opacity="0.5"/>
 
-  <!-- ═══ CHEEK FLUSH ═══ -->
-  <ellipse cx="156" cy="238" rx="30" ry="17" fill="#e89080" fill-opacity="0.16" transform="rotate(-12 156 238)" filter="url(#verysoft)"/>
-  <ellipse cx="244" cy="238" rx="30" ry="17" fill="#e89080" fill-opacity="0.16" transform="rotate(12 244 238)" filter="url(#verysoft)"/>
+  <!-- ===== CHEEK BLUSH ===== -->
+  <ellipse cx="152" cy="242" rx="29" ry="16" fill="#c86058" opacity="0.2" transform="rotate(-12 152 242)"/>
+  <ellipse cx="228" cy="242" rx="29" ry="16" fill="#c86058" opacity="0.2" transform="rotate(12 228 242)"/>
 
-  <!-- ═══ LIPS ═══ -->
+  <!-- ===== LIPS ===== -->
   <!-- Upper lip -->
-  <path d="M 178 303 C 186 294 194 291 200 291 C 206 291 214 294 222 303 C 214 307 208 309 200 309 C 192 309 186 307 178 303 Z" fill="#c47a7a"/>
-  <!-- Cupid bow definition -->
-  <path d="M 178 303 C 184 297 192 293 197 292 L 200 291 L 203 292 C 208 293 216 297 222 303" stroke="#a85858" stroke-width="0.9" fill="none" stroke-opacity="0.5"/>
+  <path d="M 174 308 C 181 298 188 295 190 295 C 192 295 199 298 206 308 C 199 312 195 315 190 315 C 185 315 181 312 174 308 Z" fill="#b86060"/>
+  <path d="M 174 308 C 180 300 187 296 190 295 C 193 296 200 300 206 308" stroke="#985050" stroke-width="1" fill="none" opacity="0.6"/>
   <!-- Lower lip -->
-  <path d="M 178 303 C 185 313 192 318 200 319 C 208 318 215 313 222 303 C 214 308 207 310 200 311 C 193 310 186 308 178 303 Z" fill="#d49090"/>
-  <!-- Lip highlight -->
-  <ellipse cx="200" cy="312" rx="11" ry="4" fill="#f0c0c0" fill-opacity="0.5"/>
+  <path d="M 174 308 C 180 319 185 323 190 324 C 195 323 200 319 206 308 C 200 313 196 315 190 316 C 184 315 180 313 174 308 Z" fill="#cc8080"/>
+  <!-- Highlight -->
+  <ellipse cx="190" cy="318" rx="11" ry="4.5" fill="#eeaaaa" opacity="0.55"/>
   <!-- Mouth line -->
-  <path d="M 178 303 C 188 305 195 306 200 306 C 205 306 212 305 222 303" stroke="#a85858" stroke-width="0.9" fill="none" stroke-opacity="0.45"/>
-  <!-- Philtrum shadows -->
-  <path d="M 196 291 L 196 280" stroke="#c8a070" stroke-width="0.9" stroke-opacity="0.3" fill="none"/>
-  <path d="M 204 291 L 204 280" stroke="#c8a070" stroke-width="0.9" stroke-opacity="0.3" fill="none"/>
+  <path d="M 174 308 C 181 310 186 311 190 311 C 194 311 199 310 206 308" stroke="#985050" stroke-width="1" fill="none" opacity="0.5"/>
 
-  <!-- ═══ CHIN DEFINITION ═══ -->
-  <ellipse cx="200" cy="344" rx="30" ry="10" fill="#c8a070" fill-opacity="0.14" filter="url(#softBlur)"/>
+  <!-- ===== HAIR FRONT ===== -->
+  <path d="M 52 0 C 60 62 70 132 80 200 C 88 255 92 306 90 356 C 88 402 80 445 72 488 C 64 530 52 570 45 618 L 45 620 L 74 620 C 80 575 90 532 98 488 C 106 442 114 396 116 350 C 118 300 114 248 112 196 C 110 142 114 85 132 30 C 116 8 86 -2 52 0 Z" fill="#180c05"/>
+  <path d="M 328 0 C 320 62 310 132 300 200 C 292 255 288 306 290 356 C 292 402 300 445 308 488 C 316 530 328 570 335 618 L 335 620 L 306 620 C 300 575 290 532 282 488 C 274 442 266 396 264 350 C 262 300 266 248 268 196 C 270 142 266 85 248 30 C 264 8 294 -2 328 0 Z" fill="#180c05"/>
 
-  <!-- ═══ HAIR FRONT LAYER ═══ -->
-  <!-- Left front hair (covers temple/jaw) -->
-  <path d="M 60 0 C 68 55 78 118 88 182 C 96 235 100 285 98 336 C 96 382 88 422 80 468 C 72 512 62 556 58 605 L 58 650 L 86 650 C 88 608 96 565 104 520 C 112 472 120 428 122 382 C 124 332 120 280 118 228 C 116 172 118 112 130 56 C 118 18 90 2 60 0 Z" fill="url(#hairMain)"/>
-  <!-- Right front hair -->
-  <path d="M 340 0 C 332 55 322 118 312 182 C 304 235 300 285 302 336 C 304 382 312 422 320 468 C 328 512 338 556 342 605 L 342 650 L 314 650 C 312 608 304 565 296 520 C 288 472 280 428 278 382 C 276 332 280 280 282 228 C 284 172 282 112 270 56 C 282 18 310 2 340 0 Z" fill="url(#hairMain)"/>
+  <!-- Hair sheen strands -->
+  <path d="M 65 28 C 73 92 83 164 91 234 C 97 288 100 340 97 390 C 94 437 85 480 79 526" stroke="#382010" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.65"/>
+  <path d="M 80 14 C 87 76 95 148 101 216 C 106 272 108 322 106 370 C 104 416 97 458 93 502" stroke="#382010" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
+  <path d="M 315 28 C 307 92 297 164 289 234 C 283 288 280 340 283 390 C 286 437 295 480 301 526" stroke="#382010" stroke-width="5" stroke-linecap="round" fill="none" opacity="0.65"/>
+  <path d="M 300 14 C 293 76 285 148 279 216 C 274 272 272 322 274 370 C 276 416 283 458 287 502" stroke="#382010" stroke-width="3" stroke-linecap="round" fill="none" opacity="0.5"/>
 
-  <!-- Hair shine strands -->
-  <path d="M 72 25 C 80 85 90 155 98 225 C 104 278 106 330 102 382 C 98 430 88 475 82 522" stroke="url(#hairSheen)" stroke-width="3" stroke-linecap="round" fill="none"/>
-  <path d="M 85 12 C 92 70 100 140 106 208 C 112 262 114 312 112 362 C 110 410 102 455 98 500" stroke="url(#hairSheen)" stroke-width="2" stroke-linecap="round" fill="none" stroke-opacity="0.7"/>
-  <path d="M 328 25 C 320 85 310 155 302 225 C 296 278 294 330 298 382 C 302 430 312 475 318 522" stroke="url(#hairSheen)" stroke-width="3" stroke-linecap="round" fill="none"/>
-  <path d="M 315 12 C 308 70 300 140 294 208 C 288 262 286 312 288 362 C 290 410 298 455 302 500" stroke="url(#hairSheen)" stroke-width="2" stroke-linecap="round" fill="none" stroke-opacity="0.7"/>
+  <!-- ===== WATER DROPS ===== -->
+  <path d="M 77 450 C 77 440 72 432 69 428 C 66 432 61 440 61 450 C 61 459 65 467 69 467 C 73 467 77 459 77 450 Z" fill="#90c0d8" opacity="0.8"/>
+  <path d="M 94 508 C 94 499 90 492 87 488 C 84 492 79 499 79 508 C 79 517 83 524 87 524 C 91 524 94 517 94 508 Z" fill="#90c0d8" opacity="0.75"/>
+  <path d="M 68 564 C 68 555 64 548 61 544 C 58 548 53 555 53 564 C 53 573 57 580 61 580 C 65 580 68 573 68 564 Z" fill="#90c0d8" opacity="0.7"/>
+  <path d="M 303 450 C 303 440 298 432 295 428 C 292 432 287 440 287 450 C 287 459 291 467 295 467 C 299 467 303 459 303 450 Z" fill="#90c0d8" opacity="0.8"/>
+  <path d="M 286 510 C 286 501 282 494 279 490 C 276 494 271 501 271 510 C 271 519 275 526 279 526 C 283 526 286 519 286 510 Z" fill="#90c0d8" opacity="0.75"/>
+  <path d="M 312 568 C 312 559 308 552 305 548 C 302 552 297 559 297 568 C 297 577 301 584 305 584 C 309 584 312 577 312 568 Z" fill="#90c0d8" opacity="0.7"/>
 
-  <!-- ═══ WATER DROPS IN HAIR ═══ -->
-  <!-- Large drops -->
-  <path d="M 82 430 C 82 419 76 410 73 406 C 70 410 64 419 64 430 C 64 439 68 447 73 447 C 78 447 82 439 82 430 Z" fill="url(#waterDrop)"/>
-  <path d="M 106 488 C 106 478 101 470 98 466 C 95 470 90 478 90 488 C 90 497 94 504 98 504 C 102 504 106 497 106 488 Z" fill="url(#waterDrop)"/>
-  <path d="M 76 542 C 76 532 71 524 68 520 C 65 524 60 532 60 542 C 60 551 64 558 68 558 C 72 558 76 551 76 542 Z" fill="url(#waterDrop)"/>
-  <path d="M 94 595 C 94 586 90 579 87 575 C 84 579 79 586 79 595 C 79 603 83 610 87 610 C 91 610 94 603 94 595 Z" fill="url(#waterDrop)"/>
-  <!-- Right side drops -->
-  <path d="M 336 430 C 336 419 330 410 327 406 C 324 410 318 419 318 430 C 318 439 322 447 327 447 C 332 447 336 439 336 430 Z" fill="url(#waterDrop)"/>
-  <path d="M 310 492 C 310 482 305 474 302 470 C 299 474 294 482 294 492 C 294 501 298 508 302 508 C 306 508 310 501 310 492 Z" fill="url(#waterDrop)"/>
-  <path d="M 326 550 C 326 540 321 532 318 528 C 315 532 310 540 310 550 C 310 559 314 566 318 566 C 322 566 326 559 326 550 Z" fill="url(#waterDrop)"/>
+  <!-- Water streams through hair -->
+  <path d="M 63 420 C 62 452 61 484 62 514 C 63 540 65 562 64 586" stroke="#90c0d8" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <path d="M 77 440 C 76 470 75 500 76 528 C 77 552 79 572 78 594" stroke="#90c0d8" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/>
+  <path d="M 317 420 C 318 452 319 484 318 514 C 317 540 315 562 316 586" stroke="#90c0d8" stroke-width="2.2" stroke-linecap="round" fill="none" opacity="0.55"/>
+  <path d="M 303 440 C 304 470 305 500 304 528 C 303 552 301 572 302 594" stroke="#90c0d8" stroke-width="1.5" stroke-linecap="round" fill="none" opacity="0.4"/>
 
-  <!-- Water flow streams -->
-  <path d="M 70 395 C 68 425 67 458 68 490 C 69 518 72 542 70 568" stroke="url(#waterFlow)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-  <path d="M 84 415 C 83 443 82 472 83 500 C 84 526 86 548 85 572" stroke="url(#waterFlow)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-  <path d="M 330 395 C 332 425 333 458 332 490 C 331 518 328 542 330 568" stroke="url(#waterFlow)" stroke-width="1.8" stroke-linecap="round" fill="none"/>
-  <path d="M 316 415 C 317 443 318 472 317 500 C 316 526 314 548 315 572" stroke="url(#waterFlow)" stroke-width="1.3" stroke-linecap="round" fill="none"/>
-
-  <!-- Water ripples at base -->
-  <ellipse cx="75" cy="622" rx="20" ry="5" stroke="#b8d8e8" stroke-width="1.2" fill="none" stroke-opacity="0.55"/>
-  <ellipse cx="75" cy="625" rx="32" ry="7" stroke="#b8d8e8" stroke-width="0.9" fill="none" stroke-opacity="0.38"/>
-  <ellipse cx="75" cy="629" rx="46" ry="9" stroke="#b8d8e8" stroke-width="0.7" fill="none" stroke-opacity="0.22"/>
-  <ellipse cx="325" cy="622" rx="20" ry="5" stroke="#b8d8e8" stroke-width="1.2" fill="none" stroke-opacity="0.55"/>
-  <ellipse cx="325" cy="625" rx="32" ry="7" stroke="#b8d8e8" stroke-width="0.9" fill="none" stroke-opacity="0.38"/>
+  <!-- Ripples at base -->
+  <ellipse cx="66" cy="608" rx="22" ry="5.5" stroke="#90c0d8" stroke-width="1.3" fill="none" opacity="0.65"/>
+  <ellipse cx="66" cy="612" rx="35" ry="8" stroke="#90c0d8" stroke-width="1" fill="none" opacity="0.45"/>
+  <ellipse cx="66" cy="617" rx="50" ry="10" stroke="#90c0d8" stroke-width="0.8" fill="none" opacity="0.28"/>
+  <ellipse cx="314" cy="608" rx="22" ry="5.5" stroke="#90c0d8" stroke-width="1.3" fill="none" opacity="0.65"/>
+  <ellipse cx="314" cy="612" rx="35" ry="8" stroke="#90c0d8" stroke-width="1" fill="none" opacity="0.45"/>
+  <ellipse cx="314" cy="617" rx="50" ry="10" stroke="#90c0d8" stroke-width="0.8" fill="none" opacity="0.28"/>
 </svg>
