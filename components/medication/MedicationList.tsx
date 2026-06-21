@@ -1,13 +1,14 @@
 'use client'
 import { useState } from 'react'
 import { AddMedicationForm } from './AddMedicationForm'
+import { TakenButton } from './TakenButton'
 
 interface Medication {
   id: string; name: string; type: string; dose: string | null
   frequency: string; time_of_day: string[] | null; start_date: string | null; notes: string | null
 }
 
-interface Props { initialMeds: Medication[] }
+interface Props { initialMeds: Medication[]; takenTodayIds?: string[] }
 
 const TYPE_COLORS: Record<string, string> = {
   HRT: '#6b9e80', Supplement: '#c47a5a', Prescription: '#c4959e', OTC: '#8a7a72', Other: '#b8a9c9',
@@ -19,10 +20,11 @@ const card: React.CSSProperties = {
   borderRadius: 20, backdropFilter: 'blur(12px)', padding: '18px 20px',
 }
 
-export function MedicationList({ initialMeds }: Props) {
+export function MedicationList({ initialMeds, takenTodayIds = [] }: Props) {
   const [meds, setMeds] = useState(initialMeds)
   const [showForm, setShowForm] = useState(false)
   const [deleting, setDeleting] = useState<string | null>(null)
+  const takenSet = new Set(takenTodayIds)
 
   async function handleDelete(id: string) {
     setDeleting(id)
@@ -64,6 +66,13 @@ export function MedicationList({ initialMeds }: Props) {
                 </div>
                 {med.notes && <p style={{ fontSize: 12, color: '#b8a9a0', marginTop: 4 }}>{med.notes}</p>}
                 {med.start_date && <p style={{ fontSize: 12, color: '#b8a9a0', marginTop: 2 }}>Started {new Date(med.start_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>}
+                <div style={{ marginTop: 10 }}>
+                  <TakenButton
+                    medicationId={med.id}
+                    medicationName={med.name}
+                    takenToday={takenSet.has(med.id)}
+                  />
+                </div>
               </div>
               <button
                 onClick={() => handleDelete(med.id)}

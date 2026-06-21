@@ -932,6 +932,36 @@ button, a, [role="button"] { min-height: 44px; }
   }
 }
 
+/* ── Cycle calendar ──────────────────────────────────────── */
+.cycle-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 4px;
+}
+.cycle-day {
+  aspect-ratio: 1;
+  border-radius: 50%;
+  display: flex;
+  align-items: center;
+  justify-content: center;
+  font-size: 13px;
+  font-weight: 500;
+  color: #3d2c35;
+  cursor: default;
+  transition: transform 0.12s;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+.cycle-day:hover { transform: scale(1.12); }
+.cycle-day-period {
+  font-weight: 700;
+}
+.cycle-day-today {
+  font-weight: 700;
+}
+.cycle-day-predicted {
+  font-style: italic;
+}
+
 /* ── 3D TiltCard & Hero Parallax ────────────────────────── */
 .tilt-wrap {
   transform-style: preserve-3d;

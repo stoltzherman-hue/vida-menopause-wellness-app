@@ -2,6 +2,8 @@ export const dynamic = 'force-dynamic'
 
 import type { Metadata } from 'next'
 import Link from 'next/link'
+import { ExportButton } from '@/components/settings/ExportButton'
+import { DeleteAccountButton } from '@/components/settings/DeleteAccountButton'
 
 export const metadata: Metadata = { title: 'Settings · Vida' }
 
@@ -25,37 +27,17 @@ const sectionTitle: React.CSSProperties = {
   margin: 0,
 }
 
-function SettingsRow({ label, href, danger }: { label: string; href?: string; danger?: boolean }) {
-  const base: React.CSSProperties = {
-    display: 'flex',
-    alignItems: 'center',
-    justifyContent: 'space-between',
-    padding: '15px 20px',
-    borderTop: '1px solid rgba(237,224,216,0.5)',
-    fontSize: 15,
-    fontWeight: 500,
-    color: danger ? '#c0392b' : '#3d2c35',
-    textDecoration: 'none',
-    cursor: 'pointer',
-    background: 'transparent',
-    width: '100%',
-    textAlign: 'left' as const,
-    fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-  }
-  if (href) {
-    return (
-      <Link href={href} style={base}>
-        <span>{label}</span>
-        <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
-      </Link>
-    )
-  }
-  return (
-    <button style={{ ...base, border: 'none', borderTop: '1px solid rgba(237,224,216,0.5)' }}>
-      <span>{label}</span>
-      <span style={{ color: danger ? '#e99' : '#c8bdb8', fontSize: 18 }}>›</span>
-    </button>
-  )
+const rowBase: React.CSSProperties = {
+  display: 'flex',
+  alignItems: 'center',
+  justifyContent: 'space-between',
+  padding: '15px 20px',
+  borderTop: '1px solid rgba(237,224,216,0.5)',
+  fontSize: 15,
+  fontWeight: 500,
+  color: '#3d2c35',
+  textDecoration: 'none',
+  fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
 }
 
 export default function SettingsPage() {
@@ -63,13 +45,42 @@ export default function SettingsPage() {
     <div style={{ maxWidth: 580, margin: '0 auto', padding: '28px 16px 100px' }}>
       <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#3d2c35', margin: '0 0 28px' }}>Settings</h1>
 
+      {/* Account */}
       <div style={card}>
         <p style={sectionTitle}>Account</p>
-        <SettingsRow label="Edit profile" href="/settings/profile" />
-        <SettingsRow label="Change password" href="/settings/password" />
-        <SettingsRow label="Export my data" />
+        <Link href="/settings/profile" style={rowBase}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 20 }}>👤</span>
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, fontSize: 15 }}>Edit profile</p>
+              <p style={{ margin: 0, fontSize: 12, color: '#8a7a72' }}>Name, stage, goals</p>
+            </div>
+          </div>
+          <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
+        </Link>
+        <Link href="/settings/password" style={rowBase}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 20 }}>🔒</span>
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, fontSize: 15 }}>Change password</p>
+              <p style={{ margin: 0, fontSize: 12, color: '#8a7a72' }}>Update your login password</p>
+            </div>
+          </div>
+          <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
+        </Link>
+        <Link href="/settings/notifications" style={rowBase}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 20 }}>🔔</span>
+            <div>
+              <p style={{ margin: 0, fontWeight: 600, fontSize: 15 }}>Notification preferences</p>
+              <p style={{ margin: 0, fontSize: 12, color: '#8a7a72' }}>Reminders, alerts, times</p>
+            </div>
+          </div>
+          <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
+        </Link>
       </div>
 
+      {/* Subscription */}
       <div style={card}>
         <p style={sectionTitle}>Subscription</p>
         <div style={{ padding: '12px 20px 4px' }}>
@@ -90,12 +101,35 @@ export default function SettingsPage() {
         </div>
       </div>
 
+      {/* Privacy & data */}
       <div style={card}>
         <p style={sectionTitle}>Privacy &amp; data</p>
-        <SettingsRow label="Manage AI memory" />
-        <SettingsRow label="Notification preferences" />
-        <SettingsRow label="Delete account" danger />
+        <div style={{ borderTop: '1px solid rgba(237,224,216,0.5)', padding: '0' }}>
+          <ExportButton />
+        </div>
+        <Link href="/privacy" style={{ ...rowBase, borderTop: '1px solid rgba(237,224,216,0.5)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 20 }}>📄</span>
+            <p style={{ margin: 0, fontWeight: 600, fontSize: 15 }}>Privacy policy</p>
+          </div>
+          <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
+        </Link>
+        <Link href="/terms" style={{ ...rowBase, borderTop: '1px solid rgba(237,224,216,0.5)' }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
+            <span style={{ fontSize: 20 }}>📋</span>
+            <p style={{ margin: 0, fontWeight: 600, fontSize: 15 }}>Terms of service</p>
+          </div>
+          <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
+        </Link>
+        <div style={{ borderTop: '1px solid rgba(237,224,216,0.5)', padding: '0' }}>
+          <DeleteAccountButton />
+        </div>
       </div>
+
+      {/* App info */}
+      <p style={{ textAlign: 'center', fontSize: 12, color: '#c8bdb8', marginTop: 32 }}>
+        Vida v1.0 · Made with care for women everywhere
+      </p>
     </div>
   )
 }

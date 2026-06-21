@@ -5,6 +5,7 @@ import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import Link from 'next/link'
 import { NotificationSetup } from '@/components/notifications/NotificationSetup'
+import { StreakCard } from '@/components/dashboard/StreakCard'
 
 export const metadata: Metadata = { title: 'Dashboard · Vida' }
 
@@ -84,6 +85,23 @@ export default async function DashboardPage() {
     }
   }
 
+  // Longest streak calculation (all-time, across full dateSet)
+  let longestStreak = streak
+  {
+    let run = 0
+    const allDates = Array.from(dateSet).sort()
+    for (let i = 0; i < allDates.length; i++) {
+      if (i === 0) { run = 1 } else {
+        const prev = new Date(allDates[i - 1] + 'T00:00:00')
+        const curr = new Date(allDates[i] + 'T00:00:00')
+        const diff = (curr.getTime() - prev.getTime()) / (24 * 60 * 60 * 1000)
+        if (diff === 1) { run++ } else { run = 1 }
+      }
+      if (run > longestStreak) longestStreak = run
+    }
+  }
+  const totalCheckins = dateSet.size
+
   const thisMonth = new Date().toISOString().slice(0, 7)
   const monthCount = list.filter((c) => c.checkin_date.startsWith(thisMonth)).length
 
@@ -119,6 +137,9 @@ export default async function DashboardPage() {
       <div style={{ marginBottom: 20 }}>
         <NotificationSetup />
       </div>
+
+      {/* ── Streak card ── */}
+      <StreakCard streak={streak} longestStreak={longestStreak} totalCheckins={totalCheckins} />
 
       {/* ── Header ── */}
       <div style={{ marginBottom: 24 }}>
