@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import Link from 'next/link'
+import { NotificationSetup } from '@/components/notifications/NotificationSetup'
 
 export const metadata: Metadata = { title: 'Dashboard · Vida' }
 
@@ -113,6 +114,11 @@ export default async function DashboardPage() {
 
   return (
     <div style={{ maxWidth: 1160, margin: '0 auto', padding: '28px 20px 80px' }}>
+
+      {/* ── Notification prompt ── */}
+      <div style={{ marginBottom: 20 }}>
+        <NotificationSetup />
+      </div>
 
       {/* ── Header ── */}
       <div style={{ marginBottom: 24 }}>
