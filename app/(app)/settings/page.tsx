@@ -24,7 +24,7 @@ const sectionTitle: React.CSSProperties = {
 }
 
 function SettingsRow({ label, href, danger }: { label: string; href?: string; danger?: boolean }) {
-  const style: React.CSSProperties = {
+  const base: React.CSSProperties = {
     display: 'flex',
     alignItems: 'center',
     justifyContent: 'space-between',
@@ -37,21 +37,19 @@ function SettingsRow({ label, href, danger }: { label: string; href?: string; da
     cursor: 'pointer',
     background: 'transparent',
     width: '100%',
-    border: 'none',
-    borderTop: '1px solid rgba(237,224,216,0.5)',
     textAlign: 'left' as const,
     fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
   }
   if (href) {
     return (
-      <Link href={href} style={style}>
+      <Link href={href} style={base}>
         <span>{label}</span>
         <span style={{ color: '#c8bdb8', fontSize: 18 }}>›</span>
       </Link>
     )
   }
   return (
-    <button style={style}>
+    <button style={{ ...base, border: 'none', borderTop: '1px solid rgba(237,224,216,0.5)' }}>
       <span>{label}</span>
       <span style={{ color: danger ? '#e99' : '#c8bdb8', fontSize: 18 }}>›</span>
     </button>
@@ -91,7 +89,7 @@ export default function SettingsPage() {
       </div>
 
       <div style={card}>
-        <p style={sectionTitle}>Privacy & data</p>
+        <p style={sectionTitle}>Privacy &amp; data</p>
         <SettingsRow label="Manage AI memory" />
         <SettingsRow label="Notification preferences" />
         <SettingsRow label="Delete account" danger />
