@@ -1,0 +1,120 @@
+<svg xmlns="http://www.w3.org/2000/svg" viewBox="0 0 480 760" fill="none">
+  <defs>
+    <linearGradient id="hairWater" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b9e80" stop-opacity="0.38"/>
+      <stop offset="45%" stop-color="#c4959e" stop-opacity="0.18"/>
+      <stop offset="100%" stop-color="#b8a9c9" stop-opacity="0.04"/>
+    </linearGradient>
+    <linearGradient id="hairWater2" x1="0" y1="0" x2="0" y2="1">
+      <stop offset="0%" stop-color="#6b9e80" stop-opacity="0.28"/>
+      <stop offset="100%" stop-color="#b8a9c9" stop-opacity="0.03"/>
+    </linearGradient>
+    <linearGradient id="faceGrad" x1="0" y1="0" x2="1" y2="1">
+      <stop offset="0%" stop-color="#c4959e" stop-opacity="0.12"/>
+      <stop offset="100%" stop-color="#6b9e80" stop-opacity="0.06"/>
+    </linearGradient>
+  </defs>
+
+  <!-- Background hair strands flowing from top (leftmost, behind face) -->
+  <path d="M 55 0 C 50 80 45 165 52 248 C 58 320 68 390 62 468 C 56 538 44 600 50 668 C 54 710 62 740 68 760" stroke="url(#hairWater)" stroke-width="2.2" stroke-linecap="round"/>
+  <path d="M 78 0 C 73 75 68 158 75 240 C 82 314 92 382 87 458 C 82 528 70 590 76 658" stroke="url(#hairWater2)" stroke-width="1.7" stroke-linecap="round"/>
+  <path d="M 100 0 C 96 70 92 150 99 230 C 106 304 115 372 110 448 C 105 518 94 578 100 645" stroke="url(#hairWater2)" stroke-width="1.4" stroke-linecap="round"/>
+  <path d="M 122 0 C 118 65 115 142 122 220 C 129 294 137 360 133 435 C 129 505 118 566 123 630" stroke="url(#hairWater)" stroke-width="1.1" stroke-linecap="round" stroke-opacity="0.7"/>
+
+  <!-- Face silhouette - 3/4 view -->
+  <path d="
+    M 195 68
+    C 232 45 308 48 355 85
+    C 398 120 412 185 408 248
+    C 404 308 382 358 350 390
+    C 320 420 280 432 248 422
+    C 218 412 195 388 182 352
+    C 168 312 168 262 175 212
+    C 182 160 192 105 195 68 Z"
+    fill="url(#faceGrad)" stroke="rgba(107,158,128,0.22)" stroke-width="1.8"/>
+
+  <!-- Hair from crown flowing back and down -->
+  <path d="M 195 68 C 178 48 152 42 132 58 C 112 74 108 104 114 132 C 120 158 130 178 128 205" stroke="rgba(107,158,128,0.25)" stroke-width="1.6" fill="none"/>
+  <path d="M 215 55 C 200 35 175 28 155 42 C 135 56 130 86 136 114 C 142 140 152 162 150 188" stroke="rgba(107,158,128,0.2)" stroke-width="1.3" fill="none"/>
+  <path d="M 355 85 C 378 68 408 72 422 98 C 436 122 430 155 416 180 C 405 200 390 215 385 235" stroke="rgba(107,158,128,0.22)" stroke-width="1.6" fill="none"/>
+  <path d="M 370 78 C 390 60 418 62 430 88 C 442 112 436 145 422 170" stroke="rgba(107,158,128,0.15)" stroke-width="1.2" fill="none"/>
+
+  <!-- Eyebrow left -->
+  <path d="M 215 178 C 228 170 255 167 272 172" stroke="rgba(61,44,53,0.18)" stroke-width="1.4" stroke-linecap="round" fill="none"/>
+  <!-- Eyebrow right -->
+  <path d="M 300 168 C 316 160 342 158 358 164" stroke="rgba(61,44,53,0.15)" stroke-width="1.2" stroke-linecap="round" fill="none"/>
+
+  <!-- Eye left -->
+  <path d="M 212 196 C 228 185 260 183 276 190 C 261 200 228 202 212 196 Z" stroke="rgba(61,44,53,0.2)" stroke-width="1.2" fill="rgba(61,44,53,0.04)"/>
+  <circle cx="244" cy="195" r="8" fill="rgba(61,44,53,0.13)"/>
+  <circle cx="246" cy="193" r="3" fill="rgba(61,44,53,0.2)"/>
+  <!-- Eye lashes left -->
+  <path d="M 212 196 C 207 190 206 182 210 177" stroke="rgba(61,44,53,0.15)" stroke-width="0.9" fill="none"/>
+  <path d="M 220 194 C 217 188 217 180 221 175" stroke="rgba(61,44,53,0.12)" stroke-width="0.9" fill="none"/>
+
+  <!-- Eye right -->
+  <path d="M 298 188 C 314 177 344 175 360 182 C 346 192 314 195 298 188 Z" stroke="rgba(61,44,53,0.18)" stroke-width="1.2" fill="rgba(61,44,53,0.03)"/>
+  <circle cx="330" cy="187" r="7" fill="rgba(61,44,53,0.11)"/>
+  <circle cx="332" cy="185" r="2.5" fill="rgba(61,44,53,0.18)"/>
+
+  <!-- Nose -->
+  <path d="M 268 215 C 264 240 260 262 265 278 C 270 290 280 294 290 291 C 300 288 306 278 302 268" stroke="rgba(61,44,53,0.12)" stroke-width="1.3" fill="none"/>
+
+  <!-- Nostril hint -->
+  <path d="M 265 278 C 260 282 256 285 258 290" stroke="rgba(61,44,53,0.10)" stroke-width="1" fill="none"/>
+
+  <!-- Cheekbone blush -->
+  <ellipse cx="218" cy="260" rx="28" ry="12" fill="rgba(196,149,158,0.09)" transform="rotate(-12,218,260)"/>
+  <ellipse cx="355" cy="248" rx="22" ry="10" fill="rgba(196,149,158,0.07)" transform="rotate(-8,355,248)"/>
+
+  <!-- Lips -->
+  <!-- Upper lip -->
+  <path d="M 240 320 C 252 310 266 308 280 311 C 292 314 302 320 308 326" stroke="rgba(196,149,158,0.32)" stroke-width="1.4" fill="none"/>
+  <path d="M 240 320 C 248 315 258 312 268 313 C 276 314 282 318 286 322" stroke="rgba(196,149,158,0.22)" stroke-width="1" fill="none"/>
+  <!-- Lower lip -->
+  <path d="M 240 320 C 250 332 268 336 282 332 C 296 328 306 322 308 326" stroke="rgba(196,149,158,0.25)" stroke-width="1.3" fill="rgba(196,149,158,0.05)"/>
+
+  <!-- Jaw / chin definition -->
+  <path d="M 182 352 C 192 380 210 408 240 420" stroke="rgba(107,158,128,0.12)" stroke-width="1.2" fill="none"/>
+
+  <!-- Neck -->
+  <path d="M 248 422 C 244 452 242 478 246 505 C 249 525 254 542 252 562" stroke="rgba(107,158,128,0.14)" stroke-width="2" fill="none" stroke-linecap="round"/>
+  <path d="M 278 428 C 282 458 283 484 280 510 C 278 530 274 547 276 567" stroke="rgba(107,158,128,0.11)" stroke-width="2" fill="none" stroke-linecap="round"/>
+
+  <!-- Hair continuing down (long flowing) -->
+  <path d="M 128 205 C 122 255 115 310 110 370 C 105 430 100 490 104 552 C 108 608 118 650 115 700" stroke="url(#hairWater)" stroke-width="2" stroke-linecap="round"/>
+  <path d="M 150 188 C 145 238 140 294 138 354 C 136 414 133 474 138 534" stroke="url(#hairWater2)" stroke-width="1.5" stroke-linecap="round"/>
+  <path d="M 385 235 C 395 285 398 340 392 398 C 386 452 375 505 378 558" stroke="url(#hairWater)" stroke-width="1.8" stroke-linecap="round"/>
+
+  <!-- Water droplets falling -->
+  <path d="M 88 445 C 88 435 82 428 80 425 C 78 428 72 435 72 445 C 72 453 75 460 80 460 C 85 460 88 453 88 445 Z" fill="rgba(107,158,128,0.22)"/>
+  <path d="M 108 510 C 108 502 103 496 101 493 C 99 496 94 502 94 510 C 94 517 97 523 101 523 C 105 523 108 517 108 510 Z" fill="rgba(107,158,128,0.18)"/>
+  <path d="M 75 575 C 75 567 70 561 68 558 C 66 561 61 567 61 575 C 61 582 64 588 68 588 C 72 588 75 582 75 575 Z" fill="rgba(107,158,128,0.20)"/>
+  <path d="M 100 632 C 100 625 96 619 94 617 C 92 619 88 625 88 632 C 88 639 91 644 94 644 C 97 644 100 639 100 632 Z" fill="rgba(107,158,128,0.16)"/>
+  <path d="M 130 688 C 130 681 126 676 124 674 C 122 676 118 681 118 688 C 118 695 121 700 124 700 C 127 700 130 695 130 688 Z" fill="rgba(107,158,128,0.14)"/>
+
+  <!-- Ripple / splash at base -->
+  <ellipse cx="80" cy="720" rx="22" ry="5" stroke="rgba(107,158,128,0.18)" stroke-width="1" fill="none"/>
+  <ellipse cx="80" cy="722" rx="36" ry="7" stroke="rgba(107,158,128,0.12)" stroke-width="1" fill="none"/>
+  <ellipse cx="80" cy="725" rx="52" ry="9" stroke="rgba(107,158,128,0.08)" stroke-width="1" fill="none"/>
+  <ellipse cx="80" cy="728" rx="70" ry="11" stroke="rgba(107,158,128,0.05)" stroke-width="1" fill="none"/>
+
+  <!-- Water flow waves -->
+  <path d="M 0 640 C 35 630 70 645 105 635 C 140 625 175 638 210 628" stroke="rgba(107,158,128,0.13)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M 0 658 C 40 647 76 662 112 652 C 148 642 184 655 220 646" stroke="rgba(107,158,128,0.09)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+  <path d="M 0 676 C 45 664 82 680 118 669 C 155 658 192 672 228 662" stroke="rgba(107,158,128,0.06)" stroke-width="1.5" stroke-linecap="round" fill="none"/>
+
+  <!-- Decorative botanical / leaf elements -->
+  <path d="M 430 340 C 420 318 415 300 424 285 C 432 272 446 270 452 282 C 458 294 452 314 440 328" stroke="rgba(107,158,128,0.22)" stroke-width="1.4" fill="rgba(107,158,128,0.04)"/>
+  <path d="M 424 285 C 410 278 400 266 405 254 C 410 242 424 240 434 250" stroke="rgba(107,158,128,0.17)" stroke-width="1.2" fill="none"/>
+  <path d="M 424 285 C 436 272 448 262 455 248" stroke="rgba(107,158,128,0.17)" stroke-width="1.2" fill="none"/>
+  <!-- Leaf vein -->
+  <path d="M 424 285 C 436 305 442 322 438 338" stroke="rgba(107,158,128,0.12)" stroke-width="0.8" fill="none"/>
+
+  <!-- Small decorative dots (like dew / stars) -->
+  <circle cx="165" cy="95" r="2" fill="rgba(201,169,110,0.25)"/>
+  <circle cx="420" cy="140" r="1.5" fill="rgba(201,169,110,0.2)"/>
+  <circle cx="145" cy="320" r="1.5" fill="rgba(196,149,158,0.25)"/>
+  <circle cx="440" cy="400" r="1.8" fill="rgba(107,158,128,0.25)"/>
+  <circle cx="160" cy="455" r="1.3" fill="rgba(184,169,201,0.3)"/>
+</svg>
