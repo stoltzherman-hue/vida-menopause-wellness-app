@@ -98,6 +98,15 @@ export default async function DashboardPage() {
 
   const dateLabel = new Date().toLocaleDateString('en-GB', { weekday: 'long', day: 'numeric', month: 'long' })
 
+  // Time-of-day wellness tip
+  const timeCard = hour >= 6 && hour < 12
+    ? { icon: '🌅', title: 'Morning moment', body: 'Take 3 slow breaths before you check your phone. Starting calm sets your nervous system for the day.', color: '#c9a96e', bg: 'rgba(201,169,110,0.08)', border: 'rgba(201,169,110,0.22)' }
+    : hour >= 12 && hour < 17
+    ? { icon: '💧', title: 'Afternoon hydration check', body: 'Staying hydrated can help reduce hot flush intensity. How\'s your water intake today?', color: '#2d8b7a', bg: 'rgba(45,139,122,0.07)', border: 'rgba(45,139,122,0.20)' }
+    : hour >= 17 && hour < 21
+    ? { icon: '🌙', title: 'Evening wind-down', body: 'Cooling your room to 18°C before sleep can significantly reduce night sweats. Your body will thank you.', color: '#9b8ab8', bg: 'rgba(155,138,184,0.08)', border: 'rgba(155,138,184,0.22)' }
+    : { icon: '✨', title: 'Sleep prep', body: 'Wearing lightweight, breathable fabrics and keeping a window slightly open can ease night symptoms.', color: '#c4959e', bg: 'rgba(196,149,158,0.08)', border: 'rgba(196,149,158,0.20)' }
+
   const wellbeing = todayCheckin?.overall_wellbeing as number | null ?? null
 
   return (
@@ -267,6 +276,25 @@ export default async function DashboardPage() {
               </div>
             </div>
           )}
+
+          {/* ── TIME-OF-DAY TIP ── */}
+          <div style={{
+            background: timeCard.bg,
+            border: `1.5px solid ${timeCard.border}`,
+            borderRadius: 18, padding: '16px 18px',
+          }} className="fade-in fade-in-d1">
+            <div style={{ display: 'flex', gap: 12, alignItems: 'flex-start' }}>
+              <span style={{ fontSize: 26, lineHeight: 1, flexShrink: 0 }}>{timeCard.icon}</span>
+              <div>
+                <p style={{ fontSize: 12, fontWeight: 700, color: timeCard.color, margin: '0 0 4px', textTransform: 'uppercase', letterSpacing: '0.06em', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+                  {timeCard.title}
+                </p>
+                <p style={{ fontSize: 13, color: '#5a6a6a', margin: 0, lineHeight: 1.6 }}>
+                  {timeCard.body}
+                </p>
+              </div>
+            </div>
+          </div>
 
           {/* ── WELLNESS ACTIVITIES ── */}
           <div style={{ ...glass, padding: '22px 20px' }}>

@@ -542,3 +542,176 @@ button, a, [role="button"] { min-height: 44px; }
   0% { background-position: -200% center; }
   100% { background-position: 200% center; }
 }
+
+/* ── Step slide animation (check-in) ────────────────────── */
+@keyframes stepSlideIn {
+  from { opacity: 0; transform: translateX(28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+@keyframes stepSlideBack {
+  from { opacity: 0; transform: translateX(-28px); }
+  to   { opacity: 1; transform: translateX(0); }
+}
+.step-enter      { animation: stepSlideIn  0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.step-enter-back { animation: stepSlideBack 0.28s cubic-bezier(0.22, 1, 0.36, 1) both; }
+
+/* ── Selection pop micro-animation ──────────────────────── */
+@keyframes popSelect {
+  0%   { transform: scale(1); }
+  45%  { transform: scale(1.08); }
+  100% { transform: scale(1); }
+}
+.pop-select { animation: popSelect 0.22s cubic-bezier(0.34, 1.56, 0.64, 1); }
+
+/* ── Confetti sparkles (celebration) ────────────────────── */
+@keyframes sparkle1 {
+  0%   { opacity: 0; transform: translate(0,0) scale(0) rotate(0deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-32px,-48px) scale(1.2) rotate(240deg); }
+}
+@keyframes sparkle2 {
+  0%   { opacity: 0; transform: translate(0,0) scale(0) rotate(0deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(36px,-52px) scale(1) rotate(-180deg); }
+}
+@keyframes sparkle3 {
+  0%   { opacity: 0; transform: translate(0,0) scale(0) rotate(0deg); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(0px,-60px) scale(1.1) rotate(120deg); }
+}
+@keyframes sparkle4 {
+  0%   { opacity: 0; transform: translate(0,0) scale(0); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(-44px,-28px) scale(0.8); }
+}
+@keyframes sparkle5 {
+  0%   { opacity: 0; transform: translate(0,0) scale(0); }
+  40%  { opacity: 1; }
+  100% { opacity: 0; transform: translate(44px,-24px) scale(0.9); }
+}
+.celebrate-sparkle1 { animation: sparkle1 0.9s ease-out forwards; }
+.celebrate-sparkle2 { animation: sparkle2 0.9s 0.08s ease-out forwards; }
+.celebrate-sparkle3 { animation: sparkle3 0.9s 0.04s ease-out forwards; }
+.celebrate-sparkle4 { animation: sparkle4 0.9s 0.12s ease-out forwards; }
+.celebrate-sparkle5 { animation: sparkle5 0.9s 0.06s ease-out forwards; }
+
+/* ── Milestone glow ring ─────────────────────────────────── */
+@keyframes glowPulse {
+  0%, 100% { filter: drop-shadow(0 0 6px rgba(45,139,122,0.55)); }
+  50%       { filter: drop-shadow(0 0 18px rgba(45,139,122,0.90)); }
+}
+.ring-glow { animation: glowPulse 2.2s ease-in-out infinite; }
+
+/* SVG progress ring fill animation */
+@keyframes ringFill {
+  from { stroke-dashoffset: var(--ring-full, 226); }
+}
+.ring-fill-anim {
+  animation: ringFill 1.2s cubic-bezier(0.22, 1, 0.36, 1) both;
+  animation-delay: 0.15s;
+}
+
+/* ── Shimmer skeleton ────────────────────────────────────── */
+.shimmer-block {
+  background: linear-gradient(90deg, rgba(237,224,216,0.5) 25%, rgba(247,237,232,0.8) 50%, rgba(237,224,216,0.5) 75%);
+  background-size: 200% 100%;
+  animation: shimmer 1.4s ease-in-out infinite;
+  border-radius: 10px;
+}
+
+/* ── Calendar heat map ───────────────────────────────────── */
+.cal-grid {
+  display: grid;
+  grid-template-columns: repeat(7, 1fr);
+  gap: 5px;
+}
+.cal-cell {
+  aspect-ratio: 1;
+  border-radius: 7px;
+  cursor: default;
+  transition: transform 0.12s;
+  position: relative;
+}
+.cal-cell:hover { transform: scale(1.18); z-index: 2; }
+.cal-cell-empty { background: rgba(237,224,216,0.30); }
+.cal-cell-great  { background: linear-gradient(135deg,#2d8b7a,#4aad90); box-shadow: 0 2px 8px rgba(45,139,122,0.35); }
+.cal-cell-good   { background: linear-gradient(135deg,#6b9e80,#8ac09a); box-shadow: 0 2px 6px rgba(107,158,128,0.28); }
+.cal-cell-ok     { background: linear-gradient(135deg,#c9a96e,#d4b97a); box-shadow: 0 2px 6px rgba(201,169,110,0.25); }
+.cal-cell-low    { background: linear-gradient(135deg,#c47a5a,#d4906e); box-shadow: 0 2px 6px rgba(196,122,90,0.28); }
+.cal-cell-rough  { background: linear-gradient(135deg,#e07a5f,#d06050); box-shadow: 0 2px 6px rgba(224,122,95,0.32); }
+.cal-cell-future { background: transparent; }
+
+/* ── Check-in progress bar ───────────────────────────────── */
+.checkin-progress-bar {
+  height: 4px;
+  border-radius: 9999px;
+  background: rgba(237,224,216,0.5);
+  overflow: hidden;
+  margin-bottom: 22px;
+}
+.checkin-progress-fill {
+  height: 100%;
+  border-radius: 9999px;
+  background: linear-gradient(90deg, #2d8b7a, #6b9e80);
+  transition: width 0.4s cubic-bezier(0.22, 1, 0.36, 1);
+}
+
+/* ── Companion intro / persona ───────────────────────────── */
+.companion-avatar {
+  width: 72px; height: 72px;
+  border-radius: 50%;
+  background: linear-gradient(135deg, #1e6b55 0%, #2d8b7a 50%, #9b8ab8 100%);
+  display: flex; align-items: center; justify-content: center;
+  box-shadow: 0 8px 28px rgba(45,139,122,0.38);
+  position: relative;
+}
+
+/* ── Time-of-day tip card ────────────────────────────────── */
+@keyframes floatUp {
+  0%, 100% { transform: translateY(0px); }
+  50%       { transform: translateY(-4px); }
+}
+.float-card { animation: floatUp 4s ease-in-out infinite; }
+
+/* ── Community activity badge ────────────────────────────── */
+.activity-badge {
+  display: inline-flex;
+  align-items: center;
+  gap: 6px;
+  background: rgba(45,139,122,0.09);
+  border: 1px solid rgba(45,139,122,0.20);
+  border-radius: 9999px;
+  padding: 5px 12px;
+  font-size: 12px;
+  font-weight: 600;
+  color: #2d8b7a;
+  font-family: var(--font-dm-sans), system-ui, sans-serif;
+}
+
+/* ── Streak milestone card ───────────────────────────────── */
+@keyframes slideDown {
+  from { opacity: 0; transform: translateY(-16px) scale(0.97); }
+  to   { opacity: 1; transform: translateY(0) scale(1); }
+}
+.milestone-card {
+  animation: slideDown 0.4s cubic-bezier(0.22, 1, 0.36, 1) both;
+  background: linear-gradient(135deg, #1e6b55 0%, #2d8b7a 60%, #4aad90 100%);
+  border-radius: 22px;
+  padding: 22px 24px;
+  position: relative;
+  overflow: hidden;
+  box-shadow: 0 8px 32px rgba(45,139,122,0.38);
+}
+.milestone-card::before {
+  content: '';
+  position: absolute; top: -40px; right: -40px;
+  width: 120px; height: 120px;
+  border-radius: 50%;
+  background: rgba(255,255,255,0.10);
+}
+
+/* ── Fade-in utility ─────────────────────────────────────── */
+.fade-in { animation: fadeUp 0.35s cubic-bezier(0.22, 1, 0.36, 1) both; }
+.fade-in-d1 { animation-delay: 0.08s; }
+.fade-in-d2 { animation-delay: 0.16s; }
+.fade-in-d3 { animation-delay: 0.24s; }
