@@ -3,38 +3,39 @@ import { DesktopSidebar } from './DesktopSidebar'
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', background: '#fdf8f4', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#faf7f5', position: 'relative' }}>
 
-      {/* Mesh gradient background — strong enough to show through glass cards */}
+      {/* Layered mesh gradient — vivid but calm */}
       <div style={{
         position: 'fixed', inset: 0, pointerEvents: 'none', zIndex: 0,
         backgroundImage: [
-          'radial-gradient(ellipse 80% 65% at -5% -5%, rgba(107,158,128,0.45) 0%, transparent 58%)',
-          'radial-gradient(ellipse 65% 55% at 105% 108%, rgba(196,149,158,0.38) 0%, transparent 54%)',
-          'radial-gradient(ellipse 50% 45% at 55% 52%, rgba(184,169,201,0.18) 0%, transparent 52%)',
-          'radial-gradient(ellipse 45% 38% at 85% 12%, rgba(201,169,110,0.14) 0%, transparent 48%)',
+          'radial-gradient(ellipse 85% 70% at -8% -10%, rgba(45,139,122,0.28) 0%, transparent 55%)',
+          'radial-gradient(ellipse 70% 60% at 110% 115%, rgba(155,138,184,0.22) 0%, transparent 52%)',
+          'radial-gradient(ellipse 55% 45% at 58% 50%, rgba(184,169,201,0.10) 0%, transparent 50%)',
+          'radial-gradient(ellipse 40% 32% at 88% 8%, rgba(201,169,110,0.10) 0%, transparent 46%)',
+          'radial-gradient(ellipse 35% 28% at 18% 88%, rgba(196,122,90,0.08) 0%, transparent 44%)',
         ].join(', '),
       }} />
 
-      {/* Portrait watermark */}
+      {/* Subtle botanical watermark — portrait on right */}
       <div style={{
         position: 'fixed', top: 0, bottom: 0, right: 0,
-        width: '42vw', maxWidth: 480,
+        width: '40vw', maxWidth: 460,
         pointerEvents: 'none', zIndex: 0, overflow: 'hidden',
       }}>
         <div style={{
           position: 'absolute', inset: 0, zIndex: 1,
-          background: 'linear-gradient(to right, #fdf8f4 0%, rgba(253,248,244,0.4) 35%, transparent 60%)',
+          background: 'linear-gradient(to right, #faf7f5 0%, rgba(250,247,245,0.5) 30%, transparent 65%)',
         }} />
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=85&auto=format&fit=crop&crop=top"
+          src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=80&auto=format&fit=crop&crop=top"
           alt="" aria-hidden="true"
-          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', opacity: 0.42 }}
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', opacity: 0.32 }}
         />
       </div>
 
-      {/* Desktop sidebar — hidden on mobile via CSS */}
+      {/* Desktop sidebar */}
       <DesktopSidebar />
 
       {/* Main content */}
@@ -42,7 +43,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         {children}
       </main>
 
-      {/* Mobile bottom nav — hidden on desktop via CSS */}
+      {/* Mobile bottom nav */}
       <div className="mobile-nav-wrap">
         <MobileNav />
       </div>
