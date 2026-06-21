@@ -94,7 +94,14 @@ export function TiltCard({
     <div
       ref={cardRef}
       className={className}
-      style={{ ...style, transformStyle: 'preserve-3d', willChange: 'transform', position: 'relative' }}
+      style={{
+        ...style,
+        transformStyle: 'preserve-3d',
+        willChange: 'transform',
+        position: 'relative',
+        transform: 'perspective(900px) rotateX(2deg) rotateY(-1deg)',
+        transition: 'transform 0.4s ease, box-shadow 0.4s ease',
+      }}
     >
       {children}
       {glare && (

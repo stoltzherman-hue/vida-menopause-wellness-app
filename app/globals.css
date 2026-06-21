@@ -743,15 +743,21 @@ button, a, [role="button"] { min-height: 44px; }
   gap: 40px;
   align-items: center;
 }
-.hero-visual-col { display: none; }
+.hero-visual-col {
+  display: block;
+  position: relative;
+  width: 100%;
+  max-width: 400px;
+  margin: 0 auto;
+}
 @media (min-width: 1024px) {
   .hero-grid {
     grid-template-columns: 1fr minmax(340px, 460px);
     gap: 60px;
   }
   .hero-visual-col {
-    display: block;
-    position: relative;
+    max-width: none;
+    margin: 0;
   }
 }
 

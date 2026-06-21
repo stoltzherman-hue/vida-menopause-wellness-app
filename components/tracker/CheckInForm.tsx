@@ -117,10 +117,12 @@ export function CheckInForm() {
         method: 'POST', headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({
           checkinDate: new Date().toISOString().split('T')[0],
-          overallWellbeing: wellbeing, mood: wellbeing ? wellbeing * 2 : null,
-          energyLevel, sleepHours, sleepQuality,
-          hotFlashSeverity: hotFlashPresent ? 3 : null, hotFlashCount: hotFlashPresent ? 1 : null,
-          nightSweatsCount: nightSweatsPresent ? 1 : null, nightSweatsSeverity: nightSweatsPresent ? 3 : null,
+          ...(wellbeing != null && { overallWellbeing: wellbeing, mood: wellbeing * 2 }),
+          ...(energyLevel != null && { energyLevel }),
+          ...(sleepHours != null && { sleepHours }),
+          ...(sleepQuality != null && { sleepQuality }),
+          ...(hotFlashPresent && { hotFlashSeverity: 3, hotFlashCount: 1 }),
+          ...(nightSweatsPresent && { nightSweatsCount: 1, nightSweatsSeverity: 3 }),
           triggers: allTriggers,
         }),
       })
