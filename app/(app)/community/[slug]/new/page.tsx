@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/db/server'
+import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { notFound, redirect } from 'next/navigation'
 import NewPostClient from '@/components/community/NewPostClient'
 import type { Metadata } from 'next'
@@ -11,10 +11,11 @@ export default async function NewPostPage({ params }: Props) {
   const { slug } = await params
   const supabase = await createSupabaseServerClient()
   const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
 
   const [{ data: category }, { data: myProfile }] = await Promise.all([
     supabase.from('forum_categories').select('id, name').eq('slug', slug).eq('is_active', true).maybeSingle(),
-    supabase.from('community_profiles').select('username').eq('user_id', user!.id).maybeSingle(),
+    supabase.from('community_profiles').select('username').eq('user_id', user.id).maybeSingle(),
   ])
 
   if (!category) notFound()

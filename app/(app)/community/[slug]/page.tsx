@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/db/server'
+import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import type { Metadata } from 'next'
@@ -29,7 +29,9 @@ export default async function CategoryPage({ params }: Props) {
 
   const [{ data: category }, { data: myProfile }] = await Promise.all([
     supabase.from('forum_categories').select('id, name, description').eq('slug', slug).eq('is_active', true).maybeSingle(),
-    supabase.from('community_profiles').select('username').eq('user_id', user!.id).maybeSingle(),
+    user
+      ? supabase.from('community_profiles').select('username').eq('user_id', user.id).maybeSingle()
+      : Promise.resolve({ data: null }),
   ])
 
   if (!category) notFound()
@@ -45,7 +47,6 @@ export default async function CategoryPage({ params }: Props) {
 
   return (
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '28px 16px 100px' }}>
-      {/* Header */}
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 24 }}>
         <div>
           <Link href="/community" style={{ fontSize: 13, color: '#6b9e80', textDecoration: 'none', fontWeight: 600 }}>
@@ -76,14 +77,14 @@ export default async function CategoryPage({ params }: Props) {
             display: 'inline-flex',
             alignItems: 'center',
             gap: 6,
+            minHeight: 44,
           }}>
             + New post
           </Link>
         )}
       </div>
 
-      {/* No profile prompt */}
-      {!myProfile && (
+      {user && !myProfile && (
         <Link href="/community/setup" style={{ textDecoration: 'none', display: 'block', marginBottom: 18 }}>
           <div style={{
             background: '#e8f2ec',
@@ -98,7 +99,6 @@ export default async function CategoryPage({ params }: Props) {
         </Link>
       )}
 
-      {/* Posts list */}
       {(posts ?? []).length === 0 ? (
         <div style={{ textAlign: 'center', padding: '60px 0', color: '#b8a9a0' }}>
           <p style={{ fontSize: 32, marginBottom: 12 }}>💬</p>

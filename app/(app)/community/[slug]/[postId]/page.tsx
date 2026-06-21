@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/db/server'
+import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { notFound } from 'next/navigation'
 import Link from 'next/link'
 import ReplyClient from '@/components/community/ReplyClient'
@@ -6,10 +6,7 @@ import type { Metadata } from 'next'
 
 type Props = { params: Promise<{ slug: string; postId: string }> }
 
-export async function generateMetadata({ params }: Props): Promise<Metadata> {
-  const { postId } = await params
-  return { title: `Post · Community · Vida` }
-}
+export const metadata: Metadata = { title: 'Post · Community · Vida' }
 
 function timeAgo(dateStr: string): string {
   const diff = Date.now() - new Date(dateStr).getTime()
@@ -55,7 +52,9 @@ export default async function PostDetailPage({ params }: Props) {
       .eq('id', postId)
       .eq('is_removed', false)
       .maybeSingle(),
-    supabase.from('community_profiles').select('username').eq('user_id', user!.id).maybeSingle(),
+    user
+      ? supabase.from('community_profiles').select('username').eq('user_id', user.id).maybeSingle()
+      : Promise.resolve({ data: null }),
   ])
 
   if (!post) notFound()
@@ -73,7 +72,6 @@ export default async function PostDetailPage({ params }: Props) {
 
   return (
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '28px 16px 100px' }}>
-      {/* Breadcrumb */}
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, marginBottom: 20 }}>
         <Link href="/community" style={{ color: '#6b9e80', textDecoration: 'none', fontWeight: 600 }}>Community</Link>
         <span style={{ color: '#b8a9a0' }}>›</span>
@@ -82,7 +80,6 @@ export default async function PostDetailPage({ params }: Props) {
         </Link>
       </div>
 
-      {/* Post card */}
       <div style={{
         background: 'rgba(255,255,255,0.82)',
         border: '1.5px solid rgba(237,224,216,0.8)',
@@ -114,7 +111,6 @@ export default async function PostDetailPage({ params }: Props) {
         </p>
       </div>
 
-      {/* Replies */}
       <h2 style={{
         fontFamily: 'var(--font-playfair), Georgia, serif',
         fontSize: 18,
@@ -154,7 +150,6 @@ export default async function PostDetailPage({ params }: Props) {
         </div>
       )}
 
-      {/* Reply form or prompt */}
       {myProfile ? (
         <div style={{
           background: 'rgba(255,255,255,0.82)',
@@ -166,7 +161,7 @@ export default async function PostDetailPage({ params }: Props) {
           <ReplyClient postId={postId} username={myProfile.username} />
         </div>
       ) : (
-        <Link href="/community/setup" style={{ textDecoration: 'none', display: 'block' }}>
+        <Link href={user ? '/community/setup' : '/login'} style={{ textDecoration: 'none', display: 'block' }}>
           <div style={{
             background: '#e8f2ec',
             borderRadius: 16,
@@ -176,7 +171,7 @@ export default async function PostDetailPage({ params }: Props) {
             fontWeight: 500,
             textAlign: 'center',
           }}>
-            🌿 Set up your community profile to reply →
+            {user ? '🌿 Set up your community profile to reply →' : 'Sign in to reply →'}
           </div>
         </Link>
       )}

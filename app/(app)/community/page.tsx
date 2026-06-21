@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/db/server'
+import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import Link from 'next/link'
 import type { Metadata } from 'next'
 
@@ -22,7 +22,9 @@ export default async function CommunityPage() {
   const { data: { user } } = await supabase.auth.getUser()
 
   const [{ data: myProfile }, { data: categories }] = await Promise.all([
-    supabase.from('community_profiles').select('username').eq('user_id', user!.id).maybeSingle(),
+    user
+      ? supabase.from('community_profiles').select('username').eq('user_id', user.id).maybeSingle()
+      : Promise.resolve({ data: null }),
     supabase.from('forum_categories').select('id, name, slug, description, sort_order').eq('is_active', true).order('sort_order'),
   ])
 
@@ -38,7 +40,6 @@ export default async function CommunityPage() {
 
   return (
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '28px 16px 100px' }}>
-      {/* Header */}
       <div style={{ marginBottom: 28 }}>
         <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 28, fontWeight: 700, color: '#3d2c35', margin: 0 }}>
           Community
@@ -48,8 +49,7 @@ export default async function CommunityPage() {
         </p>
       </div>
 
-      {/* Profile setup prompt */}
-      {!myProfile && (
+      {user && !myProfile && (
         <Link href="/community/setup" style={{ textDecoration: 'none', display: 'block', marginBottom: 20 }}>
           <div style={{
             background: 'linear-gradient(135deg, #e8f2ec 0%, #faf0f2 100%)',
@@ -69,7 +69,6 @@ export default async function CommunityPage() {
         </Link>
       )}
 
-      {/* Categories */}
       <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
         {(categories ?? []).map((cat) => (
           <Link key={cat.slug} href={`/community/${cat.slug}`} className="comm-cat-row">

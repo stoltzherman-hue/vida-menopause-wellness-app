@@ -1,4 +1,4 @@
-import { createSupabaseServerClient } from '@/lib/db/server'
+import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { redirect } from 'next/navigation'
 import ProfileSetupClient from '@/components/community/ProfileSetupClient'
 import type { Metadata } from 'next'
@@ -8,11 +8,12 @@ export const metadata: Metadata = { title: 'Community Profile · Vida' }
 export default async function CommunitySetupPage() {
   const supabase = await createSupabaseServerClient()
   const { data: { user } } = await supabase.auth.getUser()
+  if (!user) redirect('/login')
 
   const { data: existing } = await supabase
     .from('community_profiles')
     .select('username')
-    .eq('user_id', user!.id)
+    .eq('user_id', user.id)
     .maybeSingle()
 
   if (existing) redirect('/community')
@@ -20,7 +21,7 @@ export default async function CommunitySetupPage() {
   const { data: userProfile } = await supabase
     .from('user_profiles')
     .select('display_name, menopause_stage')
-    .eq('user_id', user!.id)
+    .eq('user_id', user.id)
     .maybeSingle()
 
   const suggestedName = (userProfile?.display_name ?? '')
