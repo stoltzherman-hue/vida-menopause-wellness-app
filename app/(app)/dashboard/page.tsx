@@ -1,12 +1,17 @@
 import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
-import { Card, CardContent } from '@/components/ui/card'
-import { Badge } from '@/components/ui/badge'
-import { Heart, TrendingUp, Pill, MessageCircle, ArrowRight } from 'lucide-react'
 import Link from 'next/link'
 
-export const metadata: Metadata = { title: 'Dashboard' }
+export const metadata: Metadata = { title: 'Dashboard · Vida' }
+
+const card: React.CSSProperties = {
+  background: 'rgba(255,255,255,0.82)',
+  border: '1.5px solid rgba(237,224,216,0.7)',
+  borderRadius: 22,
+  backdropFilter: 'blur(12px)',
+  padding: '20px 22px',
+}
 
 export default async function DashboardPage() {
   const user = await getUser()
@@ -15,13 +20,18 @@ export default async function DashboardPage() {
   const thirtyDaysAgo = new Date()
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
 
-  const [{ data: checkins }] = await Promise.all([
+  const [{ data: checkins }, { data: profile }] = await Promise.all([
     supabase
       .from('daily_checkins')
       .select('checkin_date, mood, energy_level, sleep_quality, hot_flash_severity')
       .eq('user_id', user!.id)
       .gte('checkin_date', thirtyDaysAgo.toISOString().split('T')[0])
       .order('checkin_date', { ascending: true }),
+    supabase
+      .from('user_profiles')
+      .select('display_name, goals')
+      .eq('user_id', user!.id)
+      .maybeSingle(),
   ])
 
   const list = checkins ?? []
@@ -54,126 +64,175 @@ export default async function DashboardPage() {
 
   const hour = new Date().getHours()
   const greeting = hour < 12 ? 'Good morning' : hour < 17 ? 'Good afternoon' : 'Good evening'
+  const firstName = (profile?.display_name ?? '').split(' ')[0] || null
 
   return (
-    <div className="max-w-2xl mx-auto px-4 py-6 space-y-6">
-      <div>
-        <h1 className="text-2xl font-bold text-[#2d3748]">{greeting}</h1>
-        <p className="text-[#718096] mt-1">
-          {todayLogged ? "Great job logging today's check-in." : 'How are you feeling today?'}
+    <div style={{ maxWidth: 640, margin: '0 auto', padding: '28px 16px 100px' }}>
+
+      {/* Greeting */}
+      <div style={{ marginBottom: 28 }}>
+        <h1 style={{
+          fontFamily: 'var(--font-playfair), Georgia, serif',
+          fontSize: 28,
+          fontWeight: 700,
+          color: '#3d2c35',
+          margin: 0,
+        }}>
+          {greeting}{firstName ? `, ${firstName}` : ''} 🌿
+        </h1>
+        <p style={{ color: '#8a7a72', marginTop: 6, fontSize: 15 }}>
+          {todayLogged ? "You've already logged today — well done!" : "How are you feeling today?"}
         </p>
       </div>
 
+      {/* Check-in CTA or today's snapshot */}
       {!todayLogged ? (
-        <Link href="/check-in">
-          <Card className="border-[#5a8a6b]/20 bg-gradient-to-br from-[#5a8a6b]/5 to-[#c4959e]/5 hover:shadow-md transition-shadow cursor-pointer">
-            <CardContent className="flex items-center gap-4 p-5">
-              <div className="rounded-full bg-[#5a8a6b]/10 p-3">
-                <Heart className="text-[#5a8a6b]" size={24} />
-              </div>
-              <div className="flex-1">
-                <p className="font-semibold text-[#2d3748]">Log today&apos;s check-in</p>
-                <p className="text-sm text-[#718096]">Track how you&apos;re feeling — takes under 2 minutes</p>
-              </div>
-              <ArrowRight size={20} className="text-[#5a8a6b]" />
-            </CardContent>
-          </Card>
+        <Link href="/check-in" style={{ textDecoration: 'none', display: 'block', marginBottom: 16 }}>
+          <div style={{
+            background: 'linear-gradient(135deg, rgba(107,158,128,0.12) 0%, rgba(196,149,158,0.10) 100%)',
+            border: '1.5px solid rgba(107,158,128,0.25)',
+            borderRadius: 22,
+            padding: '22px 24px',
+            display: 'flex',
+            alignItems: 'center',
+            gap: 16,
+            transition: 'transform 0.18s, box-shadow 0.18s',
+          }}>
+            <div style={{
+              width: 52,
+              height: 52,
+              borderRadius: 16,
+              background: 'rgba(107,158,128,0.15)',
+              display: 'flex',
+              alignItems: 'center',
+              justifyContent: 'center',
+              fontSize: 24,
+              flexShrink: 0,
+            }}>🤍</div>
+            <div style={{ flex: 1 }}>
+              <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 16, margin: 0 }}>Log today’s check-in</p>
+              <p style={{ color: '#8a7a72', fontSize: 14, marginTop: 3 }}>Track how you’re feeling — takes under 2 minutes</p>
+            </div>
+            <span style={{ fontSize: 20, color: '#6b9e80' }}>→</span>
+          </div>
         </Link>
       ) : latestCheckin ? (
-        <Card className="border-[#5a8a6b]/20 bg-gradient-to-br from-[#5a8a6b]/5 to-[#c4959e]/5">
-          <CardContent className="p-5">
-            <div className="flex items-center gap-2 mb-3">
-              <span className="text-lg">🌿</span>
-              <p className="font-semibold text-[#2d3748]">Today&apos;s snapshot</p>
-            </div>
-            <div className="grid grid-cols-4 gap-3">
-              {[
-                { label: 'Mood', value: latestCheckin.mood, color: '#5a8a6b' },
-                { label: 'Energy', value: latestCheckin.energy_level, color: '#c47a5a' },
-                { label: 'Sleep', value: latestCheckin.sleep_quality, color: '#c4959e' },
-                { label: 'Hot flash', value: latestCheckin.hot_flash_severity, color: '#e07a5f' },
-              ].map(({ label, value, color }) => (
-                <div key={label} className="text-center">
-                  <p className="text-xl font-bold" style={{ color }}>
-                    {value ?? '—'}
-                  </p>
-                  <p className="text-xs text-[#718096]">{label}</p>
-                </div>
-              ))}
-            </div>
-          </CardContent>
-        </Card>
+        <div style={{ ...card, marginBottom: 16 }}>
+          <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
+            <span style={{ fontSize: 20 }}>🌿</span>
+            <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 15, margin: 0 }}>Today’s snapshot</p>
+          </div>
+          <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
+            {[
+              { label: 'Mood', value: latestCheckin.mood, color: '#6b9e80' },
+              { label: 'Energy', value: latestCheckin.energy_level, color: '#c47a5a' },
+              { label: 'Sleep', value: latestCheckin.sleep_quality, color: '#c4959e' },
+              { label: 'Hot flash', value: latestCheckin.hot_flash_severity, color: '#b8a9c9' },
+            ].map(({ label, value, color }) => (
+              <div key={label} style={{ textAlign: 'center', background: 'rgba(253,248,244,0.8)', borderRadius: 14, padding: '12px 8px' }}>
+                <p style={{ fontSize: 22, fontWeight: 800, color, margin: 0 }}>{value ?? '—'}</p>
+                <p style={{ fontSize: 11, color: '#8a7a72', marginTop: 4 }}>{label}</p>
+              </div>
+            ))}
+          </div>
+        </div>
       ) : null}
 
-      <div className="grid grid-cols-2 gap-3">
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-3xl font-bold text-[#5a8a6b]">{streak || '—'}</p>
-            <p className="text-xs text-[#718096] mt-1">Day streak</p>
-          </CardContent>
-        </Card>
-        <Card>
-          <CardContent className="p-4 text-center">
-            <p className="text-3xl font-bold text-[#c47a5a]">{monthCount || '—'}</p>
-            <p className="text-xs text-[#718096] mt-1">Check-ins this month</p>
-          </CardContent>
-        </Card>
+      {/* Stats strip */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
+        <div style={{ ...card, textAlign: 'center' }}>
+          <p style={{ fontSize: 36, fontWeight: 800, color: '#6b9e80', margin: 0, fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+            {streak || '—'}
+          </p>
+          <p style={{ fontSize: 12, color: '#8a7a72', marginTop: 4 }}>Day streak 🔥</p>
+        </div>
+        <div style={{ ...card, textAlign: 'center' }}>
+          <p style={{ fontSize: 36, fontWeight: 800, color: '#c47a5a', margin: 0, fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+            {monthCount || '—'}
+          </p>
+          <p style={{ fontSize: 12, color: '#8a7a72', marginTop: 4 }}>Check-ins this month</p>
+        </div>
       </div>
 
-      <div className="space-y-3">
-        <Link href="/tracker">
-          <Card className="hover:shadow-sm transition-shadow cursor-pointer">
-            <CardContent className="flex items-center gap-4 p-4">
-              <div className="rounded-full bg-[#c47a5a]/10 p-3">
-                <TrendingUp size={20} className="text-[#c47a5a]" />
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-[#2d3748]">Symptom tracker</p>
-                <p className="text-sm text-[#718096]">
-                  {list.length > 0 ? `${list.length} entries — view trends and patterns` : 'View trends and patterns'}
-                </p>
-              </div>
-              <ArrowRight size={16} className="text-[#718096]" />
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/medication">
-          <Card className="hover:shadow-sm transition-shadow cursor-pointer">
-            <CardContent className="flex items-center gap-4 p-4">
-              <div className="rounded-full bg-[#c4959e]/10 p-3">
-                <Pill size={20} className="text-[#c4959e]" />
-              </div>
-              <div className="flex-1">
-                <p className="font-medium text-[#2d3748]">Medications & HRT</p>
-                <p className="text-sm text-[#718096]">Manage and track adherence</p>
-              </div>
-              <ArrowRight size={16} className="text-[#718096]" />
-            </CardContent>
-          </Card>
-        </Link>
-
-        <Link href="/companion">
-          <Card className="hover:shadow-sm transition-shadow cursor-pointer">
-            <CardContent className="flex items-center gap-4 p-4">
-              <div className="rounded-full bg-[#5a8a6b]/10 p-3">
-                <MessageCircle size={20} className="text-[#5a8a6b]" />
-              </div>
-              <div className="flex-1">
-                <div className="flex items-center gap-2">
-                  <p className="font-medium text-[#2d3748]">AI Companion</p>
-                  <Badge variant="secondary" className="text-[10px] py-0">Premium</Badge>
+      {/* Feature links */}
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+        {[
+          {
+            href: '/tracker',
+            emoji: '📈',
+            bg: 'rgba(196,122,90,0.10)',
+            title: 'Symptom tracker',
+            desc: list.length > 0 ? `${list.length} entries — view trends and patterns` : 'View trends and patterns',
+          },
+          {
+            href: '/medication',
+            emoji: '💊',
+            bg: 'rgba(196,149,158,0.10)',
+            title: 'Medications & HRT',
+            desc: 'Manage and track adherence',
+          },
+          {
+            href: '/companion',
+            emoji: '💬',
+            bg: 'rgba(184,169,201,0.12)',
+            title: 'AI Companion',
+            desc: 'Your personal wellness coach',
+            badge: 'Premium',
+          },
+          {
+            href: '/community',
+            emoji: '👥',
+            bg: 'rgba(107,158,128,0.10)',
+            title: 'Community',
+            desc: 'Connect with women who get it',
+          },
+        ].map(({ href, emoji, bg, title, desc, badge }) => (
+          <Link key={href} href={href} style={{ textDecoration: 'none' }}>
+            <div style={{
+              ...card,
+              display: 'flex',
+              alignItems: 'center',
+              gap: 16,
+              transition: 'transform 0.18s, box-shadow 0.18s',
+              cursor: 'pointer',
+            }} className="comm-cat-row">
+              <div style={{
+                width: 46,
+                height: 46,
+                borderRadius: 14,
+                background: bg,
+                display: 'flex',
+                alignItems: 'center',
+                justifyContent: 'center',
+                fontSize: 22,
+                flexShrink: 0,
+              }}>{emoji}</div>
+              <div style={{ flex: 1 }}>
+                <div style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <p style={{ fontWeight: 600, color: '#3d2c35', fontSize: 15, margin: 0 }}>{title}</p>
+                  {badge && (
+                    <span style={{
+                      fontSize: 10,
+                      fontWeight: 700,
+                      color: '#c9a96e',
+                      background: 'rgba(201,169,110,0.12)',
+                      border: '1px solid rgba(201,169,110,0.3)',
+                      borderRadius: 8,
+                      padding: '2px 7px',
+                      letterSpacing: '0.03em',
+                    }}>PREMIUM</span>
+                  )}
                 </div>
-                <p className="text-sm text-[#718096]">Your personal wellness coach</p>
+                <p style={{ color: '#8a7a72', fontSize: 13, marginTop: 3 }}>{desc}</p>
               </div>
-              <ArrowRight size={16} className="text-[#718096]" />
-            </CardContent>
-          </Card>
-        </Link>
+              <span style={{ fontSize: 18, color: '#b8a9a0' }}>›</span>
+            </div>
+          </Link>
+        ))}
       </div>
 
-      <p className="text-xs text-[#a0aec0] text-center px-4">
-        Vida provides educational support only. Always discuss medical decisions with your healthcare provider.
+      <p style={{ textAlign: 'center', fontSize: 12, color: '#c8bdb8', marginTop: 32, lineHeight: 1.6 }}>
+        Vida provides educational support only.<br />Always discuss medical decisions with your healthcare provider.
       </p>
     </div>
   )
