@@ -1,6 +1,6 @@
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { redirect } from 'next/navigation'
-import ProfileSetupClient from '@/components/community/ProfileSetupClient'
+import { ProfileSetupClient } from '@/components/community/ProfileSetupClient'
 import type { Metadata } from 'next'
 
 export const metadata: Metadata = { title: 'Community Profile · Vida' }

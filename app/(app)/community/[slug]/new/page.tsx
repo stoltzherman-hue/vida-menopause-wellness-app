@@ -1,6 +1,6 @@
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { notFound, redirect } from 'next/navigation'
-import NewPostClient from '@/components/community/NewPostClient'
+import { NewPostClient } from '@/components/community/NewPostClient'
 import type { Metadata } from 'next'
 
 type Props = { params: Promise<{ slug: string }> }
