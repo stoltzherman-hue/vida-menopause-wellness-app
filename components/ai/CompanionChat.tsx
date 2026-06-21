@@ -80,7 +80,20 @@ export function CompanionChat({
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ message: text, conversationId, mode }),
       })
+
       const json = await res.json()
+
+      if (!res.ok) {
+        // API returned an error — show a helpful message
+        const msg = res.status === 503
+          ? "I can't connect right now. Make sure ANTHROPIC_API_KEY is set in your Vercel environment variables, then redeploy."
+          : res.status === 401
+          ? "You need to be signed in to chat."
+          : json.error?.message ?? "Something went wrong. Please try again."
+        setMessages((prev) => [...prev, { role: 'assistant', content: msg }])
+        return
+      }
+
       if (json.data) {
         if (json.data.conversationId) setConversationId(json.data.conversationId)
         setMessages((prev) => [
@@ -91,7 +104,7 @@ export function CompanionChat({
     } catch {
       setMessages((prev) => [
         ...prev,
-        { role: 'assistant', content: "I'm sorry, I couldn't connect right now. Please try again." },
+        { role: 'assistant', content: "I couldn't connect. Please check your internet connection and try again." },
       ])
     } finally {
       setLoading(false)
@@ -101,37 +114,30 @@ export function CompanionChat({
   return (
     <div style={{ display: 'flex', flexDirection: 'column', flex: 1, minHeight: 0 }}>
       {/* Mode selector */}
-      <div style={{ paddingBottom: 12, borderBottom: '1px solid #e2d9d0', marginBottom: 12 }}>
+      <div style={{ paddingBottom: 12, borderBottom: '1px solid rgba(237,224,216,0.7)', marginBottom: 12 }}>
         <ModeSelector value={mode} onChange={handleModeChange} disabled={loading} />
       </div>
 
       {/* Messages */}
       <div style={{ flex: 1, overflowY: 'auto', display: 'flex', flexDirection: 'column', gap: 12, paddingBottom: 16 }}>
         {messages.map((msg, i) => (
-          <div
-            key={i}
-            style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}
-          >
-            <div
-              style={{
-                maxWidth: '85%',
-                borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
-                padding: '10px 16px',
-                fontSize: 14,
-                lineHeight: 1.6,
-                fontFamily: 'DM Sans, sans-serif',
-                background: msg.role === 'user'
-                  ? 'linear-gradient(135deg,#6b9e80,#5a8a6b)'
-                  : msg.flagged
-                  ? '#fff5f5'
-                  : 'rgba(255,255,255,0.9)',
-                color: msg.role === 'user' ? '#fff' : msg.flagged ? '#9b2c2c' : '#2d3748',
-                border: msg.role === 'user' ? 'none' : msg.flagged ? '1px solid #feb2b2' : '1px solid #e2d9d0',
-                boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-              }}
-            >
+          <div key={i} style={{ display: 'flex', justifyContent: msg.role === 'user' ? 'flex-end' : 'flex-start' }}>
+            <div style={{
+              maxWidth: '85%',
+              borderRadius: msg.role === 'user' ? '18px 18px 4px 18px' : '18px 18px 18px 4px',
+              padding: '11px 16px',
+              fontSize: 14,
+              lineHeight: 1.65,
+              fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              background: msg.role === 'user'
+                ? 'linear-gradient(135deg,#6b9e80,#4a7a5b)'
+                : msg.flagged ? '#fff5f5' : 'rgba(255,255,255,0.92)',
+              color: msg.role === 'user' ? '#fff' : msg.flagged ? '#9b2c2c' : '#2d3748',
+              border: msg.role === 'user' ? 'none' : msg.flagged ? '1px solid #feb2b2' : '1px solid rgba(237,224,216,0.8)',
+              boxShadow: '0 1px 4px rgba(0,0,0,0.07)',
+            }}>
               {msg.flagged && (
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#c53030', marginBottom: 4 }}>⚠️ Important safety information</p>
+                <p style={{ fontSize: 12, fontWeight: 700, color: '#c53030', marginBottom: 4, margin: '0 0 4px' }}>⚠️ Important safety information</p>
               )}
               {msg.content}
             </div>
@@ -140,111 +146,73 @@ export function CompanionChat({
 
         {loading && (
           <div style={{ display: 'flex', justifyContent: 'flex-start' }}>
-            <div style={{
-              background: 'rgba(255,255,255,0.9)',
-              border: '1px solid #e2d9d0',
-              borderRadius: '18px 18px 18px 4px',
-              padding: '10px 16px',
-              boxShadow: '0 1px 3px rgba(0,0,0,0.06)',
-            }}>
-              <div style={{ display: 'flex', gap: 6 }}>
+            <div style={{ background: 'rgba(255,255,255,0.92)', border: '1px solid rgba(237,224,216,0.8)', borderRadius: '18px 18px 18px 4px', padding: '12px 18px', boxShadow: '0 1px 4px rgba(0,0,0,0.07)' }}>
+              <div style={{ display: 'flex', gap: 5, alignItems: 'center' }}>
                 {[0, 1, 2].map((i) => (
-                  <span
-                    key={i}
-                    style={{
-                      width: 8,
-                      height: 8,
-                      background: '#6b9e80',
-                      borderRadius: '50%',
-                      display: 'inline-block',
-                      animation: 'bounce 1s infinite',
-                      animationDelay: `${i * 0.15}s`,
-                    }}
-                  />
+                  <span key={i} style={{
+                    width: 8, height: 8,
+                    background: '#6b9e80',
+                    borderRadius: '50%',
+                    display: 'inline-block',
+                    animation: 'bounce 1.1s infinite ease-in-out',
+                    animationDelay: `${i * 0.18}s`,
+                  }} />
                 ))}
               </div>
             </div>
           </div>
         )}
-
         <div ref={bottomRef} />
       </div>
 
       {/* Free limit gate */}
       {hitLimit && (
-        <div style={{
-          marginBottom: 12,
-          borderRadius: 12,
-          border: '1px solid rgba(196,122,90,0.3)',
-          background: 'rgba(196,122,90,0.05)',
-          padding: '12px 16px',
-          textAlign: 'center',
-          fontFamily: 'DM Sans, sans-serif',
-        }}>
-          <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8, fontWeight: 600, color: '#2d3748', fontSize: 14 }}>
-            🔒 Free message limit reached
-          </div>
-          <p style={{ fontSize: 12, color: '#718096', marginTop: 4 }}>
-            Upgrade to Premium for unlimited conversations and AI memory.
-          </p>
-          <a
-            href="/settings"
-            style={{ display: 'inline-block', marginTop: 6, fontSize: 12, fontWeight: 600, color: '#6b9e80', textDecoration: 'underline' }}
-          >
-            View Premium →
-          </a>
+        <div style={{ marginBottom: 12, borderRadius: 14, border: '1px solid rgba(196,122,90,0.28)', background: 'rgba(196,122,90,0.05)', padding: '14px 18px', textAlign: 'center', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+          <p style={{ fontWeight: 700, color: '#2d3748', fontSize: 14, margin: '0 0 4px' }}>🔒 Free message limit reached</p>
+          <p style={{ fontSize: 13, color: '#718096', margin: '0 0 8px' }}>Upgrade to Premium for unlimited conversations.</p>
+          <a href="/settings" style={{ fontSize: 13, fontWeight: 700, color: '#6b9e80' }}>View Premium →</a>
         </div>
       )}
 
-      {/* Free message counter */}
       {!isPremium && !hitLimit && userMessageCount > 0 && (
-        <p style={{ fontSize: 12, color: '#a0aec0', textAlign: 'center', marginBottom: 8, fontFamily: 'DM Sans, sans-serif' }}>
+        <p style={{ fontSize: 12, color: '#a0aec0', textAlign: 'center', marginBottom: 8, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
           {freeMessageLimit - userMessageCount} free message{freeMessageLimit - userMessageCount !== 1 ? 's' : ''} remaining
         </p>
       )}
 
       {/* Input */}
-      <form onSubmit={handleSend} style={{ display: 'flex', gap: 10, paddingTop: 12, borderTop: '1px solid #e2d9d0' }}>
+      <form onSubmit={handleSend} style={{ display: 'flex', gap: 10, paddingTop: 12, borderTop: '1px solid rgba(237,224,216,0.7)' }}>
         <input
           value={input}
           onChange={(e) => setInput(e.target.value)}
           placeholder={hitLimit ? 'Upgrade to continue…' : "Share what's on your mind…"}
           disabled={loading || hitLimit}
           style={{
-            flex: 1,
-            padding: '10px 16px',
-            borderRadius: 999,
-            border: '1.5px solid #e2d9d0',
-            background: 'rgba(255,255,255,0.8)',
-            fontSize: 14,
-            fontFamily: 'DM Sans, sans-serif',
-            color: '#2d3748',
-            outline: 'none',
+            flex: 1, padding: '11px 18px', borderRadius: 999,
+            border: '1.5px solid rgba(237,224,216,0.9)',
+            background: 'rgba(255,255,255,0.85)',
+            fontSize: 14, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+            color: '#2d3748', outline: 'none',
           }}
         />
         <button
           type="submit"
           disabled={loading || !input.trim() || hitLimit}
           style={{
-            width: 44,
-            height: 44,
-            borderRadius: '50%',
-            border: 'none',
-            background: loading || !input.trim() || hitLimit ? '#e2d9d0' : 'linear-gradient(135deg,#6b9e80,#5a8a6b)',
+            width: 46, height: 46, borderRadius: '50%', border: 'none', flexShrink: 0,
+            background: loading || !input.trim() || hitLimit
+              ? '#e2d9d0'
+              : 'linear-gradient(135deg,#6b9e80,#4a7a5b)',
             color: '#fff',
             cursor: loading || !input.trim() || hitLimit ? 'not-allowed' : 'pointer',
             fontSize: 18,
-            display: 'flex',
-            alignItems: 'center',
-            justifyContent: 'center',
-            flexShrink: 0,
+            display: 'flex', alignItems: 'center', justifyContent: 'center',
+            boxShadow: loading || !input.trim() || hitLimit ? 'none' : '0 3px 12px rgba(107,158,128,0.4)',
           }}
-        >
-          ➤
-        </button>
+        >➤</button>
       </form>
 
-      <p style={{ fontSize: 11, color: '#a0aec0', textAlign: 'center', marginTop: 8, fontFamily: 'DM Sans, sans-serif' }}>
+      <p style={{ fontSize: 11, color: '#a0aec0', textAlign: 'center', marginTop: 8, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
         Educational support only — not medical advice
       </p>
     </div>
