@@ -133,13 +133,8 @@ export const aiMessageSchema = z.object({
   message: z.string().min(1).max(4000),
   mode: z.enum([
     'supportive_friend',
-    'symptom_coach',
-    'sleep_winddown',
+    'wellness_coach',
     'doctor_prep',
-    'hrt_questions',
-    'work_relationship_prep',
-    'lifestyle_planner',
-    'community_guide',
   ]).optional(),
 })
 
