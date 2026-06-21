@@ -77,14 +77,42 @@ async function openAiChat(messages: AiMessage[], options: ChatOptions = {}): Pro
   }
 }
 
+// ─── Gemini provider ───────────────────────────────────────────────────────────
+
+async function geminiChat(messages: AiMessage[], options: ChatOptions = {}): Promise<AiResponse> {
+  const { GoogleGenerativeAI } = await import('@google/generative-ai')
+  const client = new GoogleGenerativeAI(process.env.GEMINI_API_KEY ?? '')
+
+  const model = client.getGenerativeModel({
+    model: 'gemini-2.0-flash',
+    systemInstruction: options.systemPrompt,
+  })
+
+  const history = messages.slice(0, -1).map((m) => ({
+    role: m.role === 'assistant' ? 'model' : 'user',
+    parts: [{ text: m.content }],
+  }))
+
+  const lastMessage = messages[messages.length - 1]
+  const chat = model.startChat({ history })
+  const result = await chat.sendMessage(lastMessage?.content ?? '')
+  const text = result.response.text()
+  const usage = result.response.usageMetadata
+
+  return {
+    content: text,
+    model: 'gemini-2.0-flash',
+    inputTokens: usage?.promptTokenCount ?? 0,
+    outputTokens: usage?.candidatesTokenCount ?? 0,
+  }
+}
+
 // ─── Factory ───────────────────────────────────────────────────────────────────
 
 export function getAiProvider(): AiProvider {
-  const provider = process.env.AI_PROVIDER ?? 'anthropic'
+  const provider = process.env.AI_PROVIDER ?? 'gemini'
 
-  if (provider === 'openai') {
-    return { chat: openAiChat }
-  }
-
-  return { chat: anthropicChat }
+  if (provider === 'openai') return { chat: openAiChat }
+  if (provider === 'anthropic') return { chat: anthropicChat }
+  return { chat: geminiChat }
 }

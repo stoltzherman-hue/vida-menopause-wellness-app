@@ -32,6 +32,7 @@ const section: React.CSSProperties = {
   border: '1.5px solid rgba(237,224,216,0.7)',
   borderRadius: 20,
   backdropFilter: 'blur(12px)',
+  WebkitBackdropFilter: 'blur(12px)',
   padding: '18px 20px',
 }
 
@@ -49,6 +50,7 @@ export function CheckInForm() {
   const [triggers, setTriggers] = useState<string[]>([])
   const [saving, setSaving] = useState(false)
   const [saved, setSaved] = useState(false)
+  const [error, setError] = useState<string | null>(null)
 
   function toggleTrigger(t: string) {
     setTriggers((prev) => prev.includes(t) ? prev.filter((x) => x !== t) : [...prev, t])
@@ -57,13 +59,21 @@ export function CheckInForm() {
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setSaving(true)
+    setError(null)
     try {
       const res = await fetch('/api/checkins', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify({ checkinDate: new Date().toISOString().split('T')[0], mood, energyLevel: energy, sleepHours, sleepQuality, hotFlashSeverity: hotFlash, triggers }),
       })
-      if (res.ok) setSaved(true)
+      if (res.ok) {
+        setSaved(true)
+      } else {
+        const json = await res.json().catch(() => ({}))
+        setError(json?.error?.message ?? `Something went wrong (${res.status}). Please try again.`)
+      }
+    } catch {
+      setError('Network error — please check your connection and try again.')
     } finally {
       setSaving(false)
     }
@@ -157,6 +167,12 @@ export function CheckInForm() {
           ))}
         </div>
       </div>
+
+      {error && (
+        <div style={{ background: 'rgba(201,82,82,0.07)', border: '1px solid rgba(201,82,82,0.25)', borderRadius: 12, padding: '12px 16px', fontSize: 14, color: '#c0392b', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+          {error}
+        </div>
+      )}
 
       <button
         type="submit"

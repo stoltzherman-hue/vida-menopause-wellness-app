@@ -6,11 +6,21 @@ import Link from 'next/link'
 export const metadata: Metadata = { title: 'Dashboard · Vida' }
 
 const card: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.82)',
-  border: '1.5px solid rgba(237,224,216,0.7)',
+  background: 'rgba(255,255,255,0.55)',
+  border: '1.5px solid rgba(237,224,216,0.6)',
   borderRadius: 22,
-  backdropFilter: 'blur(12px)',
+  backdropFilter: 'blur(14px)',
+  WebkitBackdropFilter: 'blur(14px)',
   padding: '20px 22px',
+}
+
+const clickCard: React.CSSProperties = {
+  ...card,
+  display: 'flex',
+  alignItems: 'center',
+  gap: 16,
+  cursor: 'pointer',
+  transition: 'transform 0.18s ease, box-shadow 0.18s ease, background 0.18s ease',
 }
 
 export default async function DashboardPage() {
@@ -89,14 +99,10 @@ export default async function DashboardPage() {
       {!todayLogged ? (
         <Link href="/check-in" style={{ textDecoration: 'none', display: 'block', marginBottom: 16 }}>
           <div style={{
-            background: 'linear-gradient(135deg, rgba(107,158,128,0.12) 0%, rgba(196,149,158,0.10) 100%)',
-            border: '1.5px solid rgba(107,158,128,0.25)',
-            borderRadius: 22,
+            ...clickCard,
+            background: 'rgba(255,255,255,0.55)',
+            border: '1.5px solid rgba(107,158,128,0.22)',
             padding: '22px 24px',
-            display: 'flex',
-            alignItems: 'center',
-            gap: 16,
-            transition: 'transform 0.18s, box-shadow 0.18s',
           }}>
             <div style={{
               width: 52,
@@ -110,8 +116,8 @@ export default async function DashboardPage() {
               flexShrink: 0,
             }}>🤍</div>
             <div style={{ flex: 1 }}>
-              <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 16, margin: 0 }}>Log today’s check-in</p>
-              <p style={{ color: '#8a7a72', fontSize: 14, marginTop: 3 }}>Track how you’re feeling — takes under 2 minutes</p>
+              <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 16, margin: 0 }}>Log today's check-in</p>
+              <p style={{ color: '#8a7a72', fontSize: 14, marginTop: 3 }}>Track how you're feeling — takes under 2 minutes</p>
             </div>
             <span style={{ fontSize: 20, color: '#6b9e80' }}>→</span>
           </div>
@@ -120,7 +126,7 @@ export default async function DashboardPage() {
         <div style={{ ...card, marginBottom: 16 }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 16 }}>
             <span style={{ fontSize: 20 }}>🌿</span>
-            <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 15, margin: 0 }}>Today’s snapshot</p>
+            <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 15, margin: 0 }}>Today's snapshot</p>
           </div>
           <div style={{ display: 'grid', gridTemplateColumns: 'repeat(4, 1fr)', gap: 12 }}>
             {[
@@ -140,13 +146,13 @@ export default async function DashboardPage() {
 
       {/* Stats strip */}
       <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 12, marginBottom: 16 }}>
-        <div style={{ ...card, textAlign: 'center' }}>
+        <div style={{ ...card, textAlign: 'center', padding: '20px 16px' }}>
           <p style={{ fontSize: 36, fontWeight: 800, color: '#6b9e80', margin: 0, fontFamily: 'var(--font-playfair), Georgia, serif' }}>
             {streak || '—'}
           </p>
           <p style={{ fontSize: 12, color: '#8a7a72', marginTop: 4 }}>Day streak 🔥</p>
         </div>
-        <div style={{ ...card, textAlign: 'center' }}>
+        <div style={{ ...card, textAlign: 'center', padding: '20px 16px' }}>
           <p style={{ fontSize: 36, fontWeight: 800, color: '#c47a5a', margin: 0, fontFamily: 'var(--font-playfair), Georgia, serif' }}>
             {monthCount || '—'}
           </p>
@@ -188,14 +194,7 @@ export default async function DashboardPage() {
           },
         ].map(({ href, emoji, bg, title, desc, badge }) => (
           <Link key={href} href={href} style={{ textDecoration: 'none' }}>
-            <div style={{
-              ...card,
-              display: 'flex',
-              alignItems: 'center',
-              gap: 16,
-              transition: 'transform 0.18s, box-shadow 0.18s',
-              cursor: 'pointer',
-            }} className="comm-cat-row">
+            <div style={clickCard} className="dash-card-hover">
               <div style={{
                 width: 46,
                 height: 46,
