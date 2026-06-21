@@ -3,10 +3,8 @@ import { useState } from 'react'
 import { createBrowserClient } from '@/lib/db/client'
 import { loginSchema } from '@/lib/validations'
 import Link from 'next/link'
-import { useRouter } from 'next/navigation'
 
 export default function LoginPage() {
-  const router = useRouter()
   const [email, setEmail] = useState('')
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
@@ -20,17 +18,17 @@ export default function LoginPage() {
     setLoading(true)
     const supabase = createBrowserClient()
     const { error: authError } = await supabase.auth.signInWithPassword(parsed.data)
-    setLoading(false)
     if (authError) {
-      if (authError.message.toLowerCase().includes('email') && authError.message.toLowerCase().includes('confirm')) {
-        setError('Please confirm your email first. Check your inbox for the confirmation link.')
+      setLoading(false)
+      if (authError.message.toLowerCase().includes('confirm')) {
+        setError('Please confirm your email first — check your inbox for the confirmation link.')
       } else {
         setError(authError.message || 'Invalid email or password')
       }
       return
     }
-    router.push('/dashboard')
-    router.refresh()
+    // Full page navigation so proxy.ts reads the fresh session cookie
+    window.location.href = '/dashboard'
   }
 
   return (
