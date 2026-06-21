@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'

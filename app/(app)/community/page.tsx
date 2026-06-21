@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import Link from 'next/link'
 import type { Metadata } from 'next'

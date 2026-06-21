@@ -1,3 +1,4 @@
+export const dynamic = 'force-dynamic'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { redirect } from 'next/navigation'
 import { ProfileSetupClient } from '@/components/community/ProfileSetupClient'

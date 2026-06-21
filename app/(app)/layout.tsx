@@ -1,3 +1,5 @@
+export const dynamic = 'force-dynamic'
+
 import { AppShell } from '@/components/layout/AppShell'
 import { redirect } from 'next/navigation'
 import { getUser } from '@/lib/auth/session'
