@@ -2,13 +2,16 @@ import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import webpush from 'web-push'
 
-webpush.setVapidDetails(
-  'mailto:hello@vida.health',
-  process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY ?? '',
-  process.env.VAPID_PRIVATE_KEY ?? ''
-)
+function initWebPush() {
+  const pub = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
+  const priv = process.env.VAPID_PRIVATE_KEY
+  if (pub && priv) {
+    webpush.setVapidDetails('mailto:hello@vida.health', pub, priv)
+  }
+}
 
 export async function POST(req: NextRequest) {
+  initWebPush()
   // Cron secret check — only Vercel Cron or internal calls allowed
   const authHeader = req.headers.get('authorization')
   if (authHeader !== `Bearer ${process.env.CRON_SECRET}`) {
