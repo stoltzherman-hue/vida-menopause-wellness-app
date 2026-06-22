@@ -128,7 +128,7 @@ export default function SettingsPage() {
 
       {/* App info */}
       <p style={{ textAlign: 'center', fontSize: 12, color: '#c8bdb8', marginTop: 32 }}>
-        Vida v1.0 · Made with care for women everywhere
+        Vida v1.1 · Made with care for women everywhere
       </p>
     </div>
   )
