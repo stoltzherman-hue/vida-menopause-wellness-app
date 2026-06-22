@@ -80,7 +80,7 @@ export default async function CompanionPage() {
           { label: '🎯 Wellness coach', active: initialMode === 'wellness_coach' },
           { label: '🩺 Doctor prep', active: initialMode === 'doctor_prep' },
         ].map(({ label, active }) => (
-          <button
+          <span
             key={label}
             style={{
               background: active ? 'rgba(45,139,122,0.1)' : 'rgba(255,255,255,0.5)',
@@ -89,9 +89,9 @@ export default async function CompanionPage() {
               borderRadius: 9999, padding: '8px 16px',
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
               fontSize: 13, fontWeight: active ? 600 : 400,
-              cursor: 'pointer', transition: 'all 0.2s',
+              display: 'inline-block',
             }}
-          >{label}</button>
+          >{label}</span>
         ))}
       </div>
 
