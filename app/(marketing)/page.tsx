@@ -59,6 +59,19 @@ export default function MarketingHomePage() {
         <div style={{ position: 'absolute', bottom: '-15%', right: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(196,149,158,0.07) 0%, transparent 70%)' }} />
       </div>
 
+      {/* Portrait watermark — fixed ambient layer, matches app screens */}
+      <div style={{
+        position: 'fixed', top: 0, right: 0,
+        width: '52%', height: '100%',
+        overflow: 'hidden', pointerEvents: 'none', zIndex: 0,
+        opacity: 0.08,
+        maskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+      }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+      </div>
+
       {/* ── Navigation ── */}
       <header style={{ position: 'sticky', top: 0, zIndex: 50, ...glass, borderLeft: 'none', borderRight: 'none', borderTop: 'none' }}>
         <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 32px', height: 64, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
@@ -112,19 +125,6 @@ export default function MarketingHomePage() {
         </p>
         </div>
 
-        {/* Right — woman portrait */}
-        <div className="hero-visual-col">
-          <div style={{ position: 'relative', width: 300, height: 460 }}>
-            <div style={{ position: 'absolute', inset: '-20%', borderRadius: '50%', background: 'radial-gradient(ellipse at 50% 60%, rgba(139,109,181,0.2) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-            <div style={{
-              position: 'relative', zIndex: 1, width: '100%', height: '100%', overflow: 'hidden',
-              maskImage: 'radial-gradient(ellipse 85% 88% at 58% 42%, black 25%, transparent 72%)',
-              WebkitMaskImage: 'radial-gradient(ellipse 85% 88% at 58% 42%, black 25%, transparent 72%)',
-            }}>
-              <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', filter: 'grayscale(1) brightness(0.82)' }} />
-            </div>
-          </div>
-        </div>
       </section>
 
       {/* ── Stats strip ── */}
