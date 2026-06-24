@@ -14,15 +14,15 @@ interface Props {
 const PERIOD_STATUSES = new Set(['spotting', 'light', 'normal', 'heavy'])
 
 const PERIOD_COLORS: Record<string, string> = {
-  spotting: '#fce7f0',
-  light: '#f9a8c9',
-  normal: '#f472b6',
-  heavy: '#be185d',
+  spotting: 'rgba(196,149,158,0.3)',
+  light: 'rgba(196,149,158,0.55)',
+  normal: 'rgba(196,149,158,0.8)',
+  heavy: '#c4959e',
 }
 
 const PERIOD_TEXT_COLORS: Record<string, string> = {
-  spotting: '#9d174d',
-  light: '#831843',
+  spotting: 'rgba(255,255,255,0.82)',
+  light: 'rgba(255,255,255,0.82)',
   normal: '#ffffff',
   heavy: '#ffffff',
 }
@@ -140,8 +140,8 @@ export function CycleCalendar({ checkins }: Props) {
       {/* Phase indicator */}
       {cycleDay && (
         <div style={{
-          background: 'linear-gradient(135deg, rgba(196,149,158,0.12), rgba(107,158,128,0.10))',
-          border: '1.5px solid rgba(196,149,158,0.25)',
+          background: 'rgba(155,124,200,0.06)',
+          border: '1px solid rgba(155,124,200,0.15)',
           borderRadius: 18,
           padding: '16px 20px',
           marginBottom: 20,
@@ -149,12 +149,15 @@ export function CycleCalendar({ checkins }: Props) {
           alignItems: 'center',
           gap: 14,
         }}>
-          <span style={{ fontSize: 32 }}>🌸</span>
+          <div style={{
+            width: 32, height: 32, borderRadius: '50%', flexShrink: 0,
+            background: 'rgba(196,149,158,0.2)', border: '1px solid rgba(196,149,158,0.35)',
+          }} />
           <div>
-            <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 16, margin: 0 }}>
+            <p style={{ fontWeight: 300, color: 'rgba(255,255,255,0.88)', fontSize: 16, margin: 0 }}>
               Estimated cycle day {cycleDay} of {cycleLength}
             </p>
-            <p style={{ fontSize: 13, color: '#8a7a72', margin: '2px 0 0' }}>
+            <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: '2px 0 0' }}>
               Average cycle length: {avgCycleLength} days · Your data suggests patterns
             </p>
           </div>
@@ -163,20 +166,20 @@ export function CycleCalendar({ checkins }: Props) {
 
       {/* Calendar card */}
       <div style={{
-        background: 'rgba(255,255,255,0.82)',
-        border: '1.5px solid rgba(237,224,216,0.7)',
+        background: 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.09)',
         borderRadius: 24,
         padding: '20px',
-        backdropFilter: 'blur(12px)',
+        backdropFilter: 'blur(24px)',
       }}>
         {/* Month navigation */}
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 18 }}>
           <button
             onClick={prevMonth}
             style={{
-              width: 40, height: 40, borderRadius: 12, border: '1.5px solid rgba(237,224,216,0.8)',
-              background: 'rgba(255,255,255,0.7)', cursor: 'pointer', display: 'flex',
-              alignItems: 'center', justifyContent: 'center', color: '#6a5a6e',
+              width: 40, height: 40, borderRadius: 12, border: '1px solid rgba(255,255,255,0.09)',
+              background: 'rgba(255,255,255,0.05)', cursor: 'pointer', display: 'flex',
+              alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.55)',
             }}
             aria-label="Previous month"
           >
@@ -186,14 +189,14 @@ export function CycleCalendar({ checkins }: Props) {
           </button>
           <p style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: 18, fontWeight: 700, color: '#1a1220', margin: 0,
+            fontSize: 18, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: 0,
           }}>{monthName}</p>
           <button
             onClick={nextMonth}
             style={{
-              width: 40, height: 40, borderRadius: 12, border: '1.5px solid rgba(237,224,216,0.8)',
-              background: 'rgba(255,255,255,0.7)', cursor: 'pointer', display: 'flex',
-              alignItems: 'center', justifyContent: 'center', color: '#6a5a6e',
+              width: 40, height: 40, borderRadius: 12, border: '1px solid rgba(255,255,255,0.09)',
+              background: 'rgba(255,255,255,0.05)', cursor: 'pointer', display: 'flex',
+              alignItems: 'center', justifyContent: 'center', color: 'rgba(255,255,255,0.55)',
             }}
             aria-label="Next month"
           >
@@ -207,8 +210,8 @@ export function CycleCalendar({ checkins }: Props) {
         <div className="cycle-grid" style={{ marginBottom: 6 }}>
           {DAY_HEADERS.map(h => (
             <div key={h} style={{
-              textAlign: 'center', fontSize: 11, fontWeight: 700,
-              color: '#b8a9a0', letterSpacing: '0.06em', padding: '4px 0',
+              textAlign: 'center', fontSize: 11, fontWeight: 300,
+              color: 'rgba(255,255,255,0.32)', letterSpacing: '0.06em', padding: '4px 0',
             }}>{h}</div>
           ))}
         </div>
@@ -225,21 +228,21 @@ export function CycleCalendar({ checkins }: Props) {
             const isToday = dateStr === todayStr
             const isPredicted = predictedDays.has(dateStr) && !periodStatus
 
-            let cellBg = 'rgba(253,248,244,0.5)'
-            let cellColor = '#3d2c35'
-            let border = '1.5px solid transparent'
+            let cellBg = 'rgba(255,255,255,0.03)'
+            let cellColor = 'rgba(255,255,255,0.82)'
+            let border = '1px solid transparent'
             let boxShadow = 'none'
 
             if (periodStatus) {
-              cellBg = PERIOD_COLORS[periodStatus] ?? '#f9a8c9'
-              cellColor = PERIOD_TEXT_COLORS[periodStatus] ?? '#831843'
+              cellBg = PERIOD_COLORS[periodStatus] ?? 'rgba(196,149,158,0.55)'
+              cellColor = PERIOD_TEXT_COLORS[periodStatus] ?? 'rgba(255,255,255,0.88)'
             } else if (isPredicted) {
-              cellBg = '#fff0f5'
-              border = '1.5px dashed #f9a8c9'
+              cellBg = 'rgba(196,149,158,0.08)'
+              border = '1px dashed rgba(196,149,158,0.35)'
             }
 
             if (isToday) {
-              boxShadow = '0 0 0 2.5px #2d8b7a'
+              boxShadow = '0 0 0 2.5px #9b7cc8'
             }
 
             return (
@@ -253,7 +256,7 @@ export function CycleCalendar({ checkins }: Props) {
                 ].filter(Boolean).join(' ')}
                 style={{ background: cellBg, color: cellColor, border, boxShadow }}
               >
-                <span style={{ fontSize: 13, fontWeight: isToday ? 700 : 500 }}>{dayNum}</span>
+                <span style={{ fontSize: 13, fontWeight: isToday ? 300 : 300 }}>{dayNum}</span>
               </div>
             )
           })}
@@ -263,32 +266,32 @@ export function CycleCalendar({ checkins }: Props) {
         <div style={{
           display: 'flex', flexWrap: 'wrap', gap: '10px 20px',
           marginTop: 20, paddingTop: 16,
-          borderTop: '1px solid rgba(237,224,216,0.5)',
+          borderTop: '1px solid rgba(255,255,255,0.06)',
         }}>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-            <div style={{ width: 16, height: 16, borderRadius: 8, background: '#f472b6' }} />
-            <span style={{ fontSize: 12, color: '#6a5a6e', fontWeight: 500 }}>Period</span>
+            <div style={{ width: 16, height: 16, borderRadius: 8, background: 'rgba(196,149,158,0.8)' }} />
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}>Period</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-            <div style={{ width: 16, height: 16, borderRadius: 8, background: '#fff0f5', border: '1.5px dashed #f9a8c9' }} />
-            <span style={{ fontSize: 12, color: '#6a5a6e', fontWeight: 500 }}>Predicted</span>
+            <div style={{ width: 16, height: 16, borderRadius: 8, background: 'rgba(196,149,158,0.08)', border: '1px dashed rgba(196,149,158,0.35)' }} />
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}>Predicted</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', gap: 7 }}>
-            <div style={{ width: 16, height: 16, borderRadius: 8, background: 'rgba(253,248,244,0.5)', boxShadow: '0 0 0 2.5px #2d8b7a' }} />
-            <span style={{ fontSize: 12, color: '#6a5a6e', fontWeight: 500 }}>Today</span>
+            <div style={{ width: 16, height: 16, borderRadius: 8, background: 'rgba(255,255,255,0.03)', boxShadow: '0 0 0 2.5px #9b7cc8' }} />
+            <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}>Today</span>
           </div>
           <div style={{ display: 'flex', alignItems: 'center', marginTop: 4, width: '100%', flexWrap: 'wrap', gap: '6px 14px' }}>
             {Object.entries(PERIOD_COLORS).map(([status, color]) => (
               <div key={status} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
                 <div style={{ width: 12, height: 12, borderRadius: 6, background: color }} />
-                <span style={{ fontSize: 11, color: '#b8a9a0', textTransform: 'capitalize' }}>{status}</span>
+                <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.32)', textTransform: 'capitalize' }}>{status}</span>
               </div>
             ))}
           </div>
         </div>
       </div>
 
-      <p style={{ textAlign: 'center', fontSize: 12, color: '#c8bdb8', marginTop: 24, lineHeight: 1.6 }}>
+      <p style={{ textAlign: 'center', fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 24, lineHeight: 1.6 }}>
         Predictions are estimates based on your logged data. Always discuss cycle changes with your healthcare provider.
       </p>
     </div>
