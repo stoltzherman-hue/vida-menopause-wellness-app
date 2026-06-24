@@ -108,6 +108,8 @@ export default async function DashboardPage() {
   const wellbeing = todayCheckin?.overall_wellbeing as number | null ?? null
   const sleepHours = todayCheckin?.sleep_hours as number | null ?? null
 
+  const isNewUser = list.length === 0 && totalCheckins === 0
+
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '28px 20px 80px' }}>
 
@@ -146,6 +148,58 @@ export default async function DashboardPage() {
           )}
         </div>
       </div>
+
+      {/* New user welcome state */}
+      {isNewUser && (
+        <div style={{
+          background: 'rgba(155,124,200,0.05)', border: '1px solid rgba(155,124,200,0.14)',
+          borderRadius: 24, padding: '36px 32px', marginBottom: 28,
+          display: 'flex', flexDirection: 'column', alignItems: 'center', textAlign: 'center',
+        }}>
+          <div style={{
+            width: 52, height: 52, borderRadius: '50%',
+            background: 'rgba(155,124,200,0.1)', border: '1px solid rgba(155,124,200,0.2)',
+            display: 'flex', alignItems: 'center', justifyContent: 'center', marginBottom: 20,
+          }}>
+            <div style={{ width: 18, height: 18, borderRadius: '50%', background: 'rgba(196,184,224,0.4)', border: '1px solid rgba(196,184,224,0.6)' }} />
+          </div>
+          <h2 style={{
+            fontFamily: 'var(--font-playfair), Georgia, serif',
+            fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)',
+            margin: '0 0 10px', letterSpacing: '-0.02em',
+          }}>
+            Welcome{firstName ? `, ${firstName}` : ''} — your journey starts here
+          </h2>
+          <p style={{
+            fontSize: 15, color: 'rgba(255,255,255,0.42)', fontWeight: 300,
+            lineHeight: 1.7, maxWidth: 420, margin: '0 0 24px',
+          }}>
+            Your first check-in takes under 60 seconds. The more you track, the more Vida can personalise your insights and help you understand your patterns.
+          </p>
+          <Link href="/tracker" style={{
+            display: 'inline-block', padding: '14px 32px', borderRadius: 9999,
+            background: 'linear-gradient(135deg, rgba(155,124,200,0.2), rgba(122,82,176,0.2))',
+            border: '1px solid rgba(155,124,200,0.32)',
+            color: '#c4b8e0', textDecoration: 'none',
+            fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+            fontSize: 14, fontWeight: 300, letterSpacing: '0.01em',
+          }}>
+            Start your first check-in
+          </Link>
+          <div style={{ display: 'flex', gap: 28, marginTop: 32, flexWrap: 'wrap', justifyContent: 'center' }}>
+            {[
+              { label: 'Mood tracking', desc: 'Rate how you feel each day' },
+              { label: 'Symptom log', desc: 'Track hot flushes, sleep, energy' },
+              { label: 'Pattern insights', desc: 'See what affects your wellbeing' },
+            ].map(({ label, desc }) => (
+              <div key={label} style={{ textAlign: 'center', maxWidth: 130 }}>
+                <p style={{ fontSize: 12, fontWeight: 400, color: 'rgba(255,255,255,0.55)', margin: '0 0 4px' }}>{label}</p>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.25)', fontWeight: 300, margin: 0, lineHeight: 1.5 }}>{desc}</p>
+              </div>
+            ))}
+          </div>
+        </div>
+      )}
 
       {/* 3-column grid */}
       <div className="dash-3col">
