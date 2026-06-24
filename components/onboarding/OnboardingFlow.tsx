@@ -78,32 +78,39 @@ export function OnboardingFlow() {
 
   const commonProps = { data, update, onNext: next, onBack: back }
 
+  const DM = 'var(--font-dm-sans), system-ui, sans-serif'
+  const PF = 'var(--font-playfair), Georgia, serif'
+
   return (
-    <div style={{ minHeight: '100vh', backgroundColor: '#faf8f4' }}>
+    <div style={{ minHeight: '100vh', background: '#09070e', position: 'relative', overflow: 'hidden' }}>
+      {/* Ambient orb */}
+      <div style={{ position: 'fixed', top: '-20%', left: '-10%', width: 600, height: 600, borderRadius: '50%', background: 'radial-gradient(circle, rgba(122,82,176,0.14) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+      <div style={{ position: 'fixed', bottom: '-20%', right: '-10%', width: 500, height: 500, borderRadius: '50%', background: 'radial-gradient(circle, rgba(196,149,158,0.07) 0%, transparent 70%)', pointerEvents: 'none', zIndex: 0 }} />
+
+      {/* Progress bar */}
       {step !== 'plan' && (
-        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, height: '4px', backgroundColor: '#e2d9d0' }}>
-          <div style={{ height: '100%', backgroundColor: '#5a8a6b', width: `${progress}%`, transition: 'width 0.5s ease' }} />
+        <div style={{ position: 'fixed', top: 0, left: 0, right: 0, zIndex: 50, height: 2, background: 'rgba(255,255,255,0.06)' }}>
+          <div style={{ height: '100%', background: 'linear-gradient(90deg, #9b7cc8, #c4b8e0)', width: `${progress}%`, transition: 'width 0.5s ease' }} />
         </div>
       )}
-      <div style={{ maxWidth: '560px', margin: '0 auto', padding: '40px 16px 32px' }}>
+
+      <div style={{ maxWidth: 560, margin: '0 auto', padding: '48px 20px 80px', position: 'relative', zIndex: 1 }}>
         {step !== 'plan' && (
-          <div style={{ textAlign: 'center', marginBottom: '32px' }}>
-            <span style={{ fontSize: '28px', fontWeight: 'bold', color: '#3d2c35' }}>Vida</span>
+          <div style={{ textAlign: 'center', marginBottom: 36 }}>
+            <span style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.02em' }}>
+              vida<span style={{ color: '#9b7cc8' }}>.</span>
+            </span>
             {step === 'stage' && (
-              <p style={{ fontSize: '16px', color: '#5a8a6b', marginTop: '6px', fontStyle: 'italic' }}>
-                Welcome to Vida 🌸
+              <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(196,184,224,0.6)', marginTop: 8 }}>
+                Welcome — let&apos;s personalise your experience
               </p>
             )}
-            <p style={{ fontSize: '12px', color: '#a0aec0', marginTop: '4px', textTransform: 'uppercase', letterSpacing: '0.5px' }}>
+            <p style={{ fontFamily: DM, fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.22)', marginTop: 6, textTransform: 'uppercase', letterSpacing: '0.1em' }}>
               Step {stepIndex + 1} of {STEPS.length}
             </p>
-            {step === 'stage' && (
-              <p style={{ fontSize: '14px', color: '#718096', marginTop: '8px' }}>
-                Tell us a little about yourself so we can personalise your experience
-              </p>
-            )}
           </div>
         )}
+
         {step === 'stage' && <StepStage {...commonProps} />}
         {step === 'symptoms' && <StepSymptoms {...commonProps} />}
         {step === 'medical' && <StepMedical {...commonProps} />}
@@ -111,14 +118,15 @@ export function OnboardingFlow() {
         {step === 'goals' && <StepGoals {...commonProps} />}
         {step === 'consent' && <StepConsent {...commonProps} onSubmit={submit} saving={saving} />}
         {step === 'plan' && <StepWellnessPlan data={data} onFinish={() => router.push('/dashboard')} />}
+
         {step !== 'plan' && (
-          <div style={{ textAlign: 'center', marginTop: '20px' }}>
+          <div style={{ textAlign: 'center', marginTop: 24 }}>
             <button
               type="button"
               onClick={() => router.push('/dashboard')}
-              style={{ background: 'none', border: 'none', cursor: 'pointer', fontSize: '14px', color: '#a0aec0', textDecoration: 'none', padding: '8px 12px' }}
+              style={{ background: 'none', border: 'none', cursor: 'pointer', fontFamily: DM, fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.22)', padding: '8px 12px' }}
             >
-              Skip for now →
+              Skip for now
             </button>
           </div>
         )}
