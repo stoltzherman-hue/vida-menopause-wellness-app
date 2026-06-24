@@ -1,24 +1,51 @@
 'use client'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import type { OnboardingData } from './OnboardingFlow'
 
-const FREQ = ['Never / rarely','1–2 times/week','3–4 times/week','Daily','Multiple times daily']
-const EXERCISE = ['Sedentary','Light (1–2x/week)','Moderate (3–4x/week)','Active (5+x/week)']
-const SMOKE = ['Never','Former smoker','Current smoker','Vaping','Prefer not to say']
-const DIET = ['Omnivore','Vegetarian','Vegan','Gluten-free','Dairy-free','Low carb','Mediterranean','Other']
+const FREQ = ['Never / rarely', '1–2 times/week', '3–4 times/week', 'Daily', 'Multiple times daily']
+const EXERCISE = ['Sedentary', 'Light (1–2x/week)', 'Moderate (3–4x/week)', 'Active (5+x/week)']
+const SMOKE = ['Never', 'Former smoker', 'Current smoker', 'Vaping', 'Prefer not to say']
+const DIET = ['Omnivore', 'Vegetarian', 'Vegan', 'Gluten-free', 'Dairy-free', 'Low carb', 'Mediterranean', 'Other']
 
-function Chips({ options, selected, onToggle }: { options: string[]; selected: string | string[]; onToggle: (v: string) => void }) {
+const DM = 'var(--font-dm-sans), system-ui, sans-serif'
+const PF = 'var(--font-playfair), Georgia, serif'
+
+function Chips({ options, selected, onToggle, accent = 'violet' }: {
+  options: string[]
+  selected: string | string[]
+  onToggle: (v: string) => void
+  accent?: 'violet' | 'warm'
+}) {
   const sel = Array.isArray(selected) ? selected : [selected]
+  const selBg = accent === 'warm' ? 'rgba(196,122,90,0.15)' : 'rgba(139,109,181,0.18)'
+  const selBorder = accent === 'warm' ? 'rgba(196,122,90,0.45)' : 'rgba(155,124,200,0.55)'
+  const selColor = accent === 'warm' ? 'rgba(255,210,190,0.88)' : '#c4b8e0'
   return (
-    <div className="flex flex-wrap gap-2">
-      {options.map((opt) => (
-        <button key={opt} type="button" onClick={() => onToggle(opt)}
-          className={cn('rounded-full px-4 py-2 text-sm border transition-colors min-h-[40px]', sel.includes(opt) ? 'bg-[#5a8a6b] text-white border-[#5a8a6b]' : 'border-[#e2d9d0] text-[#718096] hover:border-[#5a8a6b]')}>
-          {opt}
-        </button>
-      ))}
+    <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+      {options.map((opt) => {
+        const active = sel.includes(opt)
+        return (
+          <button key={opt} type="button" onClick={() => onToggle(opt)}
+            style={{
+              background: active ? selBg : 'rgba(255,255,255,0.03)',
+              border: `1px solid ${active ? selBorder : 'rgba(255,255,255,0.1)'}`,
+              borderRadius: 9999, padding: '9px 16px',
+              fontFamily: DM, fontSize: 13, fontWeight: 300,
+              color: active ? selColor : 'rgba(255,255,255,0.45)',
+              cursor: 'pointer', transition: 'all 0.2s',
+            }}>
+            {opt}
+          </button>
+        )
+      })}
     </div>
+  )
+}
+
+function SectionLabel({ children }: { children: React.ReactNode }) {
+  return (
+    <p style={{ fontFamily: DM, fontSize: 12, fontWeight: 400, color: 'rgba(196,184,224,0.55)', margin: '0 0 10px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+      {children}
+    </p>
   )
 }
 
@@ -33,44 +60,96 @@ export function StepLifestyle({ data, update, onNext, onBack }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
       <div>
-        <h1 className="text-2xl font-bold text-[#2d3748]">Your lifestyle</h1>
-        <p className="text-[#718096] mt-2">Lifestyle factors can significantly affect symptoms. All optional.</p>
+        <h1 style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 8px', letterSpacing: '-0.02em' }}>
+          Your lifestyle
+        </h1>
+        <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+          Lifestyle factors can significantly affect symptoms. All optional.
+        </p>
       </div>
-      <div className="space-y-5">
-        <div><p className="font-medium text-[#2d3748] mb-3">Alcohol</p><Chips options={FREQ} selected={ls.alcoholFrequency} onToggle={(v) => upLs({ alcoholFrequency: ls.alcoholFrequency === v ? '' : v })} /></div>
-        <div><p className="font-medium text-[#2d3748] mb-3">Caffeine</p><Chips options={FREQ} selected={ls.caffeineFrequency} onToggle={(v) => upLs({ caffeineFrequency: ls.caffeineFrequency === v ? '' : v })} /></div>
-        <div><p className="font-medium text-[#2d3748] mb-3">Exercise</p><Chips options={EXERCISE} selected={ls.exerciseFrequency} onToggle={(v) => upLs({ exerciseFrequency: ls.exerciseFrequency === v ? '' : v })} /></div>
+
+      <div style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
+        <div><SectionLabel>Alcohol</SectionLabel><Chips options={FREQ} selected={ls.alcoholFrequency} onToggle={(v) => upLs({ alcoholFrequency: ls.alcoholFrequency === v ? '' : v })} /></div>
+        <div><SectionLabel>Caffeine</SectionLabel><Chips options={FREQ} selected={ls.caffeineFrequency} onToggle={(v) => upLs({ caffeineFrequency: ls.caffeineFrequency === v ? '' : v })} /></div>
+        <div><SectionLabel>Exercise</SectionLabel><Chips options={EXERCISE} selected={ls.exerciseFrequency} onToggle={(v) => upLs({ exerciseFrequency: ls.exerciseFrequency === v ? '' : v })} /></div>
+
         <div>
-          <p className="font-medium text-[#2d3748] mb-3">Typical sleep hours</p>
-          <div className="flex gap-2 flex-wrap">
-            {[4,5,6,7,8,9,10].map((h) => (
-              <button key={h} type="button" onClick={() => upLs({ sleepHoursAvg: ls.sleepHoursAvg === h ? null : h })}
-                className={cn('w-12 h-12 rounded-full text-sm font-medium border-2 transition-all', ls.sleepHoursAvg === h ? 'bg-[#5a8a6b] text-white border-[#5a8a6b]' : 'border-[#e2d9d0] text-[#718096] hover:border-[#5a8a6b]')}>
-                {h}
-              </button>
-            ))}
+          <SectionLabel>Typical sleep hours</SectionLabel>
+          <div style={{ display: 'flex', gap: 8, flexWrap: 'wrap' }}>
+            {[4, 5, 6, 7, 8, 9, 10].map((h) => {
+              const sel = ls.sleepHoursAvg === h
+              return (
+                <button key={h} type="button" onClick={() => upLs({ sleepHoursAvg: sel ? null : h })}
+                  style={{
+                    width: 44, height: 44, borderRadius: '50%',
+                    background: sel ? 'rgba(139,109,181,0.18)' : 'rgba(255,255,255,0.03)',
+                    border: `1px solid ${sel ? 'rgba(155,124,200,0.55)' : 'rgba(255,255,255,0.1)'}`,
+                    fontFamily: DM, fontSize: 13, fontWeight: 300,
+                    color: sel ? '#c4b8e0' : 'rgba(255,255,255,0.45)',
+                    cursor: 'pointer', transition: 'all 0.2s',
+                  }}>
+                  {h}
+                </button>
+              )
+            })}
           </div>
         </div>
+
         <div>
-          <p className="font-medium text-[#2d3748] mb-3">Average stress level</p>
-          <div className="flex gap-2 flex-wrap">
-            {[1,2,3,4,5,6,7,8,9,10].map((v) => (
-              <button key={v} type="button" onClick={() => upLs({ stressLevel: ls.stressLevel === v ? null : v })}
-                className={cn('w-10 h-10 rounded-full text-sm font-medium border-2 transition-all', ls.stressLevel === v ? 'bg-[#c47a5a] text-white border-[#c47a5a]' : 'border-[#e2d9d0] text-[#718096] hover:border-[#c47a5a]')}>
-                {v}
-              </button>
-            ))}
+          <SectionLabel>Average stress level</SectionLabel>
+          <div style={{ display: 'flex', gap: 6, flexWrap: 'wrap' }}>
+            {[1, 2, 3, 4, 5, 6, 7, 8, 9, 10].map((v) => {
+              const sel = ls.stressLevel === v
+              return (
+                <button key={v} type="button" onClick={() => upLs({ stressLevel: sel ? null : v })}
+                  style={{
+                    width: 40, height: 40, borderRadius: '50%',
+                    background: sel ? 'rgba(196,122,90,0.18)' : 'rgba(255,255,255,0.03)',
+                    border: `1px solid ${sel ? 'rgba(196,122,90,0.5)' : 'rgba(255,255,255,0.1)'}`,
+                    fontFamily: DM, fontSize: 13, fontWeight: 300,
+                    color: sel ? 'rgba(255,210,190,0.88)' : 'rgba(255,255,255,0.45)',
+                    cursor: 'pointer', transition: 'all 0.2s',
+                  }}>
+                  {v}
+                </button>
+              )
+            })}
           </div>
-          <div className="flex justify-between text-xs text-[#a0aec0] mt-1 px-1"><span>Low</span><span>High</span></div>
+          <div style={{ display: 'flex', justifyContent: 'space-between', marginTop: 6, padding: '0 2px' }}>
+            <span style={{ fontFamily: DM, fontSize: 11, color: 'rgba(255,255,255,0.22)', fontWeight: 300 }}>Low</span>
+            <span style={{ fontFamily: DM, fontSize: 11, color: 'rgba(255,255,255,0.22)', fontWeight: 300 }}>High</span>
+          </div>
         </div>
-        <div><p className="font-medium text-[#2d3748] mb-3">Diet</p><Chips options={DIET} selected={ls.dietPreferences} onToggle={toggleDiet} /></div>
-        <div><p className="font-medium text-[#2d3748] mb-3">Smoking / vaping</p><Chips options={SMOKE} selected={ls.smokingStatus} onToggle={(v) => upLs({ smokingStatus: ls.smokingStatus === v ? '' : v })} /></div>
+
+        <div><SectionLabel>Diet</SectionLabel><Chips options={DIET} selected={ls.dietPreferences} onToggle={toggleDiet} /></div>
+        <div><SectionLabel>Smoking / vaping</SectionLabel><Chips options={SMOKE} selected={ls.smokingStatus} onToggle={(v) => upLs({ smokingStatus: ls.smokingStatus === v ? '' : v })} /></div>
       </div>
-      <div className="flex gap-3">
-        <Button variant="outline" onClick={onBack} className="flex-1">Back</Button>
-        <Button onClick={onNext} className="flex-1">Continue</Button>
+
+      <div style={{ display: 'flex', gap: 12 }}>
+        <button type="button" onClick={onBack}
+          style={{
+            flex: 1, padding: '14px',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 14,
+            fontFamily: DM, fontSize: 14, fontWeight: 300,
+            color: 'rgba(255,255,255,0.42)', cursor: 'pointer',
+          }}>
+          Back
+        </button>
+        <button type="button" onClick={onNext}
+          style={{
+            flex: 1, padding: '14px',
+            background: 'rgba(139,109,181,0.15)',
+            border: '1px solid rgba(155,124,200,0.3)',
+            borderRadius: 14,
+            fontFamily: DM, fontSize: 14, fontWeight: 300,
+            color: '#c4b8e0', cursor: 'pointer',
+          }}>
+          Continue
+        </button>
       </div>
     </div>
   )

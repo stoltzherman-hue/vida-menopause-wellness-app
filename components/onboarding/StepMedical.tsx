@@ -1,6 +1,4 @@
 'use client'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import type { OnboardingData } from './OnboardingFlow'
 
 const CONDITIONS = [
@@ -20,6 +18,9 @@ const CONDITIONS = [
   { value: 'prefer_not', label: 'Prefer not to say' },
 ]
 
+const DM = 'var(--font-dm-sans), system-ui, sans-serif'
+const PF = 'var(--font-playfair), Georgia, serif'
+
 interface Props { data: OnboardingData; update: (p: Partial<OnboardingData>) => void; onNext: () => void; onBack: () => void }
 
 export function StepMedical({ data, update, onNext, onBack }: Props) {
@@ -35,23 +36,68 @@ export function StepMedical({ data, update, onNext, onBack }: Props) {
   }
 
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
       <div>
-        <h1 className="text-2xl font-bold text-[#2d3748]">Medical background</h1>
-        <p className="text-[#718096] mt-2">Helps us give more relevant information. Private and never shared. <span className="text-[#a0aec0]">(optional)</span></p>
+        <h1 style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 8px', letterSpacing: '-0.02em' }}>
+          Medical background
+        </h1>
+        <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+          Helps us give more relevant information. Private and never shared.
+        </p>
       </div>
-      <div className="flex flex-wrap gap-2">
-        {CONDITIONS.map(({ value, label }) => (
-          <button key={value} type="button" onClick={() => toggle(value)}
-            className={cn('rounded-full px-4 py-2 text-sm border transition-colors min-h-[40px]', data.medicalHistory.includes(value) ? 'bg-[#c47a5a] text-white border-[#c47a5a]' : 'border-[#e2d9d0] text-[#718096] hover:border-[#c47a5a]')}>
-            {label}
-          </button>
-        ))}
+
+      <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+        {CONDITIONS.map(({ value, label }) => {
+          const sel = data.medicalHistory.includes(value)
+          return (
+            <button key={value} type="button" onClick={() => toggle(value)}
+              style={{
+                background: sel ? 'rgba(196,122,90,0.15)' : 'rgba(255,255,255,0.03)',
+                border: `1px solid ${sel ? 'rgba(196,122,90,0.45)' : 'rgba(255,255,255,0.1)'}`,
+                borderRadius: 9999, padding: '9px 18px',
+                fontFamily: DM, fontSize: 13, fontWeight: 300,
+                color: sel ? 'rgba(255,210,190,0.88)' : 'rgba(255,255,255,0.45)',
+                cursor: 'pointer', transition: 'all 0.2s',
+              }}>
+              {label}
+            </button>
+          )
+        })}
       </div>
-      <p className="text-xs text-[#a0aec0] bg-[#f0ece4] rounded-xl px-4 py-3">This information personalises your Vida experience. It is not a medical assessment and Vida does not provide diagnoses.</p>
-      <div className="flex gap-3">
-        <Button variant="outline" onClick={onBack} className="flex-1">Back</Button>
-        <Button onClick={onNext} className="flex-1">Continue</Button>
+
+      <div style={{
+        background: 'rgba(255,255,255,0.03)',
+        border: '1px solid rgba(255,255,255,0.07)',
+        borderRadius: 12, padding: '14px 16px',
+      }}>
+        <p style={{ fontFamily: DM, fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.32)', margin: 0, lineHeight: 1.6 }}>
+          This information personalises your Vida experience. It is not a medical assessment — Vida does not provide diagnoses.
+        </p>
+      </div>
+
+      <div style={{ display: 'flex', gap: 12 }}>
+        <button type="button" onClick={onBack}
+          style={{
+            flex: 1, padding: '14px',
+            background: 'rgba(255,255,255,0.03)',
+            border: '1px solid rgba(255,255,255,0.1)',
+            borderRadius: 14,
+            fontFamily: DM, fontSize: 14, fontWeight: 300,
+            color: 'rgba(255,255,255,0.42)', cursor: 'pointer',
+          }}>
+          Back
+        </button>
+        <button type="button" onClick={onNext}
+          style={{
+            flex: 1, padding: '14px',
+            background: 'rgba(139,109,181,0.15)',
+            border: '1px solid rgba(155,124,200,0.3)',
+            borderRadius: 14,
+            fontFamily: DM, fontSize: 14, fontWeight: 300,
+            color: '#c4b8e0', cursor: 'pointer',
+          }}>
+          Continue
+        </button>
       </div>
     </div>
   )

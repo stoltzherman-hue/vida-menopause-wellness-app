@@ -1,9 +1,7 @@
 'use client'
-import { Button } from '@/components/ui/button'
-import { cn } from '@/lib/utils'
 import type { OnboardingData } from './OnboardingFlow'
 
-const AGE_RANGES = ['Under 40','40–44','45–49','50–54','55–59','60–64','65+','Prefer not to say']
+const AGE_RANGES = ['Under 40', '40–44', '45–49', '50–54', '55–59', '60–64', '65+', 'Prefer not to say']
 
 const STAGES = [
   { value: 'perimenopause', label: 'Perimenopause', desc: 'Irregular periods, symptoms starting — still having cycles' },
@@ -14,42 +12,82 @@ const STAGES = [
   { value: 'unsure', label: "I'm not sure", desc: "That's okay — we can help you figure it out" },
 ]
 
+const DM = 'var(--font-dm-sans), system-ui, sans-serif'
+const PF = 'var(--font-playfair), Georgia, serif'
+
 interface Props { data: OnboardingData; update: (p: Partial<OnboardingData>) => void; onNext: () => void; onBack: () => void }
 
 export function StepStage({ data, update, onNext }: Props) {
   return (
-    <div className="space-y-6">
+    <div style={{ display: 'flex', flexDirection: 'column', gap: 28 }}>
       <div>
-        <h1 className="text-2xl font-bold text-[#2d3748]">Welcome to Vida</h1>
-        <p className="text-[#718096] mt-2">Let&apos;s personalise your experience. All questions are optional.</p>
+        <h1 style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 8px', letterSpacing: '-0.02em' }}>
+          Where are you in your journey?
+        </h1>
+        <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+          All questions are optional — answer what feels right.
+        </p>
       </div>
 
       <div>
-        <p className="font-medium text-[#2d3748] mb-3">What&apos;s your age range? <span className="text-[#a0aec0] font-normal text-sm">(optional)</span></p>
-        <div className="flex flex-wrap gap-2">
-          {AGE_RANGES.map((age) => (
-            <button key={age} type="button" onClick={() => update({ ageRange: data.ageRange === age ? '' : age })}
-              className={cn('rounded-full px-4 py-2 text-sm border transition-colors min-h-[40px]', data.ageRange === age ? 'bg-[#5a8a6b] text-white border-[#5a8a6b]' : 'border-[#e2d9d0] text-[#718096] hover:border-[#5a8a6b]')}>
-              {age}
-            </button>
-          ))}
+        <p style={{ fontFamily: DM, fontSize: 12, fontWeight: 400, color: 'rgba(196,184,224,0.55)', margin: '0 0 12px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          Age range
+        </p>
+        <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8 }}>
+          {AGE_RANGES.map((age) => {
+            const sel = data.ageRange === age
+            return (
+              <button key={age} type="button" onClick={() => update({ ageRange: sel ? '' : age })}
+                style={{
+                  background: sel ? 'rgba(139,109,181,0.18)' : 'rgba(255,255,255,0.03)',
+                  border: `1px solid ${sel ? 'rgba(155,124,200,0.55)' : 'rgba(255,255,255,0.1)'}`,
+                  borderRadius: 9999, padding: '9px 18px',
+                  fontFamily: DM, fontSize: 13, fontWeight: 300,
+                  color: sel ? '#c4b8e0' : 'rgba(255,255,255,0.45)',
+                  cursor: 'pointer', transition: 'all 0.2s',
+                }}>
+                {age}
+              </button>
+            )
+          })}
         </div>
       </div>
 
       <div>
-        <p className="font-medium text-[#2d3748] mb-3">Where are you in your menopause journey?</p>
-        <div className="space-y-2">
-          {STAGES.map((s) => (
-            <button key={s.value} type="button" onClick={() => update({ menopauseStage: s.value })}
-              className={cn('w-full text-left rounded-xl border p-4 transition-all', data.menopauseStage === s.value ? 'border-[#5a8a6b] bg-[#5a8a6b]/5 ring-1 ring-[#5a8a6b]' : 'border-[#e2d9d0] hover:border-[#5a8a6b]/50')}>
-              <p className="font-medium text-[#2d3748]">{s.label}</p>
-              <p className="text-sm text-[#718096] mt-0.5">{s.desc}</p>
-            </button>
-          ))}
+        <p style={{ fontFamily: DM, fontSize: 12, fontWeight: 400, color: 'rgba(196,184,224,0.55)', margin: '0 0 12px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          Menopause stage
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+          {STAGES.map((s) => {
+            const sel = data.menopauseStage === s.value
+            return (
+              <button key={s.value} type="button" onClick={() => update({ menopauseStage: s.value })}
+                style={{
+                  width: '100%', textAlign: 'left',
+                  background: sel ? 'rgba(139,109,181,0.1)' : 'rgba(255,255,255,0.02)',
+                  border: `1px solid ${sel ? 'rgba(155,124,200,0.4)' : 'rgba(255,255,255,0.08)'}`,
+                  borderRadius: 14, padding: '14px 18px',
+                  cursor: 'pointer', transition: 'all 0.2s',
+                }}>
+                <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: sel ? 'rgba(255,255,255,0.88)' : 'rgba(255,255,255,0.65)', margin: '0 0 3px' }}>{s.label}</p>
+                <p style={{ fontFamily: DM, fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.32)', margin: 0 }}>{s.desc}</p>
+              </button>
+            )
+          })}
         </div>
       </div>
 
-      <Button onClick={onNext} className="w-full" size="lg">Continue</Button>
+      <button type="button" onClick={onNext}
+        style={{
+          width: '100%', padding: '14px',
+          background: 'rgba(139,109,181,0.15)',
+          border: '1px solid rgba(155,124,200,0.3)',
+          borderRadius: 14,
+          fontFamily: DM, fontSize: 14, fontWeight: 300,
+          color: '#c4b8e0', cursor: 'pointer', transition: 'all 0.2s',
+        }}>
+        Continue
+      </button>
     </div>
   )
 }

@@ -1,7 +1,5 @@
 'use client'
 import { useEffect, useState } from 'react'
-import { Button } from '@/components/ui/button'
-import { Card, CardContent } from '@/components/ui/card'
 import type { OnboardingData } from './OnboardingFlow'
 
 const GOAL_LABELS: Record<string, string> = {
@@ -46,6 +44,9 @@ function generatePlanPoints(data: OnboardingData): string[] {
   return points.slice(0, 5)
 }
 
+const DM = 'var(--font-dm-sans), system-ui, sans-serif'
+const PF = 'var(--font-playfair), Georgia, serif'
+
 interface Props { data: OnboardingData; onFinish: () => void }
 
 export function StepWellnessPlan({ data, onFinish }: Props) {
@@ -54,40 +55,72 @@ export function StepWellnessPlan({ data, onFinish }: Props) {
   useEffect(() => { const t = setTimeout(() => setVisible(true), 400); return () => clearTimeout(t) }, [])
 
   return (
-    <div className={`space-y-6 transition-opacity duration-700 ${visible ? 'opacity-100' : 'opacity-0'}`}>
-      <div className="text-center space-y-3">
-        <div className="text-5xl">🌿</div>
-        <h1 className="text-2xl font-bold text-[#2d3748]">Your Vida wellness plan</h1>
-        <p className="text-[#718096]">Based on what you&apos;ve shared, here&apos;s where to focus first.</p>
+    <div style={{ opacity: visible ? 1 : 0, transition: 'opacity 0.7s ease', display: 'flex', flexDirection: 'column', gap: 28 }}>
+      <div style={{ textAlign: 'center' }}>
+        <div style={{
+          width: 64, height: 64, borderRadius: '50%', margin: '0 auto 20px',
+          background: 'radial-gradient(circle, rgba(139,109,181,0.3) 0%, rgba(139,109,181,0.05) 100%)',
+          border: '1px solid rgba(155,124,200,0.25)',
+          display: 'flex', alignItems: 'center', justifyContent: 'center',
+        }}>
+          <span style={{ fontFamily: PF, fontSize: 22, fontWeight: 300, color: '#c4b8e0' }}>v</span>
+        </div>
+        <h1 style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 10px', letterSpacing: '-0.02em' }}>
+          Your wellness plan is ready
+        </h1>
+        <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.4)', margin: 0 }}>
+          Based on what you&apos;ve shared, here&apos;s where to focus first.
+        </p>
       </div>
+
       {data.goals.length > 0 && (
-        <Card><CardContent className="p-5 space-y-3">
-          <p className="font-semibold text-[#2d3748]">Your top goals</p>
-          <ul className="space-y-2">
+        <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '18px 20px' }}>
+          <p style={{ fontFamily: DM, fontSize: 11, fontWeight: 400, color: 'rgba(196,184,224,0.55)', margin: '0 0 14px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+            Your goals
+          </p>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
             {data.goals.map((g) => (
-              <li key={g} className="flex items-center gap-2 text-sm text-[#718096]">
-                <span className="text-[#5a8a6b]">✓</span>{GOAL_LABELS[g] ?? g}
-              </li>
+              <div key={g} style={{ display: 'flex', alignItems: 'center', gap: 10 }}>
+                <span style={{ width: 5, height: 5, borderRadius: '50%', background: '#9b7cc8', flexShrink: 0 }} />
+                <span style={{ fontFamily: DM, fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.65)' }}>{GOAL_LABELS[g] ?? g}</span>
+              </div>
             ))}
-          </ul>
-        </CardContent></Card>
+          </div>
+        </div>
       )}
-      <Card><CardContent className="p-5 space-y-4">
-        <p className="font-semibold text-[#2d3748]">Personalised starting points</p>
-        <ul className="space-y-3">
+
+      <div style={{ background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 16, padding: '18px 20px' }}>
+        <p style={{ fontFamily: DM, fontSize: 11, fontWeight: 400, color: 'rgba(196,184,224,0.55)', margin: '0 0 14px', letterSpacing: '0.08em', textTransform: 'uppercase' }}>
+          Personalised starting points
+        </p>
+        <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
           {planPoints.map((point, i) => (
-            <li key={i} className="flex gap-3 text-sm text-[#718096]">
-              <span className="text-[#5a8a6b] font-bold mt-0.5 flex-shrink-0">{i + 1}.</span>
-              <span>{point}</span>
-            </li>
+            <div key={i} style={{ display: 'flex', gap: 14 }}>
+              <span style={{ fontFamily: PF, fontSize: 14, fontWeight: 300, color: 'rgba(155,124,200,0.6)', flexShrink: 0, marginTop: 1 }}>{i + 1}.</span>
+              <p style={{ fontFamily: DM, fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.55)', margin: 0, lineHeight: 1.6 }}>{point}</p>
+            </div>
           ))}
-        </ul>
-      </CardContent></Card>
-      <div className="bg-[#f0ece4] rounded-xl px-4 py-3 text-xs text-[#718096]">
-        <p className="font-medium text-[#2d3748] mb-1">Educational support only</p>
-        <p>This plan is based on your self-reported information and general wellness evidence. It is not medical advice and does not replace assessment by a qualified healthcare provider. Always discuss symptoms, medications, and treatment decisions with your doctor.</p>
+        </div>
       </div>
-      <Button onClick={onFinish} className="w-full" size="lg">Go to my dashboard →</Button>
+
+      <div style={{ background: 'rgba(255,255,255,0.02)', border: '1px solid rgba(255,255,255,0.06)', borderRadius: 12, padding: '14px 16px' }}>
+        <p style={{ fontFamily: DM, fontSize: 11, fontWeight: 400, color: 'rgba(255,255,255,0.32)', margin: '0 0 4px', letterSpacing: '0.04em' }}>Educational support only</p>
+        <p style={{ fontFamily: DM, fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.22)', margin: 0, lineHeight: 1.6 }}>
+          This plan is based on your self-reported information and general wellness evidence. It is not medical advice. Always discuss symptoms and treatment decisions with your healthcare provider.
+        </p>
+      </div>
+
+      <button type="button" onClick={onFinish}
+        style={{
+          width: '100%', padding: '15px',
+          background: 'rgba(139,109,181,0.15)',
+          border: '1px solid rgba(155,124,200,0.3)',
+          borderRadius: 14,
+          fontFamily: DM, fontSize: 14, fontWeight: 300,
+          color: '#c4b8e0', cursor: 'pointer', transition: 'all 0.2s',
+        }}>
+        Go to my dashboard
+      </button>
     </div>
   )
 }
