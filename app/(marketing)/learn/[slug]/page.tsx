@@ -9,9 +9,9 @@ const ARTICLES = [
     category: 'Understanding',
     title: 'What is perimenopause? The complete guide',
     readTime: 8,
-    icon: '🌿',
-    color: '#2d8b7a',
-    bg: '#f4faf6',
+    icon: 'P',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Perimenopause can begin a decade before your last period — and for many women, it starts in their early 40s, sometimes even late 30s. Yet it often goes unrecognised for years. Here\'s what\'s actually happening hormonally, what to expect, and when to seek support.',
     sections: [
       { heading: 'What is perimenopause?', body: 'Perimenopause is the transitional phase leading up to menopause — the point at which you\'ve gone 12 consecutive months without a period. During perimenopause, your ovaries gradually produce less oestrogen and progesterone. This process is rarely smooth or linear. Hormone levels fluctuate unpredictably, which is why symptoms can feel inconsistent and confusing.' },
@@ -26,9 +26,9 @@ const ARTICLES = [
     category: 'Symptoms',
     title: 'Hot flushes and night sweats: what\'s happening and what helps',
     readTime: 6,
-    icon: '🔥',
-    color: '#e07a5f',
-    bg: '#fff7f3',
+    icon: 'H',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Around 75% of women experience hot flushes during menopause. They\'re one of the most disruptive symptoms — affecting sleep, concentration, and confidence. Understanding what triggers them, and what the options are, can make a real difference.',
     sections: [
       { heading: 'What causes hot flushes?', body: 'Hot flushes are caused by oestrogen\'s effect on the hypothalamus — the brain\'s temperature-regulation centre. As oestrogen declines, the hypothalamus becomes more sensitive to small changes in body temperature, triggering inappropriate cooling responses: blood vessels dilate, you sweat, your heart rate rises. A flush typically lasts 2–4 minutes.' },
@@ -42,9 +42,9 @@ const ARTICLES = [
     category: 'Symptoms',
     title: 'Menopause and brain fog: what\'s actually happening',
     readTime: 5,
-    icon: '🧠',
-    color: '#9b8ab8',
-    bg: '#f6f3fc',
+    icon: 'B',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Forgetting words mid-sentence, losing your train of thought, walking into rooms with no idea why — brain fog is one of the most distressing menopause symptoms, yet it\'s rarely acknowledged. It\'s real, it\'s common, and it\'s hormonal.',
     sections: [
       { heading: 'Why does menopause affect thinking?', body: 'Oestrogen plays an active role in brain function, including verbal memory, processing speed, and attention. There are oestrogen receptors throughout the brain, particularly in the hippocampus (the memory centre). As oestrogen fluctuates and declines, these cognitive functions can be temporarily impaired.' },
@@ -58,9 +58,9 @@ const ARTICLES = [
     category: 'Symptoms',
     title: 'Sleep and menopause: why it changes and what actually helps',
     readTime: 7,
-    icon: '🌙',
-    color: '#c4959e',
-    bg: '#fdf4f5',
+    icon: 'S',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Poor sleep during menopause isn\'t just about night sweats. Multiple mechanisms converge to disrupt sleep — and understanding which ones affect you most is the first step to addressing them.',
     sections: [
       { heading: 'Why sleep changes in menopause', body: 'Several mechanisms are at work: night sweats wake you repeatedly; declining progesterone (which has sedative properties) makes it harder to fall and stay asleep; oestrogen changes affect sleep architecture; anxiety and mood changes make the mind race at night; and the circadian rhythm itself shifts.' },
@@ -75,9 +75,9 @@ const ARTICLES = [
     category: 'Mental health',
     title: 'The mood rollercoaster: anxiety, low mood and irritability in menopause',
     readTime: 6,
-    icon: '💛',
-    color: '#c9a96e',
-    bg: '#fffbf2',
+    icon: 'M',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Mood changes during perimenopause and menopause are hormonal — not a sign that something is wrong with you. Understanding the mechanism helps it feel less terrifying, and know that it is treatable.',
     sections: [
       { heading: 'The hormone-mood connection', body: 'Oestrogen plays a direct role in regulating serotonin and other neurotransmitters. When oestrogen fluctuates unpredictably — as it does in perimenopause — mood can follow. This creates low mood, irritability, anxiety, and emotional volatility that many women describe as "not like themselves."' },
@@ -91,9 +91,9 @@ const ARTICLES = [
     category: 'Lifestyle',
     title: 'Exercise during menopause: what the evidence says',
     readTime: 5,
-    icon: '🏃‍♀️',
-    color: '#5a8a6b',
-    bg: '#f4faf6',
+    icon: 'E',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Exercise is one of the most powerful tools available during menopause — but different types of movement help with different symptoms. Here\'s what the evidence actually supports.',
     sections: [
       { heading: 'Strength training', body: 'Resistance training is arguably the most important form of exercise during and after menopause. It counteracts the muscle mass loss that accelerates with oestrogen decline, protects bone density, improves insulin sensitivity, supports healthy weight, and has meaningful evidence for improving mood. Aim for 2–3 sessions per week.' },
@@ -108,9 +108,9 @@ const ARTICLES = [
     category: 'Lifestyle',
     title: 'Nutrition and menopause: foods that support you',
     readTime: 7,
-    icon: '🥦',
-    color: '#2d8b7a',
-    bg: '#f4faf6',
+    icon: 'N',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Nutrition during menopause is an area full of noise and marketing. Here\'s what the research actually supports — and what to be cautious about.',
     sections: [
       { heading: 'Calcium and bone health', body: 'Bone density loss accelerates in the perimenopause and post-menopause. Calcium from food (dairy, fortified plant milks, leafy greens, tinned fish with bones) supports bone density. The UK recommendation is 700mg/day, rising to 1200mg in post-menopause. Vitamin D (needed to absorb calcium) is deficient in many women — supplementation is widely recommended.' },
@@ -126,9 +126,9 @@ const ARTICLES = [
     category: 'Treatment',
     title: 'How to talk to your doctor about menopause (and actually be heard)',
     readTime: 6,
-    icon: '🩺',
-    color: '#c47a5a',
-    bg: '#fff7f3',
+    icon: 'T',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Many women leave GP appointments feeling dismissed, unheard, or with no clear plan. It doesn\'t have to be this way. Preparation makes a significant difference.',
     sections: [
       { heading: 'Why appointments go wrong', body: 'GP appointments are short (typically 10 minutes), and menopause presents with a wide range of symptoms that individually could have other causes. Without a clear picture, doctors often address one symptom at a time. Many women also downplay their symptoms or expect to be asked more questions than they are.' },
@@ -143,9 +143,9 @@ const ARTICLES = [
     category: 'Treatment',
     title: 'HRT: the most common questions, answered clearly',
     readTime: 9,
-    icon: '💊',
-    color: '#9b8ab8',
-    bg: '#f6f3fc',
+    icon: 'H',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'The evidence on hormone replacement therapy has changed significantly in the last two decades. Many women are making decisions based on outdated information. Here\'s what we know now.',
     sections: [
       { heading: 'Is HRT safe?', body: 'For most women under 60 who are within 10 years of menopause onset, the benefits of HRT outweigh the risks. The 2002 Women\'s Health Initiative study that caused widespread concern has since been substantially reinterpreted — the population studied was older, and many risks applied specifically to oral oestrogen combined with synthetic progestogen.' },
@@ -160,9 +160,9 @@ const ARTICLES = [
     category: 'Understanding',
     title: 'Bone health and menopause: what you need to know',
     readTime: 5,
-    icon: '🦴',
-    color: '#c47a5a',
-    bg: '#fff7f3',
+    icon: 'B',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Bone density loss accelerates dramatically in the years around menopause. The good news: there is a lot you can do, and it\'s never too early — or too late — to start.',
     sections: [
       { heading: 'Why menopause affects bones', body: 'Oestrogen plays a key role in regulating bone turnover — the constant process of breaking down and rebuilding bone tissue. As oestrogen declines, bone loss speeds up. Women can lose 10–15% of their bone density in the first 5 years after menopause. This is why osteoporosis is significantly more common in women than men.' },
@@ -175,9 +175,9 @@ const ARTICLES = [
     category: 'Symptoms',
     title: 'Vaginal and sexual health during menopause',
     readTime: 5,
-    icon: '🌸',
-    color: '#c4959e',
-    bg: '#fdf4f5',
+    icon: 'V',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Genitourinary syndrome of menopause (GSM) — which includes vaginal dryness, discomfort during sex, and urinary symptoms — affects more than half of women after menopause. Unlike hot flushes, it rarely improves on its own. But it is very treatable.',
     sections: [
       { heading: 'What is GSM?', body: 'As oestrogen declines, the tissues of the vagina, vulva, and bladder thin and lose moisture. This causes symptoms ranging from mild dryness and discomfort to significant pain during sex, urinary urgency, recurrent UTIs, and reduced sensation. Many women don\'t mention it to their doctor because they assume it\'s inevitable.' },
@@ -191,9 +191,9 @@ const ARTICLES = [
     category: 'Understanding',
     title: 'Heart health and menopause: the link women aren\'t told about',
     readTime: 6,
-    icon: '❤️',
-    color: '#e07a5f',
-    bg: '#fff7f3',
+    icon: 'H',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
     intro: 'Cardiovascular disease is the leading cause of death in women over 50 — yet heart disease is often perceived as a male problem. Menopause changes heart disease risk significantly, and most women aren\'t told.',
     sections: [
       { heading: 'How oestrogen protects the heart', body: 'Oestrogen has multiple cardiovascular benefits: it supports healthy cholesterol levels (raising HDL, lowering LDL), helps maintain flexible blood vessels, reduces inflammation, and supports healthy blood pressure. After menopause, these protective effects are lost.' },
@@ -230,17 +230,17 @@ export default async function ArticlePage({ params }: Props) {
   const related = ARTICLES.filter(a => a.slug !== slug && (a.category === article.category)).slice(0, 3)
 
   return (
-    <div style={{ minHeight: '100vh', background: '#fdf8f4', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#09070e', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
 
       {/* Nav */}
       <header style={{ position: 'sticky', top: 0, zIndex: 50 }}>
-        <div className="m-nav-glass">
+        <div style={{ background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.09)', backdropFilter: 'blur(24px)' }}>
           <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 32px', height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#1a1220', letterSpacing: '-0.02em' }}>
-              vida<span style={{ color: '#2d8b7a' }}>.</span>
+            <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.02em', textDecoration: 'none' }}>
+              vida<span style={{ color: '#9b7cc8' }}>.</span>
             </Link>
             <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <Link href="/learn" style={{ fontSize: 14, fontWeight: 600, color: '#2d8b7a', padding: '8px 14px' }}>← All articles</Link>
+              <Link href="/learn" style={{ fontSize: 14, fontWeight: 300, color: '#9b7cc8', padding: '8px 14px' }}>← All articles</Link>
               <Link href="/login" className="m-btn m-btn-ghost-sm">Sign in</Link>
               <Link href="/signup" className="m-btn m-btn-sage-sm">Join free</Link>
             </nav>
@@ -253,29 +253,35 @@ export default async function ArticlePage({ params }: Props) {
 
         {/* Breadcrumb */}
         <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 28 }}>
-          <Link href="/learn" style={{ fontSize: 13, color: '#8a7a72', textDecoration: 'none' }}>Knowledge Hub</Link>
-          <span style={{ color: '#c8bdb8', fontSize: 13 }}>›</span>
-          <span style={{ fontSize: 13, color: article.color, fontWeight: 600 }}>{article.category}</span>
+          <Link href="/learn" style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)', textDecoration: 'none' }}>Knowledge Hub</Link>
+          <span style={{ color: 'rgba(255,255,255,0.32)', fontSize: 13 }}>›</span>
+          <span style={{ fontSize: 13, color: article.color, fontWeight: 300 }}>{article.category}</span>
         </div>
 
         {/* Header */}
         <div style={{
-          background: article.bg, border: `1.5px solid ${article.color}20`,
+          background: 'rgba(255,255,255,0.04)', border: `1.5px solid rgba(155,124,200,0.2)`,
           borderRadius: 24, padding: '32px 28px', marginBottom: 40,
         }}>
-          <span style={{ fontSize: 40, display: 'block', marginBottom: 16 }}>{article.icon}</span>
-          <span style={{ fontSize: 11, fontWeight: 700, color: article.color, textTransform: 'uppercase' as const, letterSpacing: '0.08em' }}>{article.category}</span>
+          <div style={{
+            width: 48, height: 48, borderRadius: 12, background: 'rgba(155,124,200,0.15)',
+            border: '1px solid rgba(155,124,200,0.3)', display: 'flex', alignItems: 'center',
+            justifyContent: 'center', marginBottom: 16,
+            fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 300,
+            color: article.color,
+          }}>{article.icon}</div>
+          <span style={{ fontSize: 11, fontWeight: 300, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase' as const, letterSpacing: '0.12em' }}>{article.category}</span>
           <h1 style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 700,
-            color: '#1a1220', letterSpacing: '-0.02em', lineHeight: 1.2,
+            fontSize: 'clamp(24px, 3.5vw, 36px)', fontWeight: 300,
+            color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.02em', lineHeight: 1.2,
             margin: '10px 0 16px',
           }}>{article.title}</h1>
-          <p style={{ fontSize: 13, color: '#8a7a72' }}>{article.readTime} min read</p>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)' }}>{article.readTime} min read</p>
         </div>
 
         {/* Intro */}
-        <p style={{ fontSize: 18, color: '#4a3a42', lineHeight: 1.8, marginBottom: 48, fontWeight: 400 }}>
+        <p style={{ fontSize: 18, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, marginBottom: 48, fontWeight: 300 }}>
           {article.intro}
         </p>
 
@@ -284,33 +290,34 @@ export default async function ArticlePage({ params }: Props) {
           <div key={section.heading} style={{ marginBottom: 40 }}>
             <h2 style={{
               fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 22, fontWeight: 700, color: '#1a1220',
+              fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)',
               letterSpacing: '-0.015em', lineHeight: 1.3, marginBottom: 14,
               borderLeft: `3px solid ${article.color}`, paddingLeft: 16,
             }}>{section.heading}</h2>
             {section.body.split('\n\n').map((para, i) => (
-              <p key={i} style={{ fontSize: 16, color: '#4a3a42', lineHeight: 1.8, marginBottom: 16 }}>{para}</p>
+              <p key={i} style={{ fontSize: 16, color: 'rgba(255,255,255,0.55)', lineHeight: 1.8, marginBottom: 16 }}>{para}</p>
             ))}
           </div>
         ))}
 
         {/* Educational disclaimer */}
         <div style={{
-          background: 'rgba(45,139,122,0.06)', border: '1.5px solid rgba(45,139,122,0.14)',
+          background: 'rgba(155,124,200,0.06)', border: '1.5px solid rgba(155,124,200,0.14)',
           borderRadius: 18, padding: '20px 22px', marginTop: 48, marginBottom: 48,
         }}>
-          <p style={{ fontSize: 13, color: '#4a7a6a', margin: 0, lineHeight: 1.6 }}>
-            <strong style={{ color: '#2d8b7a' }}>Educational content only.</strong> This guide is intended to inform, not to replace medical advice. Always discuss symptoms and treatment options with a qualified healthcare provider who knows your full history.
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: 0, lineHeight: 1.6 }}>
+            <strong style={{ color: '#9b7cc8' }}>Educational content only.</strong> This guide is intended to inform, not to replace medical advice. Always discuss symptoms and treatment options with a qualified healthcare provider who knows your full history.
           </p>
         </div>
 
         {/* CTA */}
         <div style={{
-          background: 'linear-gradient(148deg, #1a1220, #2a1830)',
+          background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(155,124,200,0.2)',
+          backdropFilter: 'blur(24px)',
           borderRadius: 28, padding: '36px 32px', textAlign: 'center',
           marginBottom: 56,
         }}>
-          <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 22, fontWeight: 700, color: 'white', marginBottom: 12 }}>
+          <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)', marginBottom: 12 }}>
             Track how your symptoms connect to your life
           </p>
           <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', marginBottom: 24, lineHeight: 1.6 }}>
@@ -318,8 +325,8 @@ export default async function ArticlePage({ params }: Props) {
           </p>
           <Link href="/signup" style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'white', color: '#1a1220', borderRadius: 14,
-            padding: '14px 28px', fontSize: 15, fontWeight: 700, textDecoration: 'none',
+            background: '#9b7cc8', color: 'rgba(255,255,255,0.88)', borderRadius: 14,
+            padding: '14px 28px', fontSize: 15, fontWeight: 300, textDecoration: 'none',
           }}>
             Start tracking for free <ArrowRight size={15} />
           </Link>
@@ -328,22 +335,28 @@ export default async function ArticlePage({ params }: Props) {
         {/* Related articles */}
         {related.length > 0 && (
           <div>
-            <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 700, color: '#1a1220', marginBottom: 20 }}>
+            <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 300, color: 'rgba(255,255,255,0.88)', marginBottom: 20 }}>
               More in {article.category}
             </h3>
             <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
               {related.map(r => (
                 <Link key={r.slug} href={`/learn/${r.slug}`} style={{
                   display: 'flex', alignItems: 'center', gap: 16, padding: '16px 18px',
-                  background: 'rgba(255,255,255,0.8)', border: '1.5px solid rgba(237,224,216,0.7)',
+                  background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)',
                   borderRadius: 16, textDecoration: 'none',
                 }}>
-                  <span style={{ fontSize: 24, flexShrink: 0 }}>{r.icon}</span>
+                  <div style={{
+                    width: 40, height: 40, borderRadius: 10, background: 'rgba(155,124,200,0.15)',
+                    border: '1px solid rgba(155,124,200,0.3)', display: 'flex', alignItems: 'center',
+                    justifyContent: 'center', flexShrink: 0,
+                    fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 16, fontWeight: 300,
+                    color: r.color,
+                  }}>{r.icon}</div>
                   <div style={{ flex: 1 }}>
-                    <p style={{ fontSize: 14, fontWeight: 600, color: '#1a1220', margin: 0, lineHeight: 1.4 }}>{r.title}</p>
-                    <p style={{ fontSize: 12, color: '#8a7a72', margin: '3px 0 0' }}>{r.readTime} min read</p>
+                    <p style={{ fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: 0, lineHeight: 1.4 }}>{r.title}</p>
+                    <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: '3px 0 0' }}>{r.readTime} min read</p>
                   </div>
-                  <span style={{ color: '#c8bdb8', fontSize: 18, flexShrink: 0 }}>›</span>
+                  <span style={{ color: 'rgba(255,255,255,0.32)', fontSize: 18, flexShrink: 0 }}>›</span>
                 </Link>
               ))}
             </div>

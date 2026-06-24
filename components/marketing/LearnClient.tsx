@@ -33,10 +33,11 @@ export function LearnClient({ articles }: Props) {
             key={cat}
             onClick={() => setActive(cat)}
             style={{
-              padding: '9px 20px', borderRadius: 9999, border: 'none', cursor: 'pointer',
-              fontSize: 14, fontWeight: 600,
-              background: active === cat ? '#1a1220' : 'rgba(237,224,216,0.55)',
-              color: active === cat ? 'white' : '#6a5a6a',
+              padding: '9px 20px', borderRadius: 9999, cursor: 'pointer',
+              fontSize: 14, fontWeight: 300,
+              background: active === cat ? 'rgba(155,124,200,0.2)' : 'rgba(255,255,255,0.04)',
+              color: active === cat ? '#c4b8e0' : 'rgba(255,255,255,0.55)',
+              border: active === cat ? '1px solid rgba(155,124,200,0.4)' : '1px solid rgba(255,255,255,0.09)',
               transition: 'all 0.18s',
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
             }}
@@ -50,12 +51,18 @@ export function LearnClient({ articles }: Props) {
       <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fill, minmax(300px, 1fr))', gap: 20, marginBottom: 80 }}>
         {filtered.map((article) => (
           <Link key={article.slug} href={`/learn/${article.slug}`} style={{ textDecoration: 'none' }}>
-            <TiltCard className="learn-card" style={{ background: article.bg }} maxTilt={7} scale={1.02}>
+            <TiltCard className="learn-card" style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', backdropFilter: 'blur(24px)' }} maxTilt={7} scale={1.02}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 20 }}>
-                <span style={{ fontSize: 32 }}>{article.icon}</span>
+                <div style={{
+                  width: 40, height: 40, borderRadius: 10,
+                  background: 'rgba(155,124,200,0.15)', border: '1px solid rgba(155,124,200,0.3)',
+                  display: 'flex', alignItems: 'center', justifyContent: 'center',
+                  fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 18, fontWeight: 300,
+                  color: article.color, flexShrink: 0,
+                }}>{article.icon}</div>
                 <span style={{
-                  fontSize: 11, fontWeight: 700, textTransform: 'uppercase', letterSpacing: '0.06em',
-                  color: article.color, background: `${article.color}15`,
+                  fontSize: 11, fontWeight: 300, textTransform: 'uppercase', letterSpacing: '0.12em',
+                  color: 'rgba(155,124,200,0.7)', background: 'rgba(155,124,200,0.09)',
                   padding: '5px 11px', borderRadius: 9999,
                 }}>
                   {article.category}
@@ -63,15 +70,15 @@ export function LearnClient({ articles }: Props) {
               </div>
               <h3 style={{
                 fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 18, fontWeight: 700, color: '#1a1220',
+                fontSize: 18, fontWeight: 300, color: 'rgba(255,255,255,0.88)',
                 lineHeight: 1.35, marginBottom: 10,
               }}>
                 {article.title}
               </h3>
-              <p style={{ fontSize: 14, color: '#8a7a72', lineHeight: 1.65, marginBottom: 18 }}>
+              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', lineHeight: 1.65, marginBottom: 18 }}>
                 {article.excerpt}
               </p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: '#b8a9a0', fontWeight: 500 }}>
+              <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 12, color: 'rgba(255,255,255,0.32)', fontWeight: 300 }}>
                 <svg width="13" height="13" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2"><circle cx="12" cy="12" r="10"/><path d="M12 6v6l4 2"/></svg>
                 {article.readTime} min read
               </div>
@@ -84,12 +91,12 @@ export function LearnClient({ articles }: Props) {
       <div style={{ maxWidth: 720, margin: '0 auto' }}>
         <h2 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
-          fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 700, color: '#1a1220',
+          fontSize: 'clamp(24px, 3vw, 36px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)',
           textAlign: 'center', marginBottom: 12,
         }}>
           Frequently asked questions
         </h2>
-        <p style={{ textAlign: 'center', color: '#8a7a72', fontSize: 16, marginBottom: 44, lineHeight: 1.65 }}>
+        <p style={{ textAlign: 'center', color: 'rgba(255,255,255,0.55)', fontSize: 16, marginBottom: 44, lineHeight: 1.65 }}>
           Real answers to questions women ask most about menopause.
         </p>
 
@@ -108,7 +115,7 @@ export function LearnClient({ articles }: Props) {
         ))}
 
         <div style={{ textAlign: 'center', marginTop: 48 }}>
-          <p style={{ fontSize: 15, color: '#8a7a72', marginBottom: 20 }}>Still have questions? Ask Vida — our AI companion.</p>
+          <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.55)', marginBottom: 20 }}>Still have questions? Ask Vida — our AI companion.</p>
           <Link href="/signup" className="m-btn m-btn-primary" style={{ fontSize: 15, padding: '14px 36px' }}>
             Talk to Vida free
           </Link>
