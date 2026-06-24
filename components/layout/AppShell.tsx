@@ -43,6 +43,23 @@ export function AppShell({ children }: { children: React.ReactNode }) {
         animation: 'orb-c 20s ease-in-out infinite',
       }} />
 
+      {/* Portrait watermark — global ambient layer */}
+      <div style={{
+        position: 'fixed', top: 0, right: 0,
+        width: '52%', height: '100%',
+        overflow: 'hidden', pointerEvents: 'none', zIndex: 0,
+        opacity: 0.08,
+        maskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+      }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img
+          src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp"
+          alt=""
+          style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
+        />
+      </div>
+
       {/* Desktop sidebar — hidden on mobile via CSS */}
       <DesktopSidebar />
 

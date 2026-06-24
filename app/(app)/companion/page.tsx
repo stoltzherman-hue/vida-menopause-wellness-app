@@ -54,9 +54,10 @@ export default async function CompanionPage() {
 
   return (
     <div style={{
-      maxWidth: 680, margin: '0 auto', padding: '20px 16px 0',
+      padding: '20px 24px 0',
       display: 'flex', flexDirection: 'column',
       height: 'calc(100vh - 60px)', overflow: 'hidden',
+      position: 'relative',
     }}>
 
       {/* Header */}
