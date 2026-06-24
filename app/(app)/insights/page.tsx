@@ -4,6 +4,7 @@ import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import Link from 'next/link'
+import { TreatmentEfficacy } from '@/components/insights/TreatmentEfficacy'
 
 export const metadata: Metadata = { title: 'Insights · Vida' }
 
@@ -40,7 +41,7 @@ export default async function InsightsPage() {
   const thirtyDaysAgo = new Date()
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
 
-  const [{ data: recentCheckins }, { data: monthCheckins }] = await Promise.all([
+  const [{ data: recentCheckins }, { data: monthCheckins }, { data: profileData }, { data: allCheckins }] = await Promise.all([
     supabase
       .from('daily_checkins')
       .select('checkin_date, overall_wellbeing, mood, sleep_hours, hot_flash_severity')
@@ -53,7 +54,49 @@ export default async function InsightsPage() {
       .eq('user_id', user!.id)
       .gte('checkin_date', thirtyDaysAgo.toISOString().split('T')[0])
       .order('checkin_date', { ascending: true }),
+    supabase
+      .from('user_profiles')
+      .select('lifestyle')
+      .eq('user_id', user!.id)
+      .maybeSingle(),
+    supabase
+      .from('daily_checkins')
+      .select('checkin_date, mood, sleep_hours, hot_flash_severity')
+      .eq('user_id', user!.id)
+      .order('checkin_date', { ascending: true }),
   ])
+
+  // Treatment efficacy data
+  const lifestyle = typeof profileData?.lifestyle === 'object' && profileData.lifestyle !== null
+    ? profileData.lifestyle as Record<string, unknown>
+    : {}
+  const treatmentStartDate = typeof lifestyle.treatment_start_date === 'string'
+    ? lifestyle.treatment_start_date
+    : null
+
+  let beforeStats = null
+  let afterStats = null
+  let hasEfficacyData = false
+
+  if (treatmentStartDate && allCheckins) {
+    const beforeCheckins = allCheckins.filter((c) => c.checkin_date < treatmentStartDate)
+    const afterCheckins = allCheckins.filter((c) => c.checkin_date >= treatmentStartDate)
+    hasEfficacyData = beforeCheckins.length >= 5 && afterCheckins.length >= 5
+
+    const calcStats = (rows: typeof allCheckins) => {
+      const moodVals = rows.filter((c) => c.mood != null).map((c) => c.mood as number)
+      const sleepVals = rows.filter((c) => c.sleep_hours != null).map((c) => c.sleep_hours as number)
+      return {
+        avgMood: moodVals.length ? moodVals.reduce((a, b) => a + b, 0) / moodVals.length : null,
+        avgSleep: sleepVals.length ? sleepVals.reduce((a, b) => a + b, 0) / sleepVals.length : null,
+        hotFlushDays: rows.filter((c) => (c.hot_flash_severity ?? 0) > 0).length,
+        totalDays: rows.length,
+      }
+    }
+
+    if (beforeCheckins.length > 0) beforeStats = calcStats(beforeCheckins)
+    if (afterCheckins.length > 0) afterStats = calcStats(afterCheckins)
+  }
 
   const month = monthCheckins ?? []
   const hasData = month.length >= 3
@@ -333,6 +376,14 @@ export default async function InsightsPage() {
           </div>
         </div>
       )}
+
+      {/* Treatment efficacy */}
+      <TreatmentEfficacy
+        treatmentStartDate={treatmentStartDate}
+        before={beforeStats}
+        after={afterStats}
+        hasEnoughData={hasEfficacyData}
+      />
 
       {/* Trigger patterns */}
       {topTriggers.length > 0 && (

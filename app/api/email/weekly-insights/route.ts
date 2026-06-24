@@ -73,12 +73,12 @@ function buildEmailHtml(stats: UserStats): string {
 
   const patternNote =
     stats.hotFlashDays >= 4
-      ? `<p style="margin:0 0 8px 0">Your data suggests hot flashes were present on <strong>${stats.hotFlashDays} of 7 days</strong> this week. Tracking consistently helps you and your care team spot patterns over time.</p>`
+      ? `Your data suggests hot flushes were present on <strong style="color:#c4b8e0;">${stats.hotFlashDays} of 7 days</strong> this week. Tracking consistently helps you and your care team spot patterns.`
       : stats.avgSleep !== null && stats.avgSleep < 6
-      ? `<p style="margin:0 0 8px 0">Your data suggests your average sleep was <strong>${stats.avgSleep} hrs</strong> this week — below the 7–9 hr range many find restorative. Consider discussing sleep hygiene with your provider.</p>`
+      ? `Your data suggests average sleep of <strong style="color:#c4b8e0;">${stats.avgSleep} hrs</strong> this week — below the 7–9 hr range many find restorative. It may be worth tracking what affects your sleep.`
       : stats.avgWellbeing !== null && stats.avgWellbeing >= 7
-      ? `<p style="margin:0 0 8px 0">Your data suggests a strong wellbeing week! Keeping up consistent tracking helps you see what's working.</p>`
-      : `<p style="margin:0 0 8px 0">Keep tracking — patterns become clearer over time and can be a valuable conversation starter with your care team.</p>`
+      ? `Your wellbeing average of <strong style="color:#c4b8e0;">${stats.avgWellbeing}/10</strong> is strong this week. Consistent tracking helps you see what's working and bring clear data to your care team.`
+      : `Patterns become clearer with more data — keep checking in daily and Vida will surface specific insights about your sleep, mood, and symptom connections.`
 
   return `<!DOCTYPE html>
 <html lang="en">
@@ -87,85 +87,76 @@ function buildEmailHtml(stats: UserStats): string {
   <meta name="viewport" content="width=device-width, initial-scale=1.0" />
   <title>Your Vida Weekly Summary</title>
 </head>
-<body style="margin:0;padding:0;background-color:#faf8f4;font-family:Georgia,'Times New Roman',serif;color:#2d3748;">
-  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#faf8f4;padding:24px 0;">
+<body style="margin:0;padding:0;background-color:#09070e;font-family:system-ui,-apple-system,sans-serif;color:#e5e5e5;">
+  <table width="100%" cellpadding="0" cellspacing="0" style="background-color:#09070e;padding:32px 16px;">
     <tr>
       <td align="center">
-        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:560px;margin:0 auto;">
+        <table width="100%" cellpadding="0" cellspacing="0" style="max-width:540px;margin:0 auto;">
 
           <!-- Header -->
           <tr>
-            <td style="background-color:#3d2c35;border-radius:12px 12px 0 0;padding:28px 32px;text-align:center;">
-              <p style="margin:0;font-size:26px;font-weight:bold;color:#ffffff;letter-spacing:0.5px;">Vida</p>
-              <p style="margin:8px 0 0 0;font-size:13px;color:#c9b8c2;letter-spacing:1px;text-transform:uppercase;">Weekly Wellness Summary</p>
+            <td style="background:linear-gradient(135deg,rgba(155,124,200,0.12),rgba(122,82,176,0.08));border:1px solid rgba(155,124,200,0.18);border-radius:20px 20px 0 0;padding:32px;text-align:center;">
+              <p style="margin:0;font-size:30px;font-weight:300;color:rgba(255,255,255,0.88);letter-spacing:-0.02em;font-family:Georgia,'Times New Roman',serif;">vida<span style="color:#9b7cc8;">.</span></p>
+              <p style="margin:10px 0 0;font-size:11px;color:rgba(196,184,224,0.45);letter-spacing:0.12em;text-transform:uppercase;font-weight:400;">Weekly wellness summary</p>
             </td>
           </tr>
 
           <!-- Body -->
           <tr>
-            <td style="background-color:#ffffff;padding:32px;">
+            <td style="background-color:rgba(255,255,255,0.03);border-left:1px solid rgba(155,124,200,0.12);border-right:1px solid rgba(155,124,200,0.12);padding:32px;">
 
-              <p style="margin:0 0 20px 0;font-size:18px;font-weight:bold;color:#3d2c35;">
-                Hi ${name}, here&rsquo;s your Vida weekly summary
+              <p style="margin:0 0 8px 0;font-size:22px;font-weight:300;color:rgba(255,255,255,0.88);font-family:Georgia,'Times New Roman',serif;letter-spacing:-0.02em;">
+                Hi ${name}
+              </p>
+              <p style="margin:0 0 28px 0;font-size:14px;color:rgba(255,255,255,0.4);line-height:1.7;font-weight:300;">
+                You checked in <span style="color:rgba(196,184,224,0.8);">${stats.checkinCount} time${stats.checkinCount !== 1 ? 's' : ''}</span> this week${currentStreak > 1 ? ` &mdash; your current streak is <span style="color:rgba(196,184,224,0.8);">${currentStreak} day${currentStreak !== 1 ? 's' : ''}</span>` : ''}. Here&rsquo;s what your data showed.
               </p>
 
-              <p style="margin:0 0 24px 0;font-size:15px;color:#4a5568;line-height:1.6;">
-                You checked in <strong>${stats.checkinCount} time${stats.checkinCount !== 1 ? 's' : ''}</strong> this week${currentStreak > 1 ? ` and your current streak is <strong>${currentStreak} day${currentStreak !== 1 ? 's' : ''}</strong>` : ''}. Here&rsquo;s what your data showed:
-              </p>
-
-              <!-- Stats table -->
-              <table width="100%" cellpadding="0" cellspacing="0" style="border:1px solid #e2d9d0;border-radius:8px;overflow:hidden;margin-bottom:24px;">
-                <tr style="background-color:#f7f3ef;">
-                  <th style="padding:12px 16px;text-align:left;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#718096;font-weight:600;border-bottom:1px solid #e2d9d0;">Metric</th>
-                  <th style="padding:12px 16px;text-align:right;font-size:12px;text-transform:uppercase;letter-spacing:0.5px;color:#718096;font-weight:600;border-bottom:1px solid #e2d9d0;">This Week</th>
-                </tr>
-                <tr>
-                  <td style="padding:14px 16px;font-size:15px;color:#2d3748;border-bottom:1px solid #f0ebe5;">Days checked in</td>
-                  <td style="padding:14px 16px;font-size:15px;color:#3d2c35;font-weight:bold;text-align:right;border-bottom:1px solid #f0ebe5;">${stats.checkinCount} / 7</td>
-                </tr>
-                <tr style="background-color:#faf8f4;">
-                  <td style="padding:14px 16px;font-size:15px;color:#2d3748;border-bottom:1px solid #f0ebe5;">Avg wellbeing</td>
-                  <td style="padding:14px 16px;font-size:15px;color:#3d2c35;font-weight:bold;text-align:right;border-bottom:1px solid #f0ebe5;">${wellbeingDisplay}</td>
-                </tr>
-                <tr>
-                  <td style="padding:14px 16px;font-size:15px;color:#2d3748;border-bottom:1px solid #f0ebe5;">Avg energy</td>
-                  <td style="padding:14px 16px;font-size:15px;color:#3d2c35;font-weight:bold;text-align:right;border-bottom:1px solid #f0ebe5;">${energyDisplay}</td>
-                </tr>
-                <tr style="background-color:#faf8f4;">
-                  <td style="padding:14px 16px;font-size:15px;color:#2d3748;border-bottom:1px solid #f0ebe5;">Avg sleep</td>
-                  <td style="padding:14px 16px;font-size:15px;color:#3d2c35;font-weight:bold;text-align:right;border-bottom:1px solid #f0ebe5;">${sleepDisplay}</td>
-                </tr>
-                <tr>
-                  <td style="padding:14px 16px;font-size:15px;color:#2d3748;">Hot flash days</td>
-                  <td style="padding:14px 16px;font-size:15px;color:#3d2c35;font-weight:bold;text-align:right;">${stats.hotFlashDays}</td>
-                </tr>
+              <!-- Stats -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:28px;border-collapse:collapse;">
+                ${[
+                  ['Days checked in', `${stats.checkinCount} / 7`],
+                  ['Avg wellbeing', wellbeingDisplay],
+                  ['Avg energy', energyDisplay],
+                  ['Avg sleep', sleepDisplay],
+                  ['Hot flush days', `${stats.hotFlashDays}`],
+                ].map(([label, value], i) => `
+                <tr style="border-bottom:1px solid rgba(255,255,255,0.06);">
+                  <td style="padding:13px 0;font-size:14px;color:rgba(255,255,255,0.38);font-weight:300;">${label}</td>
+                  <td style="padding:13px 0;font-size:15px;color:rgba(255,255,255,0.82);font-weight:300;text-align:right;font-family:Georgia,'Times New Roman',serif;">${value}</td>
+                </tr>`).join('')}
               </table>
 
-              <!-- Pattern callout -->
-              <div style="background-color:#f7f3ef;border-left:3px solid #5a8a6b;border-radius:0 8px 8px 0;padding:16px;margin-bottom:24px;font-size:14px;color:#4a5568;line-height:1.6;">
-                <p style="margin:0 0 4px 0;font-size:11px;text-transform:uppercase;letter-spacing:0.8px;color:#5a8a6b;font-weight:600;">Pattern insight</p>
-                ${patternNote}
-                <p style="margin:0;font-size:12px;color:#a0aec0;font-style:italic;">This is educational, not medical advice. Discuss patterns with your healthcare provider.</p>
+              <!-- Pattern insight -->
+              <div style="background:rgba(155,124,200,0.07);border:1px solid rgba(155,124,200,0.16);border-radius:14px;padding:18px 20px;margin-bottom:28px;">
+                <p style="margin:0 0 8px 0;font-size:10px;text-transform:uppercase;letter-spacing:0.1em;color:rgba(196,184,224,0.45);font-weight:400;">Pattern insight</p>
+                <p style="margin:0 0 10px 0;font-size:14px;color:rgba(255,255,255,0.55);line-height:1.65;font-weight:300;">${patternNote}</p>
+                <p style="margin:0;font-size:12px;color:rgba(255,255,255,0.2);font-style:italic;">Educational only. Discuss patterns with your healthcare provider.</p>
               </div>
 
-              <!-- Closing -->
-              <p style="margin:0 0 8px 0;font-size:15px;color:#4a5568;line-height:1.6;">
-                Every check-in is a step toward understanding your body better. You&rsquo;re doing great — keep going. 🌿
-              </p>
+              <!-- CTA -->
+              <table width="100%" cellpadding="0" cellspacing="0" style="margin-bottom:4px;">
+                <tr>
+                  <td align="center">
+                    <a href="https://vida-wellness.app/insights" style="display:inline-block;padding:13px 32px;background:rgba(155,124,200,0.14);border:1px solid rgba(155,124,200,0.28);border-radius:100px;color:#c4b8e0;text-decoration:none;font-size:14px;font-weight:300;letter-spacing:0.01em;">
+                      View your insights
+                    </a>
+                  </td>
+                </tr>
+              </table>
 
             </td>
           </tr>
 
           <!-- Footer -->
           <tr>
-            <td style="background-color:#f0ebe5;border-radius:0 0 12px 12px;padding:20px 32px;text-align:center;">
-              <p style="margin:0 0 8px 0;font-size:13px;color:#718096;">
-                Sent by <strong style="color:#3d2c35;">Vida</strong> &mdash; your menopause wellness companion
+            <td style="background:rgba(255,255,255,0.02);border:1px solid rgba(255,255,255,0.06);border-top:none;border-radius:0 0 20px 20px;padding:20px 32px;text-align:center;">
+              <p style="margin:0 0 6px 0;font-size:12px;color:rgba(255,255,255,0.2);">
+                Sent by <span style="color:rgba(255,255,255,0.45);">vida.</span> &mdash; your menopause wellness companion
               </p>
-              <p style="margin:0;font-size:12px;color:#a0aec0;">
-                To unsubscribe from weekly emails, visit your
-                <a href="https://vida-wellness.app/settings/notifications" style="color:#5a8a6b;text-decoration:underline;">notification settings</a>.
-                This email does not constitute medical advice.
+              <p style="margin:0;font-size:11px;color:rgba(255,255,255,0.15);line-height:1.6;">
+                <a href="https://vida-wellness.app/settings/notifications" style="color:rgba(196,184,224,0.35);text-decoration:underline;">Unsubscribe from weekly emails</a>
+                &nbsp;&middot;&nbsp;This email does not constitute medical advice.
               </p>
             </td>
           </tr>
