@@ -11,13 +11,13 @@ interface Medication {
 interface Props { initialMeds: Medication[]; takenTodayIds?: string[] }
 
 const TYPE_COLORS: Record<string, string> = {
-  HRT: '#6b9e80', Supplement: '#c47a5a', Prescription: '#c4959e', OTC: '#8a7a72', Other: '#b8a9c9',
+  HRT: '#9b7cc8', Supplement: '#c4b8e0', Prescription: '#7a52b0', OTC: 'rgba(255,255,255,0.55)', Other: '#c4b8e0',
 }
 
 const card: React.CSSProperties = {
-  background: 'rgba(255,255,255,0.82)',
-  border: '1.5px solid rgba(237,224,216,0.7)',
-  borderRadius: 20, backdropFilter: 'blur(12px)', padding: '18px 20px',
+  background: 'rgba(255,255,255,0.04)',
+  border: '1px solid rgba(255,255,255,0.09)',
+  borderRadius: 20, backdropFilter: 'blur(24px)', padding: '18px 20px',
 }
 
 export function MedicationList({ initialMeds, takenTodayIds = [] }: Props) {
@@ -40,32 +40,37 @@ export function MedicationList({ initialMeds, takenTodayIds = [] }: Props) {
     <div style={{ display: 'flex', flexDirection: 'column', gap: 12 }}>
       {meds.length === 0 && !showForm && (
         <div style={{ ...card, textAlign: 'center', padding: '48px 24px' }}>
-          <div style={{ fontSize: 40, marginBottom: 14 }}>💊</div>
-          <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 700, color: '#3d2c35', marginBottom: 8 }}>No medications yet</h2>
-          <p style={{ color: '#8a7a72', fontSize: 14, lineHeight: 1.6 }}>Track your HRT, supplements, and prescriptions to monitor adherence.</p>
+          <div style={{
+            width: 40, height: 40, borderRadius: '50%', flexShrink: 0, margin: '0 auto 14px',
+            background: 'rgba(155,124,200,0.18)',
+            border: '1px solid rgba(155,124,200,0.35)',
+          }} />
+          <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 300, color: 'rgba(255,255,255,0.88)', marginBottom: 8 }}>No medications yet</h2>
+          <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 14, lineHeight: 1.6 }}>Track your HRT, supplements, and prescriptions to monitor adherence.</p>
         </div>
       )}
 
       {meds.map((med) => {
-        const color = TYPE_COLORS[med.type] ?? '#8a7a72'
+        const color = TYPE_COLORS[med.type] ?? 'rgba(255,255,255,0.55)'
         return (
           <div key={med.id} style={card}>
             <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12 }}>
               <div style={{ flex: 1 }}>
                 <div style={{ display: 'flex', alignItems: 'center', gap: 8, flexWrap: 'wrap', marginBottom: 6 }}>
-                  <p style={{ fontWeight: 700, color: '#3d2c35', fontSize: 15, margin: 0 }}>{med.name}</p>
+                  <p style={{ fontWeight: 300, color: 'rgba(255,255,255,0.88)', fontSize: 15, margin: 0 }}>{med.name}</p>
                   <span style={{
-                    fontSize: 11, fontWeight: 700, color,
-                    background: `${color}18`, borderRadius: 8, padding: '2px 8px',
+                    fontSize: 11, fontWeight: 300, color,
+                    background: `rgba(155,124,200,0.12)`, borderRadius: 8, padding: '2px 8px',
+                    border: '1px solid rgba(155,124,200,0.2)',
                   }}>{med.type}</span>
                 </div>
-                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0 16px', fontSize: 13, color: '#8a7a72' }}>
+                <div style={{ display: 'flex', flexWrap: 'wrap', gap: '0 16px', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
                   {med.dose && <span>{med.dose}</span>}
                   <span>{med.frequency}</span>
                   {med.time_of_day && med.time_of_day.length > 0 && <span>{med.time_of_day.join(', ')}</span>}
                 </div>
-                {med.notes && <p style={{ fontSize: 12, color: '#b8a9a0', marginTop: 4 }}>{med.notes}</p>}
-                {med.start_date && <p style={{ fontSize: 12, color: '#b8a9a0', marginTop: 2 }}>Started {new Date(med.start_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>}
+                {med.notes && <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 4 }}>{med.notes}</p>}
+                {med.start_date && <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 2 }}>Started {new Date(med.start_date + 'T00:00:00').toLocaleDateString('en-GB', { day: 'numeric', month: 'short', year: 'numeric' })}</p>}
                 <div style={{ marginTop: 10 }}>
                   <TakenButton
                     medicationId={med.id}
@@ -78,13 +83,17 @@ export function MedicationList({ initialMeds, takenTodayIds = [] }: Props) {
                 onClick={() => handleDelete(med.id)}
                 disabled={deleting === med.id}
                 style={{
-                  width: 36, height: 36, borderRadius: 10, border: 'none',
-                  background: 'rgba(237,224,216,0.5)', color: '#b8a9a0',
+                  width: 36, height: 36, borderRadius: 10, border: '1px solid rgba(255,255,255,0.09)',
+                  background: 'rgba(255,255,255,0.05)', color: 'rgba(255,255,255,0.32)',
                   cursor: 'pointer', display: 'flex', alignItems: 'center', justifyContent: 'center',
-                  fontSize: 16, transition: 'all 0.15s', flexShrink: 0,
+                  fontSize: 14, transition: 'all 0.15s', flexShrink: 0,
                 }}
                 aria-label="Remove"
-              >🗑️</button>
+              >
+                <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+                  <polyline points="3 6 5 6 21 6"/><path d="M19 6l-1 14a2 2 0 01-2 2H8a2 2 0 01-2-2L5 6"/><path d="M10 11v6M14 11v6"/><path d="M9 6V4h6v2"/>
+                </svg>
+              </button>
             </div>
           </div>
         )
@@ -96,9 +105,9 @@ export function MedicationList({ initialMeds, takenTodayIds = [] }: Props) {
         <button
           onClick={() => setShowForm(true)}
           style={{
-            height: 52, borderRadius: 16, border: '1.5px dashed rgba(107,158,128,0.4)',
-            background: 'rgba(107,158,128,0.05)', color: '#6b9e80',
-            fontSize: 15, fontWeight: 600, cursor: 'pointer',
+            height: 52, borderRadius: 16, border: '1px dashed rgba(155,124,200,0.35)',
+            background: 'rgba(155,124,200,0.05)', color: '#c4b8e0',
+            fontSize: 15, fontWeight: 300, cursor: 'pointer',
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
             transition: 'all 0.18s',
           }}
@@ -106,10 +115,11 @@ export function MedicationList({ initialMeds, takenTodayIds = [] }: Props) {
       )}
 
       <div style={{
-        background: 'rgba(253,248,244,0.8)', borderRadius: 14,
-        padding: '14px 18px', fontSize: 13, color: '#8a7a72', lineHeight: 1.6,
+        background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)',
+        borderRadius: 14,
+        padding: '14px 18px', fontSize: 13, color: 'rgba(255,255,255,0.55)', lineHeight: 1.6,
       }}>
-        <p style={{ fontWeight: 700, color: '#3d2c35', marginBottom: 4, fontSize: 13 }}>Important</p>
+        <p style={{ fontWeight: 300, color: 'rgba(255,255,255,0.88)', marginBottom: 4, fontSize: 13 }}>Important</p>
         Never change your medication doses without talking to your prescribing doctor.
       </div>
     </div>

@@ -14,9 +14,9 @@ const articles = [
     title: 'What is perimenopause? The complete guide',
     excerpt: 'Perimenopause can begin a decade before your last period. Here\'s what\'s actually happening hormonally, what to expect, and when to seek support.',
     readTime: 8,
-    icon: '🌿',
-    color: '#2d8b7a',
-    bg: '#f4faf6',
+    icon: 'P',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'hot-flushes-night-sweats',
@@ -24,9 +24,9 @@ const articles = [
     title: 'Hot flushes and night sweats: what\'s happening and what helps',
     excerpt: 'Why your thermostat feels broken, what triggers make them worse, and the full range of options — lifestyle through to hormonal and non-hormonal treatments.',
     readTime: 6,
-    icon: '🔥',
-    color: '#e07a5f',
-    bg: '#fff7f3',
+    icon: 'H',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'menopause-brain-fog',
@@ -34,19 +34,19 @@ const articles = [
     title: 'Menopause and brain fog: what\'s actually happening',
     excerpt: 'Forgetting words mid-sentence, walking into a room and blanking — brain fog is one of the most distressing and least-discussed symptoms. Here\'s the science.',
     readTime: 5,
-    icon: '🧠',
-    color: '#9b8ab8',
-    bg: '#f6f3fc',
+    icon: 'B',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'sleep-and-menopause',
     category: 'Symptoms',
     title: 'Sleep and menopause: why it changes and what actually helps',
-    excerpt: 'Multiple mechanisms disrupt sleep during perimenopause and beyond. Understanding which ones affect you is the first step to fixing them.',
+    excerpt: 'Multiple mechanisms disrupt sleep during perimenopause and beyond. Understanding which ones affect you most is the first step to fixing them.',
     readTime: 7,
-    icon: '🌙',
-    color: '#c4959e',
-    bg: '#fdf4f5',
+    icon: 'S',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'mood-anxiety-menopause',
@@ -54,9 +54,9 @@ const articles = [
     title: 'The mood rollercoaster: anxiety, low mood and irritability',
     excerpt: 'Oestrogen plays a direct role in serotonin regulation. When it fluctuates, your mood follows. This is hormonal — not a character flaw.',
     readTime: 6,
-    icon: '💛',
-    color: '#c9a96e',
-    bg: '#fffbf2',
+    icon: 'M',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'exercise-menopause',
@@ -64,9 +64,9 @@ const articles = [
     title: 'Exercise during menopause: what the evidence says',
     excerpt: 'Strength training, yoga, and cardio each play different roles. Here\'s the evidence on which types of movement help most with specific symptoms.',
     readTime: 5,
-    icon: '🏃‍♀️',
-    color: '#5a8a6b',
-    bg: '#f4faf6',
+    icon: 'E',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'nutrition-menopause',
@@ -74,9 +74,9 @@ const articles = [
     title: 'Nutrition and menopause: foods that support you',
     excerpt: 'From phytoestrogens to calcium, omega-3s to ultra-processed foods — what the research actually supports and what\'s marketing noise.',
     readTime: 7,
-    icon: '🥦',
-    color: '#2d8b7a',
-    bg: '#f4faf6',
+    icon: 'N',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'talking-to-your-doctor',
@@ -84,9 +84,9 @@ const articles = [
     title: 'How to talk to your doctor about menopause',
     excerpt: 'Many women leave appointments feeling dismissed. Here\'s how to prepare, what to bring, what questions to ask, and how to advocate for yourself.',
     readTime: 6,
-    icon: '🩺',
-    color: '#c47a5a',
-    bg: '#fff7f3',
+    icon: 'T',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'hrt-common-questions',
@@ -94,9 +94,9 @@ const articles = [
     title: 'HRT: the most common questions, answered clearly',
     excerpt: 'The evidence on hormone replacement therapy has shifted significantly in the last decade. Here\'s what we know now about safety, types, and who it helps most.',
     readTime: 9,
-    icon: '💊',
-    color: '#9b8ab8',
-    bg: '#f6f3fc',
+    icon: 'H',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'bone-health-menopause',
@@ -104,9 +104,9 @@ const articles = [
     title: 'Bone health and menopause: what you need to know',
     excerpt: 'Bone density loss accelerates in the years around menopause. The good news: there\'s a lot you can do, and it\'s never too early to start.',
     readTime: 5,
-    icon: '🦴',
-    color: '#c47a5a',
-    bg: '#fff7f3',
+    icon: 'B',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'vaginal-health-menopause',
@@ -114,9 +114,9 @@ const articles = [
     title: 'Vaginal and sexual health during menopause',
     excerpt: 'Genitourinary syndrome of menopause (GSM) affects over half of women and is very treatable — but rarely discussed. Here\'s what helps.',
     readTime: 5,
-    icon: '🌸',
-    color: '#c4959e',
-    bg: '#fdf4f5',
+    icon: 'V',
+    color: '#9b7cc8',
+    bg: 'rgba(255,255,255,0.04)',
   },
   {
     slug: 'heart-health-menopause',
@@ -124,25 +124,25 @@ const articles = [
     title: 'Heart health and menopause: the link women aren\'t told about',
     excerpt: 'Oestrogen has a protective effect on the cardiovascular system. After menopause, heart disease risk rises. Here\'s what to watch for and how to protect yourself.',
     readTime: 6,
-    icon: '❤️',
-    color: '#e07a5f',
-    bg: '#fff7f3',
+    icon: 'H',
+    color: '#c4b8e0',
+    bg: 'rgba(255,255,255,0.04)',
   },
 ]
 
 export default function LearnPage() {
   return (
-    <div style={{ minHeight: '100vh', background: '#fdf8f4', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+    <div style={{ minHeight: '100vh', background: '#09070e', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
 
       {/* Nav */}
       <header style={{ position: 'sticky', top: 0, zIndex: 50 }}>
-        <div className="m-nav-glass">
+        <div style={{ background: 'rgba(255,255,255,0.04)', borderBottom: '1px solid rgba(255,255,255,0.09)', backdropFilter: 'blur(24px)' }}>
           <div style={{ maxWidth: 1160, margin: '0 auto', padding: '0 32px', height: 68, display: 'flex', alignItems: 'center', justifyContent: 'space-between' }}>
-            <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#1a1220', letterSpacing: '-0.02em' }}>
-              vida<span style={{ color: '#2d8b7a' }}>.</span>
+            <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.02em', textDecoration: 'none' }}>
+              vida<span style={{ color: '#9b7cc8' }}>.</span>
             </Link>
             <nav style={{ display: 'flex', alignItems: 'center', gap: 6 }}>
-              <Link href="/learn" style={{ fontSize: 14, fontWeight: 600, color: '#2d8b7a', padding: '8px 14px' }}>Learn</Link>
+              <Link href="/learn" style={{ fontSize: 14, fontWeight: 300, color: '#9b7cc8', padding: '8px 14px' }}>Learn</Link>
               <Link href="/login" className="m-btn m-btn-ghost-sm">Sign in</Link>
               <Link href="/signup" className="m-btn m-btn-sage-sm">Join free</Link>
             </nav>
@@ -158,20 +158,20 @@ export default function LearnPage() {
         <div style={{ maxWidth: 680 }}>
           <div style={{
             display: 'inline-flex', alignItems: 'center', gap: 8,
-            background: 'rgba(45,139,122,0.09)', border: '1px solid rgba(45,139,122,0.2)',
+            background: 'rgba(155,124,200,0.09)', border: '1px solid rgba(155,124,200,0.2)',
             borderRadius: 9999, padding: '7px 16px', marginBottom: 28,
           }}>
-            <span style={{ fontSize: 13, fontWeight: 600, color: '#2d6b5a' }}>Evidence-informed · Written for women</span>
+            <span style={{ fontSize: 13, fontWeight: 300, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em' }}>Evidence-informed · Written for women</span>
           </div>
           <h1 style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 700, color: '#1a1220',
+            fontSize: 'clamp(34px, 5vw, 60px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)',
             letterSpacing: '-0.03em', lineHeight: 1.1, marginBottom: 20,
           }}>
             Everything you need to know<br />
             <span className="gradient-text">about your menopause.</span>
           </h1>
-          <p style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', color: '#6a5a6a', lineHeight: 1.75, maxWidth: 560, marginBottom: 36 }}>
+          <p style={{ fontSize: 'clamp(16px, 1.6vw, 19px)', color: 'rgba(255,255,255,0.55)', lineHeight: 1.75, maxWidth: 560, marginBottom: 36 }}>
             Clear, honest guides written for women navigating perimenopause and menopause —
             grounded in current evidence, not generalisations.
           </p>
@@ -188,8 +188,8 @@ export default function LearnPage() {
 
       {/* Quick stats strip */}
       <div style={{
-        background: 'rgba(255,255,255,0.65)', backdropFilter: 'blur(16px)',
-        borderTop: '1px solid rgba(237,224,216,0.5)', borderBottom: '1px solid rgba(237,224,216,0.5)',
+        background: 'rgba(255,255,255,0.04)', backdropFilter: 'blur(16px)',
+        borderTop: '1px solid rgba(255,255,255,0.09)', borderBottom: '1px solid rgba(255,255,255,0.09)',
         padding: '22px 32px', marginBottom: 0,
       }}>
         <div style={{ maxWidth: 1160, margin: '0 auto', display: 'flex', flexWrap: 'wrap', gap: '12px 40px', alignItems: 'center', justifyContent: 'center' }}>
@@ -200,8 +200,8 @@ export default function LearnPage() {
             { n: '100%', label: 'Free to read' },
           ].map(({ n, label }) => (
             <div key={label} style={{ textAlign: 'center' }}>
-              <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 22, fontWeight: 700, color: '#1a1220', display: 'block', lineHeight: 1.2 }}>{n}</span>
-              <span style={{ fontSize: 12, color: '#b8a9a0', fontWeight: 500 }}>{label}</span>
+              <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)', display: 'block', lineHeight: 1.2 }}>{n}</span>
+              <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', fontWeight: 300 }}>{label}</span>
             </div>
           ))}
         </div>
@@ -213,16 +213,16 @@ export default function LearnPage() {
       </div>
 
       {/* Footer */}
-      <footer style={{ borderTop: '1px solid rgba(237,224,216,0.6)', padding: '40px 32px', textAlign: 'center' }}>
-        <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 700, color: '#1a1220', display: 'block', marginBottom: 12 }}>
-          vida<span style={{ color: '#2d8b7a' }}>.</span>
+      <footer style={{ borderTop: '1px solid rgba(255,255,255,0.09)', padding: '40px 32px', textAlign: 'center' }}>
+        <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 300, color: 'rgba(255,255,255,0.88)', display: 'block', marginBottom: 12, textDecoration: 'none' }}>
+          vida<span style={{ color: '#9b7cc8' }}>.</span>
         </Link>
-        <p style={{ fontSize: 13, color: '#b8a9a0', maxWidth: 460, margin: '0 auto', lineHeight: 1.65 }}>
+        <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)', maxWidth: 460, margin: '0 auto', lineHeight: 1.65 }}>
           Content on this site is educational and does not constitute medical advice.
           Always discuss symptoms and treatment options with a qualified healthcare provider.
         </p>
-        <p style={{ fontSize: 12, color: '#c4b5ae', marginTop: 24 }}>
-          © 2026 Vida Health Ltd · <Link href="/privacy" style={{ color: '#c4b5ae' }}>Privacy</Link> · <Link href="/terms" style={{ color: '#c4b5ae' }}>Terms</Link>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 24 }}>
+          © 2026 Vida Health Ltd · <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.32)' }}>Privacy</Link> · <Link href="/terms" style={{ color: 'rgba(255,255,255,0.32)' }}>Terms</Link>
         </p>
       </footer>
     </div>

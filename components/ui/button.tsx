@@ -10,8 +10,8 @@ const buttonVariants = cva(
       variant: {
         default: 'bg-[#6b9e80] text-white hover:bg-[#5a8a6b] shadow-[0_4px_14px_rgba(107,158,128,0.35)] hover:shadow-[0_6px_20px_rgba(107,158,128,0.45)] focus-visible:ring-[#6b9e80] rounded-full',
         secondary: 'bg-[#c47a5a] text-white hover:bg-[#b46a4a] shadow-[0_4px_14px_rgba(196,122,90,0.3)] hover:shadow-[0_6px_20px_rgba(196,122,90,0.4)] focus-visible:ring-[#c47a5a] rounded-full',
-        outline: 'border-2 border-[#ede0d8] bg-white/80 hover:bg-[#f5ede8] text-[#3d2c35] hover:border-[#c4959e] rounded-full backdrop-blur-sm',
-        ghost: 'hover:bg-[#f5ede8] text-[#8a7a72] hover:text-[#3d2c35] rounded-full',
+        outline: 'border-2 border-[rgba(255,255,255,0.09)] bg-[rgba(255,255,255,0.04)] hover:bg-[rgba(255,255,255,0.08)] text-[rgba(255,255,255,0.88)] hover:border-[#9b7cc8] rounded-full backdrop-blur-sm',
+        ghost: 'hover:bg-[rgba(255,255,255,0.06)] text-[rgba(255,255,255,0.55)] hover:text-[rgba(255,255,255,0.88)] rounded-full',
         soft: 'bg-[#e8f2ec] text-[#4a7a5b] hover:bg-[#d4eadb] rounded-full',
         blush: 'bg-[#faf0f2] text-[#c4959e] hover:bg-[#f5e4e8] border border-[#e8b4bc] rounded-full',
         destructive: 'bg-[#d95f5f] text-white hover:bg-[#c44f4f] rounded-full',

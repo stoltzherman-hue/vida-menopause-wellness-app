@@ -52,11 +52,11 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
   if (checkins.length === 0) {
     return (
       <div style={{ textAlign: 'center', padding: '80px 20px' }}>
-        <div style={{ fontSize: 56, marginBottom: 24 }}>📋</div>
-        <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 700, color: '#1a1220', marginBottom: 12 }}>
+        <div style={{ width: 40, height: 40, borderRadius: 6, background: '#9b7cc8', margin: '0 auto 24px' }} />
+        <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 700, color: 'rgba(255,255,255,0.88)', marginBottom: 12 }}>
           No data yet
         </h2>
-        <p style={{ color: '#8a7a72', fontSize: 15, lineHeight: 1.65, maxWidth: 400, margin: '0 auto' }}>
+        <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 15, lineHeight: 1.65, maxWidth: 400, margin: '0 auto' }}>
           Complete at least a few daily check-ins to generate your doctor report. The more data you have, the more useful your report will be.
         </p>
       </div>
@@ -125,31 +125,31 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
     <>
       {/* Screen header */}
       <div className="no-print" style={{ marginBottom: 28 }}>
-        <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: '#1a1220', margin: 0 }}>
+        <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 700, color: 'rgba(255,255,255,0.88)', margin: 0 }}>
           Doctor Report
         </h1>
-        <p style={{ color: '#8a7a72', marginTop: 6, fontSize: 15 }}>
+        <p style={{ color: 'rgba(255,255,255,0.55)', marginTop: 6, fontSize: 15 }}>
           A summary of your symptom data to share at your next appointment.
         </p>
       </div>
 
       <div className="no-print" style={{
-        background: 'rgba(45,139,122,0.06)', border: '1.5px solid rgba(45,139,122,0.16)',
+        background: 'rgba(155,124,200,0.07)', border: '1.5px solid rgba(155,124,200,0.18)',
         borderRadius: 18, padding: '16px 20px', marginBottom: 28,
         display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12,
       }}>
         <div>
-          <p style={{ fontWeight: 700, color: '#1e3d35', fontSize: 14, margin: 0 }}>Ready to print or save as PDF</p>
-          <p style={{ fontSize: 13, color: '#4a7a6a', margin: '3px 0 0' }}>
+          <p style={{ fontWeight: 700, color: 'rgba(255,255,255,0.88)', fontSize: 14, margin: 0 }}>Ready to print or save as PDF</p>
+          <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: '3px 0 0' }}>
             Use <strong>File → Print → Save as PDF</strong> or click the button to print.
           </p>
         </div>
         <button onClick={print} style={{
           padding: '12px 28px', borderRadius: 14, border: 'none', cursor: 'pointer',
-          background: 'linear-gradient(135deg, #2d8b7a, #1e6b55)',
+          background: 'linear-gradient(135deg, #9b7cc8, #7a52b0)',
           color: 'white', fontSize: 14, fontWeight: 700,
           fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-          boxShadow: '0 4px 16px rgba(45,139,122,0.28)',
+          boxShadow: '0 4px 16px rgba(155,124,200,0.28)',
           display: 'flex', alignItems: 'center', gap: 8,
         }}>
           <svg width="15" height="15" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round">
@@ -167,28 +167,28 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
         <div className="report-header">
           <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', flexWrap: 'wrap', gap: 16 }}>
             <div>
-              <p style={{ fontSize: 11, fontWeight: 700, color: '#2d8b7a', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 8px' }}>
+              <p style={{ fontSize: 11, fontWeight: 700, color: '#c4b8e0', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 8px' }}>
                 Vida Wellness — Symptom Summary Report
               </p>
-              <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 700, color: '#1a1220', margin: '0 0 4px' }}>
+              <h2 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 700, color: 'rgba(255,255,255,0.88)', margin: '0 0 4px' }}>
                 {profile?.display_name ?? 'Patient'} — Menopause Symptom Log
               </h2>
-              <p style={{ fontSize: 13, color: '#8a7a72', margin: 0 }}>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: 0 }}>
                 {stage ? `Stage: ${stage.replace(/_/g, ' ')} · ` : ''}
                 Report generated: {formatDate(generatedDate)}
               </p>
             </div>
             <div style={{ textAlign: 'right' }}>
-              <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 22, fontWeight: 700, color: '#1a1220', margin: '0 0 2px', letterSpacing: '-0.02em' }}>
-                vida<span style={{ color: '#2d8b7a' }}>.</span>
+              <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 22, fontWeight: 700, color: 'rgba(255,255,255,0.88)', margin: '0 0 2px', letterSpacing: '-0.02em' }}>
+                vida<span style={{ color: '#9b7cc8' }}>.</span>
               </p>
-              <p style={{ fontSize: 11, color: '#b8a9a0', margin: 0 }}>vida-wellness.com</p>
+              <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.32)', margin: 0 }}>vida-wellness.com</p>
             </div>
           </div>
 
           {/* Data range bar */}
           <div style={{
-            marginTop: 20, paddingTop: 20, borderTop: '1px solid rgba(237,224,216,0.7)',
+            marginTop: 20, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.09)',
             display: 'flex', flexWrap: 'wrap', gap: '10px 32px',
           }}>
             {[
@@ -197,8 +197,8 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
               { label: 'Consistency', value: `${consistency}%` },
             ].map(({ label, value }) => (
               <div key={label}>
-                <p style={{ fontSize: 11, color: '#b8a9a0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 3px' }}>{label}</p>
-                <p style={{ fontSize: 15, fontWeight: 700, color: '#1a1220', margin: 0 }}>{value}</p>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.32)', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em', margin: '0 0 3px' }}>{label}</p>
+                <p style={{ fontSize: 15, fontWeight: 700, color: 'rgba(255,255,255,0.88)', margin: 0 }}>{value}</p>
               </div>
             ))}
           </div>
@@ -223,9 +223,9 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
                 <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 800, color, margin: '0 0 2px', lineHeight: 1 }}>
                   {value}
                 </p>
-                <p style={{ fontSize: 11, color: '#b8a9a0', margin: '0 0 6px' }}>{sub}</p>
-                <p style={{ fontSize: 12, fontWeight: 600, color: '#6a5a6a', margin: '0 0 2px' }}>{label}</p>
-                <p style={{ fontSize: 11, color: '#b8a9a0', margin: 0 }}>{note}</p>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.32)', margin: '0 0 6px' }}>{sub}</p>
+                <p style={{ fontSize: 12, fontWeight: 600, color: 'rgba(255,255,255,0.55)', margin: '0 0 2px' }}>{label}</p>
+                <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.32)', margin: 0 }}>{note}</p>
               </div>
             ))}
           </div>
@@ -240,22 +240,22 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
               borderRadius: 16, padding: '18px 16px',
             }}>
               <p style={{ fontSize: 13, fontWeight: 700, color: '#e07a5f', margin: '0 0 10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Hot Flushes</p>
-              <p style={{ fontSize: 22, fontWeight: 800, color: '#1a1220', margin: '0 0 4px', fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+              <p style={{ fontSize: 22, fontWeight: 800, color: 'rgba(255,255,255,0.88)', margin: '0 0 4px', fontFamily: 'var(--font-playfair), Georgia, serif' }}>
                 {hotFlushDays} days
               </p>
-              <p style={{ fontSize: 13, color: '#8a7a72', margin: '0 0 8px' }}>with hot flush episodes ({Math.round((hotFlushDays / n) * 100)}% of logged days)</p>
-              <p style={{ fontSize: 12, color: '#8a7a72', margin: 0 }}>Average severity: <strong style={{ color: '#e07a5f' }}>{fmt(avgHotFlash)} / 5 — {severity(avgHotFlash)}</strong></p>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: '0 0 8px' }}>with hot flush episodes ({Math.round((hotFlushDays / n) * 100)}% of logged days)</p>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>Average severity: <strong style={{ color: '#e07a5f' }}>{fmt(avgHotFlash)} / 5 — {severity(avgHotFlash)}</strong></p>
             </div>
             <div style={{
               background: 'rgba(196,149,158,0.06)', border: '1px solid rgba(196,149,158,0.18)',
               borderRadius: 16, padding: '18px 16px',
             }}>
               <p style={{ fontSize: 13, fontWeight: 700, color: '#c4959e', margin: '0 0 10px', textTransform: 'uppercase', letterSpacing: '0.05em' }}>Night Sweats</p>
-              <p style={{ fontSize: 22, fontWeight: 800, color: '#1a1220', margin: '0 0 4px', fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+              <p style={{ fontSize: 22, fontWeight: 800, color: 'rgba(255,255,255,0.88)', margin: '0 0 4px', fontFamily: 'var(--font-playfair), Georgia, serif' }}>
                 {nightSweatDays} days
               </p>
-              <p style={{ fontSize: 13, color: '#8a7a72', margin: '0 0 8px' }}>with night sweat episodes ({Math.round((nightSweatDays / n) * 100)}% of logged days)</p>
-              <p style={{ fontSize: 12, color: '#8a7a72', margin: 0 }}>Average severity: <strong style={{ color: '#c4959e' }}>{fmt(avgNightSweat)} / 5 — {severity(avgNightSweat)}</strong></p>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: '0 0 8px' }}>with night sweat episodes ({Math.round((nightSweatDays / n) * 100)}% of logged days)</p>
+              <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.55)', margin: 0 }}>Average severity: <strong style={{ color: '#c4959e' }}>{fmt(avgNightSweat)} / 5 — {severity(avgNightSweat)}</strong></p>
             </div>
           </div>
         </div>
@@ -270,12 +270,12 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
                 return (
                   <div key={symptom} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
                     <div style={{ width: 140, flexShrink: 0 }}>
-                      <p style={{ fontSize: 14, fontWeight: 600, color: '#3d2c35', margin: 0 }}>{symptom}</p>
+                      <p style={{ fontSize: 14, fontWeight: 600, color: 'rgba(255,255,255,0.88)', margin: 0 }}>{symptom}</p>
                     </div>
-                    <div style={{ flex: 1, height: 8, background: 'rgba(237,224,216,0.5)', borderRadius: 9999, overflow: 'hidden' }}>
+                    <div style={{ flex: 1, height: 8, background: 'rgba(255,255,255,0.08)', borderRadius: 9999, overflow: 'hidden' }}>
                       <div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg, #9b8ab8aa, #9b8ab8)', borderRadius: 9999, transition: 'width 1s' }} />
                     </div>
-                    <p style={{ fontSize: 13, color: '#8a7a72', width: 70, textAlign: 'right', flexShrink: 0, margin: 0 }}>
+                    <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', width: 70, textAlign: 'right', flexShrink: 0, margin: 0 }}>
                       {count} days ({pct}%)
                     </p>
                   </div>
@@ -292,12 +292,12 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
               {topTriggers.map(([trigger, count]) => (
                 <div key={trigger} style={{
-                  background: 'rgba(201,169,110,0.09)', border: '1px solid rgba(201,169,110,0.22)',
+                  background: 'rgba(155,124,200,0.09)', border: '1px solid rgba(155,124,200,0.22)',
                   borderRadius: 9999, padding: '8px 18px',
                   display: 'flex', alignItems: 'center', gap: 8,
                 }}>
-                  <span style={{ fontSize: 14, fontWeight: 600, color: '#8a6a3a' }}>{trigger}</span>
-                  <span style={{ fontSize: 12, color: '#b8a9a0' }}>({count}×)</span>
+                  <span style={{ fontSize: 14, fontWeight: 600, color: '#c4b8e0' }}>{trigger}</span>
+                  <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)' }}>({count}×)</span>
                 </div>
               ))}
             </div>
@@ -321,7 +321,7 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
                       background: `linear-gradient(180deg, #6b9e80, #6b9e80aa)`,
                       borderRadius: '4px 4px 0 0', minHeight: 6,
                     }} />
-                    <p style={{ fontSize: 10, color: '#b8a9a0', margin: 0 }}>{label}</p>
+                    <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.32)', margin: 0 }}>{label}</p>
                   </div>
                 )
               })}
@@ -331,23 +331,23 @@ export function DoctorReport({ checkins, profile, generatedDate }: Props) {
 
         {/* Footer */}
         <div style={{
-          marginTop: 32, paddingTop: 20, borderTop: '1px solid rgba(237,224,216,0.7)',
+          marginTop: 32, paddingTop: 20, borderTop: '1px solid rgba(255,255,255,0.09)',
           display: 'flex', flexWrap: 'wrap', alignItems: 'flex-start', justifyContent: 'space-between', gap: 16,
         }}>
           <div>
-            <p style={{ fontSize: 12, color: '#b8a9a0', margin: '0 0 4px' }}>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: '0 0 4px' }}>
               <strong>Important:</strong> This report contains self-reported data logged through the Vida app.
             </p>
-            <p style={{ fontSize: 12, color: '#b8a9a0', margin: 0, maxWidth: 520, lineHeight: 1.6 }}>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: 0, maxWidth: 520, lineHeight: 1.6 }}>
               It is intended as a supportive document for clinical conversation, not a diagnostic tool.
               All health decisions should be made in consultation with a qualified healthcare provider.
             </p>
           </div>
           <div style={{ textAlign: 'right' }}>
-            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 16, fontWeight: 700, color: '#1a1220', margin: '0 0 2px' }}>
-              vida<span style={{ color: '#2d8b7a' }}>.</span>
+            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 16, fontWeight: 700, color: 'rgba(255,255,255,0.88)', margin: '0 0 2px' }}>
+              vida<span style={{ color: '#9b7cc8' }}>.</span>
             </p>
-            <p style={{ fontSize: 11, color: '#b8a9a0', margin: 0 }}>For {firstName} · {formatDate(generatedDate)}</p>
+            <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.32)', margin: 0 }}>For {firstName} · {formatDate(generatedDate)}</p>
           </div>
         </div>
       </div>

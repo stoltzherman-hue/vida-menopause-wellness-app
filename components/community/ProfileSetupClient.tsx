@@ -14,8 +14,8 @@ const STAGES = [
 
 const inp: React.CSSProperties = {
   width: '100%', height: 50, borderRadius: 14,
-  border: '1.5px solid #ede0d8', background: 'rgba(255,255,255,0.9)',
-  padding: '0 16px', fontSize: 15, color: '#3d2c35',
+  border: '1px solid rgba(255,255,255,0.10)', background: 'rgba(255,255,255,0.05)',
+  padding: '0 16px', fontSize: 15, color: 'rgba(255,255,255,0.82)',
   fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', outline: 'none',
   transition: 'border-color 0.18s',
 }
@@ -52,11 +52,11 @@ export function ProfileSetupClient({ suggestedName, stage }: { suggestedName: st
   return (
     <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 22 }}>
       {error && (
-        <div style={{ background: '#fff5f5', border: '1px solid #fecaca', borderRadius: 12, padding: '12px 16px', color: '#c0392b', fontSize: 14 }}>{error}</div>
+        <div style={{ background: 'rgba(217,95,95,0.07)', border: '1px solid rgba(217,95,95,0.22)', borderRadius: 12, padding: '12px 16px', color: 'rgba(232,160,160,0.9)', fontSize: 14 }}>{error}</div>
       )}
 
       <div>
-        <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#5a4a52', marginBottom: 7 }}>Username <span style={{ color: '#c4959e' }}>*</span></label>
+        <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.55)', marginBottom: 7 }}>Username <span style={{ color: '#c4b8e0' }}>*</span></label>
         <input
           style={inp}
           value={username}
@@ -65,11 +65,11 @@ export function ProfileSetupClient({ suggestedName, stage }: { suggestedName: st
           maxLength={30}
           required
         />
-        <p style={{ fontSize: 12, color: '#b8a9a0', marginTop: 5 }}>Lowercase letters, numbers, underscores only. Visible to other members.</p>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 5 }}>Lowercase letters, numbers, underscores only. Visible to other members.</p>
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#5a4a52', marginBottom: 7 }}>Bio <span style={{ color: '#b8a9a0', fontWeight: 400 }}>(optional)</span></label>
+        <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.55)', marginBottom: 7 }}>Bio <span style={{ color: 'rgba(255,255,255,0.32)', fontWeight: 400 }}>(optional)</span></label>
         <textarea
           style={{ ...inp, height: 88, padding: '14px 16px', resize: 'none', lineHeight: 1.55 } as React.CSSProperties}
           value={bio}
@@ -80,9 +80,9 @@ export function ProfileSetupClient({ suggestedName, stage }: { suggestedName: st
       </div>
 
       <div>
-        <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: '#5a4a52', marginBottom: 7 }}>Your stage <span style={{ color: '#b8a9a0', fontWeight: 400 }}>(optional)</span></label>
+        <label style={{ display: 'block', fontSize: 13, fontWeight: 500, color: 'rgba(255,255,255,0.55)', marginBottom: 7 }}>Your stage <span style={{ color: 'rgba(255,255,255,0.32)', fontWeight: 400 }}>(optional)</span></label>
         <select
-          style={{ ...inp, appearance: 'none', cursor: 'pointer', background: 'white' } as React.CSSProperties}
+          style={{ ...inp, appearance: 'none', cursor: 'pointer', background: 'rgba(255,255,255,0.05)' } as React.CSSProperties}
           value={selectedStage}
           onChange={e => setSelectedStage(e.target.value)}
         >
@@ -91,22 +91,22 @@ export function ProfileSetupClient({ suggestedName, stage }: { suggestedName: st
       </div>
 
       <div
-        style={{ display: 'flex', alignItems: 'flex-start', gap: 12, background: '#fdf8f4', borderRadius: 14, padding: '14px 16px', cursor: 'pointer' }}
+        style={{ display: 'flex', alignItems: 'flex-start', gap: 12, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: 14, padding: '14px 16px', cursor: 'pointer' }}
         onClick={() => setIsAnonymous(v => !v)}
       >
-        <div style={{ width: 20, height: 20, borderRadius: 6, border: `2px solid ${isAnonymous ? '#6b9e80' : '#ede0d8'}`, background: isAnonymous ? '#6b9e80' : 'white', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1, transition: 'all 0.15s' }}>
+        <div style={{ width: 20, height: 20, borderRadius: 6, border: `2px solid ${isAnonymous ? '#9b7cc8' : 'rgba(255,255,255,0.18)'}`, background: isAnonymous ? '#9b7cc8' : 'rgba(255,255,255,0.05)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0, marginTop: 1, transition: 'all 0.15s' }}>
           {isAnonymous && <span style={{ color: 'white', fontSize: 12, fontWeight: 700 }}>✓</span>}
         </div>
         <div>
-          <p style={{ fontWeight: 500, color: '#3d2c35', fontSize: 14, marginBottom: 2 }}>Post anonymously by default</p>
-          <p style={{ color: '#8a7a72', fontSize: 13, lineHeight: 1.5 }}>Your username won&apos;t show on posts. You can change this per post.</p>
+          <p style={{ fontWeight: 500, color: 'rgba(255,255,255,0.88)', fontSize: 14, marginBottom: 2 }}>Post anonymously by default</p>
+          <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 13, lineHeight: 1.5 }}>Your username won&apos;t show on posts. You can change this per post.</p>
         </div>
       </div>
 
       <button
         type="submit"
         disabled={loading}
-        style={{ height: 52, borderRadius: 14, border: 'none', background: '#6b9e80', color: 'white', fontSize: 16, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', boxShadow: '0 4px 18px rgba(107,158,128,0.35)', transition: 'all 0.2s' }}
+        style={{ height: 52, borderRadius: 14, border: 'none', background: 'linear-gradient(135deg, #9b7cc8, #7a52b0)', color: 'white', fontSize: 16, fontWeight: 600, cursor: loading ? 'not-allowed' : 'pointer', opacity: loading ? 0.7 : 1, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', boxShadow: '0 4px 18px rgba(155,124,200,0.35)', transition: 'all 0.2s' }}
       >
         {loading ? 'Creating profile…' : 'Create community profile'}
       </button>

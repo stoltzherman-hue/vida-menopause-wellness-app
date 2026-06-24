@@ -26,21 +26,21 @@ export default async function NewPostPage({ params }: Props) {
   return (
     <div style={{ maxWidth: 620, margin: '0 auto', padding: '28px 16px 100px' }}>
       <div style={{ marginBottom: 24 }}>
-        <a href={`/community/${slug}`} style={{ fontSize: 13, color: '#6b9e80', fontWeight: 600, textDecoration: 'none' }}>
+        <a href={`/community/${slug}`} style={{ fontSize: 13, color: '#9b7cc8', fontWeight: 600, textDecoration: 'none' }}>
           ← {category.name}
         </a>
         <h1 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
           fontSize: 24,
-          fontWeight: 700,
-          color: '#3d2c35',
+          fontWeight: 300,
+          color: 'rgba(255,255,255,0.88)',
           marginTop: 8,
           marginBottom: 0,
         }}>New post</h1>
       </div>
       <div style={{
-        background: 'rgba(255,255,255,0.85)',
-        border: '1.5px solid rgba(237,224,216,0.8)',
+        background: 'rgba(255,255,255,0.04)',
+        border: '1.5px solid rgba(255,255,255,0.09)',
         borderRadius: 22,
         padding: '24px',
         backdropFilter: 'blur(12px)',

@@ -28,7 +28,7 @@ function Avatar({ name, size = 36 }: { name: string; size?: number }) {
       width: size,
       height: size,
       borderRadius: '50%',
-      background: 'linear-gradient(135deg, #6b9e80, #c4959e)',
+      background: 'linear-gradient(135deg, #9b7cc8, #c4b8e0)',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -75,16 +75,16 @@ export default async function PostDetailPage({ params }: Props) {
   return (
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '28px 16px 100px' }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 6, fontSize: 13, marginBottom: 20 }}>
-        <Link href="/community" style={{ color: '#6b9e80', textDecoration: 'none', fontWeight: 600 }}>Community</Link>
-        <span style={{ color: '#b8a9a0' }}>›</span>
-        <Link href={`/community/${slug}`} style={{ color: '#6b9e80', textDecoration: 'none', fontWeight: 600 }}>
+        <Link href="/community" style={{ color: '#9b7cc8', textDecoration: 'none', fontWeight: 600 }}>Community</Link>
+        <span style={{ color: 'rgba(255,255,255,0.32)' }}>›</span>
+        <Link href={`/community/${slug}`} style={{ color: '#9b7cc8', textDecoration: 'none', fontWeight: 600 }}>
           {category?.name ?? slug}
         </Link>
       </div>
 
       <div style={{
-        background: 'rgba(255,255,255,0.82)',
-        border: '1.5px solid rgba(237,224,216,0.8)',
+        background: 'rgba(255,255,255,0.04)',
+        border: '1.5px solid rgba(255,255,255,0.09)',
         borderRadius: 22,
         padding: '24px 24px 20px',
         backdropFilter: 'blur(12px)',
@@ -93,8 +93,8 @@ export default async function PostDetailPage({ params }: Props) {
         <h1 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
           fontSize: 22,
-          fontWeight: 700,
-          color: '#3d2c35',
+          fontWeight: 300,
+          color: 'rgba(255,255,255,0.88)',
           marginTop: 0,
           marginBottom: 16,
           lineHeight: 1.3,
@@ -103,12 +103,12 @@ export default async function PostDetailPage({ params }: Props) {
         <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 16 }}>
           <Avatar name={postAuthorName} />
           <div>
-            <p style={{ fontWeight: 600, fontSize: 14, color: '#3d2c35', margin: 0 }}>{postAuthorName}</p>
-            <p style={{ fontSize: 12, color: '#b8a9a0', margin: 0 }}>{timeAgo(post.created_at)}</p>
+            <p style={{ fontWeight: 600, fontSize: 14, color: 'rgba(255,255,255,0.88)', margin: 0 }}>{postAuthorName}</p>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: 0 }}>{timeAgo(post.created_at)}</p>
           </div>
         </div>
 
-        <p style={{ fontSize: 15, color: '#5a4a52', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
+        <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.82)', lineHeight: 1.7, margin: 0, whiteSpace: 'pre-wrap' }}>
           {post.body}
         </p>
       </div>
@@ -116,8 +116,8 @@ export default async function PostDetailPage({ params }: Props) {
       <h2 style={{
         fontFamily: 'var(--font-playfair), Georgia, serif',
         fontSize: 18,
-        fontWeight: 700,
-        color: '#3d2c35',
+        fontWeight: 300,
+        color: 'rgba(255,255,255,0.88)',
         marginBottom: 14,
       }}>
         {(replies ?? []).length} {(replies ?? []).length === 1 ? 'reply' : 'replies'}
@@ -130,8 +130,8 @@ export default async function PostDetailPage({ params }: Props) {
             const name = author?.is_anonymous ? 'Anonymous' : (author?.username ?? 'Someone')
             return (
               <div key={reply.id} style={{
-                background: 'rgba(255,255,255,0.7)',
-                border: '1.5px solid rgba(237,224,216,0.7)',
+                background: 'rgba(255,255,255,0.04)',
+                border: '1.5px solid rgba(255,255,255,0.09)',
                 borderRadius: 18,
                 padding: '16px 20px',
                 backdropFilter: 'blur(8px)',
@@ -139,11 +139,11 @@ export default async function PostDetailPage({ params }: Props) {
                 <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 10 }}>
                   <Avatar name={name} size={30} />
                   <div>
-                    <span style={{ fontWeight: 600, fontSize: 13, color: '#3d2c35' }}>{name}</span>
-                    <span style={{ fontSize: 12, color: '#b8a9a0', marginLeft: 8 }}>{timeAgo(reply.created_at)}</span>
+                    <span style={{ fontWeight: 600, fontSize: 13, color: 'rgba(255,255,255,0.88)' }}>{name}</span>
+                    <span style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', marginLeft: 8 }}>{timeAgo(reply.created_at)}</span>
                   </div>
                 </div>
-                <p style={{ fontSize: 14, color: '#5a4a52', lineHeight: 1.65, margin: 0, whiteSpace: 'pre-wrap' }}>
+                <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.82)', lineHeight: 1.65, margin: 0, whiteSpace: 'pre-wrap' }}>
                   {reply.body}
                 </p>
               </div>
@@ -154,8 +154,8 @@ export default async function PostDetailPage({ params }: Props) {
 
       {myProfile ? (
         <div style={{
-          background: 'rgba(255,255,255,0.82)',
-          border: '1.5px solid rgba(237,224,216,0.8)',
+          background: 'rgba(255,255,255,0.04)',
+          border: '1.5px solid rgba(255,255,255,0.09)',
           borderRadius: 20,
           padding: '20px',
           backdropFilter: 'blur(12px)',
@@ -165,15 +165,16 @@ export default async function PostDetailPage({ params }: Props) {
       ) : (
         <Link href={user ? '/community/setup' : '/login'} style={{ textDecoration: 'none', display: 'block' }}>
           <div style={{
-            background: '#e8f2ec',
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.09)',
             borderRadius: 16,
             padding: '16px 20px',
             fontSize: 14,
-            color: '#4a7a5b',
+            color: '#9b7cc8',
             fontWeight: 500,
             textAlign: 'center',
           }}>
-            {user ? '🌿 Set up your community profile to reply →' : 'Sign in to reply →'}
+            {user ? 'Set up your community profile to reply →' : 'Sign in to reply →'}
           </div>
         </Link>
       )}

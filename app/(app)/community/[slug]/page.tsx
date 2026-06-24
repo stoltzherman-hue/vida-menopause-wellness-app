@@ -51,25 +51,25 @@ export default async function CategoryPage({ params }: Props) {
     <div style={{ maxWidth: 680, margin: '0 auto', padding: '28px 16px 100px' }}>
       <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', gap: 12, marginBottom: 24 }}>
         <div>
-          <Link href="/community" style={{ fontSize: 13, color: '#6b9e80', textDecoration: 'none', fontWeight: 600 }}>
+          <Link href="/community" style={{ fontSize: 13, color: '#9b7cc8', textDecoration: 'none', fontWeight: 600 }}>
             ← Community
           </Link>
           <h1 style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
             fontSize: 26,
-            fontWeight: 700,
-            color: '#3d2c35',
+            fontWeight: 300,
+            color: 'rgba(255,255,255,0.88)',
             marginTop: 6,
             marginBottom: 4,
           }}>{category.name}</h1>
           {category.description && (
-            <p style={{ color: '#8a7a72', fontSize: 14, margin: 0 }}>{category.description}</p>
+            <p style={{ color: 'rgba(255,255,255,0.55)', fontSize: 14, margin: 0 }}>{category.description}</p>
           )}
         </div>
         {myProfile && (
           <Link href={`/community/${slug}/new`} style={{
             flexShrink: 0,
-            background: 'linear-gradient(135deg, #6b9e80 0%, #4a7a5b 100%)',
+            background: 'linear-gradient(135deg, #9b7cc8 0%, #7a52b0 100%)',
             color: 'white',
             borderRadius: 14,
             padding: '10px 18px',
@@ -89,21 +89,21 @@ export default async function CategoryPage({ params }: Props) {
       {user && !myProfile && (
         <Link href="/community/setup" style={{ textDecoration: 'none', display: 'block', marginBottom: 18 }}>
           <div style={{
-            background: '#e8f2ec',
+            background: 'rgba(255,255,255,0.04)',
+            border: '1px solid rgba(255,255,255,0.09)',
             borderRadius: 16,
             padding: '14px 18px',
             fontSize: 14,
-            color: '#4a7a5b',
+            color: '#9b7cc8',
             fontWeight: 500,
           }}>
-            🌿 Set up a community profile to post →
+            Set up a community profile to post →
           </div>
         </Link>
       )}
 
       {(posts ?? []).length === 0 ? (
-        <div style={{ textAlign: 'center', padding: '60px 0', color: '#b8a9a0' }}>
-          <p style={{ fontSize: 32, marginBottom: 12 }}>💬</p>
+        <div style={{ textAlign: 'center', padding: '60px 0', color: 'rgba(255,255,255,0.32)' }}>
           <p style={{ fontSize: 15 }}>No posts yet — be the first!</p>
         </div>
       ) : (
@@ -126,7 +126,7 @@ export default async function CategoryPage({ params }: Props) {
                       marginTop: 2,
                     }}>📌 Pinned</span>
                   )}
-                  <p style={{ fontWeight: 600, color: '#3d2c35', fontSize: 15, margin: 0, flex: 1 }}>
+                  <p style={{ fontWeight: 600, color: 'rgba(255,255,255,0.88)', fontSize: 15, margin: 0, flex: 1 }}>
                     {post.title}
                   </p>
                 </div>
@@ -135,7 +135,7 @@ export default async function CategoryPage({ params }: Props) {
                     width: 22,
                     height: 22,
                     borderRadius: '50%',
-                    background: 'linear-gradient(135deg, #6b9e80, #c4959e)',
+                    background: 'linear-gradient(135deg, #9b7cc8, #c4b8e0)',
                     display: 'inline-flex',
                     alignItems: 'center',
                     justifyContent: 'center',
@@ -146,11 +146,11 @@ export default async function CategoryPage({ params }: Props) {
                   }}>
                     {displayName[0].toUpperCase()}
                   </div>
-                  <span style={{ fontSize: 13, color: '#8a7a72' }}>{displayName}</span>
-                  <span style={{ fontSize: 13, color: '#b8a9a0' }}>·</span>
-                  <span style={{ fontSize: 13, color: '#b8a9a0' }}>{timeAgo(post.created_at)}</span>
-                  <span style={{ marginLeft: 'auto', fontSize: 13, color: '#8a7a72' }}>
-                    💬 {post.reply_count ?? 0}
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>{displayName}</span>
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)' }}>·</span>
+                  <span style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)' }}>{timeAgo(post.created_at)}</span>
+                  <span style={{ marginLeft: 'auto', fontSize: 13, color: 'rgba(255,255,255,0.55)' }}>
+                    {post.reply_count ?? 0} {(post.reply_count ?? 0) === 1 ? 'reply' : 'replies'}
                   </span>
                 </div>
               </Link>

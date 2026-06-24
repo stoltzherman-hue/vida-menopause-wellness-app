@@ -7,14 +7,14 @@ export function DeleteAccountButton() {
 
   if (confirm) {
     return (
-      <div style={{ padding: '16px 20px', background: 'rgba(192,57,43,0.04)' }}>
-        <p style={{ margin: '0 0 12px', fontSize: 14, color: '#c0392b', fontWeight: 600 }}>
+      <div style={{ padding: '16px 20px', background: 'rgba(217,95,95,0.07)' }}>
+        <p style={{ margin: '0 0 12px', fontSize: 14, color: 'rgba(232,160,160,0.9)', fontWeight: 300 }}>
           Are you sure? This permanently deletes all your data.
         </p>
         <div style={{ display: 'flex', gap: 10 }}>
           <button onClick={() => setConfirm(false)} style={{
-            flex: 1, padding: '10px', borderRadius: 10, border: '1.5px solid rgba(237,224,216,0.8)',
-            background: 'white', fontSize: 14, fontWeight: 600, color: '#3d2c35', cursor: 'pointer',
+            flex: 1, padding: '10px', borderRadius: 10, border: '1px solid rgba(255,255,255,0.09)',
+            background: 'rgba(255,255,255,0.05)', fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.82)', cursor: 'pointer',
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
           }}>Cancel</button>
           <button disabled={loading} onClick={async () => {
@@ -22,12 +22,12 @@ export function DeleteAccountButton() {
             await fetch('/api/account/delete', { method: 'DELETE' })
             window.location.href = '/'
           }} style={{
-            flex: 1, padding: '10px', borderRadius: 10, border: 'none',
-            background: '#c0392b', fontSize: 14, fontWeight: 600, color: 'white',
+            flex: 1, padding: '10px', borderRadius: 10, border: '1px solid rgba(217,95,95,0.22)',
+            background: 'rgba(217,95,95,0.12)', fontSize: 14, fontWeight: 300, color: 'rgba(232,160,160,0.9)',
             cursor: loading ? 'wait' : 'pointer',
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
           }}>
-            {loading ? 'Deleting…' : 'Yes, delete'}
+            {loading ? 'Deleting...' : 'Yes, delete'}
           </button>
         </div>
       </div>
@@ -42,10 +42,13 @@ export function DeleteAccountButton() {
       fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
     }}>
       <div style={{ display: 'flex', alignItems: 'center', gap: 12 }}>
-        <span style={{ fontSize: 20 }}>🗑️</span>
-        <p style={{ margin: 0, fontWeight: 600, fontSize: 15, color: '#c0392b' }}>Delete account</p>
+        <div style={{
+          width: 8, height: 8, borderRadius: '50%', flexShrink: 0,
+          background: 'rgba(232,160,160,0.9)',
+        }} />
+        <p style={{ margin: 0, fontWeight: 300, fontSize: 15, color: 'rgba(232,160,160,0.9)' }}>Delete account</p>
       </div>
-      <span style={{ color: '#e99', fontSize: 18 }}>›</span>
+      <span style={{ color: 'rgba(232,160,160,0.6)', fontSize: 18 }}>›</span>
     </button>
   )
 }
