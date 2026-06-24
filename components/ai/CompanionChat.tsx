@@ -20,6 +20,7 @@ interface Props {
 const FREE_LIMIT = 10
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
 const PORTRAIT_URL = 'https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp'
+const SPEAKING_LINGER_MS = 3500 // how long to keep animation after reply arrives
 
 const SPEAKING_CSS = `
 @keyframes portrait-alive {
@@ -56,21 +57,6 @@ body.vida-speaking #vida-v { display:none !important; }
 body.vida-speaking #vida-avatar { box-shadow:0 0 40px rgba(196,184,224,0.7),0 0 80px rgba(139,109,181,0.4) !important; }
 `
 
-function getVoice(): SpeechSynthesisVoice | null {
-  const voices = window.speechSynthesis.getVoices()
-  if (!voices.length) return null
-  const priority = [
-    (v: SpeechSynthesisVoice) => /google uk english female/i.test(v.name),
-    (v: SpeechSynthesisVoice) => /microsoft zira/i.test(v.name),
-    (v: SpeechSynthesisVoice) => /female|woman|samantha|karen|moira|tessa|fiona|victoria|allison|ava|serena/i.test(v.name),
-    (v: SpeechSynthesisVoice) => !/male|david|mark|alex|daniel|fred|jorge|luca|thomas|oliver/i.test(v.name),
-  ]
-  for (const test of priority) {
-    const match = voices.find(test)
-    if (match) return match
-  }
-  return voices[0]
-}
 
 export function CompanionChat({
   initialMessages = [],
@@ -88,8 +74,8 @@ export function CompanionChat({
   const [loading, setLoading] = useState(false)
   const [conversationId, setConversationId] = useState<string | null>(initialConversationId ?? null)
   const [mode, setMode] = useState<ConversationMode>(initialMode)
-  const [voiceOn, setVoiceOn] = useState(true)
   const [speaking, setSpeaking] = useState(false)
+  const speakTimerRef = useRef<ReturnType<typeof setTimeout> | null>(null)
   const bottomRef = useRef<HTMLDivElement>(null)
 
   const userMessageCount = messages.filter((m) => m.role === 'user').length
@@ -120,39 +106,12 @@ export function CompanionChat({
     bottomRef.current?.scrollIntoView({ behavior: 'smooth' })
   }, [messages])
 
-  useEffect(() => {
-    if (!voiceOn && typeof window !== 'undefined') {
-      window.speechSynthesis?.cancel()
-      setSpeaking(false)
-    }
-  }, [voiceOn])
-
-  const speak = useCallback((text: string) => {
-    if (!voiceOn || typeof window === 'undefined' || !window.speechSynthesis) return
-    window.speechSynthesis.cancel()
-    const utt = new SpeechSynthesisUtterance(text)
-    utt.rate = 0.86
-    utt.pitch = 1.12
-    utt.volume = 0.92
-
-    const doSpeak = () => {
-      const voice = getVoice()
-      if (voice) utt.voice = voice
-      setSpeaking(true)
-      // Timer-based fallback: word count × 80ms
-      const fallbackMs = text.split(/\s+/).length * 80 + 1500
-      const timer = setTimeout(() => { setSpeaking(false) }, fallbackMs)
-      utt.onend = () => { clearTimeout(timer); setSpeaking(false) }
-      utt.onerror = () => { clearTimeout(timer); setSpeaking(false) }
-      window.speechSynthesis.speak(utt)
-    }
-
-    if (window.speechSynthesis.getVoices().length === 0) {
-      window.speechSynthesis.onvoiceschanged = () => { doSpeak(); window.speechSynthesis.onvoiceschanged = null }
-    } else {
-      doSpeak()
-    }
-  }, [voiceOn])
+  const triggerSpeakingAnimation = useCallback((wordCount: number) => {
+    if (speakTimerRef.current) clearTimeout(speakTimerRef.current)
+    setSpeaking(true)
+    const duration = Math.max(SPEAKING_LINGER_MS, wordCount * 60)
+    speakTimerRef.current = setTimeout(() => setSpeaking(false), duration)
+  }, [])
 
   function handleModeChange(newMode: ConversationMode) {
     if (loading) return
@@ -166,7 +125,7 @@ export function CompanionChat({
         : "I'm here to listen. How are you feeling?"
     }`
     setMessages((prev) => [...prev, { role: 'assistant', content: msg }])
-    speak(msg)
+    triggerSpeakingAnimation(msg.split(/\s+/).length)
   }
 
   async function handleSend(e: React.FormEvent) {
@@ -193,7 +152,7 @@ export function CompanionChat({
           ? "You need to be signed in to chat."
           : json.error?.message ?? "Something went wrong. Please try again."
         setMessages((prev) => [...prev, { role: 'assistant', content: msg }])
-        speak(msg)
+        triggerSpeakingAnimation(msg.split(/\s+/).length)
         return
       }
 
@@ -201,12 +160,12 @@ export function CompanionChat({
         if (json.data.conversationId) setConversationId(json.data.conversationId)
         const reply = json.data.content as string
         setMessages((prev) => [...prev, { role: 'assistant', content: reply, flagged: json.data.flagged }])
-        speak(reply)
+        triggerSpeakingAnimation(reply.split(/\s+/).length)
       }
     } catch {
       const msg = "I couldn't connect. Please check your internet connection and try again."
       setMessages((prev) => [...prev, { role: 'assistant', content: msg }])
-      speak(msg)
+      triggerSpeakingAnimation(msg.split(/\s+/).length)
     } finally {
       setLoading(false)
     }
@@ -288,30 +247,6 @@ export function CompanionChat({
             <ModeSelector value={mode} onChange={handleModeChange} disabled={loading} />
           </div>
 
-          {/* Voice / mute toggle */}
-          <button
-            type="button"
-            onClick={() => setVoiceOn((v) => !v)}
-            title={voiceOn ? 'Mute voice' : 'Unmute voice'}
-            style={{
-              flexShrink: 0, width: 36, height: 36, borderRadius: '50%', border: 'none', cursor: 'pointer',
-              background: voiceOn ? 'rgba(139,109,181,0.18)' : 'rgba(255,255,255,0.05)',
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              transition: 'background 0.2s',
-            }}
-          >
-            {voiceOn ? (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(196,184,224,0.85)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <path d="M19.07 4.93a10 10 0 0 1 0 14.14M15.54 8.46a5 5 0 0 1 0 7.07"/>
-              </svg>
-            ) : (
-              <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="rgba(255,255,255,0.25)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
-                <polygon points="11 5 6 9 2 9 2 15 6 15 11 19 11 5"/>
-                <line x1="23" y1="9" x2="17" y2="15"/><line x1="17" y1="9" x2="23" y2="15"/>
-              </svg>
-            )}
-          </button>
         </div>
 
         {/* Status */}
