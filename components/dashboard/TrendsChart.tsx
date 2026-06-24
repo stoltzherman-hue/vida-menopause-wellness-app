@@ -37,12 +37,12 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
   }))
 
   const cardStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.32)',
-    border: '1.5px solid rgba(255,255,255,0.58)',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.09)',
     borderRadius: 22,
-    backdropFilter: 'blur(20px)',
-    WebkitBackdropFilter: 'blur(20px)',
-    boxShadow: '0 2px 20px rgba(26,18,32,0.07)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    boxShadow: '0 2px 20px rgba(0,0,0,0.18)',
     padding: '22px 20px 18px',
   }
 
@@ -51,8 +51,8 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
       <div style={cardStyle}>
         <p style={{
           fontSize: 13,
-          fontWeight: 700,
-          color: '#b8a9a0',
+          fontWeight: 300,
+          color: 'rgba(255,255,255,0.32)',
           letterSpacing: '0.07em',
           textTransform: 'uppercase',
           margin: '0 0 14px',
@@ -62,7 +62,7 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
         <div style={{
           textAlign: 'center',
           padding: '32px 16px',
-          color: '#b8a9a0',
+          color: 'rgba(255,255,255,0.32)',
           fontSize: 14,
           lineHeight: 1.6,
         }}>
@@ -78,8 +78,8 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, flexWrap: 'wrap', gap: 10 }}>
         <p style={{
           fontSize: 13,
-          fontWeight: 700,
-          color: '#b8a9a0',
+          fontWeight: 300,
+          color: 'rgba(255,255,255,0.32)',
           letterSpacing: '0.07em',
           textTransform: 'uppercase',
           margin: 0,
@@ -88,13 +88,13 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
         </p>
         <div style={{ display: 'flex', gap: 14, flexWrap: 'wrap' }}>
           {[
-            { color: '#7c5c8a', label: 'Wellbeing' },
-            { color: '#2d8b7a', label: 'Energy' },
-            { color: '#e07b4a', label: 'Sleep hrs' },
+            { color: '#9b7cc8', label: 'Wellbeing' },
+            { color: '#c4b8e0', label: 'Energy' },
+            { color: '#7a52b0', label: 'Sleep hrs' },
           ].map(({ color, label }) => (
             <div key={label} style={{ display: 'flex', alignItems: 'center', gap: 5 }}>
               <div style={{ width: 22, height: 2.5, borderRadius: 2, background: color }} />
-              <span style={{ fontSize: 11, color: '#8a7a72', fontWeight: 500 }}>{label}</span>
+              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.55)', fontWeight: 300 }}>{label}</span>
             </div>
           ))}
         </div>
@@ -104,34 +104,35 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
         <LineChart data={data} margin={{ top: 6, right: 4, left: -28, bottom: 0 }}>
           <XAxis
             dataKey="day"
-            tick={{ fontSize: 11, fill: '#b8a9a0', fontFamily: 'inherit' }}
+            tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.32)', fontFamily: 'inherit' }}
             axisLine={false}
             tickLine={false}
             interval="preserveStartEnd"
           />
           <YAxis
             domain={[0, 10]}
-            tick={{ fontSize: 11, fill: '#b8a9a0', fontFamily: 'inherit' }}
+            tick={{ fontSize: 11, fill: 'rgba(255,255,255,0.32)', fontFamily: 'inherit' }}
             axisLine={false}
             tickLine={false}
             ticks={[0, 5, 10]}
           />
           <Tooltip
             contentStyle={{
-              background: 'rgba(255,255,255,0.95)',
-              border: '1px solid rgba(200,185,180,0.35)',
+              background: 'rgba(255,255,255,0.04)',
+              border: '1px solid rgba(255,255,255,0.09)',
               borderRadius: 12,
               fontSize: 12,
-              color: '#3d2c35',
-              boxShadow: '0 4px 16px rgba(26,18,32,0.10)',
+              color: 'rgba(255,255,255,0.88)',
+              backdropFilter: 'blur(24px)',
+              boxShadow: '0 4px 16px rgba(0,0,0,0.35)',
             }}
-            itemStyle={{ fontWeight: 600 }}
-            labelStyle={{ color: '#b8a9a0', marginBottom: 4, fontSize: 11 }}
+            itemStyle={{ fontWeight: 300, color: 'rgba(255,255,255,0.82)' }}
+            labelStyle={{ color: 'rgba(255,255,255,0.32)', marginBottom: 4, fontSize: 11 }}
           />
           <Line
             type="monotone"
             dataKey="wellbeing"
-            stroke="#7c5c8a"
+            stroke="#9b7cc8"
             strokeWidth={2}
             dot={false}
             strokeLinecap="round"
@@ -142,7 +143,7 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
           <Line
             type="monotone"
             dataKey="energy"
-            stroke="#2d8b7a"
+            stroke="#c4b8e0"
             strokeWidth={2}
             dot={false}
             strokeLinecap="round"
@@ -153,7 +154,7 @@ export function TrendsChart({ checkins }: TrendsChartProps) {
           <Line
             type="monotone"
             dataKey="sleep"
-            stroke="#e07b4a"
+            stroke="#7a52b0"
             strokeWidth={2}
             dot={false}
             strokeLinecap="round"

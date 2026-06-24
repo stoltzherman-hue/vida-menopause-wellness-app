@@ -24,16 +24,15 @@ export function ModeSelector({ value, onChange, disabled }: Props) {
             padding: '6px 14px',
             borderRadius: 999,
             fontSize: 12,
-            fontWeight: 500,
-            border: value === m.key ? '1.5px solid #6b9e80' : '1.5px solid #e2d9d0',
-            background: value === m.key ? 'linear-gradient(135deg,#6b9e80,#5a8a6b)' : 'rgba(255,255,255,0.7)',
-            color: value === m.key ? '#fff' : '#718096',
+            fontWeight: 300,
+            border: value === m.key ? '1.5px solid rgba(139,109,181,0.4)' : '1px solid rgba(255,255,255,0.09)',
+            background: value === m.key ? 'linear-gradient(135deg, #9b7cc8 0%, #7a52b0 100%)' : 'rgba(255,255,255,0.04)',
+            color: value === m.key ? '#fff' : 'rgba(255,255,255,0.40)',
             cursor: disabled ? 'not-allowed' : 'pointer',
             transition: 'all 0.2s',
             fontFamily: 'DM Sans, sans-serif',
           }}
         >
-          <span>{m.emoji}</span>
           <span>{m.label}</span>
         </button>
       ))}
