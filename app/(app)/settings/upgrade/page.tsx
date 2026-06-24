@@ -1,10 +1,8 @@
-export const dynamic = 'force-dynamic'
+'use client'
 
-import type { Metadata } from 'next'
 import Link from 'next/link'
-import { ArrowRight, Check } from 'lucide-react'
-
-export const metadata: Metadata = { title: 'Upgrade to Premium · Vida' }
+import { useState } from 'react'
+import { Check, ArrowRight, Loader2 } from 'lucide-react'
 
 const FREE_FEATURES = [
   'Community forums & Circles',
@@ -26,6 +24,27 @@ const PREMIUM_FEATURES = [
 ]
 
 export default function UpgradePage() {
+  const [loading, setLoading] = useState(false)
+  const [error, setError] = useState<string | null>(null)
+
+  async function handleCheckout() {
+    setLoading(true)
+    setError(null)
+    try {
+      const res = await fetch('/api/stripe/checkout', { method: 'POST' })
+      const json = await res.json()
+      if (!res.ok) {
+        setError(json.error?.message ?? 'Something went wrong.')
+        setLoading(false)
+        return
+      }
+      window.location.href = json.data.url
+    } catch {
+      setError('Could not connect. Please try again.')
+      setLoading(false)
+    }
+  }
+
   return (
     <div style={{ maxWidth: 720, margin: '0 auto', padding: '28px 16px 100px' }}>
       <Link href="/settings" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.55)', marginBottom: 24, textDecoration: 'none' }}>
@@ -80,14 +99,29 @@ export default function UpgradePage() {
                 </li>
               ))}
             </ul>
-            <Link href="/api/stripe/checkout" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
-              background: 'linear-gradient(135deg, #9b7cc8 0%, #7a52b0 100%)', color: '#fff', borderRadius: 14, padding: '15px',
-              fontSize: 15, fontWeight: 300, textDecoration: 'none',
-              boxShadow: '0 4px 24px rgba(155,124,200,0.32)',
-            }}>
-              Start 7-day free trial <ArrowRight size={16} />
-            </Link>
+
+            {error && (
+              <div style={{ background: 'rgba(217,95,95,0.07)', border: '1px solid rgba(217,95,95,0.22)', borderRadius: 12, padding: '10px 14px', fontSize: 13, color: 'rgba(232,160,160,0.9)', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', marginBottom: 14 }}>
+                {error}
+              </div>
+            )}
+
+            <button
+              onClick={handleCheckout}
+              disabled={loading}
+              style={{
+                width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                background: loading ? 'rgba(155,124,200,0.4)' : 'linear-gradient(135deg, #9b7cc8 0%, #7a52b0 100%)',
+                color: '#fff', borderRadius: 14, padding: '15px', border: 'none',
+                fontSize: 15, fontWeight: 300, cursor: loading ? 'not-allowed' : 'pointer',
+                boxShadow: loading ? 'none' : '0 4px 24px rgba(155,124,200,0.32)',
+                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+                transition: 'all 0.2s',
+              }}
+            >
+              {loading ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <ArrowRight size={16} />}
+              {loading ? 'Opening checkout…' : 'Start 7-day free trial'}
+            </button>
             <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', textAlign: 'center', marginTop: 12 }}>No charge until trial ends · Cancel any time</p>
           </div>
         </div>
@@ -96,6 +130,8 @@ export default function UpgradePage() {
       <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)', textAlign: 'center' }}>
         Questions? <Link href="/learn" style={{ color: '#c4b8e0', fontWeight: 300 }}>Visit our knowledge hub</Link> or email us at hello@vida.health
       </p>
+
+      <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>
     </div>
   )
 }

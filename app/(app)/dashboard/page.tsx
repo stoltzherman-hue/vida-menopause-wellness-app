@@ -3,6 +3,7 @@ export const dynamic = 'force-dynamic'
 import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
+import { redirect } from 'next/navigation'
 import Link from 'next/link'
 import { NotificationSetup } from '@/components/notifications/NotificationSetup'
 import { WellnessCard } from '@/components/dashboard/WellnessCard'
@@ -16,6 +17,17 @@ export default async function DashboardPage() {
   const thirtyDaysAgo = new Date()
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
   const today = new Date().toISOString().split('T')[0]
+
+  // Redirect new users to onboarding if not completed
+  const { data: profileCheck } = await supabase
+    .from('user_profiles')
+    .select('onboarding_completed')
+    .eq('user_id', user!.id)
+    .maybeSingle()
+
+  if (!profileCheck || profileCheck.onboarding_completed === false) {
+    redirect('/onboarding')
+  }
 
   const [{ data: checkins }, { data: profile }, { data: todayCheckin }] = await Promise.all([
     supabase

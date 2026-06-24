@@ -4,6 +4,9 @@ import type { Metadata } from 'next'
 import Link from 'next/link'
 import { ExportButton } from '@/components/settings/ExportButton'
 import { DeleteAccountButton } from '@/components/settings/DeleteAccountButton'
+import { ManageSubscriptionButton } from '@/components/settings/ManageSubscriptionButton'
+import { getUser } from '@/lib/auth/session'
+import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 
 export const metadata: Metadata = { title: 'Settings · Vida' }
 
@@ -48,7 +51,21 @@ function IconDot({ children }: { children: React.ReactNode }) {
   )
 }
 
-export default function SettingsPage() {
+export default async function SettingsPage() {
+  const user = await getUser()
+  const supabase = await createSupabaseServerClient()
+  const { data: sub } = await supabase
+    .from('subscriptions')
+    .select('tier, status, current_period_end, stripe_customer_id')
+    .eq('user_id', user!.id)
+    .maybeSingle()
+
+  const isPremium = sub?.tier === 'premium' && sub?.status === 'active'
+  const hasStripe = !!sub?.stripe_customer_id
+  const renewalDate = sub?.current_period_end
+    ? new Date(sub.current_period_end).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
+    : null
+
   return (
     <div style={{ maxWidth: 580, margin: '0 auto', padding: '28px 16px 100px' }}>
       <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 28px' }}>Settings</h1>
@@ -97,21 +114,38 @@ export default function SettingsPage() {
       {/* Subscription */}
       <div style={card}>
         <p style={sectionTitle}>Subscription</p>
-        <div style={{ padding: '12px 20px 4px' }}>
-          <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', margin: '0 0 14px' }}>
-            You&apos;re on the <strong style={{ color: 'rgba(255,255,255,0.88)' }}>Free</strong> plan.
-          </p>
-        </div>
-        <div style={{ padding: '0 20px 18px' }}>
-          <Link href="/settings/upgrade" style={{
-            display: 'block', textAlign: 'center',
-            background: 'linear-gradient(135deg, #9b7cc8 0%, #7a52b0 100%)',
-            color: 'white', borderRadius: 14, padding: '14px',
-            fontSize: 15, fontWeight: 300, textDecoration: 'none',
-            boxShadow: '0 4px 18px rgba(155,124,200,0.28)',
-          }}>
-            Upgrade to Premium — $12.99/mo
-          </Link>
+        <div style={{ padding: '16px 20px' }}>
+          {isPremium ? (
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+              <div>
+                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(155,124,200,0.12)', border: '1px solid rgba(155,124,200,0.25)', borderRadius: 9999, padding: '5px 12px', marginBottom: 8 }}>
+                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9b7cc8" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                  <span style={{ fontSize: 11, fontWeight: 300, color: '#c4b8e0', letterSpacing: '0.04em' }}>Premium active</span>
+                </div>
+                {renewalDate && (
+                  <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: 0 }}>
+                    {sub?.status === 'trialing' ? 'Trial ends' : 'Renews'} {renewalDate}
+                  </p>
+                )}
+              </div>
+              {hasStripe && <ManageSubscriptionButton />}
+            </div>
+          ) : (
+            <>
+              <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', margin: '0 0 14px' }}>
+                You&apos;re on the <strong style={{ color: 'rgba(255,255,255,0.88)' }}>Free</strong> plan.
+              </p>
+              <Link href="/settings/upgrade" style={{
+                display: 'block', textAlign: 'center',
+                background: 'linear-gradient(135deg, #9b7cc8 0%, #7a52b0 100%)',
+                color: 'white', borderRadius: 14, padding: '14px',
+                fontSize: 15, fontWeight: 300, textDecoration: 'none',
+                boxShadow: '0 4px 18px rgba(155,124,200,0.28)',
+              }}>
+                Upgrade to Premium — $12.99/mo
+              </Link>
+            </>
+          )}
         </div>
       </div>
 

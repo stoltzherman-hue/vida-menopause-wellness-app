@@ -29,7 +29,7 @@ export default async function InsightsPage() {
       .order('checkin_date', { ascending: true }),
     supabase
       .from('daily_checkins')
-      .select('checkin_date, hot_flash_severity, sleep_hours')
+      .select('checkin_date, hot_flash_severity, sleep_hours, mood, energy_level, triggers')
       .eq('user_id', user!.id)
       .gte('checkin_date', thirtyDaysAgo.toISOString().split('T')[0])
       .order('checkin_date', { ascending: true }),
@@ -59,13 +59,48 @@ export default async function InsightsPage() {
     dayLabels.push(DAY_LABELS[date.getDay() === 0 ? 6 : date.getDay() - 1])
   }
 
-  const hotFlushDays = (monthCheckins ?? []).filter((c) => (c.hot_flash_severity ?? 0) > 0).length
-  const sleepVals = (monthCheckins ?? []).filter((c) => c.sleep_hours != null).map((c) => c.sleep_hours as number)
+  const month = monthCheckins ?? []
+  const hotFlushDays = month.filter((c) => (c.hot_flash_severity ?? 0) > 0).length
+  const sleepVals = month.filter((c) => c.sleep_hours != null).map((c) => c.sleep_hours as number)
   const avgSleep = sleepVals.length ? sleepVals.reduce((a, b) => a + b, 0) / sleepVals.length : 6.2
   const sleepDisplay = avgSleep.toFixed(1) + 'h'
   const sleepPct = Math.round((avgSleep / 9) * 100)
-  const hotFlushPct = monthCheckins && monthCheckins.length > 0 ? Math.round((hotFlushDays / 30) * 100) : 43
+  const hotFlushPct = month.length > 0 ? Math.round((hotFlushDays / 30) * 100) : 43
   const hotFlushDisplay = hotFlushDays > 0 ? `${hotFlushDays} days this month` : '12 days this month'
+
+  // Trigger analysis
+  const triggerCounts: Record<string, number> = {}
+  month.forEach((c) => {
+    ;(c.triggers ?? []).forEach((t: string) => {
+      if (t.startsWith('trigger:')) {
+        const key = t.slice(8)
+        triggerCounts[key] = (triggerCounts[key] ?? 0) + 1
+      }
+    })
+  })
+  const topTriggers = Object.entries(triggerCounts).sort((a, b) => b[1] - a[1]).slice(0, 5)
+
+  // Sleep-mood correlation
+  const moodVals = month.filter((c) => c.mood != null).map((c) => c.mood as number)
+  const avgMood = moodVals.length ? (moodVals.reduce((a, b) => a + b, 0) / moodVals.length).toFixed(1) : null
+
+  // Dynamic insight text
+  let insightTitle = 'Your sleep impacts your mood'
+  let insightBody = 'Your data suggests that nights under 6h correlate with increased hot flush frequency the next day. Consider a consistent wind-down routine.'
+  if (month.length >= 7) {
+    const lowSleepDays = month.filter((c) => (c.sleep_hours ?? 8) < 6)
+    const highFlushAfterLowSleep = lowSleepDays.filter((c) => (c.hot_flash_severity ?? 0) >= 3).length
+    const pct = lowSleepDays.length > 0 ? Math.round((highFlushAfterLowSleep / lowSleepDays.length) * 100) : 0
+    if (topTriggers.length > 0) {
+      const top = topTriggers[0][0]
+      const count = topTriggers[0][1]
+      insightTitle = `${top} is your most common trigger`
+      insightBody = `Your data suggests ${top.toLowerCase()} appeared on ${count} days this month. Tracking this pattern can help you reduce symptom flare-ups.`
+    } else if (pct > 50) {
+      insightTitle = 'Sleep under 6h intensifies your symptoms'
+      insightBody = `On ${pct}% of days when you slept under 6 hours, you reported stronger hot flushes. Prioritising sleep may help reduce their severity.`
+    }
+  }
 
   return (
     <div style={{ maxWidth: 820, margin: '0 auto', padding: '40px 20px 100px' }}>
@@ -139,12 +174,48 @@ export default async function InsightsPage() {
         </div>
       </div>
 
-      {/* Insight card */}
+      {/* Mood avg + data count */}
+      <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 16, marginBottom: 16 }}>
+        <div style={{ background: 'rgba(107,158,128,0.05)', border: '1px solid rgba(107,158,128,0.14)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderRadius: 24, padding: '24px 22px' }}>
+          <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(107,158,128,0.6)', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 10px' }}>Avg Mood</p>
+          <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 4px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>{avgMood ?? '—'}<span style={{ fontSize: 14, color: 'rgba(255,255,255,0.32)' }}>/10</span></p>
+          <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.32)', margin: 0 }}>30-day average</p>
+        </div>
+        <div style={{ background: 'rgba(155,124,200,0.05)', border: '1px solid rgba(155,124,200,0.14)', backdropFilter: 'blur(20px)', WebkitBackdropFilter: 'blur(20px)', borderRadius: 24, padding: '24px 22px' }}>
+          <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(196,184,224,0.5)', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 10px' }}>Days Tracked</p>
+          <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 4px', lineHeight: 1.1, letterSpacing: '-0.02em' }}>{month.length}<span style={{ fontSize: 14, color: 'rgba(255,255,255,0.32)' }}>/30</span></p>
+          <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.32)', margin: 0 }}>this month</p>
+        </div>
+      </div>
+
+      {/* Trigger analysis */}
+      {topTriggers.length > 0 && (
+        <div className="glass" style={{ borderRadius: 24, padding: '24px 28px', marginBottom: 16 }}>
+          <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.28)', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 8px' }}>30-day trigger patterns</p>
+          <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 18, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 18px', letterSpacing: '-0.02em' }}>Your most common triggers</h3>
+          <div style={{ display: 'flex', flexDirection: 'column', gap: 10 }}>
+            {topTriggers.map(([trigger, count]) => {
+              const pct = Math.round((count / Math.max(month.length, 1)) * 100)
+              return (
+                <div key={trigger} style={{ display: 'flex', alignItems: 'center', gap: 14 }}>
+                  <span style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.72)', width: 120, flexShrink: 0 }}>{trigger}</span>
+                  <div style={{ flex: 1, height: 4, background: 'rgba(255,255,255,0.07)', borderRadius: 9999, overflow: 'hidden' }}>
+                    <div style={{ height: '100%', width: `${pct}%`, background: 'linear-gradient(90deg, #9b7cc8, #c4b8e0)', borderRadius: 9999 }} />
+                  </div>
+                  <span style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 12, color: 'rgba(255,255,255,0.32)', width: 56, textAlign: 'right', flexShrink: 0 }}>{count} days</span>
+                </div>
+              )
+            })}
+          </div>
+        </div>
+      )}
+
+      {/* Dynamic insight card */}
       <div className="glass-violet" style={{ borderRadius: 24, padding: 28 }}>
         <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(196,184,224,0.45)', letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 10px' }}>Insight</p>
-        <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 10px', letterSpacing: '-0.02em' }}>Your sleep impacts your mood</h3>
+        <h3 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 20, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 10px', letterSpacing: '-0.02em' }}>{insightTitle}</h3>
         <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 14, lineHeight: 1.7, fontWeight: 300, color: 'rgba(255,255,255,0.45)', margin: 0 }}>
-          Your data suggests that nights under 6h correlate with increased hot flush frequency the next day. Consider a consistent wind-down routine.
+          {insightBody}
         </p>
       </div>
 
