@@ -5,6 +5,7 @@ import { detectRedFlags } from '@/lib/safety/redFlags'
 import { getAiProvider } from '@/lib/ai/provider'
 import { MODE_SYSTEM_PROMPTS } from '@/lib/ai/modes'
 import type { ConversationMode } from '@/lib/ai/modes'
+import { extractMemories, buildMemoryContext } from '@/lib/ai/memory'
 
 function buildPersonalContext(
   profile: { menopause_stage?: string | null; goals?: string[] | null; hrt_status?: string | null; primary_symptoms?: string[] | null } | null,
@@ -140,6 +141,14 @@ export async function POST(req: NextRequest) {
     })
   }
 
+  // Fetch user profile, recent check-ins, and memories in parallel
+  const { data: existingMemories } = await supabase
+    .from('ai_memories')
+    .select('key, value')
+    .eq('user_id', user.id)
+    .order('updated_at', { ascending: false })
+    .limit(12)
+
   // Fetch user profile and recent check-ins in parallel for personalisation
   const sevenDaysAgo = new Date()
   sevenDaysAgo.setDate(sevenDaysAgo.getDate() - 7)
@@ -160,9 +169,10 @@ export async function POST(req: NextRequest) {
   ])
 
   const personalContext = buildPersonalContext(profile, recentCheckins ?? [])
-  const systemPrompt = personalContext
-    ? `${baseSystemPrompt}\n\n${personalContext}`
-    : baseSystemPrompt
+  const memoryContext = buildMemoryContext(existingMemories ?? [])
+  const systemPrompt = [baseSystemPrompt, personalContext, memoryContext]
+    .filter(Boolean)
+    .join('\n\n')
 
   // Get or create conversation
   let convId = conversationId
@@ -216,13 +226,32 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ error: { message: 'AI service unavailable' } }, { status: 503 })
   }
 
-  // Persist messages (fire-and-forget for latency)
+  // Persist messages and extract memories — fire-and-forget for latency
   if (convId) {
     supabase.from('ai_messages').insert([
       { conversation_id: convId, role: 'user', content: message },
       { conversation_id: convId, role: 'assistant', content: aiContent, input_tokens: inputTokens, output_tokens: outputTokens },
     ]).then(() => {})
   }
+
+  // Extract and upsert memories from this turn async — never blocks response
+  const allUserMessages = [
+    ...(history ?? []).filter((m) => m.role === 'user').map((m) => m.content),
+    message,
+  ]
+  extractMemories(allUserMessages).then(async (entries) => {
+    if (entries.length === 0) return
+    await supabase.from('ai_memories').upsert(
+      entries.map((e) => ({
+        user_id: user.id,
+        key: e.key,
+        value: e.value,
+        source: 'ai_conversation',
+        updated_at: new Date().toISOString(),
+      })),
+      { onConflict: 'user_id,key' },
+    )
+  }).catch(() => {})
 
   return NextResponse.json({
     data: {
