@@ -116,7 +116,7 @@ export default function MarketingHomePage() {
         <div className="hero-visual-col">
           <div style={{ position: 'relative', width: 300, height: 460 }}>
             <div style={{ position: 'absolute', inset: '-20%', borderRadius: '50%', background: 'radial-gradient(ellipse at 50% 60%, rgba(139,109,181,0.2) 0%, transparent 70%)', filter: 'blur(40px)' }} />
-            <img src="/hero-woman.svg" alt="" width={300} height={460} style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 8px 40px rgba(122,82,176,0.3))' }} />
+            <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top', borderRadius: 24, filter: 'grayscale(1) brightness(0.8) drop-shadow(0 8px 40px rgba(122,82,176,0.35))' }} />
           </div>
         </div>
       </section>
