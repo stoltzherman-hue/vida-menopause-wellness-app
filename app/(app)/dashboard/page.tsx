@@ -18,14 +18,15 @@ export default async function DashboardPage() {
   thirtyDaysAgo.setDate(thirtyDaysAgo.getDate() - 30)
   const today = new Date().toISOString().split('T')[0]
 
-  // Redirect new users to onboarding if not completed
+  // Only redirect to onboarding if profile doesn't exist at all (brand new user)
+  // Existing users with onboarding_completed=false/null are grandfathered in
   const { data: profileCheck } = await supabase
     .from('user_profiles')
-    .select('onboarding_completed')
+    .select('onboarding_completed, display_name')
     .eq('user_id', user!.id)
     .maybeSingle()
 
-  if (!profileCheck || profileCheck.onboarding_completed === false) {
+  if (!profileCheck) {
     redirect('/onboarding')
   }
 
