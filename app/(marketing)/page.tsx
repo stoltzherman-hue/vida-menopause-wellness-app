@@ -1,5 +1,4 @@
 import Link from 'next/link'
-import Image from 'next/image'
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
 
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
@@ -77,18 +76,9 @@ export default function MarketingHomePage() {
       </header>
 
       {/* ── Hero ── */}
-      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(80px, 12vw, 140px) 32px clamp(64px, 8vw, 96px)', position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr auto', gap: 48, alignItems: 'center' }}>
-        {/* Right — woman portrait (desktop only) */}
-        <div className="hero-visual-col" style={{ position: 'relative', order: 2, display: 'flex', alignItems: 'flex-end', justifyContent: 'center' }}>
-          <div style={{ position: 'relative', width: 280, height: 420 }}>
-            {/* Glow behind */}
-            <div style={{ position: 'absolute', inset: 0, borderRadius: '50%', background: 'radial-gradient(ellipse at 50% 60%, rgba(139,109,181,0.22) 0%, transparent 70%)', filter: 'blur(32px)' }} />
-            <Image src="/hero-woman.svg" alt="" width={280} height={420} style={{ position: 'relative', zIndex: 1, filter: 'drop-shadow(0 8px 32px rgba(122,82,176,0.25))' }} priority />
-          </div>
-        </div>
-
+      <section className="hero-grid" style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(80px, 12vw, 140px) 32px clamp(64px, 8vw, 96px)', position: 'relative', zIndex: 1 }}>
         {/* Left — text */}
-        <div style={{ order: 1 }}>
+        <div>
         {/* Live badge */}
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, background: 'rgba(139,109,181,0.10)', border: '1px solid rgba(139,109,181,0.22)', borderRadius: 9999, padding: '8px 18px', marginBottom: 40 }}>
           <span className="pulse-dot" />
@@ -117,7 +107,15 @@ export default function MarketingHomePage() {
         </div>
 
         <p style={{ fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.22)' }}>Community is always free · No credit card required</p>
-        </div>{/* end left col */}
+        </div>
+
+        {/* Right — woman portrait */}
+        <div className="hero-visual-col">
+          <div style={{ position: 'relative', width: 300, height: 460 }}>
+            <div style={{ position: 'absolute', inset: '-20%', borderRadius: '50%', background: 'radial-gradient(ellipse at 50% 60%, rgba(139,109,181,0.2) 0%, transparent 70%)', filter: 'blur(40px)' }} />
+            <img src="/hero-woman.svg" alt="" width={300} height={460} style={{ position: 'relative', zIndex: 1, width: '100%', height: '100%', objectFit: 'contain', filter: 'drop-shadow(0 8px 40px rgba(122,82,176,0.3))' }} />
+          </div>
+        </div>
       </section>
 
       {/* ── Stats strip ── */}
