@@ -46,10 +46,16 @@ export default function SignupPage() {
   const backdrop = (
     <>
       <div style={{ position: 'fixed', inset: 0, pointerEvents: 'none', backgroundImage: 'radial-gradient(ellipse 55% 40% at 10% 8%, rgba(155,124,200,0.12) 0%, transparent 55%), radial-gradient(ellipse 45% 35% at 88% 88%, rgba(122,82,176,0.10) 0%, transparent 50%)' }} />
-      <div style={{ position: 'fixed', right: 0, top: 0, bottom: 0, width: '48vw', maxWidth: 480, pointerEvents: 'none', overflow: 'hidden' }}>
-        <div style={{ position: 'absolute', inset: 0, zIndex: 1, background: 'linear-gradient(to right, #09070e 0%, transparent 30%)' }} />
+      <div style={{
+        position: 'fixed', top: 0, right: 0,
+        width: '52%', height: '100%',
+        overflow: 'hidden', pointerEvents: 'none',
+        opacity: 0.08,
+        maskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+      }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://images.unsplash.com/photo-1529626455594-4ff0802cfb7e?w=900&q=85&auto=format&fit=crop&crop=top" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'top center', opacity: 0.18 }} />
+        <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
       </div>
     </>
   )

@@ -47,6 +47,19 @@ export default function LoginPage() {
         backgroundImage: 'radial-gradient(ellipse 55% 45% at 12% 10%, rgba(122,82,176,0.16) 0%, transparent 60%), radial-gradient(ellipse 45% 35% at 88% 85%, rgba(196,149,158,0.09) 0%, transparent 55%)',
       }} />
 
+      {/* Portrait watermark */}
+      <div style={{
+        position: 'fixed', top: 0, right: 0,
+        width: '52%', height: '100%',
+        overflow: 'hidden', pointerEvents: 'none', zIndex: 0,
+        opacity: 0.08,
+        maskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+        WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
+      }}>
+        {/* eslint-disable-next-line @next/next/no-img-element */}
+        <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+      </div>
+
       {/* Top glow line */}
       <div style={{
         position: 'fixed', top: 0, left: 0, right: 0, height: 1,
