@@ -956,7 +956,7 @@ button, a, [role="button"] { min-height: 44px; }
 
 /* ── FAQ accordion ───────────────────────────────────────── */
 .faq-item {
-  border-bottom: 1px solid rgba(237,224,216,0.75);
+  border-bottom: 1px solid rgba(255,255,255,0.07);
 }
 .faq-btn {
   width: 100%;
@@ -969,22 +969,22 @@ button, a, [role="button"] { min-height: 44px; }
   border: none;
   cursor: pointer;
   text-align: left;
-  font-size: 16px;
-  font-weight: 600;
-  color: #1a1220;
+  font-size: 15px;
+  font-weight: 300;
+  color: rgba(255,255,255,0.72);
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   line-height: 1.4;
   transition: color 0.15s;
 }
-.faq-btn:hover { color: #2d8b7a; }
+.faq-btn:hover { color: rgba(196,184,224,0.9); }
 .faq-chevron {
   flex-shrink: 0;
-  color: #b8a9a0;
+  color: rgba(255,255,255,0.2);
   transition: transform 0.32s cubic-bezier(0.22, 1, 0.36, 1), color 0.15s;
 }
 .faq-open .faq-chevron {
   transform: rotate(180deg);
-  color: #2d8b7a;
+  color: rgba(155,124,200,0.7);
 }
 .faq-body {
   display: grid;
@@ -996,13 +996,14 @@ button, a, [role="button"] { min-height: 44px; }
   grid-template-rows: 1fr;
 }
 .faq-answer {
-  font-size: 15px;
-  color: #6a5a6a;
+  font-size: 14px;
+  color: rgba(255,255,255,0.38);
   line-height: 1.75;
   padding-bottom: 22px;
   min-height: 0;
   font-family: var(--font-dm-sans), system-ui, sans-serif;
   margin: 0;
+  font-weight: 300;
 }
 
 /* ── Knowledge hub teaser grid ───────────────────────────── */
