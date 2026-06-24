@@ -2,33 +2,29 @@
 import { useState, useCallback, useRef } from 'react'
 import Link from 'next/link'
 
-// ── Data ────────────────────────────────────────────────────────────────────
 const MOOD_OPTIONS = [
-  { value: 1, emoji: '😞', label: 'Rough' },
-  { value: 2, emoji: '😔', label: 'Low' },
-  { value: 3, emoji: '😐', label: 'Okay' },
-  { value: 4, emoji: '🙂', label: 'Good' },
-  { value: 5, emoji: '😊', label: 'Great' },
+  { value: 1, label: 'Rough' },
+  { value: 2, label: 'Low' },
+  { value: 3, label: 'Okay' },
+  { value: 4, label: 'Good' },
+  { value: 5, label: 'Great' },
 ]
 
 const SYMPTOM_CHIPS = [
-  { label: 'Hot flushes',  emoji: '🔥', selectedBg: 'rgba(196,122,90,0.12)',   selectedBorder: 'rgba(196,122,90,0.4)',   selectedColor: '#c47a5a', dbKey: 'Hot flushes' },
-  { label: 'Night sweats', emoji: '🌙', selectedBg: 'rgba(196,149,158,0.12)',  selectedBorder: 'rgba(196,149,158,0.4)',  selectedColor: '#c4959e', dbKey: 'Night sweats' },
-  { label: 'Brain fog',    emoji: '🧠', selectedBg: 'rgba(155,138,184,0.12)',  selectedBorder: 'rgba(155,138,184,0.4)',  selectedColor: '#9b8ab8', dbKey: 'Brain fog' },
-  { label: 'Fatigue',      emoji: '🥱', selectedBg: 'rgba(196,122,90,0.12)',   selectedBorder: 'rgba(196,122,90,0.4)',   selectedColor: '#c47a5a', dbKey: 'Fatigue' },
-  { label: 'Low mood',     emoji: '💛', selectedBg: 'rgba(155,138,184,0.12)',  selectedBorder: 'rgba(155,138,184,0.4)',  selectedColor: '#9b8ab8', dbKey: 'Low mood' },
-  { label: 'Anxiety',      emoji: '🌊', selectedBg: 'rgba(155,138,184,0.12)',  selectedBorder: 'rgba(155,138,184,0.4)',  selectedColor: '#9b8ab8', dbKey: 'Anxiety' },
-  { label: 'Joint pain',   emoji: '🦴', selectedBg: 'rgba(196,122,90,0.12)',   selectedBorder: 'rgba(196,122,90,0.4)',   selectedColor: '#c47a5a', dbKey: 'Joint pain' },
-  { label: 'Insomnia',     emoji: '😴', selectedBg: 'rgba(45,139,122,0.12)',   selectedBorder: 'rgba(45,139,122,0.4)',   selectedColor: '#2d8b7a', dbKey: 'Insomnia' },
+  { label: 'Hot flushes',  dbKey: 'Hot flushes' },
+  { label: 'Night sweats', dbKey: 'Night sweats' },
+  { label: 'Brain fog',    dbKey: 'Brain fog' },
+  { label: 'Fatigue',      dbKey: 'Fatigue' },
+  { label: 'Low mood',     dbKey: 'Low mood' },
+  { label: 'Anxiety',      dbKey: 'Anxiety' },
+  { label: 'Joint pain',   dbKey: 'Joint pain' },
+  { label: 'Insomnia',     dbKey: 'Insomnia' },
 ]
 
 const TOTAL_STEPS = 4
-
-// ── Shared style tokens ──────────────────────────────────────────────────────
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
 const PF = 'var(--font-playfair), Georgia, serif'
 
-// ── Main component ───────────────────────────────────────────────────────────
 export function CheckInForm() {
   const [step, setStep]           = useState(1)
   const [mood, setMood]           = useState<number | null>(null)
@@ -91,72 +87,63 @@ export function CheckInForm() {
     }
   }
 
-  // ── Glass card style ────────────────────────────────────────────────────────
   const cardStyle: React.CSSProperties = {
-    background: 'rgba(255,255,255,0.50)',
-    border: '1.5px solid rgba(255,255,255,0.80)',
-    backdropFilter: 'blur(22px) saturate(160%)',
-    WebkitBackdropFilter: 'blur(22px) saturate(160%)',
-    boxShadow: '0 4px 28px rgba(61,44,53,0.07), 0 1px 0 rgba(255,255,255,0.95) inset',
-    borderRadius: 22,
-    padding: '30px 26px',
+    background: 'rgba(255,255,255,0.04)',
+    border: '1px solid rgba(255,255,255,0.09)',
+    backdropFilter: 'blur(24px)',
+    WebkitBackdropFilter: 'blur(24px)',
+    borderRadius: 22, padding: '30px 26px',
   }
 
   const progressPct = `${(step / TOTAL_STEPS) * 100}%`
 
-  // ── Step 4 / Complete ───────────────────────────────────────────────────────
   if (saved) {
-    const chosenMood = MOOD_OPTIONS.find((m) => m.value === mood)
-    const summaryChips: { label: string; color: string; bg: string; border: string }[] = []
-    if (chosenMood) summaryChips.push({ label: `${chosenMood.emoji} ${chosenMood.label}`, color: '#2d8b7a', bg: 'rgba(45,139,122,0.1)', border: 'rgba(45,139,122,0.3)' })
-    symptoms.forEach((s) => {
-      const chip = SYMPTOM_CHIPS.find((c) => c.dbKey === s)
-      if (chip) summaryChips.push({ label: `${chip.emoji} ${chip.label}`, color: chip.selectedColor, bg: chip.selectedBg, border: chip.selectedBorder })
-    })
-    summaryChips.push({ label: `🌙 ${sleepHours}h sleep`, color: '#c4959e', bg: 'rgba(196,149,158,0.12)', border: 'rgba(196,149,158,0.4)' })
-
     return (
       <div style={{ maxWidth: 640, margin: '0 auto', padding: '40px 20px', animation: 'screen-in 0.45s cubic-bezier(0.22,1,0.36,1)' }}>
         {/* Progress bar — full */}
-        <div style={{ width: '100%', height: 3, background: 'rgba(237,224,216,0.5)', borderRadius: 999, marginBottom: 24 }}>
-          <div style={{ width: '100%', height: '100%', borderRadius: 999, background: 'linear-gradient(90deg,#2d8b7a,#6b9e80)', transition: 'width 0.4s ease' }} />
+        <div style={{ width: '100%', height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 999, marginBottom: 24 }}>
+          <div style={{ width: '100%', height: '100%', borderRadius: 999, background: 'linear-gradient(90deg,#9b7cc8,#c4b8e0)' }} />
         </div>
 
         <div style={{ ...cardStyle, textAlign: 'center' }}>
-          <div style={{ fontSize: 48, marginBottom: 16, lineHeight: 1 }}>✨</div>
-          <h2 style={{ fontFamily: PF, fontSize: 26, fontWeight: 700, color: '#1e3d35', margin: '0 0 10px' }}>
-            Check-in complete!
+          {/* Circle instead of emoji */}
+          <div style={{
+            width: 56, height: 56, borderRadius: '50%',
+            background: 'rgba(139,109,181,0.14)',
+            border: '1px solid rgba(139,109,181,0.28)',
+            margin: '0 auto 20px',
+          }} />
+          <h2 style={{ fontFamily: PF, fontSize: 24, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 10px', letterSpacing: '-0.02em' }}>
+            Check-in complete
           </h2>
-          <p style={{ fontFamily: DM, fontSize: 15, color: '#8a7a72', margin: '0 0 24px', lineHeight: 1.6 }}>
+          <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.38)', margin: '0 0 24px', lineHeight: 1.6 }}>
             Great job tracking today — every entry helps reveal patterns
           </p>
 
           {/* Summary chips */}
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 8, justifyContent: 'center', marginBottom: 28 }}>
-            {summaryChips.map((chip) => (
-              <span key={chip.label} style={{
-                padding: '6px 14px', borderRadius: 999,
-                background: chip.bg, border: `1px solid ${chip.border}`,
-                color: chip.color, fontFamily: DM, fontSize: 13, fontWeight: 500,
-              }}>{chip.label}</span>
+            {mood != null && (
+              <span style={{ padding: '6px 14px', borderRadius: 999, background: 'rgba(139,109,181,0.12)', border: '1px solid rgba(139,109,181,0.25)', color: 'rgba(196,184,224,0.8)', fontFamily: DM, fontSize: 12, fontWeight: 300 }}>
+                {MOOD_OPTIONS.find((m) => m.value === mood)?.label}
+              </span>
+            )}
+            {symptoms.map((s) => (
+              <span key={s} style={{ padding: '6px 14px', borderRadius: 999, background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.09)', color: 'rgba(255,255,255,0.45)', fontFamily: DM, fontSize: 12, fontWeight: 300 }}>
+                {s}
+              </span>
             ))}
+            <span style={{ padding: '6px 14px', borderRadius: 999, background: 'rgba(155,124,200,0.10)', border: '1px solid rgba(155,124,200,0.2)', color: 'rgba(196,184,224,0.7)', fontFamily: DM, fontSize: 12, fontWeight: 300 }}>
+              {sleepHours}h sleep
+            </span>
           </div>
 
           <div style={{ display: 'flex', flexDirection: 'column', gap: 10, maxWidth: 320, margin: '0 auto' }}>
-            <Link href="/dashboard" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              height: 52, borderRadius: 999, border: 'none',
-              background: 'linear-gradient(90deg,#2d8b7a,#1e6b55)',
-              color: 'white', fontFamily: DM, fontSize: 15, fontWeight: 600,
-              textDecoration: 'none', boxShadow: '0 6px 24px rgba(45,139,122,0.32)',
-            }}>Back to dashboard</Link>
-            <Link href="/insights" style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              height: 48, borderRadius: 999,
-              background: 'transparent', border: '1.5px solid rgba(45,139,122,0.35)',
-              color: '#2d8b7a', fontFamily: DM, fontSize: 14, fontWeight: 600,
-              textDecoration: 'none',
-            }}>View my insights →</Link>
+            <Link href="/dashboard" className="btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', fontSize: 14 }}>
+              Back to dashboard
+            </Link>
+            <Link href="/insights" className="btn-ghost" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', textDecoration: 'none', fontSize: 14 }}>
+              View my insights
+            </Link>
           </div>
         </div>
       </div>
@@ -167,53 +154,52 @@ export function CheckInForm() {
     <div style={{ maxWidth: 640, margin: '0 auto', padding: '40px 20px', animation: 'screen-in 0.45s cubic-bezier(0.22,1,0.36,1)' }}>
 
       {/* Progress bar */}
-      <div style={{ width: '100%', height: 3, background: 'rgba(237,224,216,0.5)', borderRadius: 999, marginBottom: 20 }}>
-        <div style={{ width: progressPct, height: '100%', borderRadius: 999, background: 'linear-gradient(90deg,#2d8b7a,#6b9e80)', transition: 'width 0.4s ease' }} />
+      <div style={{ width: '100%', height: 2, background: 'rgba(255,255,255,0.06)', borderRadius: 999, marginBottom: 20 }}>
+        <div style={{ width: progressPct, height: '100%', borderRadius: 999, background: 'linear-gradient(90deg,#9b7cc8,#c4b8e0)', transition: 'width 0.4s ease', boxShadow: '0 0 8px rgba(155,124,200,0.4)' }} />
       </div>
 
-      {/* Step eyebrow + back button */}
+      {/* Step label + back */}
       <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 16, minHeight: 24 }}>
-        <span style={{ fontFamily: DM, fontSize: 10, fontWeight: 700, color: '#2d8b7a', textTransform: 'uppercase', letterSpacing: '0.11em' }}>
+        <span style={{ fontFamily: DM, fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.28)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>
           Step {step} of {TOTAL_STEPS}
         </span>
         {step > 1 && (
           <button type="button" onClick={goBack} style={{
             background: 'none', border: 'none', cursor: 'pointer',
-            fontFamily: DM, fontSize: 13, fontWeight: 500, color: '#8a7a72',
+            fontFamily: DM, fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.32)',
             padding: '4px 8px',
-          }}>← Back</button>
+          }}>Back</button>
         )}
       </div>
 
       {/* Step card */}
       <div ref={stepRef} style={cardStyle}>
 
-        {/* ── Step 1 — Mood ────────────────────────────────────────────────── */}
+        {/* Step 1 — Mood */}
         {step === 1 && (
           <>
-            <h2 style={{ fontFamily: PF, fontSize: 22, fontWeight: 700, color: '#1a1220', margin: '0 0 6px' }}>
+            <h2 style={{ fontFamily: PF, fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
               How are you feeling today?
             </h2>
-            <p style={{ fontFamily: DM, fontSize: 14, color: '#8a7a72', margin: '0 0 24px', lineHeight: 1.55 }}>
+            <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.35)', margin: '0 0 24px', lineHeight: 1.55 }}>
               Your mood shapes your whole wellness picture
             </p>
-            <div style={{ display: 'flex', justifyContent: 'space-around' }}>
-              {MOOD_OPTIONS.map(({ value, emoji, label }) => {
+            <div style={{ display: 'flex', justifyContent: 'space-around', gap: 6 }}>
+              {MOOD_OPTIONS.map(({ value, label }) => {
                 const sel = mood === value
                 return (
                   <button key={value} type="button" onClick={() => setMood(sel ? null : value)}
                     style={{
-                      width: 70, display: 'flex', flexDirection: 'column', alignItems: 'center',
-                      padding: '16px 8px', borderRadius: 16,
-                      background: sel ? 'rgba(45,139,122,0.10)' : 'white',
-                      border: sel ? '2px solid #2d8b7a' : '1.5px solid rgba(237,224,216,0.8)',
-                      boxShadow: sel ? '0 0 0 4px rgba(45,139,122,0.10)' : 'none',
-                      transform: sel ? 'scale(1.06)' : 'scale(1)',
+                      flex: 1, display: 'flex', flexDirection: 'column', alignItems: 'center',
+                      padding: '14px 8px', borderRadius: 14,
+                      background: sel ? 'rgba(139,109,181,0.16)' : 'rgba(255,255,255,0.03)',
+                      border: sel ? '1px solid rgba(139,109,181,0.4)' : '1px solid rgba(255,255,255,0.07)',
+                      boxShadow: sel ? '0 0 0 3px rgba(139,109,181,0.12)' : 'none',
+                      transform: sel ? 'scale(1.04)' : 'scale(1)',
                       transition: 'all 0.25s cubic-bezier(0.34,1.56,0.64,1)',
-                      cursor: 'pointer', gap: 8,
+                      cursor: 'pointer',
                     }}>
-                    <span style={{ fontSize: 28, lineHeight: 1 }}>{emoji}</span>
-                    <span style={{ fontFamily: DM, fontSize: 11, fontWeight: 500, color: '#8a7a72' }}>{label}</span>
+                    <span style={{ fontFamily: DM, fontSize: 12, fontWeight: 300, color: sel ? 'rgba(196,184,224,0.9)' : 'rgba(255,255,255,0.32)' }}>{label}</span>
                   </button>
                 )
               })}
@@ -221,30 +207,30 @@ export function CheckInForm() {
           </>
         )}
 
-        {/* ── Step 2 — Symptoms ────────────────────────────────────────────── */}
+        {/* Step 2 — Symptoms */}
         {step === 2 && (
           <>
-            <h2 style={{ fontFamily: PF, fontSize: 22, fontWeight: 700, color: '#1a1220', margin: '0 0 6px' }}>
+            <h2 style={{ fontFamily: PF, fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 6px', letterSpacing: '-0.02em' }}>
               Any symptoms today?
             </h2>
-            <p style={{ fontFamily: DM, fontSize: 14, color: '#8a7a72', margin: '0 0 24px', lineHeight: 1.55 }}>
+            <p style={{ fontFamily: DM, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.35)', margin: '0 0 24px', lineHeight: 1.55 }}>
               Select all that apply — or skip if none
             </p>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 10 }}>
-              {SYMPTOM_CHIPS.map(({ label, emoji, selectedBg, selectedBorder, selectedColor, dbKey }) => {
+              {SYMPTOM_CHIPS.map(({ label, dbKey }) => {
                 const sel = symptoms.includes(dbKey)
                 return (
                   <button key={dbKey} type="button" onClick={() => toggleSymptom(dbKey)}
                     style={{
                       padding: '8px 16px', borderRadius: 999,
-                      background: sel ? selectedBg : 'white',
-                      border: sel ? `1px solid ${selectedBorder}` : '1px solid rgba(237,224,216,0.8)',
-                      color: sel ? selectedColor : '#3d2c35',
-                      fontFamily: DM, fontSize: 14, fontWeight: 500,
+                      background: sel ? 'rgba(139,109,181,0.14)' : 'rgba(255,255,255,0.03)',
+                      border: sel ? '1px solid rgba(139,109,181,0.35)' : '1px solid rgba(255,255,255,0.07)',
+                      color: sel ? 'rgba(196,184,224,0.9)' : 'rgba(255,255,255,0.38)',
+                      fontFamily: DM, fontSize: 13, fontWeight: 300,
                       cursor: 'pointer',
                       transition: 'all 0.2s cubic-bezier(0.34,1.56,0.64,1)',
                     }}>
-                    {emoji} {label}
+                    {label}
                   </button>
                 )
               })}
@@ -252,25 +238,25 @@ export function CheckInForm() {
           </>
         )}
 
-        {/* ── Step 3 — Sleep ───────────────────────────────────────────────── */}
+        {/* Step 3 — Sleep */}
         {step === 3 && (
           <>
-            <h2 style={{ fontFamily: PF, fontSize: 22, fontWeight: 700, color: '#1a1220', margin: '0 0 24px' }}>
+            <h2 style={{ fontFamily: PF, fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: '0 0 24px', letterSpacing: '-0.02em' }}>
               How did you sleep?
             </h2>
             <div style={{ textAlign: 'center', marginBottom: 20 }}>
-              <span style={{ fontFamily: PF, fontSize: 56, fontWeight: 700, color: '#2d8b7a', lineHeight: 1 }}>
+              <span style={{ fontFamily: PF, fontSize: 54, fontWeight: 300, color: 'rgba(196,184,224,0.9)', lineHeight: 1, letterSpacing: '-0.03em' }}>
                 {sleepHours}h
               </span>
             </div>
             <input
               type="range" min={0} max={12} step={0.5} value={sleepHours}
               onChange={(e) => setSleepHours(parseFloat(e.target.value))}
-              style={{ width: '100%', height: 6, accentColor: '#2d8b7a', cursor: 'pointer', marginBottom: 8 }}
+              style={{ width: '100%', height: 4, accentColor: '#9b7cc8', cursor: 'pointer', marginBottom: 8 }}
             />
             <div style={{ display: 'flex', justifyContent: 'space-between' }}>
-              <span style={{ fontFamily: DM, fontSize: 12, color: '#8a7a72' }}>0h</span>
-              <span style={{ fontFamily: DM, fontSize: 12, color: '#8a7a72' }}>12h</span>
+              <span style={{ fontFamily: DM, fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.25)' }}>0h</span>
+              <span style={{ fontFamily: DM, fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.25)' }}>12h</span>
             </div>
           </>
         )}
@@ -278,48 +264,37 @@ export function CheckInForm() {
 
       {/* Error */}
       {error && (
-        <div style={{ marginTop: 10, background: 'rgba(201,82,82,0.07)', border: '1px solid rgba(201,82,82,0.22)', borderRadius: 12, padding: '12px 16px', fontSize: 14, color: '#c0392b', fontFamily: DM }}>
+        <div style={{ marginTop: 10, background: 'rgba(217,95,95,0.07)', border: '1px solid rgba(217,95,95,0.22)', borderRadius: 12, padding: '12px 16px', fontSize: 13, fontWeight: 300, color: 'rgba(232,160,160,0.9)', fontFamily: DM }}>
           {error}
         </div>
       )}
 
-      {/* Navigation buttons */}
+      {/* Navigation */}
       <div style={{ marginTop: 14 }}>
         {step < TOTAL_STEPS ? (
           <>
             <button type="button" onClick={goNext} disabled={step === 1 && !mood}
+              className="btn-primary"
               style={{
-                width: '100%', height: 52, borderRadius: 999, border: 'none',
-                background: (step === 1 && !mood)
-                  ? 'rgba(196,181,174,0.5)'
-                  : 'linear-gradient(90deg,#2d8b7a,#1e6b55)',
-                color: 'white', fontFamily: DM, fontSize: 15, fontWeight: 600,
+                width: '100%', height: 52, fontSize: 14,
+                opacity: (step === 1 && !mood) ? 0.4 : 1,
                 cursor: (step === 1 && !mood) ? 'not-allowed' : 'pointer',
-                boxShadow: (step === 1 && !mood) ? 'none' : '0 6px 24px rgba(45,139,122,0.32)',
-                transition: 'background 0.2s, box-shadow 0.2s',
               }}>
-              Continue →
+              Continue
             </button>
             {step === 2 && (
               <div style={{ textAlign: 'center', marginTop: 10 }}>
-                <button type="button" onClick={goNext} style={{ background: 'none', border: 'none', color: '#8a7a72', fontFamily: DM, fontSize: 13, cursor: 'pointer' }}>
-                  Skip →
+                <button type="button" onClick={goNext} style={{ background: 'none', border: 'none', color: 'rgba(255,255,255,0.28)', fontFamily: DM, fontSize: 12, fontWeight: 300, cursor: 'pointer' }}>
+                  Skip
                 </button>
               </div>
             )}
           </>
         ) : (
           <button type="button" onClick={handleSubmit} disabled={saving}
-            style={{
-              width: '100%', height: 52, borderRadius: 999, border: 'none',
-              background: 'linear-gradient(90deg,#2d8b7a,#1e6b55)',
-              color: 'white', fontFamily: DM, fontSize: 15, fontWeight: 600,
-              cursor: saving ? 'not-allowed' : 'pointer',
-              opacity: saving ? 0.7 : 1,
-              boxShadow: '0 6px 24px rgba(45,139,122,0.32)',
-              transition: 'opacity 0.2s',
-            }}>
-            {saving ? 'Saving…' : 'Save check-in 🌿'}
+            className="btn-primary"
+            style={{ width: '100%', height: 52, fontSize: 14, opacity: saving ? 0.6 : 1, cursor: saving ? 'not-allowed' : 'pointer' }}>
+            {saving ? 'Saving…' : 'Save check-in'}
           </button>
         )}
       </div>

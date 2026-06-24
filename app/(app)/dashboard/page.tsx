@@ -41,7 +41,6 @@ export default async function DashboardPage() {
   const dateSet = new Set(list.map((c) => c.checkin_date))
   const todayLogged = !!todayCheckin
 
-  // Parse named symptoms from triggers
   const namedSymptoms: string[] = []
   if (todayCheckin?.triggers) {
     const triggers = todayCheckin.triggers as string[]
@@ -52,7 +51,6 @@ export default async function DashboardPage() {
     if (todayCheckin.night_sweats_severity) namedSymptoms.unshift('Night sweats')
   }
 
-  // Streak
   let streak = 0
   const cursor = new Date()
   if (dateSet.has(today)) {
@@ -76,7 +74,6 @@ export default async function DashboardPage() {
   const thisMonth = new Date().toISOString().slice(0, 7)
   const monthCount = list.filter((c) => c.checkin_date.startsWith(thisMonth)).length
 
-  // Averages for insight bars
   const withMood = list.filter((c) => c.mood != null)
   const withEnergy = list.filter((c) => c.energy_level != null)
   const withSleep = list.filter((c) => c.sleep_hours != null)
@@ -101,40 +98,37 @@ export default async function DashboardPage() {
   return (
     <div style={{ maxWidth: 1200, margin: '0 auto', padding: '28px 20px 80px' }}>
 
-      {/* Notification prompt */}
       <div style={{ marginBottom: 20 }}>
         <NotificationSetup />
       </div>
 
       {/* Header */}
       <div style={{ marginBottom: 28 }}>
-        <p style={{ fontSize: 13, color: '#b8a9a0', fontWeight: 500, margin: '0 0 4px', letterSpacing: '0.01em' }}>
+        <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', fontWeight: 300, margin: '0 0 4px', letterSpacing: '0.06em', textTransform: 'uppercase' }}>
           {dateLabel}
         </p>
         <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', gap: 16 }}>
           <h1 style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
             fontSize: 'clamp(22px, 3.5vw, 30px)',
-            fontWeight: 700,
-            color: '#1a1220',
-            margin: 0,
-            lineHeight: 1.15,
+            fontWeight: 300,
+            color: 'rgba(255,255,255,0.88)',
+            margin: 0, lineHeight: 1.2,
+            letterSpacing: '-0.02em',
           }}>
             {greeting}{firstName ? `, ${firstName}` : ''}
           </h1>
           {streak > 1 && (
             <div style={{
               flexShrink: 0,
-              background: 'rgba(45,139,122,0.10)',
-              border: '1.5px solid rgba(45,139,122,0.22)',
-              borderRadius: 14,
-              padding: '8px 16px',
-              textAlign: 'center',
+              background: 'rgba(139,109,181,0.10)',
+              border: '1px solid rgba(139,109,181,0.2)',
+              borderRadius: 14, padding: '8px 16px', textAlign: 'center',
             }}>
-              <p style={{ fontSize: 20, fontWeight: 800, color: '#2d8b7a', margin: 0, lineHeight: 1, fontFamily: 'var(--font-playfair), Georgia, serif' }}>
-                {streak}🔥
+              <p style={{ fontSize: 20, fontWeight: 300, color: '#c4b8e0', margin: 0, lineHeight: 1, fontFamily: 'var(--font-playfair), Georgia, serif' }}>
+                {streak}
               </p>
-              <p style={{ fontSize: 10, color: '#5a8a7a', margin: '2px 0 0', fontWeight: 600, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Day streak</p>
+              <p style={{ fontSize: 10, color: 'rgba(255,255,255,0.28)', margin: '2px 0 0', fontWeight: 300, textTransform: 'uppercase', letterSpacing: '0.06em' }}>Day streak</p>
             </div>
           )}
         </div>
@@ -143,7 +137,7 @@ export default async function DashboardPage() {
       {/* 3-column grid */}
       <div className="dash-3col">
 
-        {/* ── COL 1: Today's Wellness ── */}
+        {/* COL 1: Today's Wellness */}
         <WellnessCard
           todayLogged={todayLogged}
           wellbeing={wellbeing}
@@ -151,72 +145,45 @@ export default async function DashboardPage() {
           sleepHours={sleepHours}
         />
 
-        {/* ── COL 2: Dark Insights ── */}
-        <div
-          className="insight-card"
-          style={{ border: '1.5px solid rgba(255,255,255,0.07)' }}
-        >
+        {/* COL 2: Dark Insights */}
+        <div className="insight-card">
           <div style={{ position: 'relative', zIndex: 1 }}>
-            {/* Eyebrow */}
             <p style={{
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-              fontSize: 10,
-              fontWeight: 700,
-              letterSpacing: '0.11em',
-              textTransform: 'uppercase',
-              color: 'rgba(255,255,255,0.45)',
+              fontSize: 10, fontWeight: 400, letterSpacing: '0.1em',
+              textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)',
               margin: '0 0 8px',
             }}>
               Patterns
             </p>
-
-            {/* Heading */}
             <h3 style={{
               fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 20,
-              fontWeight: 700,
-              color: 'rgba(255,255,255,0.9)',
-              margin: '0 0 26px',
-              lineHeight: 1.2,
+              fontSize: 20, fontWeight: 300,
+              color: 'rgba(255,255,255,0.88)',
+              margin: '0 0 26px', lineHeight: 1.2,
+              letterSpacing: '-0.02em',
             }}>
               Your insights
             </h3>
 
-            {/* Insight bars */}
             <div style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
               {[
-                { label: 'Mood', display: `${moodPct}%`, pct: moodPct, color: '#2d8b7a' },
+                { label: 'Mood', display: `${moodPct}%`, pct: moodPct, color: '#9b7cc8' },
                 { label: 'Energy', display: `${energyPct}%`, pct: energyPct, color: '#c47a5a' },
-                { label: 'Sleep', display: `${sleepDisplay}h`, pct: Math.min(Number(sleepDisplay) / 12 * 100, 100), color: '#9b8ab8' },
+                { label: 'Sleep', display: `${sleepDisplay}h`, pct: Math.min(Number(sleepDisplay) / 12 * 100, 100), color: '#c4b8e0' },
                 { label: 'Consistency', display: `${consistencyPct}%`, pct: consistencyPct, color: '#c9a96e' },
               ].map(({ label, display, pct, color }) => (
                 <div key={label}>
                   <div style={{ display: 'flex', justifyContent: 'space-between', alignItems: 'baseline', marginBottom: 8 }}>
-                    <span style={{
-                      fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                      fontSize: 12,
-                      color: 'rgba(255,255,255,0.55)',
-                      fontWeight: 500,
-                    }}>
+                    <span style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 12, color: 'rgba(255,255,255,0.38)', fontWeight: 300 }}>
                       {label}
                     </span>
-                    <span style={{
-                      fontFamily: 'var(--font-playfair), Georgia, serif',
-                      fontSize: 18,
-                      fontWeight: 700,
-                      color,
-                    }}>
+                    <span style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 18, fontWeight: 300, color }}>
                       {display}
                     </span>
                   </div>
-                  <div className="insight-bar-track" style={{ height: 4, marginTop: 0 }}>
-                    <div
-                      className="insight-bar-fill"
-                      style={{
-                        width: `${pct}%`,
-                        background: `linear-gradient(90deg, ${color}99, ${color})`,
-                      }}
-                    />
+                  <div className="insight-bar-track" style={{ height: 3, marginTop: 0 }}>
+                    <div className="insight-bar-fill" style={{ width: `${pct}%`, background: `linear-gradient(90deg, ${color}60, ${color})` }} />
                   </div>
                 </div>
               ))}
@@ -224,180 +191,85 @@ export default async function DashboardPage() {
           </div>
         </div>
 
-        {/* ── COL 3: Right sidebar stack ── */}
+        {/* COL 3: Right sidebar */}
         <div className="dash-3col-sidebar">
 
-          {/* 2×2 stat grid */}
+          {/* 2x2 stat grid */}
           <div className="dash-stat-grid">
-            <div
-              className="glass-sm dash-stat-card"
-              style={{ borderRadius: 18 }}
-            >
-              <p style={{
-                fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 24,
-                fontWeight: 700,
-                color: '#1a1220',
-                margin: 0,
-                lineHeight: 1,
-              }}>
-                {totalCheckins}
-              </p>
-              <p style={{
-                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 12,
-                color: '#b8a9a0',
-                margin: '6px 0 0',
-                fontWeight: 500,
-              }}>
-                Check-ins
-              </p>
-            </div>
-            <div
-              className="glass-sm dash-stat-card"
-              style={{ borderRadius: 18 }}
-            >
-              <p style={{
-                fontFamily: 'var(--font-playfair), Georgia, serif',
-                fontSize: 24,
-                fontWeight: 700,
-                color: '#1a1220',
-                margin: 0,
-                lineHeight: 1,
-              }}>
-                {avgSleepHours ? `${avgSleepHours.toFixed(1)}h` : `${sleepHours ?? '—'}h`}
-              </p>
-              <p style={{
-                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 12,
-                color: '#b8a9a0',
-                margin: '6px 0 0',
-                fontWeight: 500,
-              }}>
-                Avg sleep
-              </p>
-            </div>
+            {[
+              { value: totalCheckins, label: 'Check-ins' },
+              { value: avgSleepHours ? `${avgSleepHours.toFixed(1)}h` : `${sleepHours ?? '—'}h`, label: 'Avg sleep' },
+            ].map(({ value, label }) => (
+              <div key={label} className="glass dash-stat-card" style={{ borderRadius: 18 }}>
+                <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 24, fontWeight: 300, color: 'rgba(255,255,255,0.88)', margin: 0, lineHeight: 1 }}>
+                  {value}
+                </p>
+                <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 11, color: 'rgba(255,255,255,0.28)', margin: '6px 0 0', fontWeight: 300 }}>
+                  {label}
+                </p>
+              </div>
+            ))}
           </div>
 
           {/* AI Insight card */}
-          <div style={{
-            background: 'rgba(155,138,184,0.08)',
-            border: '1px solid rgba(155,138,184,0.20)',
-            borderRadius: 20,
-            padding: 20,
-          }}>
-            <p style={{
-              fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-              fontSize: 11,
-              fontWeight: 700,
-              color: '#9b8ab8',
-              margin: '0 0 10px',
-              letterSpacing: '0.06em',
-            }}>
-              ✨ AI Insight
+          <div className="glass-violet" style={{ borderRadius: 20, padding: 20 }}>
+            <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(196,184,224,0.6)', margin: '0 0 10px', letterSpacing: '0.1em', textTransform: 'uppercase' }}>
+              AI Insight
             </p>
-            <p style={{
-              fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 14,
-              fontStyle: 'italic',
-              color: '#4a3558',
-              margin: '0 0 14px',
-              lineHeight: 1.6,
-            }}>
+            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 14, fontStyle: 'italic', color: 'rgba(255,255,255,0.62)', margin: '0 0 14px', lineHeight: 1.65, fontWeight: 300 }}>
               {list.length >= 7
                 ? 'Your data suggests consistent patterns worth exploring with your care team.'
                 : 'Track daily to unlock personalised insights about your symptoms and wellbeing.'}
             </p>
-            <Link
-              href="/companion"
-              style={{
-                display: 'inline-block',
-                border: '1px solid rgba(45,139,122,0.25)',
-                color: '#2d8b7a',
-                borderRadius: 9999,
-                padding: '8px 16px',
-                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 13,
-                fontWeight: 600,
-                textDecoration: 'none',
-                background: 'transparent',
-              }}
-            >
-              Ask AI companion →
+            <Link href="/companion" style={{
+              display: 'inline-block',
+              border: '1px solid rgba(139,109,181,0.28)',
+              color: 'rgba(196,184,224,0.8)',
+              borderRadius: 9999, padding: '8px 16px',
+              fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              fontSize: 12, fontWeight: 300, textDecoration: 'none',
+            }}>
+              Ask AI companion
             </Link>
           </div>
 
           {/* Community card */}
-          <div className="glass-sm" style={{ borderRadius: 18, padding: '18px 16px' }}>
+          <div className="glass" style={{ borderRadius: 18, padding: '18px 16px' }}>
             <div style={{ display: 'flex', alignItems: 'center', gap: 8, marginBottom: 10 }}>
-              <span style={{
-                width: 8,
-                height: 8,
-                borderRadius: '50%',
-                background: '#2d8b7a',
-                display: 'inline-block',
-                animation: 'dot-pulse 2.4s infinite',
-              }} />
-              <p style={{
-                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 11,
-                fontWeight: 700,
-                color: '#b8a9a0',
-                margin: 0,
-                letterSpacing: '0.06em',
-                textTransform: 'uppercase',
-              }}>
+              <span style={{ width: 6, height: 6, borderRadius: '50%', background: '#9b7cc8', display: 'inline-block', animation: 'dot-pulse 2.4s infinite' }} />
+              <p style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.28)', margin: 0, letterSpacing: '0.1em', textTransform: 'uppercase' }}>
                 Community
               </p>
             </div>
-            <p style={{
-              fontFamily: 'var(--font-playfair), Georgia, serif',
-              fontSize: 14,
-              fontStyle: 'italic',
-              color: '#5a4a6a',
-              margin: '0 0 12px',
-              lineHeight: 1.55,
-            }}>
+            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 14, fontStyle: 'italic', color: 'rgba(255,255,255,0.55)', margin: '0 0 12px', lineHeight: 1.55, fontWeight: 300 }}>
               Today in Perimenopause Circles...
             </p>
-            <Link
-              href="/community"
-              style={{
-                display: 'inline-block',
-                border: '1px solid rgba(45,139,122,0.25)',
-                color: '#2d8b7a',
-                borderRadius: 9999,
-                padding: '8px 16px',
-                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 13,
-                fontWeight: 600,
-                textDecoration: 'none',
-                background: 'transparent',
-              }}
-            >
-              Join community →
+            <Link href="/community" style={{
+              display: 'inline-block',
+              border: '1px solid rgba(255,255,255,0.1)',
+              color: 'rgba(255,255,255,0.45)',
+              borderRadius: 9999, padding: '8px 16px',
+              fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              fontSize: 12, fontWeight: 300, textDecoration: 'none',
+            }}>
+              Join community
             </Link>
           </div>
 
-          {/* Quick tools row */}
+          {/* Quick tools */}
           <div className="dash-quick-tools">
             {[
-              { href: '/tools', emoji: '🫁', label: 'Breathe' },
-              { href: '/tools', emoji: '🌡️', label: 'Cool down' },
-              { href: '/tools', emoji: '🌿', label: 'Ground' },
-            ].map(({ href, emoji, label }) => (
-              <Link
-                key={label}
-                href={href}
-                className="glass-sm dash-quick-tool"
-              >
-                <span style={{ fontSize: 24, lineHeight: 1 }}>{emoji}</span>
-                <span style={{
-                  fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                  fontSize: 11,
-                  fontWeight: 500,
-                  color: '#5a4a6a',
-                }}>
+              { href: '/tools', label: 'Breathe' },
+              { href: '/tools', label: 'Cool down' },
+              { href: '/tools', label: 'Ground' },
+            ].map(({ href, label }) => (
+              <Link key={label} href={href} className="glass dash-quick-tool">
+                <div style={{
+                  width: 32, height: 32, borderRadius: '50%',
+                  background: 'rgba(139,109,181,0.12)',
+                  border: '1px solid rgba(139,109,181,0.2)',
+                }} />
+                <span style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.42)' }}>
                   {label}
                 </span>
               </Link>
@@ -407,7 +279,7 @@ export default async function DashboardPage() {
         </div>
       </div>
 
-      <p style={{ textAlign: 'center', fontSize: 12, color: '#c8bdb8', marginTop: 44, lineHeight: 1.6 }}>
+      <p style={{ textAlign: 'center', fontSize: 11, color: 'rgba(255,255,255,0.14)', marginTop: 44, lineHeight: 1.6, fontWeight: 300 }}>
         Vida provides educational support only. Always discuss medical decisions with your healthcare provider.
       </p>
     </div>

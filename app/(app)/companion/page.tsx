@@ -44,12 +44,11 @@ export default async function CompanionPage() {
     initialMessages = (msgs ?? []).map((m) => ({ role: m.role as 'user' | 'assistant', content: m.content }))
   }
 
-  // Use placeholder messages if no conversation yet
   if (initialMessages.length === 0) {
     initialMessages = [
-      { role: 'assistant', content: "Hello! I'm here to support you on your menopause wellness journey. How can I help you today? 🌿" },
+      { role: 'assistant', content: "Hello, I'm here to support you on your menopause wellness journey. How can I help you today?" },
       { role: 'user', content: "I've been having more hot flushes lately" },
-      { role: 'assistant', content: "I understand — hot flushes can be really disruptive. Your check-in data shows they've been more frequent this week. Some things that may help include staying cool, loose breathable clothing, and avoiding triggers like caffeine and alcohol. Would you like to explore any of these?" },
+      { role: 'assistant', content: "I understand — hot flushes can be really disruptive. Your check-in data suggests they've been more frequent this week. Some things that may help include staying cool, loose breathable clothing, and avoiding triggers like caffeine and alcohol. Would you like to explore any of these?" },
     ]
   }
 
@@ -60,59 +59,60 @@ export default async function CompanionPage() {
       height: 'calc(100vh - 60px)', overflow: 'hidden',
     }}>
 
-      {/* ── Header ── */}
+      {/* Header */}
       <div style={{ flexShrink: 0, marginBottom: 16 }}>
         <p style={{
           fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-          fontSize: 10, fontWeight: 700, color: '#2d8b7a',
+          fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.28)',
           letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 4px',
-        }}>AI COMPANION</p>
+        }}>AI Companion</p>
         <h1 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
-          fontSize: 22, fontWeight: 700, color: '#1a1220', margin: 0,
+          fontSize: 22, fontWeight: 300, color: 'rgba(255,255,255,0.88)',
+          margin: 0, letterSpacing: '-0.02em',
         }}>Your wellness guide</h1>
       </div>
 
-      {/* ── Mode tabs ── */}
+      {/* Mode tabs — text only */}
       <div style={{ display: 'flex', flexDirection: 'row', gap: 8, marginBottom: 16, flexShrink: 0, flexWrap: 'wrap' }}>
         {[
-          { label: '🌿 Supportive', active: initialMode === 'supportive_friend' },
-          { label: '🎯 Wellness coach', active: initialMode === 'wellness_coach' },
-          { label: '🩺 Doctor prep', active: initialMode === 'doctor_prep' },
-        ].map(({ label, active }) => (
-          <span
-            key={label}
-            style={{
-              background: active ? 'rgba(45,139,122,0.1)' : 'rgba(255,255,255,0.5)',
-              border: active ? '1px solid rgba(45,139,122,0.4)' : '1px solid rgba(237,224,216,0.8)',
-              color: active ? '#1e6b55' : '#8a7a72',
+          { label: 'Supportive', mode: 'supportive_friend' },
+          { label: 'Wellness coach', mode: 'wellness_coach' },
+          { label: 'Doctor prep', mode: 'doctor_prep' },
+        ].map(({ label, mode }) => {
+          const active = initialMode === mode
+          return (
+            <span key={mode} style={{
+              background: active ? 'rgba(139,109,181,0.14)' : 'rgba(255,255,255,0.03)',
+              border: active ? '1px solid rgba(139,109,181,0.35)' : '1px solid rgba(255,255,255,0.07)',
+              color: active ? 'rgba(196,184,224,0.9)' : 'rgba(255,255,255,0.32)',
               borderRadius: 9999, padding: '8px 16px',
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-              fontSize: 13, fontWeight: active ? 600 : 400,
+              fontSize: 12, fontWeight: active ? 400 : 300,
               display: 'inline-block',
-            }}
-          >{label}</span>
-        ))}
+            }}>{label}</span>
+          )
+        })}
       </div>
 
-      {/* ── Premium upsell banner ── */}
+      {/* Premium upsell */}
       {!isPremium && (
         <div style={{
-          background: 'rgba(201,169,110,0.08)', border: '1px solid rgba(201,169,110,0.22)',
+          background: 'rgba(201,169,110,0.06)', border: '1px solid rgba(201,169,110,0.18)',
           borderRadius: 14, padding: '11px 16px', marginBottom: 12, flexShrink: 0,
           display: 'flex', alignItems: 'center', gap: 10,
         }}>
-          <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" strokeWidth="2" strokeLinecap="round" strokeLinejoin="round">
+          <svg width="14" height="14" viewBox="0 0 24 24" fill="none" stroke="#c9a96e" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round">
             <polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/>
           </svg>
-          <p style={{ fontSize: 13, color: '#a08040', margin: 0, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>
+          <p style={{ fontSize: 12, color: 'rgba(201,169,110,0.75)', margin: 0, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontWeight: 300 }}>
             Free plan: 10 messages included.{' '}
-            <a href="/settings" style={{ color: '#c9a96e', fontWeight: 700 }}>Upgrade for unlimited →</a>
+            <a href="/settings" style={{ color: '#c9a96e', fontWeight: 400 }}>Upgrade for unlimited</a>
           </p>
         </div>
       )}
 
-      {/* ── Chat (fills remaining height) ── */}
+      {/* Chat */}
       <CompanionChat
         initialMessages={initialMessages}
         initialConversationId={initialConversationId}

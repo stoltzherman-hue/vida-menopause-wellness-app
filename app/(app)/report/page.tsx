@@ -40,72 +40,58 @@ export default async function ReportPage() {
   return (
     <div style={{ maxWidth: 600, margin: '0 auto', padding: '40px 20px 100px' }}>
 
-      {/* ── Hero glass card ── */}
-      <div
-        className="glass"
-        style={{ borderRadius: 24, padding: 48, marginBottom: 32 }}
-      >
-        {/* Icon tile + eyebrow row */}
-        <div style={{ display: 'flex', alignItems: 'center', gap: 14, marginBottom: 20 }}>
+      {/* Hero glass card */}
+      <div className="glass" style={{ borderRadius: 24, padding: 48, marginBottom: 32 }}>
+        {/* GP-Ready badge */}
+        <div style={{ marginBottom: 20 }}>
           <div style={{
-            background: 'rgba(201,169,110,0.12)',
-            border: '1px solid rgba(201,169,110,0.25)',
-            borderRadius: 14, padding: '12px 16px',
-            display: 'flex', alignItems: 'center', gap: 8,
+            display: 'inline-flex', alignItems: 'center', gap: 8,
+            background: 'rgba(201,169,110,0.08)',
+            border: '1px solid rgba(201,169,110,0.2)',
+            borderRadius: 10, padding: '8px 14px',
           }}>
-            <span style={{ fontSize: 20 }}>📋</span>
+            <div style={{
+              width: 6, height: 6, borderRadius: '50%',
+              background: '#c9a96e',
+            }} />
             <span style={{
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-              fontSize: 9, fontWeight: 700, color: '#c9a96e',
+              fontSize: 9, fontWeight: 400, color: 'rgba(201,169,110,0.75)',
               letterSpacing: '0.12em', textTransform: 'uppercase',
-            }}>GP-READY</span>
+            }}>GP-Ready</span>
           </div>
         </div>
 
-        <p style={{
-          fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-          fontSize: 10, fontWeight: 700, color: '#c9a96e',
-          letterSpacing: '0.1em', textTransform: 'uppercase', margin: '0 0 8px',
-        }}>GP-READY SUMMARY</p>
-
         <h1 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
-          fontSize: 32, fontWeight: 700, color: '#1a1220',
-          margin: '0 0 16px',
+          fontSize: 30, fontWeight: 300, color: 'rgba(255,255,255,0.88)',
+          margin: '0 0 16px', letterSpacing: '-0.02em',
         }}>Doctor Report</h1>
 
         <p style={{
           fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-          fontSize: 15, color: '#b8a9a0', lineHeight: 1.7,
+          fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.38)', lineHeight: 1.7,
           margin: '0 0 24px',
         }}>
           Generate a clear, structured summary of your recent wellness data to share with your GP or specialist.
         </p>
 
         {/* Feature list box */}
-        <div style={{
-          background: 'rgba(45,139,122,0.05)',
-          border: '1px solid rgba(45,139,122,0.12)',
-          borderRadius: 16, padding: 20,
-          display: 'flex', flexDirection: 'column', gap: 10,
-          marginBottom: 28,
-        }}>
+        <div className="glass-violet" style={{ borderRadius: 16, padding: 20, display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
           {FEATURES.map((feature) => (
             <div key={feature} style={{ display: 'flex', flexDirection: 'row', alignItems: 'center', gap: 12 }}>
               <div style={{
-                width: 20, height: 20, borderRadius: '50%',
-                background: '#2d8b7a',
+                width: 18, height: 18, borderRadius: '50%',
+                background: 'rgba(139,109,181,0.2)',
+                border: '1px solid rgba(139,109,181,0.3)',
                 display: 'flex', alignItems: 'center', justifyContent: 'center',
                 flexShrink: 0,
               }}>
-                <svg width="10" height="10" viewBox="0 0 12 12" fill="none">
-                  <path d="M2 6l3 3 5-5" stroke="white" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
+                <svg width="8" height="8" viewBox="0 0 12 12" fill="none">
+                  <path d="M2 6l3 3 5-5" stroke="rgba(196,184,224,0.8)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/>
                 </svg>
               </div>
-              <span style={{
-                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 14, color: '#3d2c35',
-              }}>{feature}</span>
+              <span style={{ fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.55)' }}>{feature}</span>
             </div>
           ))}
         </div>
@@ -114,35 +100,19 @@ export default async function ReportPage() {
         {hasData ? (
           <a
             href="#report-content"
-            style={{
-              display: 'flex', alignItems: 'center', justifyContent: 'center',
-              width: '100%', height: 54,
-              background: 'linear-gradient(135deg, #2d8b7a 0%, #1e6b55 100%)',
-              borderRadius: 9999, border: 'none',
-              fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-              fontSize: 16, fontWeight: 600, color: 'white',
-              textDecoration: 'none', cursor: 'pointer',
-              boxShadow: '0 4px 20px rgba(45,139,122,0.3)',
-            }}
+            className="btn-primary"
+            style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: 52, textDecoration: 'none', fontSize: 14 }}
           >
-            Generate my report →
+            Generate my report
           </a>
         ) : (
-          <div style={{
-            display: 'flex', alignItems: 'center', justifyContent: 'center',
-            width: '100%', height: 54,
-            background: 'linear-gradient(135deg, #2d8b7a 0%, #1e6b55 100%)',
-            borderRadius: 9999,
-            fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-            fontSize: 16, fontWeight: 600, color: 'white',
-            opacity: 0.5, cursor: 'not-allowed',
-          }}>
-            Generate my report →
+          <div className="btn-primary" style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', width: '100%', height: 52, opacity: 0.4, cursor: 'not-allowed', fontSize: 14 }}>
+            Generate my report
           </div>
         )}
       </div>
 
-      {/* ── Full report (anchor target) ── */}
+      {/* Full report */}
       <div id="report-content">
         <DoctorReport
           checkins={checkins ?? []}

@@ -11,84 +11,46 @@ interface WellnessCardProps {
 }
 
 const MOODS = [
-  { emoji: '😞', label: 'Rough', value: 1 },
-  { emoji: '😔', label: 'Low', value: 2 },
-  { emoji: '😐', label: 'Okay', value: 3 },
-  { emoji: '🙂', label: 'Good', value: 4 },
-  { emoji: '😊', label: 'Great', value: 5 },
+  { label: 'Rough', value: 1 },
+  { label: 'Low', value: 2 },
+  { label: 'Okay', value: 3 },
+  { label: 'Good', value: 4 },
+  { label: 'Great', value: 5 },
 ]
-
-const SYMPTOM_COLORS: Record<string, string> = {
-  'Hot flushes': '#c47a5a',
-  'Night sweats': '#c4959e',
-  'Brain fog': '#9b8ab8',
-  'Fatigue': '#c47a5a',
-}
-
-function getSymptomStyle(symptom: string) {
-  const color = SYMPTOM_COLORS[symptom] ?? '#9b8ab8'
-  return {
-    chip: {
-      fontSize: 12,
-      fontWeight: 500,
-      color,
-      background: `${color}18`,
-      border: `1px solid ${color}40`,
-      borderRadius: 20,
-      padding: '5px 12px',
-      display: 'inline-block',
-    } as React.CSSProperties,
-  }
-}
 
 export function WellnessCard({ todayLogged, wellbeing, namedSymptoms, sleepHours }: WellnessCardProps) {
   const [selected, setSelected] = useState<number | null>(wellbeing)
 
   return (
-    <div
-      className="glass"
-      style={{ borderRadius: 24, padding: 28 }}
-    >
+    <div className="glass" style={{ borderRadius: 24, padding: 28 }}>
       {/* Eyebrow */}
       <p style={{
         fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-        fontWeight: 700,
-        fontSize: 10,
-        letterSpacing: '0.11em',
-        textTransform: 'uppercase',
-        color: '#2d8b7a',
+        fontWeight: 400, fontSize: 10, letterSpacing: '0.1em',
+        textTransform: 'uppercase', color: 'rgba(255,255,255,0.28)',
         margin: '0 0 8px',
       }}>
         Today&apos;s Wellness
       </p>
 
-      {/* Heading + pulse dot */}
-      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 20 }}>
+      {/* Heading */}
+      <div style={{ display: 'flex', alignItems: 'center', gap: 10, marginBottom: 22 }}>
         <h3 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
-          fontSize: 20,
-          fontWeight: 700,
-          color: '#1a1220',
-          margin: 0,
-          lineHeight: 1.2,
+          fontSize: 20, fontWeight: 300, color: 'rgba(255,255,255,0.88)',
+          margin: 0, lineHeight: 1.2, letterSpacing: '-0.02em',
         }}>
           How are you feeling?
         </h3>
-        <span
-          style={{
-            width: 8,
-            height: 8,
-            borderRadius: '50%',
-            background: '#2d8b7a',
-            display: 'inline-block',
-            flexShrink: 0,
-            animation: 'dot-pulse 2.4s infinite',
-          }}
-        />
+        <span style={{
+          width: 6, height: 6, borderRadius: '50%',
+          background: '#9b7cc8', display: 'inline-block',
+          flexShrink: 0, animation: 'dot-pulse 2.4s infinite',
+        }} />
       </div>
 
-      {/* Mood buttons */}
-      <div style={{ display: 'flex', gap: 6, marginBottom: 20 }}>
+      {/* Mood buttons — text only, no emoji */}
+      <div style={{ display: 'flex', gap: 6, marginBottom: 22 }}>
         {MOODS.map((m) => {
           const isSelected = selected === m.value
           return (
@@ -96,29 +58,19 @@ export function WellnessCard({ todayLogged, wellbeing, namedSymptoms, sleepHours
               key={m.value}
               onClick={() => setSelected(m.value)}
               style={{
-                flex: 1,
-                minWidth: 52,
-                display: 'flex',
-                flexDirection: 'column',
-                alignItems: 'center',
-                gap: 4,
-                padding: '10px 4px',
-                borderRadius: 12,
-                cursor: 'pointer',
-                background: isSelected ? 'rgba(45,139,122,0.10)' : 'white',
-                border: isSelected
-                  ? '2px solid #2d8b7a'
-                  : '1px solid rgba(237,224,216,0.8)',
-                boxShadow: isSelected ? '0 0 0 3px rgba(45,139,122,0.10)' : 'none',
+                flex: 1, display: 'flex', flexDirection: 'column',
+                alignItems: 'center', justifyContent: 'center',
+                padding: '12px 4px', borderRadius: 12, cursor: 'pointer',
+                background: isSelected ? 'rgba(139,109,181,0.16)' : 'rgba(255,255,255,0.03)',
+                border: isSelected ? '1px solid rgba(139,109,181,0.4)' : '1px solid rgba(255,255,255,0.07)',
+                boxShadow: isSelected ? '0 0 0 2px rgba(139,109,181,0.15)' : 'none',
                 transition: 'all 0.15s ease',
               }}
             >
-              <span style={{ fontSize: 22, lineHeight: 1 }}>{m.emoji}</span>
               <span style={{
                 fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-                fontSize: 9,
-                fontWeight: 600,
-                color: isSelected ? '#2d8b7a' : '#8a7a72',
+                fontSize: 11, fontWeight: 300,
+                color: isSelected ? 'rgba(196,184,224,0.9)' : 'rgba(255,255,255,0.32)',
               }}>
                 {m.label}
               </span>
@@ -128,58 +80,53 @@ export function WellnessCard({ todayLogged, wellbeing, namedSymptoms, sleepHours
       </div>
 
       {/* Divider */}
-      <div style={{ borderTop: '1px solid rgba(237,224,216,0.6)', margin: '0 0 16px' }} />
+      <div style={{ borderTop: '1px solid rgba(255,255,255,0.06)', margin: '0 0 18px' }} />
 
       {/* Symptoms */}
       {namedSymptoms.length > 0 && (
-        <div style={{ marginBottom: 16 }}>
+        <div style={{ marginBottom: 18 }}>
           <p style={{
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-            fontSize: 11,
-            fontWeight: 600,
-            color: '#b8a9a0',
-            margin: '0 0 8px',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
+            fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.28)',
+            margin: '0 0 8px', letterSpacing: '0.1em', textTransform: 'uppercase',
           }}>
             Symptoms today
           </p>
           <div style={{ display: 'flex', flexWrap: 'wrap', gap: 6 }}>
             {namedSymptoms.map((s) => (
-              <span key={s} style={getSymptomStyle(s).chip}>{s}</span>
+              <span key={s} style={{
+                fontSize: 12, fontWeight: 300,
+                color: 'rgba(196,184,224,0.75)',
+                background: 'rgba(139,109,181,0.10)',
+                border: '1px solid rgba(139,109,181,0.2)',
+                borderRadius: 20, padding: '5px 12px', display: 'inline-block',
+                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              }}>{s}</span>
             ))}
           </div>
         </div>
       )}
 
-      {/* Sleep section */}
+      {/* Sleep */}
       {sleepHours != null && (
-        <div style={{ marginBottom: 20 }}>
+        <div style={{ marginBottom: 22 }}>
           <p style={{
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-            fontSize: 11,
-            fontWeight: 600,
-            color: '#b8a9a0',
-            margin: '0 0 8px',
-            letterSpacing: '0.06em',
-            textTransform: 'uppercase',
+            fontSize: 10, fontWeight: 400, color: 'rgba(255,255,255,0.28)',
+            margin: '0 0 8px', letterSpacing: '0.1em', textTransform: 'uppercase',
           }}>
             Last night&apos;s sleep
           </p>
-          <div style={{
-            background: 'rgba(45,139,122,0.06)',
-            borderRadius: 12,
-            padding: '12px 14px',
-          }}>
+          <div style={{ background: 'rgba(255,255,255,0.03)', borderRadius: 12, padding: '12px 14px' }}>
             <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
-              <span style={{ fontSize: 13, color: '#4a7a6a', fontWeight: 500 }}>{sleepHours}h</span>
-              <span style={{ fontSize: 12, color: '#b8a9a0' }}>/12h</span>
+              <span style={{ fontSize: 13, color: 'rgba(196,184,224,0.8)', fontWeight: 300, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>{sleepHours}h</span>
+              <span style={{ fontSize: 11, color: 'rgba(255,255,255,0.22)', fontFamily: 'var(--font-dm-sans), system-ui, sans-serif', fontWeight: 300 }}>/12h</span>
             </div>
-            <div style={{ height: 4, borderRadius: 2, background: 'rgba(45,139,122,0.12)', overflow: 'hidden' }}>
+            <div style={{ height: 3, borderRadius: 2, background: 'rgba(255,255,255,0.06)', overflow: 'hidden' }}>
               <div style={{
                 height: '100%',
                 width: `${Math.min((sleepHours / 12) * 100, 100)}%`,
-                background: 'linear-gradient(90deg, #2d8b7a, #6b9e80)',
+                background: 'linear-gradient(90deg, #7a52b0, #9b7cc8)',
                 borderRadius: 2,
               }} />
             </div>
@@ -190,23 +137,10 @@ export function WellnessCard({ todayLogged, wellbeing, namedSymptoms, sleepHours
       {/* CTA */}
       <Link
         href="/check-in"
-        style={{
-          display: 'block',
-          width: '100%',
-          textAlign: 'center',
-          background: 'linear-gradient(135deg, #2d8b7a, #1e6b55)',
-          color: 'white',
-          borderRadius: 9999,
-          padding: '14px 20px',
-          fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-          fontWeight: 700,
-          fontSize: 15,
-          textDecoration: 'none',
-          boxShadow: '0 4px 16px rgba(45,139,122,0.28)',
-          boxSizing: 'border-box',
-        }}
+        className="btn-primary"
+        style={{ display: 'block', width: '100%', textAlign: 'center', boxSizing: 'border-box' }}
       >
-        {todayLogged ? 'Update today\'s check-in →' : 'Start today\'s check-in →'}
+        {todayLogged ? 'Update check-in' : 'Start check-in'}
       </Link>
     </div>
   )

@@ -9,10 +9,6 @@ export default function LoginPage() {
   const [password, setPassword] = useState('')
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
-  const [emailFocused, setEmailFocused] = useState(false)
-  const [passwordFocused, setPasswordFocused] = useState(false)
-  const [btnHovered, setBtnHovered] = useState(false)
-  const [btnActive, setBtnActive] = useState(false)
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
@@ -34,26 +30,10 @@ export default function LoginPage() {
     window.location.href = '/dashboard'
   }
 
-  const inputStyle = (focused: boolean): React.CSSProperties => ({
-    width: '100%',
-    height: 52,
-    borderRadius: 14,
-    border: focused ? '1.5px solid #2d8b7a' : '1.5px solid rgba(237,224,216,0.9)',
-    background: '#ffffff',
-    padding: '0 18px',
-    fontSize: 15,
-    fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-    color: '#1a1220',
-    outline: 'none',
-    boxSizing: 'border-box',
-    boxShadow: focused ? '0 0 0 3px rgba(45,139,122,0.10)' : 'none',
-    transition: 'border-color 0.2s, box-shadow 0.2s',
-  })
-
   return (
     <div style={{
       minHeight: '100vh',
-      background: '#fdf8f4',
+      background: '#09070e',
       display: 'flex',
       alignItems: 'center',
       justifyContent: 'center',
@@ -63,10 +43,15 @@ export default function LoginPage() {
     }}>
       {/* Ambient orbs */}
       <div style={{
-        position: 'fixed',
-        inset: 0,
+        position: 'fixed', inset: 0, pointerEvents: 'none',
+        backgroundImage: 'radial-gradient(ellipse 55% 45% at 12% 10%, rgba(122,82,176,0.16) 0%, transparent 60%), radial-gradient(ellipse 45% 35% at 88% 85%, rgba(196,149,158,0.09) 0%, transparent 55%)',
+      }} />
+
+      {/* Top glow line */}
+      <div style={{
+        position: 'fixed', top: 0, left: 0, right: 0, height: 1,
+        background: 'linear-gradient(90deg, transparent 0%, rgba(139,109,181,0.35) 40%, rgba(196,184,224,0.2) 70%, transparent 100%)',
         pointerEvents: 'none',
-        backgroundImage: 'radial-gradient(ellipse 55% 40% at 10% 8%, rgba(107,158,128,0.16) 0%, transparent 55%), radial-gradient(ellipse 45% 35% at 88% 88%, rgba(196,149,158,0.13) 0%, transparent 50%)',
       }} />
 
       {/* Glass card */}
@@ -75,36 +60,34 @@ export default function LoginPage() {
         maxWidth: 420,
         position: 'relative',
         zIndex: 1,
-        background: 'rgba(255,255,255,0.55)',
-        border: '1.5px solid rgba(255,255,255,0.80)',
+        background: 'rgba(255,255,255,0.04)',
+        border: '1px solid rgba(255,255,255,0.09)',
         borderRadius: 28,
-        backdropFilter: 'blur(24px) saturate(160%)',
-        WebkitBackdropFilter: 'blur(24px) saturate(160%)',
-        padding: '44px',
-        boxShadow: '0 4px 28px rgba(61,44,53,0.07), 0 1px 0 rgba(255,255,255,0.95) inset',
+        backdropFilter: 'blur(32px)',
+        WebkitBackdropFilter: 'blur(32px)',
+        padding: '48px 40px',
       }}>
         {/* Wordmark */}
-        <div style={{ textAlign: 'center', marginBottom: 28 }}>
+        <div style={{ textAlign: 'center', marginBottom: 36 }}>
           <Link href="/" style={{
             fontFamily: 'var(--font-playfair), Georgia, serif',
-            fontSize: 32,
-            fontWeight: 700,
-            color: '#1a1220',
+            fontSize: 30, fontWeight: 300,
+            color: 'rgba(255,255,255,0.88)',
             letterSpacing: '-0.02em',
             textDecoration: 'none',
           }}>
-            vida<span style={{ color: '#2d8b7a' }}>.</span>
+            vida<span style={{ color: '#9b7cc8' }}>.</span>
           </Link>
         </div>
 
         {/* Heading */}
         <h1 style={{
           fontFamily: 'var(--font-playfair), Georgia, serif',
-          fontSize: 26,
-          fontWeight: 700,
-          color: '#1a1220',
+          fontSize: 24, fontWeight: 300,
+          color: 'rgba(255,255,255,0.88)',
           margin: '0 0 6px 0',
           textAlign: 'center',
+          letterSpacing: '-0.02em',
         }}>
           Welcome back
         </h1>
@@ -112,10 +95,10 @@ export default function LoginPage() {
         {/* Subtitle */}
         <p style={{
           fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-          fontSize: 14,
-          color: '#8a7a72',
+          fontSize: 14, fontWeight: 300,
+          color: 'rgba(255,255,255,0.32)',
           textAlign: 'center',
-          margin: '0 0 32px 0',
+          margin: '0 0 36px 0',
         }}>
           Your wellness journey continues
         </p>
@@ -123,13 +106,14 @@ export default function LoginPage() {
         <form onSubmit={handleSubmit} style={{ display: 'flex', flexDirection: 'column', gap: 20 }}>
           {error && (
             <div style={{
-              background: 'rgba(201,82,82,0.07)',
-              border: '1px solid rgba(201,82,82,0.25)',
+              background: 'rgba(217,95,95,0.08)',
+              border: '1px solid rgba(217,95,95,0.25)',
               borderRadius: 12,
               padding: '12px 16px',
-              fontSize: 14,
-              color: '#c0392b',
+              fontSize: 13,
+              color: '#e8a0a0',
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              fontWeight: 300,
             }}>
               {error}
             </div>
@@ -137,103 +121,72 @@ export default function LoginPage() {
 
           <div>
             <label style={{
-              display: 'block',
-              fontSize: 13,
-              fontWeight: 600,
-              color: '#1a1220',
-              marginBottom: 8,
+              display: 'block', fontSize: 12, fontWeight: 400,
+              color: 'rgba(255,255,255,0.42)', marginBottom: 8,
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              letterSpacing: '0.04em', textTransform: 'uppercase',
             }}>
               Email
             </label>
             <input
+              className="auth-input"
               type="email"
               autoComplete="email"
               value={email}
               onChange={(e) => setEmail(e.target.value)}
-              onFocus={() => setEmailFocused(true)}
-              onBlur={() => setEmailFocused(false)}
               placeholder="you@example.com"
               required
-              style={inputStyle(emailFocused)}
             />
           </div>
 
           <div>
             <label style={{
-              display: 'block',
-              fontSize: 13,
-              fontWeight: 600,
-              color: '#1a1220',
-              marginBottom: 8,
+              display: 'block', fontSize: 12, fontWeight: 400,
+              color: 'rgba(255,255,255,0.42)', marginBottom: 8,
               fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+              letterSpacing: '0.04em', textTransform: 'uppercase',
             }}>
               Password
             </label>
             <input
+              className="auth-input"
               type="password"
               autoComplete="current-password"
               value={password}
               onChange={(e) => setPassword(e.target.value)}
-              onFocus={() => setPasswordFocused(true)}
-              onBlur={() => setPasswordFocused(false)}
               placeholder="••••••••"
               required
-              style={inputStyle(passwordFocused)}
             />
           </div>
 
           <button
             type="submit"
             disabled={loading}
-            onMouseEnter={() => setBtnHovered(true)}
-            onMouseLeave={() => { setBtnHovered(false); setBtnActive(false) }}
-            onMouseDown={() => setBtnActive(true)}
-            onMouseUp={() => setBtnActive(false)}
-            style={{
-              width: '100%',
-              height: 52,
-              borderRadius: 999,
-              border: 'none',
-              background: loading ? '#a0c4bc' : 'linear-gradient(135deg, #2d8b7a, #1e6b55)',
-              color: '#fff',
-              fontSize: 15,
-              fontWeight: 600,
-              fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-              cursor: loading ? 'not-allowed' : 'pointer',
-              boxShadow: loading
-                ? 'none'
-                : btnHovered
-                  ? '0 10px 32px rgba(45,139,122,0.38)'
-                  : '0 6px 24px rgba(45,139,122,0.28)',
-              transform: loading ? 'none' : btnActive ? 'scale(0.97)' : btnHovered ? 'translateY(-2px)' : 'none',
-              transition: 'transform 0.15s, box-shadow 0.15s',
-              marginTop: 4,
-              letterSpacing: '0.01em',
-            }}
+            className="btn-primary"
+            style={{ width: '100%', marginTop: 8, opacity: loading ? 0.6 : 1 }}
           >
-            {loading ? 'Signing in…' : 'Sign in →'}
+            {loading ? 'Signing in…' : 'Sign in'}
           </button>
         </form>
 
         {/* Footer */}
-        <div style={{ textAlign: 'center', marginTop: 28 }}>
+        <div style={{ textAlign: 'center', marginTop: 32 }}>
           <p style={{
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-            fontSize: 14,
-            color: '#8a7a72',
+            fontSize: 13, fontWeight: 300,
+            color: 'rgba(255,255,255,0.32)',
             margin: '0 0 6px 0',
           }}>
             New to Vida?{' '}
-            <Link href="/signup" style={{ color: '#2d8b7a', fontWeight: 600, textDecoration: 'none' }}>
+            <Link href="/signup" style={{ color: '#c4b8e0', fontWeight: 400, textDecoration: 'none' }}>
               Join free
             </Link>
           </p>
           <p style={{
             fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
-            fontSize: 12,
-            color: '#8a7a72',
-            margin: 0,
+            fontSize: 11, fontWeight: 300,
+            color: 'rgba(255,255,255,0.18)',
+            margin: 0, letterSpacing: '0.02em',
           }}>
             Community is always free · No credit card required
           </p>

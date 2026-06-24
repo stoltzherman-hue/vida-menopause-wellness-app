@@ -3,35 +3,42 @@ import { DesktopSidebar } from './DesktopSidebar'
 
 export function AppShell({ children }: { children: React.ReactNode }) {
   return (
-    <div style={{ minHeight: '100vh', background: '#fdf8f4', position: 'relative' }}>
+    <div style={{ minHeight: '100vh', background: '#09070e', position: 'relative', overflow: 'hidden' }}>
 
-      {/* Ambient orb — sage top-left */}
+      {/* Top glow line */}
       <div style={{
-        position: 'fixed', top: '-120px', left: '-120px',
-        width: 680, height: 680,
+        position: 'fixed', top: 0, left: 0, right: 0, height: 1,
+        background: 'linear-gradient(90deg, transparent 0%, rgba(139,109,181,0.35) 40%, rgba(196,184,224,0.2) 70%, transparent 100%)',
+        pointerEvents: 'none', zIndex: 30,
+      }} />
+
+      {/* Ambient orb — violet top-left */}
+      <div style={{
+        position: 'fixed', top: '-160px', left: '-160px',
+        width: 700, height: 700,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(107,158,128,0.21) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(122,82,176,0.16) 0%, transparent 68%)',
         pointerEvents: 'none', zIndex: 0,
         animation: 'orb-a 22s ease-in-out infinite',
       }} />
 
       {/* Ambient orb — rose bottom-right */}
       <div style={{
-        position: 'fixed', bottom: '-140px', right: '-140px',
-        width: 760, height: 760,
+        position: 'fixed', bottom: '-160px', right: '-160px',
+        width: 780, height: 780,
         borderRadius: '50%',
-        background: 'radial-gradient(circle, rgba(196,149,158,0.17) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(196,149,158,0.09) 0%, transparent 68%)',
         pointerEvents: 'none', zIndex: 0,
         animation: 'orb-b 28s ease-in-out infinite',
       }} />
 
       {/* Ambient orb — lavender center */}
       <div style={{
-        position: 'fixed', top: '38%', left: '44%',
-        width: 460, height: 460,
+        position: 'fixed', top: '40%', left: '50%',
+        width: 500, height: 500,
         borderRadius: '50%',
         transform: 'translate(-50%, -50%)',
-        background: 'radial-gradient(circle, rgba(155,138,184,0.10) 0%, transparent 70%)',
+        background: 'radial-gradient(circle, rgba(155,138,184,0.08) 0%, transparent 68%)',
         pointerEvents: 'none', zIndex: 0,
         animation: 'orb-c 20s ease-in-out infinite',
       }} />
