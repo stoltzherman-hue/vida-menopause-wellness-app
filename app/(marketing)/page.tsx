@@ -1,5 +1,6 @@
 import Link from 'next/link'
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
+import { InstallBanner } from '@/components/marketing/InstallBanner'
 
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
 const PF = 'var(--font-playfair), Georgia, serif'
@@ -106,7 +107,9 @@ export default function MarketingHomePage() {
           </Link>
         </div>
 
-        <p style={{ fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.22)' }}>Community is always free · No credit card required</p>
+        <p style={{ fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.22)' }}>
+          Community is always free · No credit card required · Install on any device
+        </p>
         </div>
 
         {/* Right — woman portrait */}
@@ -354,6 +357,8 @@ export default function MarketingHomePage() {
         </div>
         <MarketingFAQ />
       </section>
+
+      <InstallBanner />
 
       {/* ── Footer ── */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '52px 32px', textAlign: 'center', marginTop: 'clamp(72px, 10vw, 112px)', position: 'relative', zIndex: 1 }}>
