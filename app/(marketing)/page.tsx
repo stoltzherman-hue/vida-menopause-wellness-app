@@ -15,10 +15,10 @@ const features = [
 ]
 
 const stats = [
-  { value: '12,000+', label: 'women supported' },
-  { value: '4.9',     label: 'average rating' },
-  { value: '98%',     label: 'feel less alone' },
-  { value: 'Free',    label: 'to get started' },
+  { value: 'Built', label: 'for perimenopause' },
+  { value: 'Free',  label: 'to get started' },
+  { value: '2 min', label: 'daily check-in' },
+  { value: 'yours', label: 'data, always' },
 ]
 
 const testimonials = [
@@ -83,7 +83,7 @@ export default function MarketingHomePage() {
         {/* Live badge */}
         <div style={{ display: 'inline-flex', alignItems: 'center', gap: 9, background: 'rgba(139,109,181,0.10)', border: '1px solid rgba(139,109,181,0.22)', borderRadius: 9999, padding: '8px 18px', marginBottom: 40 }}>
           <span className="pulse-dot" />
-          <span style={{ fontSize: 12, fontWeight: 300, color: 'rgba(196,184,224,0.75)', letterSpacing: '0.01em' }}>Trusted by 12,000+ women navigating menopause</span>
+          <span style={{ fontSize: 12, fontWeight: 300, color: 'rgba(196,184,224,0.75)', letterSpacing: '0.01em' }}>Built for women navigating perimenopause &amp; menopause</span>
         </div>
 
         <h1 style={{ fontFamily: PF, fontSize: 'clamp(38px, 6vw, 76px)', fontWeight: 300, lineHeight: 1.08, letterSpacing: '-0.03em', color: 'rgba(255,255,255,0.88)', marginBottom: 28 }}>
@@ -332,7 +332,7 @@ export default function MarketingHomePage() {
                 { stat: '50%', label: 'reduction in hot flush distress with CBT techniques' },
                 { stat: '72%', label: 'of users gained access to treatment after tracking' },
                 { stat: '17%', label: 'decrease in hot flash severity in CBT trial' },
-                { stat: '98%', label: 'of Vida users feel more understood and less alone' },
+                { stat: '100%', label: 'of your data stays private — never sold, always deletable' },
               ].map(({ stat, label }) => (
                 <div key={stat} style={{ flex: '1 1 160px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 18, padding: '20px 18px' }}>
                   <p style={{ fontFamily: PF, fontSize: 32, fontWeight: 300, color: 'rgba(196,184,224,0.85)', margin: '0 0 8px', lineHeight: 1, letterSpacing: '-0.02em' }}>{stat}</p>
