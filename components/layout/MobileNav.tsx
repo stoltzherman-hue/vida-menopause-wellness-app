@@ -23,7 +23,7 @@ const NAV = [
     ),
   },
   {
-    href: '/learn',
+    href: '/library',
     label: 'Learn',
     icon: (active: boolean) => (
       <svg width={active ? 23 : 21} height={active ? 23 : 21} viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth={active ? 2.2 : 1.8} strokeLinecap="round" strokeLinejoin="round">
