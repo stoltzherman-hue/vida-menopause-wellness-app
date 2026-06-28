@@ -157,7 +157,7 @@ export default async function LearnPage() {
     .maybeSingle()
 
   const { data: healthProfile } = await supabase
-    .from('health_profiles')
+    .from('user_profiles')
     .select('hrt_status')
     .eq('user_id', user!.id)
     .maybeSingle()
