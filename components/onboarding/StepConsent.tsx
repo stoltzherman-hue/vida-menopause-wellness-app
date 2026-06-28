@@ -14,7 +14,7 @@ interface ConsentRowProps {
 
 function ConsentRow({ label, description, checked, onChange, required }: ConsentRowProps) {
   return (
-    <button type="button" onClick={() => !required && onChange(!checked)}
+    <button type="button" onClick={() => onChange(!checked)}
       style={{
         width: '100%', textAlign: 'left',
         background: checked ? 'rgba(139,109,181,0.08)' : 'rgba(255,255,255,0.02)',

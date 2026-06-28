@@ -35,7 +35,7 @@ export interface OnboardingData {
 const INITIAL: OnboardingData = {
   ageRange: '', menopauseStage: '', primarySymptoms: [], hrtStatus: '', medicalHistory: [],
   lifestyle: { sleepHoursAvg: null, stressLevel: null, alcoholFrequency: '', caffeineFrequency: '', exerciseFrequency: '', dietPreferences: [], smokingStatus: '' },
-  goals: [], consentHealthData: false, consentAiAnalysis: false, consentCommunity: false, consentNotifications: false, consentMarketing: false,
+  goals: [], consentHealthData: true, consentAiAnalysis: false, consentCommunity: false, consentNotifications: false, consentMarketing: false,
 }
 
 const STEPS = ['stage', 'symptoms', 'medical', 'lifestyle', 'goals', 'consent', 'plan'] as const
