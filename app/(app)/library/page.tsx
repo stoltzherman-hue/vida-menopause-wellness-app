@@ -256,11 +256,7 @@ export default async function LearnPage() {
                       display: 'flex', alignItems: 'center', justifyContent: 'space-between',
                       padding: '14px 18px', borderRadius: 14,
                       gap: 16, cursor: 'pointer',
-                      transition: 'background 0.15s',
-                    }}
-                    onMouseEnter={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'rgba(255,255,255,0.03)' }}
-                    onMouseLeave={(e) => { (e.currentTarget as HTMLDivElement).style.background = 'transparent' }}
-                    >
+                    }}>
                       <div style={{ flex: 1 }}>
                         <p style={{ fontFamily: PF, fontSize: 15, fontWeight: 300, color: 'rgba(255,255,255,0.78)', margin: '0 0 3px', letterSpacing: '-0.01em', lineHeight: 1.3 }}>
                           {article.title}
