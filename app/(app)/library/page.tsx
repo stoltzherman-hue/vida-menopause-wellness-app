@@ -150,26 +150,25 @@ export default async function LearnPage() {
   const user = await getUser()
   const supabase = await createSupabaseServerClient()
 
-  const { data: profile } = await supabase
-    .from('user_profiles')
-    .select('primary_symptoms, goals, menopause_stage')
-    .eq('user_id', user!.id)
-    .maybeSingle()
+  let recommended: typeof ALL_ARTICLES = []
 
-  const { data: healthProfile } = await supabase
-    .from('user_profiles')
-    .select('hrt_status')
-    .eq('user_id', user!.id)
-    .maybeSingle()
+  if (user) {
+    const { data: profile } = await supabase
+      .from('user_profiles')
+      .select('primary_symptoms, goals, menopause_stage, hrt_status')
+      .eq('user_id', user.id)
+      .maybeSingle()
 
-  const recommended = getRecommended(
-    profile?.primary_symptoms ?? [],
-    profile?.goals ?? [],
-    profile?.menopause_stage ?? null,
-    healthProfile?.hrt_status ?? null,
-  )
+    recommended = getRecommended(
+      profile?.primary_symptoms ?? [],
+      profile?.goals ?? [],
+      profile?.menopause_stage ?? null,
+      profile?.hrt_status ?? null,
+    )
+  }
 
   const hasRecommendations = recommended.length > 0
+
 
   return (
     <div style={{ maxWidth: 820, margin: '0 auto', padding: '40px 20px 100px' }}>
