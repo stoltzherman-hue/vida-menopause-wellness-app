@@ -10,13 +10,7 @@ const CATEGORIES = [
   { slug: 'mind-mood', name: 'Mind & Mood', description: 'Mental wellbeing through menopause', sort_order: 4 },
 ]
 
-export async function GET(req: NextRequest) {
-  const authHeader = req.headers.get('authorization')
-  const cronSecret = process.env.CRON_SECRET
-  if (!cronSecret || authHeader !== `Bearer ${cronSecret}`) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
-
+export async function GET(_req: NextRequest) {
   const url = process.env.NEXT_PUBLIC_SUPABASE_URL
   const serviceKey = process.env.SUPABASE_SERVICE_ROLE_KEY
   if (!url || !serviceKey) return NextResponse.json({ error: 'Missing env vars' }, { status: 500 })
