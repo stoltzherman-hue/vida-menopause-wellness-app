@@ -90,7 +90,7 @@ export default function MarketingHomePage() {
       </header>
 
       {/* ── Hero ── */}
-      <section className="hero-grid" style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(80px, 12vw, 140px) 32px clamp(64px, 8vw, 96px)', position: 'relative', zIndex: 1 }}>
+      <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(80px, 12vw, 140px) 32px clamp(64px, 8vw, 96px)', position: 'relative', zIndex: 1, display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 48, alignItems: 'center' }}>
         {/* Left — text */}
         <div>
         {/* Live badge */}
@@ -123,6 +123,114 @@ export default function MarketingHomePage() {
         <p style={{ fontSize: 12, fontWeight: 300, color: 'rgba(255,255,255,0.22)' }}>
           Community is always free · No credit card required · Install on any device
         </p>
+        </div>
+
+        {/* Right — 3D floating glass panels */}
+        <div style={{ position: 'relative', height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          {/* Glow orb behind panels */}
+          <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 55% 50%, rgba(122,82,176,0.28) 0%, transparent 68%)', pointerEvents: 'none' }} />
+
+          {/* Panel 3 — back left */}
+          <div className="glass-panel glass-panel-left" style={{
+            position: 'absolute',
+            width: 168,
+            height: 300,
+            left: '2%',
+            top: '14%',
+            borderRadius: 24,
+            background: 'rgba(155,124,200,0.08)',
+            border: '1px solid rgba(155,124,200,0.18)',
+            backdropFilter: 'blur(20px)',
+            WebkitBackdropFilter: 'blur(20px)',
+            transform: 'perspective(900px) rotateY(18deg) rotateZ(-3deg)',
+            boxShadow: '0 24px 64px rgba(0,0,0,0.45), inset 0 1px 0 rgba(255,255,255,0.08)',
+            overflow: 'hidden',
+          }}>
+            <div style={{ padding: '18px 14px' }}>
+              <div style={{ fontSize: 9, fontWeight: 400, color: 'rgba(196,184,224,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 12, fontFamily: DM }}>Community</div>
+              {['Perimenopause Journey', 'HRT & Treatment', 'Sleep & Night Sweats', 'Mind & Mood'].map((c, i) => (
+                <div key={c} style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 10, padding: '8px 10px', marginBottom: 6, display: 'flex', alignItems: 'center', gap: 8 }}>
+                  <div style={{ width: 20, height: 20, borderRadius: 6, background: ['rgba(196,122,90,0.2)','rgba(139,109,181,0.2)','rgba(196,184,224,0.15)','rgba(201,169,110,0.15)'][i], flexShrink: 0 }} />
+                  <span style={{ fontSize: 9, fontWeight: 300, color: 'rgba(255,255,255,0.6)', fontFamily: DM, lineHeight: 1.3 }}>{c}</span>
+                </div>
+              ))}
+            </div>
+            {/* shine */}
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.12), transparent)' }} />
+          </div>
+
+          {/* Panel 1 — front centre */}
+          <div className="glass-panel glass-panel-main" style={{
+            position: 'absolute',
+            width: 200,
+            height: 360,
+            left: '50%',
+            top: '50%',
+            transform: 'perspective(900px) translateX(-50%) translateY(-50%) rotateY(-8deg) rotateZ(2deg)',
+            borderRadius: 28,
+            background: 'rgba(155,124,200,0.11)',
+            border: '1px solid rgba(155,124,200,0.28)',
+            backdropFilter: 'blur(28px)',
+            WebkitBackdropFilter: 'blur(28px)',
+            boxShadow: '0 32px 80px rgba(0,0,0,0.55), 0 0 0 1px rgba(155,124,200,0.1), inset 0 1px 0 rgba(255,255,255,0.1)',
+            overflow: 'hidden',
+            zIndex: 10,
+          }}>
+            <div style={{ padding: '20px 16px' }}>
+              <div style={{ fontSize: 9, fontWeight: 400, color: 'rgba(196,184,224,0.5)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 14, fontFamily: DM }}>Today · Check-in</div>
+              <div style={{ fontFamily: PF, fontSize: 15, fontWeight: 300, color: 'rgba(255,255,255,0.82)', marginBottom: 16, lineHeight: 1.3 }}>How are you feeling today?</div>
+              <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 16 }}>
+                {['Hot flushes', 'Brain fog', 'Sleep', 'Mood'].map((s, i) => (
+                  <div key={s} style={{ background: i < 2 ? 'rgba(155,124,200,0.18)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i < 2 ? 'rgba(155,124,200,0.35)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
+                    <div style={{ fontSize: 9, fontWeight: 300, color: i < 2 ? 'rgba(196,184,224,0.85)' : 'rgba(255,255,255,0.35)', fontFamily: DM }}>{s}</div>
+                  </div>
+                ))}
+              </div>
+              <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '10px 12px', marginBottom: 12 }}>
+                <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', fontFamily: DM, marginBottom: 6 }}>Energy level</div>
+                <div style={{ height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 9999, overflow: 'hidden' }}>
+                  <div style={{ width: '62%', height: '100%', background: 'linear-gradient(90deg, #9b7cc8, #c4b8e0)', borderRadius: 9999 }} />
+                </div>
+              </div>
+              <div style={{ background: 'linear-gradient(135deg, rgba(155,124,200,0.22), rgba(122,82,176,0.15))', border: '1px solid rgba(155,124,200,0.3)', borderRadius: 12, padding: '10px 12px' }}>
+                <div style={{ fontSize: 9, fontWeight: 300, color: 'rgba(196,184,224,0.7)', fontFamily: DM, lineHeight: 1.5 }}>Your sleep pattern suggests hormonal fluctuation. Consider logging triggers today.</div>
+              </div>
+            </div>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.15), transparent)' }} />
+          </div>
+
+          {/* Panel 2 — back right */}
+          <div className="glass-panel glass-panel-right" style={{
+            position: 'absolute',
+            width: 162,
+            height: 280,
+            right: '2%',
+            top: '22%',
+            borderRadius: 22,
+            background: 'rgba(155,124,200,0.07)',
+            border: '1px solid rgba(155,124,200,0.15)',
+            backdropFilter: 'blur(18px)',
+            WebkitBackdropFilter: 'blur(18px)',
+            transform: 'perspective(900px) rotateY(-20deg) rotateZ(4deg)',
+            boxShadow: '0 20px 56px rgba(0,0,0,0.4), inset 0 1px 0 rgba(255,255,255,0.07)',
+            overflow: 'hidden',
+          }}>
+            <div style={{ padding: '16px 14px' }}>
+              <div style={{ fontSize: 9, fontWeight: 400, color: 'rgba(196,184,224,0.45)', letterSpacing: '0.08em', textTransform: 'uppercase', marginBottom: 12, fontFamily: DM }}>AI Companion</div>
+              <div style={{ display: 'flex', flexDirection: 'column', gap: 8 }}>
+                <div style={{ background: 'rgba(155,124,200,0.15)', border: '1px solid rgba(155,124,200,0.2)', borderRadius: '12px 12px 12px 4px', padding: '8px 10px' }}>
+                  <div style={{ fontSize: 9, fontWeight: 300, color: 'rgba(196,184,224,0.8)', fontFamily: DM, lineHeight: 1.5 }}>What helps with brain fog during perimenopause?</div>
+                </div>
+                <div style={{ background: 'rgba(255,255,255,0.05)', border: '1px solid rgba(255,255,255,0.09)', borderRadius: '12px 12px 4px 12px', padding: '8px 10px' }}>
+                  <div style={{ fontSize: 9, fontWeight: 300, color: 'rgba(255,255,255,0.55)', fontFamily: DM, lineHeight: 1.5 }}>Based on your tracking, sleep quality and oestrogen fluctuation are likely connected...</div>
+                </div>
+                <div style={{ background: 'rgba(155,124,200,0.15)', border: '1px solid rgba(155,124,200,0.2)', borderRadius: '12px 12px 12px 4px', padding: '8px 10px' }}>
+                  <div style={{ fontSize: 9, fontWeight: 300, color: 'rgba(196,184,224,0.8)', fontFamily: DM, lineHeight: 1.5 }}>Can you help me prepare for my GP?</div>
+                </div>
+              </div>
+            </div>
+            <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)' }} />
+          </div>
         </div>
 
       </section>

@@ -1170,3 +1170,26 @@ button, a, [role="button"] { min-height: 44px; }
     0 24px 52px rgba(26,18,32,0.10),
     0 56px 100px rgba(26,18,32,0.07);
 }
+
+/* ── Hero 3D Glass Panels ──────────────────────────────── */
+@keyframes floatMain {
+  0%, 100% { transform: perspective(900px) translateX(-50%) translateY(-50%) rotateY(-8deg) rotateZ(2deg) translateY(0px); }
+  50%       { transform: perspective(900px) translateX(-50%) translateY(-50%) rotateY(-8deg) rotateZ(2deg) translateY(-12px); }
+}
+@keyframes floatLeft {
+  0%, 100% { transform: perspective(900px) rotateY(18deg) rotateZ(-3deg) translateY(0px); }
+  50%       { transform: perspective(900px) rotateY(18deg) rotateZ(-3deg) translateY(-8px); }
+}
+@keyframes floatRight {
+  0%, 100% { transform: perspective(900px) rotateY(-20deg) rotateZ(4deg) translateY(0px); }
+  50%       { transform: perspective(900px) rotateY(-20deg) rotateZ(4deg) translateY(-10px); }
+}
+
+.glass-panel-main  { animation: floatMain  6s ease-in-out infinite; }
+.glass-panel-left  { animation: floatLeft  7s ease-in-out infinite 1s; }
+.glass-panel-right { animation: floatRight 5.5s ease-in-out infinite 0.5s; }
+
+@media (max-width: 768px) {
+  .glass-panel-left,
+  .glass-panel-right { display: none; }
+}
