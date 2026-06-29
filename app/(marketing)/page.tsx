@@ -275,29 +275,6 @@ export default function MarketingHomePage() {
         </div>
       </section>
 
-      {/* ── Testimonial hero ── */}
-      <section style={{ padding: '0 32px', marginBottom: 0, position: 'relative', zIndex: 1 }}>
-        <div style={{ maxWidth: 1160, margin: '0 auto' }}>
-          <div style={{ ...glass, borderRadius: 32, padding: 'clamp(48px, 7vw, 80px) clamp(32px, 7vw, 96px)', textAlign: 'center', position: 'relative', overflow: 'hidden' }}>
-            <div style={{ position: 'absolute', top: -80, right: -80, width: 300, height: 300, borderRadius: '50%', background: 'rgba(122,82,176,0.12)' }} />
-            <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(196,149,158,0.07)' }} />
-            <div style={{ position: 'relative' }}>
-              <div style={{ width: 48, height: 48, borderRadius: '50%', background: 'rgba(139,109,181,0.14)', border: '1px solid rgba(139,109,181,0.28)', margin: '0 auto 32px' }} />
-              <blockquote style={{ fontFamily: PF, fontSize: 'clamp(17px, 2.6vw, 24px)', color: 'rgba(255,255,255,0.82)', lineHeight: 1.65, fontStyle: 'italic', fontWeight: 300, maxWidth: 640, margin: '0 auto 40px' }}>
-                &ldquo;For the first time I feel like someone actually understands what I&apos;m going through.
-                Vida helped me track my patterns and finally have a proper conversation with my doctor.&rdquo;
-              </blockquote>
-              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 14 }}>
-                <div style={{ width: 42, height: 42, borderRadius: '50%', background: 'rgba(155,124,200,0.18)', border: '1px solid rgba(155,124,200,0.3)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(196,184,224,0.8)', fontFamily: PF, fontSize: 16, fontWeight: 300 }}>S</div>
-                <div style={{ textAlign: 'left' }}>
-                  <p style={{ color: 'rgba(255,255,255,0.75)', fontWeight: 300, fontSize: 14 }}>Sarah, 51</p>
-                  <p style={{ color: 'rgba(255,255,255,0.3)', fontSize: 12, marginTop: 2, fontWeight: 300 }}>Perimenopause · 8 months with Vida</p>
-                </div>
-              </div>
-            </div>
-          </div>
-        </div>
-      </section>
 
       {/* ── Pricing ── */}
       <section style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
@@ -313,7 +290,7 @@ export default function MarketingHomePage() {
           {/* Free */}
           <div style={{ ...glass, borderRadius: 28, padding: 36 }}>
             <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>Free forever</p>
-            <p style={{ fontFamily: PF, fontSize: 48, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 6, letterSpacing: '-0.03em' }}>$0</p>
+            <p style={{ fontFamily: PF, fontSize: 48, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 6, letterSpacing: '-0.03em' }}>R0</p>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', marginBottom: 32, fontWeight: 300 }}>No card needed</p>
             <ul style={{ listStyle: 'none', marginBottom: 32, display: 'flex', flexDirection: 'column', gap: 13 }}>
               {freeFeatures.map(f => (
@@ -338,7 +315,7 @@ export default function MarketingHomePage() {
                 <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(196,184,224,0.5)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Premium</p>
                 <span style={{ fontSize: 10, fontWeight: 400, background: 'rgba(201,169,110,0.10)', color: 'rgba(201,169,110,0.75)', border: '1px solid rgba(201,169,110,0.2)', borderRadius: 9999, padding: '4px 12px' }}>Most popular</span>
               </div>
-              <p style={{ fontFamily: PF, fontSize: 48, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 6, letterSpacing: '-0.03em' }}>$12.99</p>
+              <p style={{ fontFamily: PF, fontSize: 48, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 6, letterSpacing: '-0.03em' }}>R149</p>
               <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.28)', marginBottom: 32, fontWeight: 300 }}>per month · cancel any time</p>
               <ul style={{ listStyle: 'none', marginBottom: 32, display: 'flex', flexDirection: 'column', gap: 13 }}>
                 {premiumFeatures.map(f => (
@@ -427,7 +404,7 @@ export default function MarketingHomePage() {
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {[
-                  'Wellness tools based on CBT for menopause — shown to reduce hot flush distress by up to 50%',
+                  'Wellness tools based on CBT for menopause — an approach some women find helps reduce hot flush distress',
                   'Pattern language drawn from NICE guidelines and peer-reviewed menopause research',
                   'Doctor Report format designed to give GPs the symptom data they need',
                   'Privacy-first: your health data is never sold, always encrypted, and fully deletable',
@@ -443,9 +420,9 @@ export default function MarketingHomePage() {
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
               {[
-                { stat: '50%', label: 'reduction in hot flush distress with CBT techniques' },
-                { stat: '72%', label: 'of users gained access to treatment after tracking' },
-                { stat: '17%', label: 'decrease in hot flash severity in CBT trial' },
+                { stat: 'CBT', label: 'techniques that may help some women manage hot flush distress' },
+                { stat: 'Many', label: 'women find tracking helps them have more confident GP conversations' },
+                { stat: 'NICE', label: 'guidelines and peer-reviewed research inform every feature' },
                 { stat: '100%', label: 'of your data stays private — never sold, always deletable' },
               ].map(({ stat, label }) => (
                 <div key={stat} style={{ flex: '1 1 160px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 18, padding: '20px 18px' }}>
