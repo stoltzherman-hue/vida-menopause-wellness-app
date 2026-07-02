@@ -35,7 +35,7 @@ export default function TermsPage() {
         <h1 style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 'clamp(28px, 4vw, 42px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 12 }}>
           Terms of Service
         </h1>
-        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.32)', marginBottom: 48 }}>Last updated: June 2026</p>
+        <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.32)', marginBottom: 48 }}>Last updated: July 2026</p>
 
         {section('Acceptance of terms', (
           <p>By creating an account and using Vida, you agree to these Terms of Service. If you do not agree, please do not use the service.</p>
@@ -72,9 +72,17 @@ export default function TermsPage() {
 
         {section('Subscriptions and billing', (
           <>
-            <p style={{ marginBottom: 12 }}>Vida offers a free tier and a paid Premium subscription. Subscription pricing is displayed at the point of purchase. Payment is processed by Stripe.</p>
+            <p style={{ marginBottom: 12 }}>Vida offers a free tier and a paid Premium subscription. Subscription pricing is displayed in South African Rand (ZAR) at the point of purchase.</p>
             <p style={{ marginBottom: 12 }}>Premium subscriptions renew automatically at the end of each billing period. You can cancel at any time from Settings → Subscription. Cancellation takes effect at the end of the current billing period — you retain Premium access until then.</p>
-            <p>We do not offer refunds for partial subscription periods except where required by applicable law.</p>
+            <p>We do not offer refunds for partial subscription periods except where required by applicable law, including the Consumer Protection Act 68 of 2008. Where a refund is due, it will be processed to your original payment method.</p>
+          </>
+        ))}
+
+        {section('Payment processing', (
+          <>
+            <p style={{ marginBottom: 12 }}>Online payments on Vida are processed by <strong style={{ color: 'rgba(255,255,255,0.88)' }}>Payfast (Pty) Ltd</strong>, a registered South African payment services provider. Vida does not store your full card details — payment information is handled directly and securely by Payfast.</p>
+            <p style={{ marginBottom: 12 }}>By making a payment on Vida, you also agree to Payfast&apos;s terms and conditions, which are incorporated into these Terms by reference. You can read them at <a href="https://payfast.io/legal/" target="_blank" rel="noopener noreferrer" style={{ color: '#9b7cc8' }}>payfast.io/legal</a>.</p>
+            <p>Upon successful payment, Premium access is activated on your account immediately (digital delivery — no physical goods are shipped). For billing queries, contact us at the address in the Contact section below.</p>
           </>
         ))}
 

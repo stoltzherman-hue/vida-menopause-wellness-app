@@ -62,7 +62,7 @@ export default function PrivacyPage() {
         {section('Data sharing', (
           <>
             <p style={{ marginBottom: 12 }}>We do not sell your personal or health data to any third party.</p>
-            <p style={{ marginBottom: 12 }}>We use the following service providers to operate Vida: Supabase (database and authentication), Vercel (hosting), Stripe (subscription billing), and an AI model provider for the companion feature. Each provider processes only the data necessary for their function and is bound by data processing agreements.</p>
+            <p style={{ marginBottom: 12 }}>We use the following service providers to operate Vida: Supabase (database and authentication), Vercel (hosting), Payfast (subscription billing and payment processing), and an AI model provider for the companion feature. Each provider processes only the data necessary for their function and is bound by data processing agreements.</p>
             <p>We may disclose data if required by law, or to protect the safety of users or the public.</p>
           </>
         ))}
