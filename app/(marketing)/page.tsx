@@ -475,7 +475,7 @@ export default function MarketingHomePage() {
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '52px 32px', textAlign: 'center', marginTop: 'clamp(72px, 10vw, 112px)', position: 'relative', zIndex: 1 }}>
         <p style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.75)', marginBottom: 22, letterSpacing: '-0.02em' }}>vida<span style={{ color: '#9b7cc8' }}>.</span></p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 28px', justifyContent: 'center', marginBottom: 22 }}>
-          {[['Privacy', '/privacy'], ['Terms', '/terms'], ['Community', '/community']].map(([label, href]) => (
+          {[['Privacy', '/privacy'], ['Terms', '/terms'], ['Refunds', '/refund-policy'], ['Community', '/community']].map(([label, href]) => (
             <Link key={href} href={href} style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontWeight: 300, textDecoration: 'none' }}>{label}</Link>
           ))}
         </div>

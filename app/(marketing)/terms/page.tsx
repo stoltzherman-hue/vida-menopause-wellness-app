@@ -74,7 +74,7 @@ export default function TermsPage() {
           <>
             <p style={{ marginBottom: 12 }}>Vida offers a free tier and a paid Premium subscription. Subscription pricing is displayed in South African Rand (ZAR) at the point of purchase.</p>
             <p style={{ marginBottom: 12 }}>Premium subscriptions renew automatically at the end of each billing period. You can cancel at any time from Settings → Subscription. Cancellation takes effect at the end of the current billing period — you retain Premium access until then.</p>
-            <p>We do not offer refunds for partial subscription periods except where required by applicable law, including the Consumer Protection Act 68 of 2008. Where a refund is due, it will be processed to your original payment method.</p>
+            <p>We do not offer refunds for partial subscription periods except where required by applicable law, including the Consumer Protection Act 68 of 2008. Where a refund is due, it will be processed to your original payment method. See our full <Link href="/refund-policy" style={{ color: '#9b7cc8' }}>Refund &amp; Cancellation Policy</Link>.</p>
           </>
         ))}
 
