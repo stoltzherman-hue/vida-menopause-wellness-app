@@ -41,7 +41,8 @@ export async function POST(req: NextRequest) {
       return_url: `${appUrl}/settings?upgraded=1`,
       cancel_url: `${appUrl}/settings/upgrade`,
       notify_url: `${appUrl}/api/webhooks/payfast`,
-      email_address: user.email ?? '',
+      // email_address deliberately omitted — PayFast's engine 500s on it (probe-verified);
+      // the buyer enters their email on the PayFast page and custom_str1 links the user
       m_payment_id: `vida-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
       amount: PREMIUM_MONTHLY_ZAR,
       item_name: 'Vida Premium Monthly',
