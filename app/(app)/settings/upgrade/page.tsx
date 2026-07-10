@@ -38,7 +38,19 @@ export default function UpgradePage() {
         setLoading(false)
         return
       }
-      window.location.href = json.data.url
+      // Build and submit a POST form to PayFast (their documented flow)
+      const form = document.createElement('form')
+      form.method = 'POST'
+      form.action = json.data.action
+      for (const [key, value] of Object.entries(json.data.params as Record<string, string>)) {
+        const input = document.createElement('input')
+        input.type = 'hidden'
+        input.name = key
+        input.value = value
+        form.appendChild(input)
+      }
+      document.body.appendChild(form)
+      form.submit()
     } catch {
       setError('Could not connect. Please try again.')
       setLoading(false)

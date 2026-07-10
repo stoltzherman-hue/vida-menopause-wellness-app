@@ -53,8 +53,8 @@ export async function POST(req: NextRequest) {
     }
     params.signature = pfSignature(params, passphrase)
 
-    const query = new URLSearchParams(params).toString()
-    return NextResponse.json({ data: { url: `${PAYFAST_HOST}/eng/process?${query}` } })
+    // PayFast expects a POSTed form, not a GET redirect
+    return NextResponse.json({ data: { action: `${PAYFAST_HOST}/eng/process`, params } })
   } catch (err) {
     console.error('payfast checkout error', err)
     return NextResponse.json({ error: { message: 'Could not start checkout. Please try again.' } }, { status: 500 })
