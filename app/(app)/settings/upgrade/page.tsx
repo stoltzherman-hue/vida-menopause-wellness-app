@@ -31,7 +31,7 @@ export default function UpgradePage() {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch('/api/stripe/checkout', { method: 'POST' })
+      const res = await fetch('/api/payfast/checkout', { method: 'POST' })
       const json = await res.json()
       if (!res.ok) {
         setError(json.error?.message ?? 'Something went wrong.')
@@ -89,7 +89,7 @@ export default function UpgradePage() {
               <p style={{ fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.32)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Premium</p>
               <span style={{ fontSize: 11, fontWeight: 300, background: 'rgba(155,124,200,0.15)', color: '#c4b8e0', border: '1px solid rgba(155,124,200,0.28)', borderRadius: 9999, padding: '4px 12px' }}>Most popular</span>
             </div>
-            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 36, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 4 }}>$12.99</p>
+            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 36, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 4 }}>R149</p>
             <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.32)', marginBottom: 24 }}>per month · cancel any time</p>
             <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
               {PREMIUM_FEATURES.map(f => (
@@ -120,9 +120,9 @@ export default function UpgradePage() {
               }}
             >
               {loading ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <ArrowRight size={16} />}
-              {loading ? 'Opening checkout…' : 'Start 7-day free trial'}
+              {loading ? 'Opening checkout…' : 'Upgrade to Premium'}
             </button>
-            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', textAlign: 'center', marginTop: 12 }}>No charge until trial ends · Cancel any time</p>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', textAlign: 'center', marginTop: 12 }}>Secure payment via Payfast · Cancel any time</p>
           </div>
         </div>
       </div>

@@ -339,7 +339,7 @@ export default function MarketingHomePage() {
                 ))}
               </ul>
               <Link href="/signup" className="btn-primary" style={{ width: '100%', fontSize: 14, padding: '14px 20px', height: 'auto', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
-                Start free trial
+                Upgrade to Premium
               </Link>
             </div>
           </div>

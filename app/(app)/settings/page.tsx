@@ -56,12 +56,13 @@ export default async function SettingsPage() {
   const supabase = await createSupabaseServerClient()
   const { data: sub } = await supabase
     .from('subscriptions')
-    .select('tier, status, current_period_end, stripe_customer_id')
+    .select('tier, status, current_period_end, stripe_subscription_id, cancel_at_period_end')
     .eq('user_id', user!.id)
     .maybeSingle()
 
   const isPremium = sub?.tier === 'premium' && sub?.status === 'active'
-  const hasStripe = !!sub?.stripe_customer_id
+  // stripe_subscription_id column carries the PayFast subscription token
+  const canManage = isPremium && !!sub?.stripe_subscription_id && !sub?.cancel_at_period_end
   const renewalDate = sub?.current_period_end
     ? new Date(sub.current_period_end).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
@@ -128,7 +129,7 @@ export default async function SettingsPage() {
                   </p>
                 )}
               </div>
-              {hasStripe && <ManageSubscriptionButton />}
+              {canManage && <ManageSubscriptionButton />}
             </div>
           ) : (
             <>
