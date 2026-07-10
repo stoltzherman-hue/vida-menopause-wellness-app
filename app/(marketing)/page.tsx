@@ -2,6 +2,7 @@ import Link from 'next/link'
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
 import { InstallBanner } from '@/components/marketing/InstallBanner'
 import { Reveal } from '@/components/marketing/Reveal'
+import { ParallaxTilt } from '@/components/marketing/ParallaxTilt'
 
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
 const PF = 'var(--font-playfair), Georgia, serif'
@@ -132,6 +133,7 @@ export default function MarketingHomePage() {
 
         {/* Right — 3D floating glass panels */}
         <div style={{ position: 'relative', height: 520, display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+          <ParallaxTilt>
           {/* Glow orb behind panels */}
           <div style={{ position: 'absolute', inset: 0, background: 'radial-gradient(ellipse at 55% 50%, rgba(122,82,176,0.28) 0%, transparent 68%)', pointerEvents: 'none' }} />
 
@@ -236,6 +238,7 @@ export default function MarketingHomePage() {
             </div>
             <div style={{ position: 'absolute', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent, rgba(255,255,255,0.1), transparent)' }} />
           </div>
+          </ParallaxTilt>
         </div>
 
       </section>
