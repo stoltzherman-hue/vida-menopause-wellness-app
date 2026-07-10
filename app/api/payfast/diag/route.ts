@@ -57,6 +57,27 @@ export async function GET(req: NextRequest) {
     if (skip.includes('colon')) params.m_payment_id = `diag-${Date.now()}`
     if (skip.includes('parens')) params.item_name = 'Vida Premium monthly'
   }
+  if (mode === 'real') {
+    // Byte-for-byte what the live checkout route now sends
+    const real: Record<string, string> = {
+      merchant_id: merchantId,
+      merchant_key: merchantKey,
+      return_url: `${appUrl}/settings?upgraded=1`,
+      cancel_url: `${appUrl}/settings/upgrade`,
+      notify_url: `${appUrl}/api/webhooks/payfast`,
+      email_address: user.email ?? '',
+      m_payment_id: `vida-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
+      amount: '149.00',
+      item_name: 'Vida Premium Monthly',
+      custom_str1: user.id,
+      subscription_type: '1',
+      recurring_amount: '149.00',
+      frequency: '3',
+      cycles: '0',
+    }
+    for (const key of Object.keys(params)) delete params[key]
+    Object.assign(params, real)
+  }
   params.signature = pfSignature(params, passphrase)
 
   const inputs = Object.entries(params)
