@@ -1193,3 +1193,47 @@ button, a, [role="button"] { min-height: 44px; }
   .glass-panel-left,
   .glass-panel-right { display: none; }
 }
+
+/* ── Scroll reveal ─────────────────────────────────────── */
+.reveal {
+  opacity: 0;
+  transform: translateY(24px);
+  transition: opacity 0.7s cubic-bezier(0.22,1,0.36,1), transform 0.7s cubic-bezier(0.22,1,0.36,1);
+  will-change: opacity, transform;
+}
+.reveal.revealed { opacity: 1; transform: translateY(0); }
+@media (prefers-reduced-motion: reduce) {
+  .reveal { opacity: 1; transform: none; transition: none; }
+}
+
+/* ── Marketing card micro-interactions ─────────────────── */
+.m-lift {
+  transition: transform 0.3s cubic-bezier(0.22,1,0.36,1),
+              border-color 0.3s ease,
+              box-shadow 0.3s ease;
+}
+.m-lift:hover {
+  transform: translateY(-3px);
+  border-color: rgba(155,124,200,0.28) !important;
+  box-shadow: 0 12px 40px rgba(0,0,0,0.35), 0 0 24px rgba(122,82,176,0.12);
+}
+
+/* ── Hero mock: living check-in loop ───────────────────── */
+@keyframes energyFill {
+  0%, 15%   { width: 30%; }
+  45%, 65%  { width: 62%; }
+  90%, 100% { width: 30%; }
+}
+.mock-energy-bar { animation: energyFill 7s ease-in-out infinite; }
+
+@keyframes tileGlow {
+  0%, 100% { background: rgba(155,124,200,0.18); border-color: rgba(155,124,200,0.35); }
+  50%       { background: rgba(155,124,200,0.3);  border-color: rgba(155,124,200,0.55); }
+}
+.mock-tile-active { animation: tileGlow 3.5s ease-in-out infinite; }
+
+@keyframes insightPulse {
+  0%, 100% { box-shadow: 0 0 0 rgba(155,124,200,0); }
+  50%       { box-shadow: 0 0 18px rgba(155,124,200,0.22); }
+}
+.mock-insight { animation: insightPulse 5s ease-in-out infinite 1s; }

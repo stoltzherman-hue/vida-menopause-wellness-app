@@ -1,6 +1,7 @@
 import Link from 'next/link'
 import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
 import { InstallBanner } from '@/components/marketing/InstallBanner'
+import { Reveal } from '@/components/marketing/Reveal'
 
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
 const PF = 'var(--font-playfair), Georgia, serif'
@@ -99,6 +100,10 @@ export default function MarketingHomePage() {
           <span style={{ fontSize: 12, fontWeight: 300, color: 'rgba(196,184,224,0.75)', letterSpacing: '0.01em' }}>Built for women navigating perimenopause &amp; menopause</span>
         </div>
 
+        <p style={{ fontFamily: PF, fontSize: 'clamp(17px, 2vw, 22px)', fontWeight: 300, fontStyle: 'italic', color: 'rgba(196,184,224,0.75)', marginBottom: 16, letterSpacing: '-0.01em' }}>
+          You&apos;re not imagining it.
+        </p>
+
         <h1 style={{ fontFamily: PF, fontSize: 'clamp(38px, 6vw, 76px)', fontWeight: 300, lineHeight: 1.08, letterSpacing: '-0.03em', color: 'rgba(255,255,255,0.88)', marginBottom: 28 }}>
           You deserve to understand<br />
           <span style={{ background: 'linear-gradient(135deg, #9b7cc8 0%, #c4b8e0 60%, #e8c4cc 100%)', WebkitBackgroundClip: 'text', WebkitTextFillColor: 'transparent', backgroundClip: 'text' }}>
@@ -181,7 +186,7 @@ export default function MarketingHomePage() {
               <div style={{ fontFamily: PF, fontSize: 15, fontWeight: 300, color: 'rgba(255,255,255,0.82)', marginBottom: 16, lineHeight: 1.3 }}>How are you feeling today?</div>
               <div style={{ display: 'grid', gridTemplateColumns: '1fr 1fr', gap: 6, marginBottom: 16 }}>
                 {['Hot flushes', 'Brain fog', 'Sleep', 'Mood'].map((s, i) => (
-                  <div key={s} style={{ background: i < 2 ? 'rgba(155,124,200,0.18)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i < 2 ? 'rgba(155,124,200,0.35)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
+                  <div key={s} className={i < 2 ? 'mock-tile-active' : undefined} style={{ background: i < 2 ? 'rgba(155,124,200,0.18)' : 'rgba(255,255,255,0.04)', border: `1px solid ${i < 2 ? 'rgba(155,124,200,0.35)' : 'rgba(255,255,255,0.07)'}`, borderRadius: 10, padding: '8px 10px', textAlign: 'center' }}>
                     <div style={{ fontSize: 9, fontWeight: 300, color: i < 2 ? 'rgba(196,184,224,0.85)' : 'rgba(255,255,255,0.35)', fontFamily: DM }}>{s}</div>
                   </div>
                 ))}
@@ -189,10 +194,10 @@ export default function MarketingHomePage() {
               <div style={{ background: 'rgba(255,255,255,0.04)', border: '1px solid rgba(255,255,255,0.08)', borderRadius: 12, padding: '10px 12px', marginBottom: 12 }}>
                 <div style={{ fontSize: 9, color: 'rgba(255,255,255,0.3)', fontFamily: DM, marginBottom: 6 }}>Energy level</div>
                 <div style={{ height: 4, background: 'rgba(255,255,255,0.06)', borderRadius: 9999, overflow: 'hidden' }}>
-                  <div style={{ width: '62%', height: '100%', background: 'linear-gradient(90deg, #9b7cc8, #c4b8e0)', borderRadius: 9999 }} />
+                  <div className="mock-energy-bar" style={{ width: '62%', height: '100%', background: 'linear-gradient(90deg, #9b7cc8, #c4b8e0)', borderRadius: 9999 }} />
                 </div>
               </div>
-              <div style={{ background: 'linear-gradient(135deg, rgba(155,124,200,0.22), rgba(122,82,176,0.15))', border: '1px solid rgba(155,124,200,0.3)', borderRadius: 12, padding: '10px 12px' }}>
+              <div className="mock-insight" style={{ background: 'linear-gradient(135deg, rgba(155,124,200,0.22), rgba(122,82,176,0.15))', border: '1px solid rgba(155,124,200,0.3)', borderRadius: 12, padding: '10px 12px' }}>
                 <div style={{ fontSize: 9, fontWeight: 300, color: 'rgba(196,184,224,0.7)', fontFamily: DM, lineHeight: 1.5 }}>Your sleep pattern suggests hormonal fluctuation. Consider logging triggers today.</div>
               </div>
             </div>
@@ -249,6 +254,7 @@ export default function MarketingHomePage() {
 
       {/* ── Features ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px', position: 'relative', zIndex: 1 }}>
+        <Reveal>
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
           <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>Built for you</p>
           <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 46px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 14 }}>
@@ -261,7 +267,7 @@ export default function MarketingHomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 16 }}>
           {features.map(({ title, desc, premium }) => (
-            <div key={title} style={{ ...glass, borderRadius: 20, padding: '28px 24px' }}>
+            <div key={title} className="m-lift" style={{ ...glass, borderRadius: 20, padding: '28px 24px' }}>
               <div style={{ display: 'flex', alignItems: 'flex-start', justifyContent: 'space-between', marginBottom: 16 }}>
                 <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(139,109,181,0.15)', border: '1px solid rgba(139,109,181,0.25)' }} />
                 {premium && (
@@ -273,11 +279,13 @@ export default function MarketingHomePage() {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
 
       {/* ── Pricing ── */}
       <section style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+        <Reveal>
         <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>Pricing</p>
         <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 12 }}>
           Simple, honest pricing
@@ -288,7 +296,7 @@ export default function MarketingHomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, textAlign: 'left' }}>
           {/* Free */}
-          <div style={{ ...glass, borderRadius: 28, padding: 36 }}>
+          <div className="m-lift" style={{ ...glass, borderRadius: 28, padding: 36 }}>
             <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>Free forever</p>
             <p style={{ fontFamily: PF, fontSize: 48, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 6, letterSpacing: '-0.03em' }}>R0</p>
             <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', marginBottom: 32, fontWeight: 300 }}>No card needed</p>
@@ -308,7 +316,7 @@ export default function MarketingHomePage() {
           </div>
 
           {/* Premium */}
-          <div style={{ background: 'rgba(139,109,181,0.10)', border: '1px solid rgba(139,109,181,0.25)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', borderRadius: 28, padding: 36, position: 'relative', overflow: 'hidden' }}>
+          <div className="m-lift" style={{ background: 'rgba(139,109,181,0.10)', border: '1px solid rgba(139,109,181,0.25)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', borderRadius: 28, padding: 36, position: 'relative', overflow: 'hidden' }}>
             <div style={{ position: 'absolute', top: -60, right: -60, width: 200, height: 200, borderRadius: '50%', background: 'rgba(122,82,176,0.18)' }} />
             <div style={{ position: 'relative' }}>
               <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
@@ -333,10 +341,12 @@ export default function MarketingHomePage() {
             </div>
           </div>
         </div>
+        </Reveal>
       </section>
 
       {/* ── How it works ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0', position: 'relative', zIndex: 1 }}>
+        <Reveal>
         <div style={{ textAlign: 'center', marginBottom: 60 }}>
           <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>Getting started</p>
           <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 46px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 14 }}>
@@ -349,7 +359,7 @@ export default function MarketingHomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20 }}>
           {steps.map(({ step, title, body }) => (
-            <div key={step} style={{ ...glass, borderRadius: 22, padding: '32px 26px', position: 'relative' }}>
+            <div key={step} className="m-lift" style={{ ...glass, borderRadius: 22, padding: '32px 26px', position: 'relative' }}>
               <div style={{ position: 'absolute', top: 24, right: 24, fontFamily: PF, fontSize: 44, fontWeight: 300, color: 'rgba(155,124,200,0.10)', lineHeight: 1, userSelect: 'none' }}>{step}</div>
               <div style={{ width: 36, height: 36, borderRadius: 10, background: 'rgba(139,109,181,0.14)', border: '1px solid rgba(139,109,181,0.22)', marginBottom: 20 }} />
               <h3 style={{ fontFamily: PF, fontSize: 19, fontWeight: 300, color: 'rgba(255,255,255,0.82)', marginBottom: 12, lineHeight: 1.3 }}>{title}</h3>
@@ -357,10 +367,12 @@ export default function MarketingHomePage() {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* ── Testimonials grid ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0', position: 'relative', zIndex: 1 }}>
+        <Reveal>
         <div style={{ textAlign: 'center', marginBottom: 52 }}>
           <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>What women say</p>
           <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15 }}>
@@ -370,7 +382,7 @@ export default function MarketingHomePage() {
 
         <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
           {testimonials.map(({ quote, name, age, duration, initial }) => (
-            <div key={name} style={{ ...glass, borderRadius: 22, padding: '26px 22px' }}>
+            <div key={name} className="m-lift" style={{ ...glass, borderRadius: 22, padding: '26px 22px' }}>
               <div style={{ fontFamily: PF, fontSize: 32, color: 'rgba(155,124,200,0.25)', lineHeight: 1, marginBottom: 12, fontWeight: 300 }}>&ldquo;</div>
               <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, marginBottom: 22, fontWeight: 300 }}>{quote}</p>
               <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
@@ -383,10 +395,12 @@ export default function MarketingHomePage() {
             </div>
           ))}
         </div>
+        </Reveal>
       </section>
 
       {/* ── Clinical credibility ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 96px) 32px 0', position: 'relative', zIndex: 1 }}>
+        <Reveal>
         <div style={{ ...glass, borderRadius: 32, padding: 'clamp(48px, 6vw, 72px) clamp(32px, 6vw, 80px)', position: 'relative', overflow: 'hidden' }}>
           <div style={{ position: 'absolute', top: -80, right: -80, width: 300, height: 300, borderRadius: '50%', background: 'rgba(122,82,176,0.12)' }} />
           <div style={{ position: 'absolute', bottom: -60, left: -60, width: 240, height: 240, borderRadius: '50%', background: 'rgba(196,149,158,0.06)' }} />
@@ -433,10 +447,12 @@ export default function MarketingHomePage() {
             </div>
           </div>
         </div>
+        </Reveal>
       </section>
 
       {/* ── FAQ ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0', position: 'relative', zIndex: 1 }}>
+        <Reveal>
         <div style={{ textAlign: 'center', marginBottom: 56 }}>
           <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>FAQ</p>
           <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 46px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 14 }}>
@@ -447,6 +463,7 @@ export default function MarketingHomePage() {
           </p>
         </div>
         <MarketingFAQ />
+        </Reveal>
       </section>
 
       <InstallBanner />
