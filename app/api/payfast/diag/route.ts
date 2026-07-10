@@ -12,6 +12,7 @@ export async function GET(req: NextRequest) {
   if (!user) return NextResponse.json({ error: 'Sign in first' }, { status: 401 })
 
   const mode = req.nextUrl.searchParams.get('mode') ?? 'once'
+  const skip = (req.nextUrl.searchParams.get('skip') ?? '').split(',')
   const { merchantId, merchantKey, passphrase } = payfastConfig()
   const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? `https://${req.headers.get('host')}`
 
@@ -30,6 +31,31 @@ export async function GET(req: NextRequest) {
     params.recurring_amount = '5.00'
     params.frequency = '3'
     params.cycles = '0'
+  }
+  if (mode === 'full') {
+    // Exact replica of the real checkout params (R149 subscription)
+    const full: Record<string, string> = {
+      merchant_id: merchantId,
+      merchant_key: merchantKey,
+      return_url: `${appUrl}/settings?upgraded=1`,
+      cancel_url: `${appUrl}/settings/upgrade`,
+      notify_url: `${appUrl}/api/webhooks/payfast`,
+      email_address: user.email ?? '',
+      m_payment_id: `${user.id}:${Date.now()}`,
+      amount: '149.00',
+      item_name: 'Vida Premium (monthly)',
+      custom_str1: user.id,
+      subscription_type: '1',
+      recurring_amount: '149.00',
+      frequency: '3',
+      cycles: '0',
+    }
+    for (const key of Object.keys(params)) delete params[key]
+    for (const [k, v] of Object.entries(full)) {
+      if (!skip.includes(k)) params[k] = v
+    }
+    if (skip.includes('colon')) params.m_payment_id = `diag-${Date.now()}`
+    if (skip.includes('parens')) params.item_name = 'Vida Premium monthly'
   }
   params.signature = pfSignature(params, passphrase)
 
