@@ -143,7 +143,7 @@ export default async function SettingsPage() {
                 fontSize: 15, fontWeight: 300, textDecoration: 'none',
                 boxShadow: '0 4px 18px rgba(155,124,200,0.28)',
               }}>
-                Upgrade to Premium — $12.99/mo
+                Upgrade to Premium — R149/mo
               </Link>
             </>
           )}
