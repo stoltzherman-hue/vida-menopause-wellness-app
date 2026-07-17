@@ -8,11 +8,17 @@ export async function GET() {
   const user = await getUser()
   if (!user) return NextResponse.json({ error: 'Sign in first' }, { status: 401 })
 
+  // List any env var NAMES that mention vapi/supabase (values never returned)
+  const vapiKeys = Object.keys(process.env).filter((k) => /vapi/i.test(k))
+  const sampleServerKeys = Object.keys(process.env).filter((k) => /SUPABASE_SERVICE|PAYFAST_MERCHANT_ID/i.test(k))
+
   return NextResponse.json({
     hasSecret: !!process.env.VAPI_SECRET,
     hasPublicKey: !!process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY,
     hasAssistantId: !!process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID,
-    publicKeyLen: (process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY ?? '').length,
-    assistantIdLen: (process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID ?? '').length,
+    // The exact names of any VAPI-related vars the running app can actually see:
+    vapiKeysSeen: vapiKeys,
+    // Sanity check that other known server vars are visible here:
+    knownServerKeysSeen: sampleServerKeys,
   })
 }
