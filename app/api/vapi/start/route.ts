@@ -88,6 +88,8 @@ export async function POST(req: NextRequest) {
     })
   } catch (err) {
     console.error('vapi start error', err)
-    return NextResponse.json({ error: { message: 'Could not start voice session. Please try again.' } }, { status: 500 })
+    // Temporary: surface the real error to diagnose the 500
+    const detail = err instanceof Error ? `${err.message}` : String(err)
+    return NextResponse.json({ error: { message: `start failed: ${detail}` } }, { status: 500 })
   }
 }
