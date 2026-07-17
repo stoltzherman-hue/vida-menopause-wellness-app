@@ -20,18 +20,31 @@ const PREMIUM_FEATURES = [
   'Unlimited symptom history',
   'Doctor visit symptom reports',
   'Personalised weekly wellness summary',
+  '15 voice minutes to try',
   'Priority community support',
+]
+
+const VOICE_FEATURES = [
+  'Everything in Premium',
+  'Talk to Vida out loud — hands-free',
+  '150 voice minutes every month',
+  'Natural, real-time voice conversations',
+  'Same warm guidance, now spoken',
 ]
 
 export default function UpgradePage() {
   const [loading, setLoading] = useState(false)
   const [error, setError] = useState<string | null>(null)
 
-  async function handleCheckout() {
+  async function handleCheckout(tier: 'premium' | 'voice' = 'premium') {
     setLoading(true)
     setError(null)
     try {
-      const res = await fetch('/api/payfast/checkout', { method: 'POST' })
+      const res = await fetch('/api/payfast/checkout', {
+        method: 'POST',
+        headers: { 'Content-Type': 'application/json' },
+        body: JSON.stringify({ tier }),
+      })
       const json = await res.json()
       if (!res.ok) {
         setError(json.error?.message ?? 'Something went wrong.')
@@ -119,7 +132,7 @@ export default function UpgradePage() {
             )}
 
             <button
-              onClick={handleCheckout}
+              onClick={() => handleCheckout('premium')}
               disabled={loading}
               style={{
                 width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
@@ -135,6 +148,44 @@ export default function UpgradePage() {
               {loading ? 'Opening checkout…' : 'Upgrade to Premium'}
             </button>
             <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', textAlign: 'center', marginTop: 12 }}>Secure payment via Payfast · Cancel any time</p>
+          </div>
+        </div>
+
+        {/* Voice */}
+        <div style={{ background: 'linear-gradient(148deg, rgba(196,184,224,0.14) 0%, rgba(155,124,200,0.10) 55%, rgba(9,7,14,0.95) 100%)', border: '1px solid rgba(196,184,224,0.3)', borderRadius: 24, padding: '28px 24px', position: 'relative', overflow: 'hidden', backdropFilter: 'blur(24px)' }}>
+          <div style={{ position: 'absolute', top: -60, right: -60, width: 200, height: 200, borderRadius: '50%', background: 'rgba(196,184,224,0.1)' }} />
+          <div style={{ position: 'relative' }}>
+            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 8 }}>
+              <p style={{ fontSize: 11, fontWeight: 300, color: 'rgba(255,255,255,0.32)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Voice</p>
+              <span style={{ fontSize: 11, fontWeight: 300, background: 'rgba(196,184,224,0.18)', color: '#e8dcf4', border: '1px solid rgba(196,184,224,0.35)', borderRadius: 9999, padding: '4px 12px' }}>New</span>
+            </div>
+            <p style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 36, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 4 }}>R249</p>
+            <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.32)', marginBottom: 24 }}>per month · cancel any time</p>
+            <ul style={{ listStyle: 'none', display: 'flex', flexDirection: 'column', gap: 12, marginBottom: 28 }}>
+              {VOICE_FEATURES.map(f => (
+                <li key={f} style={{ display: 'flex', alignItems: 'flex-start', gap: 10, fontSize: 14, color: 'rgba(255,255,255,0.75)' }}>
+                  <Check size={16} style={{ color: '#c4b8e0', flexShrink: 0, marginTop: 1 }} strokeWidth={2.5} />
+                  {f}
+                </li>
+              ))}
+            </ul>
+            <button
+              onClick={() => handleCheckout('voice')}
+              disabled={loading}
+              style={{
+                width: '100%', display: 'flex', alignItems: 'center', justifyContent: 'center', gap: 8,
+                background: loading ? 'rgba(196,184,224,0.3)' : 'linear-gradient(135deg, #c4b8e0 0%, #9b7cc8 100%)',
+                color: '#1a1220', borderRadius: 14, padding: '15px', border: 'none',
+                fontSize: 15, fontWeight: 400, cursor: loading ? 'not-allowed' : 'pointer',
+                boxShadow: loading ? 'none' : '0 4px 24px rgba(196,184,224,0.3)',
+                fontFamily: 'var(--font-dm-sans), system-ui, sans-serif',
+                transition: 'all 0.2s',
+              }}
+            >
+              {loading ? <Loader2 size={16} style={{ animation: 'spin 1s linear infinite' }} /> : <ArrowRight size={16} />}
+              {loading ? 'Opening checkout…' : 'Upgrade to Voice'}
+            </button>
+            <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.22)', textAlign: 'center', marginTop: 12 }}>150 voice minutes / month · Secure payment via Payfast</p>
           </div>
         </div>
       </div>

@@ -4,7 +4,9 @@ import type { Metadata } from 'next'
 import { getUser } from '@/lib/auth/session'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { CompanionChat } from '@/components/ai/CompanionChat'
+import { VoiceCompanion } from '@/components/ai/VoiceCompanion'
 import type { ConversationMode } from '@/lib/ai/modes'
+import { voiceMinutesForTier, billingPeriodStart } from '@/lib/entitlements'
 
 export const metadata: Metadata = { title: 'AI Companion · Vida' }
 
@@ -13,11 +15,25 @@ export default async function CompanionPage() {
   const supabase = await createSupabaseServerClient()
 
   const [{ data: sub }, { data: profile }] = await Promise.all([
-    supabase.from('subscriptions').select('tier, status').eq('user_id', user!.id).maybeSingle(),
+    supabase.from('subscriptions').select('tier, status, current_period_start').eq('user_id', user!.id).maybeSingle(),
     supabase.from('user_profiles').select('display_name').eq('user_id', user!.id).maybeSingle(),
   ])
 
-  const isPremium = sub?.tier === 'premium' && sub?.status === 'active'
+  const activeTier = sub?.status === 'active' ? sub?.tier : 'free'
+  const isPremium = activeTier === 'premium' || activeTier === 'voice'
+
+  // Voice entitlement + remaining minutes this billing period
+  const voiceAllowance = voiceMinutesForTier(activeTier)
+  let voiceRemaining = 0
+  if (voiceAllowance > 0) {
+    const { data: usage } = await supabase
+      .from('voice_usage')
+      .select('seconds_used')
+      .eq('user_id', user!.id)
+      .eq('period_start', billingPeriodStart(sub?.current_period_start))
+      .maybeSingle()
+    voiceRemaining = Math.max(0, voiceAllowance - Math.floor((usage?.seconds_used ?? 0) / 60))
+  }
 
   const { data: conversation } = await supabase
     .from('ai_conversations')
@@ -95,6 +111,13 @@ export default async function CompanionPage() {
           )
         })}
       </div>
+
+      {/* Voice companion */}
+      <VoiceCompanion
+        mode={initialMode}
+        canUseVoice={voiceAllowance > 0}
+        remainingMinutes={voiceRemaining}
+      />
 
       {/* Premium upsell */}
       {!isPremium && (

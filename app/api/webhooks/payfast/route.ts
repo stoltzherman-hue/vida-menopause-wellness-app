@@ -45,6 +45,9 @@ export async function POST(req: NextRequest) {
   const userId = data.custom_str1
   if (!userId) return NextResponse.json({ received: true })
 
+  // custom_str2 carries which plan was purchased
+  const purchasedTier = data.custom_str2 === 'voice' ? 'voice' : 'premium'
+
   const supabase = createAdminClient()
   const token = data.token ?? null
   const pfPaymentId = data.pf_payment_id ?? null
@@ -58,7 +61,7 @@ export async function POST(req: NextRequest) {
     await supabase.from('subscriptions').upsert({
       user_id: userId,
       stripe_subscription_id: token,
-      tier: 'premium',
+      tier: purchasedTier,
       status: 'active',
       current_period_start: periodStart.toISOString(),
       current_period_end: periodEnd.toISOString(),

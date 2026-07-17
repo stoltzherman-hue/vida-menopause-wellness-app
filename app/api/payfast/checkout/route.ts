@@ -1,7 +1,8 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { getUser } from '@/lib/auth/session'
 import { createAdminClient } from '@/lib/db/client'
-import { payfastConfig, pfSignature, PAYFAST_HOST, PREMIUM_MONTHLY_ZAR } from '@/lib/payfast'
+import { payfastConfig, pfSignature, PAYFAST_HOST } from '@/lib/payfast'
+import { TIER_PRICE_ZAR, TIER_ITEM_NAME } from '@/lib/entitlements'
 
 // Redirect GET (e.g. old links) back to the upgrade page
 export async function GET(req: NextRequest) {
@@ -15,6 +16,15 @@ export async function POST(req: NextRequest) {
       return NextResponse.json({ error: { message: 'You must be signed in.' } }, { status: 401 })
     }
 
+    // Which plan is being purchased
+    let targetTier: 'premium' | 'voice' = 'premium'
+    try {
+      const body = await req.json()
+      if (body?.tier === 'voice') targetTier = 'voice'
+    } catch {
+      // no body — default premium
+    }
+
     const admin = createAdminClient()
 
     const { data: sub } = await admin
@@ -23,8 +33,8 @@ export async function POST(req: NextRequest) {
       .eq('user_id', user.id)
       .maybeSingle()
 
-    if (sub?.tier === 'premium' && sub?.status === 'active') {
-      return NextResponse.json({ error: { message: 'Your account already has Premium access.' } }, { status: 400 })
+    if (sub?.tier === targetTier && sub?.status === 'active') {
+      return NextResponse.json({ error: { message: `Your account already has the ${targetTier === 'voice' ? 'Voice' : 'Premium'} plan.` } }, { status: 400 })
     }
 
     if (!sub) {
@@ -33,6 +43,7 @@ export async function POST(req: NextRequest) {
 
     const { merchantId, merchantKey, passphrase } = payfastConfig()
     const appUrl = process.env.NEXT_PUBLIC_APP_URL ?? `https://${req.headers.get('host')}`
+    const amount = TIER_PRICE_ZAR[targetTier]
 
     // Field order matters for the PayFast signature — keep this order.
     const params: Record<string, string> = {
@@ -44,11 +55,12 @@ export async function POST(req: NextRequest) {
       // email_address deliberately omitted — PayFast's engine 500s on it (probe-verified);
       // the buyer enters their email on the PayFast page and custom_str1 links the user
       m_payment_id: `vida-${Date.now()}-${Math.random().toString(36).slice(2, 8)}`,
-      amount: PREMIUM_MONTHLY_ZAR,
-      item_name: 'Vida Premium Monthly',
+      amount,
+      item_name: TIER_ITEM_NAME[targetTier],
       custom_str1: user.id,
+      custom_str2: targetTier,
       subscription_type: '1',
-      recurring_amount: PREMIUM_MONTHLY_ZAR,
+      recurring_amount: amount,
       frequency: '3',
       cycles: '0',
     }
