@@ -40,6 +40,7 @@ const steps = [
 
 const freeFeatures = ['Community forums & Circles', 'Daily symptom check-in', 'Basic symptom history', 'Limited AI messages']
 const premiumFeatures = ['Everything in Free', 'Unlimited AI companion', 'All 3 conversation modes', 'Advanced pattern insights', 'Doctor visit reports', 'Personalised wellness plan']
+const voiceFeatures = ['Everything in Premium', 'Talk to Vida out loud — hands-free', '150 voice minutes every month', 'Natural, real-time conversations', 'Same warm guidance, now spoken']
 
 export default function MarketingHomePage() {
   const glass: React.CSSProperties = {
@@ -287,17 +288,17 @@ export default function MarketingHomePage() {
 
 
       {/* ── Pricing ── */}
-      <section style={{ maxWidth: 900, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
+      <section style={{ maxWidth: 1080, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px', textAlign: 'center', position: 'relative', zIndex: 1 }}>
         <Reveal>
         <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>Pricing</p>
         <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 12 }}>
           Simple, honest pricing
         </h2>
         <p style={{ color: 'rgba(255,255,255,0.35)', fontSize: 16, marginBottom: 52, lineHeight: 1.65, fontWeight: 300 }}>
-          Community is always free. Premium unlocks your AI companion, advanced insights, and more.
+          Community is always free. Premium unlocks your AI companion — or go further and talk to Vida out loud.
         </p>
 
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(300px, 1fr))', gap: 20, textAlign: 'left' }}>
+        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 20, textAlign: 'left' }}>
           {/* Free */}
           <div className="m-lift" style={{ ...glass, borderRadius: 28, padding: 36 }}>
             <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(255,255,255,0.25)', textTransform: 'uppercase', letterSpacing: '0.1em', marginBottom: 10 }}>Free forever</p>
@@ -340,6 +341,32 @@ export default function MarketingHomePage() {
               </ul>
               <Link href="/signup" className="btn-primary" style={{ width: '100%', fontSize: 14, padding: '14px 20px', height: 'auto', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
                 Upgrade to Premium
+              </Link>
+            </div>
+          </div>
+
+          {/* Voice */}
+          <div className="m-lift" style={{ background: 'rgba(196,184,224,0.12)', border: '1px solid rgba(196,184,224,0.3)', backdropFilter: 'blur(24px)', WebkitBackdropFilter: 'blur(24px)', borderRadius: 28, padding: 36, position: 'relative', overflow: 'hidden' }}>
+            <div style={{ position: 'absolute', top: -60, right: -60, width: 200, height: 200, borderRadius: '50%', background: 'rgba(196,184,224,0.16)' }} />
+            <div style={{ position: 'relative' }}>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', marginBottom: 10 }}>
+                <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(196,184,224,0.6)', textTransform: 'uppercase', letterSpacing: '0.1em' }}>Voice</p>
+                <span style={{ fontSize: 10, fontWeight: 400, background: 'rgba(196,184,224,0.16)', color: 'rgba(232,220,244,0.85)', border: '1px solid rgba(196,184,224,0.35)', borderRadius: 9999, padding: '4px 12px' }}>New</span>
+              </div>
+              <p style={{ fontFamily: PF, fontSize: 48, fontWeight: 300, color: 'rgba(255,255,255,0.88)', lineHeight: 1, marginBottom: 6, letterSpacing: '-0.03em' }}>R249</p>
+              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.28)', marginBottom: 32, fontWeight: 300 }}>per month · cancel any time</p>
+              <ul style={{ listStyle: 'none', marginBottom: 32, display: 'flex', flexDirection: 'column', gap: 13 }}>
+                {voiceFeatures.map(f => (
+                  <li key={f} style={{ display: 'flex', alignItems: 'center', gap: 11, fontSize: 13, color: 'rgba(255,255,255,0.6)', fontWeight: 300 }}>
+                    <span style={{ width: 20, height: 20, borderRadius: '50%', background: 'rgba(196,184,224,0.22)', border: '1px solid rgba(196,184,224,0.4)', display: 'flex', alignItems: 'center', justifyContent: 'center', flexShrink: 0 }}>
+                      <svg width="8" height="8" viewBox="0 0 12 12" fill="none"><path d="M2 6l3 3 5-5" stroke="rgba(232,220,244,0.95)" strokeWidth="1.8" strokeLinecap="round" strokeLinejoin="round"/></svg>
+                    </span>
+                    {f}
+                  </li>
+                ))}
+              </ul>
+              <Link href="/signup" className="btn-primary" style={{ width: '100%', fontSize: 14, padding: '14px 20px', height: 'auto', textDecoration: 'none', display: 'flex', alignItems: 'center', justifyContent: 'center' }}>
+                Get Vida Voice
               </Link>
             </div>
           </div>
