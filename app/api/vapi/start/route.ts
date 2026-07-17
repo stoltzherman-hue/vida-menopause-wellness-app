@@ -55,6 +55,15 @@ export async function POST(req: NextRequest) {
       )
     }
 
+    // Explicit config check with a precise message (temporary diagnostics)
+    const missing: string[] = []
+    if (!process.env.VAPI_SECRET) missing.push('VAPI_SECRET')
+    if (!process.env.NEXT_PUBLIC_VAPI_PUBLIC_KEY) missing.push('NEXT_PUBLIC_VAPI_PUBLIC_KEY')
+    if (!process.env.NEXT_PUBLIC_VAPI_ASSISTANT_ID) missing.push('NEXT_PUBLIC_VAPI_ASSISTANT_ID')
+    if (missing.length) {
+      return NextResponse.json({ error: { message: `Voice config missing: ${missing.join(', ')}` } }, { status: 503 })
+    }
+
     const { publicKey, assistantId } = vapiConfig()
     if (!publicKey || !assistantId) {
       return NextResponse.json({ error: { message: 'Voice is not configured yet. Please try again soon.' } }, { status: 503 })
