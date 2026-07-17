@@ -7,9 +7,7 @@ export const dynamic = 'force-dynamic'
 
 // Vapi server webhook — we care about end-of-call-report to record minutes used.
 export async function POST(req: NextRequest) {
-  if (!verifyWebhookSecret(req.headers.get('x-vapi-secret'))) {
-    return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
-  }
+  const secretOk = verifyWebhookSecret(req.headers.get('x-vapi-secret'))
 
   let body: Record<string, unknown>
   try {
@@ -25,12 +23,15 @@ export async function POST(req: NextRequest) {
     return NextResponse.json({ received: true })
   }
 
-  // Resolve the user from the signed token we placed in call metadata
+  // Resolve the user from the signed token we placed in call metadata.
+  // The token is HMAC-signed by us, so it authenticates the report on its own
+  // when no shared-secret header is configured in the Vapi dashboard.
   const call = (msg.call ?? {}) as { metadata?: Record<string, unknown> }
   const token = typeof call.metadata?.token === 'string' ? (call.metadata.token as string) : null
   const session = token ? verifySessionToken(token) : null
   if (!session) {
-    // Token may have expired after a long call; nothing we can safely attribute
+    // No valid secret header and no attributable token — reject.
+    if (!secretOk) return NextResponse.json({ error: 'Unauthorized' }, { status: 401 })
     return NextResponse.json({ received: true })
   }
 
