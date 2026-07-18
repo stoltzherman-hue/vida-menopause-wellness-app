@@ -4,6 +4,7 @@ import { createAdminClient } from '@/lib/db/client'
 import { detectRedFlags } from '@/lib/safety/redFlags'
 import { buildCompanionSystemPrompt } from '@/lib/ai/context'
 import { verifySessionToken } from '@/lib/vapi'
+import { SAVE_CHECKIN_TOOL, saveVoiceCheckin, hasCheckedInToday } from '@/lib/ai/checkinTool'
 import type { ConversationMode } from '@/lib/ai/modes'
 
 export const dynamic = 'force-dynamic'
@@ -24,6 +25,8 @@ How to speak:
 - Use contractions and everyday words. Never read out lists or long clinical detail out loud.
 - If she gives a short answer, keep it light and flowing rather than interrogating her.
 - It's okay to be brief. A gentle "I'm right here" can be a whole turn.`
+
+const CHECKIN_GUIDE = `Daily check-in: You can log her daily wellness check-in for her, hands-free. If she asks to check in or log her day — or if she hasn't checked in yet today and it comes up naturally — offer a quick spoken check-in ("Want to do a quick check-in together?"). Gather a few things conversationally, one at a time, not as a survey: how she's feeling (mood), how she slept, her energy, and any symptoms like hot flushes, night sweats, or brain fog. Keep it light and short. Once you have a couple of details and she's happy, call the save_checkin tool to record it for today, then confirm warmly in one short sentence (e.g. "Done — logged for today. 💜"). Never invent numbers she didn't say. Don't read the saved data back like a list.`
 
 // Per-user context cache so we don't re-query the database on every single turn
 // (that round-trip was the main source of the awkward pause before Vida replies).
@@ -97,35 +100,90 @@ export async function POST(req: NextRequest) {
     systemPrompt = cached.prompt
   } else {
     const supabase = createAdminClient()
-    systemPrompt = await buildCompanionSystemPrompt(supabase, session.uid, mode, VOICE_STYLE)
+    const [base, checkedIn] = await Promise.all([
+      buildCompanionSystemPrompt(supabase, session.uid, mode, VOICE_STYLE),
+      hasCheckedInToday(session.uid),
+    ])
+    const reminder = checkedIn
+      ? 'She has already done today\'s check-in, so there is no need to prompt another one.'
+      : 'She has NOT done today\'s check-in yet — early on, gently offer to do a quick check-in together (but never push).'
+    systemPrompt = [base, CHECKIN_GUIDE, reminder].join('\n\n')
     promptCache.set(cacheKey, { prompt: systemPrompt, exp: Date.now() + PROMPT_TTL_MS })
   }
 
-  const anthropicMessages = convo.map((m) => ({
+  // Anthropic message content can be strings or content blocks (for tool turns)
+  const anthropicMessages: Anthropic.MessageParam[] = convo.map((m) => ({
     role: m.role === 'assistant' ? ('assistant' as const) : ('user' as const),
     content: m.content,
   }))
+  if (anthropicMessages.length === 0) anthropicMessages.push({ role: 'user', content: 'Hello' })
 
   const id = `chatcmpl-${Date.now()}`
   const encoder = new TextEncoder()
+  const send = (controller: ReadableStreamDefaultController, text: string) =>
+    controller.enqueue(encoder.encode(sseChunk(id, { content: text }, null)))
+
+  const model = 'claude-haiku-4-5-20251001'
+  const common = { model, max_tokens: 220, temperature: 0.8, system: systemPrompt } as const
 
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        const anthropicStream = await anthropic.messages.create({
-          model: 'claude-haiku-4-5-20251001',
-          max_tokens: 220,
-          temperature: 0.8,
-          system: systemPrompt,
-          messages: anthropicMessages.length ? anthropicMessages : [{ role: 'user', content: 'Hello' }],
+        controller.enqueue(encoder.encode(sseChunk(id, { role: 'assistant' }, null)))
+
+        // First pass — tool available. Stream any spoken text; capture a tool call if made.
+        const first = await anthropic.messages.create({
+          ...common,
+          tools: [SAVE_CHECKIN_TOOL],
+          messages: anthropicMessages,
           stream: true,
         })
-        controller.enqueue(encoder.encode(sseChunk(id, { role: 'assistant' }, null)))
-        for await (const event of anthropicStream) {
-          if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
-            controller.enqueue(encoder.encode(sseChunk(id, { content: event.delta.text }, null)))
+
+        let preText = ''
+        let toolName = ''
+        let toolId = ''
+        let toolInput = ''
+        for await (const event of first) {
+          if (event.type === 'content_block_start' && event.content_block.type === 'tool_use') {
+            toolName = event.content_block.name
+            toolId = event.content_block.id
+          } else if (event.type === 'content_block_delta') {
+            if (event.delta.type === 'text_delta') {
+              preText += event.delta.text
+              send(controller, event.delta.text)
+            } else if (event.delta.type === 'input_json_delta') {
+              toolInput += event.delta.partial_json
+            }
           }
         }
+
+        // If Vida chose to log a check-in, run it and let her confirm naturally
+        if (toolName === 'save_checkin') {
+          let args: Record<string, unknown> = {}
+          try { args = JSON.parse(toolInput || '{}') } catch { /* ignore */ }
+          const summary = await saveVoiceCheckin(session.uid, args)
+          promptCache.delete(cacheKey) // refresh "checked in today" for later turns
+
+          const assistantBlocks: Anthropic.ContentBlockParam[] = []
+          if (preText.trim()) assistantBlocks.push({ type: 'text', text: preText })
+          assistantBlocks.push({ type: 'tool_use', id: toolId, name: toolName, input: args })
+
+          const follow = await anthropic.messages.create({
+            ...common,
+            messages: [
+              ...anthropicMessages,
+              { role: 'assistant', content: assistantBlocks },
+              { role: 'user', content: [{ type: 'tool_result', tool_use_id: toolId, content: summary }] },
+            ],
+            stream: true,
+          })
+          for await (const event of follow) {
+            if (event.type === 'content_block_delta' && event.delta.type === 'text_delta') {
+              send(controller, event.delta.text)
+            }
+          }
+        }
+
         controller.enqueue(encoder.encode(sseChunk(id, {}, 'stop')))
         controller.enqueue(encoder.encode('data: [DONE]\n\n'))
       } catch (err) {
