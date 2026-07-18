@@ -1,4 +1,5 @@
 import { NextRequest, NextResponse } from 'next/server'
+import Anthropic from '@anthropic-ai/sdk'
 import { createAdminClient } from '@/lib/db/client'
 import { detectRedFlags } from '@/lib/safety/redFlags'
 import { buildCompanionSystemPrompt } from '@/lib/ai/context'
@@ -6,6 +7,12 @@ import { verifySessionToken } from '@/lib/vapi'
 import type { ConversationMode } from '@/lib/ai/modes'
 
 export const dynamic = 'force-dynamic'
+export const runtime = 'nodejs'
+// Run next to Vapi + Anthropic (US East) to cut per-turn network latency
+export const preferredRegion = ['iad1']
+
+// Reused across warm invocations
+const anthropic = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
 
 const VOICE_STYLE = `You are having a real spoken conversation on the phone — not answering questions, not reading from a script. Talk the way a warm, easy friend would.
 
@@ -94,9 +101,6 @@ export async function POST(req: NextRequest) {
     promptCache.set(cacheKey, { prompt: systemPrompt, exp: Date.now() + PROMPT_TTL_MS })
   }
 
-  const Anthropic = (await import('@anthropic-ai/sdk')).default
-  const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
-
   const anthropicMessages = convo.map((m) => ({
     role: m.role === 'assistant' ? ('assistant' as const) : ('user' as const),
     content: m.content,
@@ -108,7 +112,7 @@ export async function POST(req: NextRequest) {
   const stream = new ReadableStream({
     async start(controller) {
       try {
-        const anthropicStream = await client.messages.create({
+        const anthropicStream = await anthropic.messages.create({
           model: 'claude-haiku-4-5-20251001',
           max_tokens: 220,
           temperature: 0.8,
