@@ -71,7 +71,7 @@ export default function UpgradePage() {
   }
 
   return (
-    <div style={{ maxWidth: 720, margin: '0 auto', padding: '28px 16px 100px' }}>
+    <div style={{ maxWidth: 1040, margin: '0 auto', padding: '28px 16px 100px' }}>
       <Link href="/settings" style={{ display: 'inline-flex', alignItems: 'center', gap: 6, fontSize: 14, fontWeight: 300, color: 'rgba(255,255,255,0.55)', marginBottom: 24, textDecoration: 'none' }}>
         <svg width="16" height="16" viewBox="0 0 24 24" fill="none" stroke="currentColor" strokeWidth="2.2" strokeLinecap="round" strokeLinejoin="round"><path d="M19 12H5M12 19l-7-7 7-7"/></svg>
         Back to Settings
