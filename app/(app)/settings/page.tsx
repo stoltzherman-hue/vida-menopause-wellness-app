@@ -60,9 +60,12 @@ export default async function SettingsPage() {
     .eq('user_id', user!.id)
     .maybeSingle()
 
-  const isPremium = sub?.tier === 'premium' && sub?.status === 'active'
+  const paidStatus = sub?.status === 'active' || sub?.status === 'trialing'
+  const activeTier = paidStatus && (sub?.tier === 'premium' || sub?.tier === 'voice') ? sub!.tier : 'free'
+  const isPaid = activeTier !== 'free'
+  const planLabel = activeTier === 'voice' ? 'Voice' : 'Premium'
   // stripe_subscription_id column carries the PayFast subscription token
-  const canManage = isPremium && !!sub?.stripe_subscription_id && !sub?.cancel_at_period_end
+  const canManage = isPaid && !!sub?.stripe_subscription_id && !sub?.cancel_at_period_end
   const renewalDate = sub?.current_period_end
     ? new Date(sub.current_period_end).toLocaleDateString('en-GB', { day: 'numeric', month: 'long', year: 'numeric' })
     : null
@@ -116,21 +119,28 @@ export default async function SettingsPage() {
       <div style={card}>
         <p style={sectionTitle}>Subscription</p>
         <div style={{ padding: '16px 20px' }}>
-          {isPremium ? (
-            <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
-              <div>
-                <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(155,124,200,0.12)', border: '1px solid rgba(155,124,200,0.25)', borderRadius: 9999, padding: '5px 12px', marginBottom: 8 }}>
-                  <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9b7cc8" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
-                  <span style={{ fontSize: 11, fontWeight: 300, color: '#c4b8e0', letterSpacing: '0.04em' }}>Premium active</span>
+          {isPaid ? (
+            <>
+              <div style={{ display: 'flex', alignItems: 'center', justifyContent: 'space-between', flexWrap: 'wrap', gap: 12 }}>
+                <div>
+                  <div style={{ display: 'inline-flex', alignItems: 'center', gap: 7, background: 'rgba(155,124,200,0.12)', border: '1px solid rgba(155,124,200,0.25)', borderRadius: 9999, padding: '5px 12px', marginBottom: 8 }}>
+                    <svg width="11" height="11" viewBox="0 0 24 24" fill="none" stroke="#9b7cc8" strokeWidth="2"><polygon points="12 2 15.09 8.26 22 9.27 17 14.14 18.18 21.02 12 17.77 5.82 21.02 7 14.14 2 9.27 8.91 8.26 12 2"/></svg>
+                    <span style={{ fontSize: 11, fontWeight: 300, color: '#c4b8e0', letterSpacing: '0.04em' }}>{planLabel} active</span>
+                  </div>
+                  {renewalDate && (
+                    <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: 0 }}>
+                      {sub?.status === 'trialing' ? 'Trial ends' : 'Renews'} {renewalDate}
+                    </p>
+                  )}
                 </div>
-                {renewalDate && (
-                  <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', margin: 0 }}>
-                    {sub?.status === 'trialing' ? 'Trial ends' : 'Renews'} {renewalDate}
-                  </p>
-                )}
+                {canManage && <ManageSubscriptionButton />}
               </div>
-              {canManage && <ManageSubscriptionButton />}
-            </div>
+              {activeTier === 'premium' && (
+                <Link href="/settings/upgrade" style={{ display: 'inline-block', marginTop: 14, fontSize: 13, color: '#c4b8e0', fontWeight: 300, textDecoration: 'none' }}>
+                  Add voice — upgrade to Vida Voice →
+                </Link>
+              )}
+            </>
           ) : (
             <>
               <p style={{ fontSize: 14, color: 'rgba(255,255,255,0.55)', margin: '0 0 14px' }}>
@@ -143,7 +153,7 @@ export default async function SettingsPage() {
                 fontSize: 15, fontWeight: 300, textDecoration: 'none',
                 boxShadow: '0 4px 18px rgba(155,124,200,0.28)',
               }}>
-                Upgrade to Premium — R149/mo
+                View plans — Premium &amp; Voice
               </Link>
             </>
           )}
