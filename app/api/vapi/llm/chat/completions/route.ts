@@ -7,7 +7,21 @@ import type { ConversationMode } from '@/lib/ai/modes'
 
 export const dynamic = 'force-dynamic'
 
-const VOICE_STYLE = `You are speaking out loud, not writing. Keep replies short and easy to follow by ear: one or two sentences, one question at a time. Never read out lists or long detail. Warm, calm, unhurried.`
+const VOICE_STYLE = `You are having a real spoken conversation on the phone — not answering questions, not reading from a script. Talk the way a warm, easy friend would.
+
+How to speak:
+- React first. Before anything else, respond to what she just said with a little warmth or acknowledgement ("Oh, that sounds exhausting", "Mm, I hear you").
+- Keep each turn short and natural — usually one to three sentences — so she can jump back in. This is a back-and-forth, not a monologue.
+- Do NOT end every turn with a question. Sometimes just reflect, affirm, or offer a small thought and leave a little space for her to fill.
+- Vary how you open — never start the same way twice in a row.
+- Use contractions and everyday words. Never read out lists or long clinical detail out loud.
+- If she gives a short answer, keep it light and flowing rather than interrogating her.
+- It's okay to be brief. A gentle "I'm right here" can be a whole turn.`
+
+// Per-user context cache so we don't re-query the database on every single turn
+// (that round-trip was the main source of the awkward pause before Vida replies).
+const promptCache = new Map<string, { prompt: string; exp: number }>()
+const PROMPT_TTL_MS = 3 * 60 * 1000
 
 type ChatMsg = { role: string; content: string }
 
@@ -68,9 +82,17 @@ export async function POST(req: NextRequest) {
     return streamText(flag.escalationMessage)
   }
 
-  const supabase = createAdminClient()
   const mode = (session.mode as ConversationMode) ?? 'supportive_friend'
-  const systemPrompt = await buildCompanionSystemPrompt(supabase, session.uid, mode, VOICE_STYLE)
+  const cacheKey = `${session.uid}:${mode}`
+  const cached = promptCache.get(cacheKey)
+  let systemPrompt: string
+  if (cached && cached.exp > Date.now()) {
+    systemPrompt = cached.prompt
+  } else {
+    const supabase = createAdminClient()
+    systemPrompt = await buildCompanionSystemPrompt(supabase, session.uid, mode, VOICE_STYLE)
+    promptCache.set(cacheKey, { prompt: systemPrompt, exp: Date.now() + PROMPT_TTL_MS })
+  }
 
   const Anthropic = (await import('@anthropic-ai/sdk')).default
   const client = new Anthropic({ apiKey: process.env.ANTHROPIC_API_KEY })
@@ -88,7 +110,8 @@ export async function POST(req: NextRequest) {
       try {
         const anthropicStream = await client.messages.create({
           model: 'claude-haiku-4-5-20251001',
-          max_tokens: 400,
+          max_tokens: 220,
+          temperature: 0.8,
           system: systemPrompt,
           messages: anthropicMessages.length ? anthropicMessages : [{ role: 'user', content: 'Hello' }],
           stream: true,
