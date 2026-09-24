@@ -494,6 +494,29 @@ export default function MarketingHomePage() {
 
       <InstallBanner />
 
+      {/* ── Social launch loop ── */}
+      <section style={{ padding: '0 24px', position: 'relative', zIndex: 1 }}>
+        <div style={{
+          maxWidth: 860,
+          margin: '0 auto',
+          padding: 'clamp(28px, 5vw, 44px)',
+          border: '1px solid rgba(155,124,200,0.22)',
+          borderRadius: 28,
+          background: 'linear-gradient(135deg, rgba(155,124,200,0.10), rgba(255,255,255,0.02))',
+          textAlign: 'center',
+        }}>
+          <p style={{ fontSize: 12, letterSpacing: '0.16em', textTransform: 'uppercase', color: '#9b7cc8', marginBottom: 12 }}>Building Vida in public</p>
+          <h2 style={{ fontFamily: PF, fontSize: 'clamp(30px, 5vw, 46px)', fontWeight: 300, margin: '0 0 14px', letterSpacing: '-0.025em' }}>Follow what we build next.</h2>
+          <p style={{ maxWidth: 590, margin: '0 auto 24px', color: 'rgba(255,255,255,0.52)', lineHeight: 1.7, fontWeight: 300 }}>
+            Practical menopause education, symptom-tracking prompts and an honest look at how Vida is growing with its founding community.
+          </p>
+          <div style={{ display: 'flex', flexWrap: 'wrap', justifyContent: 'center', gap: 12 }}>
+            <a href="https://www.instagram.com/vidaappza/" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', borderRadius: 999, background: '#9b7cc8', color: '#09070e', fontWeight: 600, textDecoration: 'none' }}>Follow on Instagram</a>
+            <a href="https://www.facebook.com/profile.php?id=61594622466431" target="_blank" rel="noopener noreferrer" style={{ padding: '12px 22px', borderRadius: 999, border: '1px solid rgba(255,255,255,0.16)', color: 'rgba(255,255,255,0.82)', fontWeight: 500, textDecoration: 'none' }}>Follow on Facebook</a>
+          </div>
+        </div>
+      </section>
+
       {/* ── Footer ── */}
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '52px 32px', textAlign: 'center', marginTop: 'clamp(72px, 10vw, 112px)', position: 'relative', zIndex: 1 }}>
         <p style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.75)', marginBottom: 22, letterSpacing: '-0.02em' }}>vida<span style={{ color: '#9b7cc8' }}>.</span></p>
@@ -501,6 +524,8 @@ export default function MarketingHomePage() {
           {[['Learn', '/learn'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Refunds', '/refund-policy'], ['Community', '/community']].map(([label, href]) => (
             <Link key={href} href={href} style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontWeight: 300, textDecoration: 'none' }}>{label}</Link>
           ))}
+          <a href="https://www.instagram.com/vidaappza/" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontWeight: 300, textDecoration: 'none' }}>Instagram</a>
+          <a href="https://www.facebook.com/profile.php?id=61594622466431" target="_blank" rel="noopener noreferrer" style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontWeight: 300, textDecoration: 'none' }}>Facebook</a>
         </div>
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.18)', maxWidth: 460, margin: '0 auto', lineHeight: 1.7, fontWeight: 300 }}>
           &copy; 2026 Vida Wellness · Educational support only, not a substitute for medical advice.
