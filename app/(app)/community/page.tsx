@@ -7,6 +7,7 @@ import type { Metadata } from 'next'
 export const metadata: Metadata = { title: 'Community · Vida' }
 
 const ACCENTS = ['rgba(196,122,90,0.18)', 'rgba(139,109,181,0.18)', 'rgba(196,184,224,0.14)', 'rgba(201,169,110,0.14)']
+const LEGACY_DUPLICATE_SLUGS = new Set(['hrt-treatment', 'sleep-night-sweats', 'mind-mood'])
 
 type ForumCategory = {
   id: string
@@ -32,7 +33,10 @@ export default async function CommunityPage() {
       .order('sort_order', { ascending: true }),
   ])
 
-  const circles = (categoryRows ?? []) as ForumCategory[]
+  const circles = ((categoryRows ?? []) as ForumCategory[]).filter((category) => {
+    const postCount = category.forum_posts?.[0]?.count ?? 0
+    return postCount > 0 || !LEGACY_DUPLICATE_SLUGS.has(category.slug)
+  })
 
   return (
     <div style={{ maxWidth: 760, margin: '0 auto', padding: '40px 20px 100px' }}>
