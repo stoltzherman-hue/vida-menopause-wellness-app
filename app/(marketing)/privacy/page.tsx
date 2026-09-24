@@ -79,7 +79,7 @@ export default function PrivacyPage() {
         ))}
 
         {section('Contact', (
-          <p>For privacy questions or requests, email us at <a href="mailto:privacy@vida.health" style={{ color: '#9b7cc8' }}>privacy@vida.health</a>.</p>
+          <p>For privacy questions or requests, email us at <a href="mailto:support@vidaapp.co.za" style={{ color: '#9b7cc8' }}>support@vidaapp.co.za</a>.</p>
         ))}
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.09)', paddingTop: 28, marginTop: 12 }}>

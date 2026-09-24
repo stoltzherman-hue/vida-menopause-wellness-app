@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { onboardingSchema } from '@/lib/validations'
+import { writeAuditLog } from '@/lib/analytics/audit'
 
 export async function POST(req: NextRequest) {
   const supabase = await createSupabaseServerClient()
@@ -43,6 +44,12 @@ export async function POST(req: NextRequest) {
     consent_notifications: d.consentNotifications,
     consent_marketing: d.consentMarketing,
   }, { onConflict: 'user_id' })
+
+  await writeAuditLog({
+    userId: user.id,
+    action: 'growth.onboarding.completed',
+    resource: 'onboarding',
+  })
 
   return NextResponse.json({ data: { success: true } })
 }

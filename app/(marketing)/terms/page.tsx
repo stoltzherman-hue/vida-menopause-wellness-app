@@ -99,7 +99,7 @@ export default function TermsPage() {
         ))}
 
         {section('Contact', (
-          <p>Questions about these terms? Email <a href="mailto:legal@vida.health" style={{ color: '#9b7cc8' }}>legal@vida.health</a>.</p>
+          <p>Questions about these terms? Email <a href="mailto:support@vidaapp.co.za" style={{ color: '#9b7cc8' }}>support@vidaapp.co.za</a>.</p>
         ))}
 
         <div style={{ borderTop: '1px solid rgba(255,255,255,0.09)', paddingTop: 28, marginTop: 12 }}>

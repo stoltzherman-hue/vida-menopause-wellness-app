@@ -57,7 +57,7 @@ export default function LoginPage() {
         WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
       }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+        <img src="/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
       </div>
 
       {/* Top glow line */}

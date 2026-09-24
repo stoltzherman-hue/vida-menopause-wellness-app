@@ -14,7 +14,7 @@ const TOOLS = [
     bg: 'rgba(155,124,200,0.06)',
     border: 'rgba(155,124,200,0.15)',
     badge: '3–5 min',
-    evidence: 'Shown to reduce hot flush intensity and anxiety',
+    evidence: 'A calming practice that may help with stress and anxiety',
   },
   {
     id: 'hotflush',
@@ -24,7 +24,7 @@ const TOOLS = [
     bg: 'rgba(224,122,95,0.06)',
     border: 'rgba(224,122,95,0.15)',
     badge: '1–3 min',
-    evidence: 'Paced breathing reduces flush severity by up to 50%',
+    evidence: 'Practical breathing and cooling support during a flush',
   },
   {
     id: 'grounding',
@@ -34,7 +34,7 @@ const TOOLS = [
     bg: 'rgba(196,184,224,0.06)',
     border: 'rgba(196,184,224,0.15)',
     badge: '3–5 min',
-    evidence: 'Evidence-based CBT technique for anxiety and overwhelm',
+    evidence: 'A commonly used grounding technique for anxiety and overwhelm',
   },
 ]
 
@@ -156,9 +156,9 @@ export function ToolsClient() {
             Evidence-informed tools
           </p>
           <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.55)', margin: 0, lineHeight: 1.6 }}>
-            These tools are based on techniques used in Cognitive Behavioural Therapy (CBT) for menopause,
-            which has a strong evidence base for reducing hot flush distress, sleep disturbance, and anxiety.
-            They are not a substitute for medical care.
+            Some of these techniques are used within menopause-specific Cognitive Behavioural Therapy (CBT),
+            which NICE recommends as an option for vasomotor symptoms, sleep problems and depressive symptoms.
+            Individual results vary, and these tools are not a substitute for medical care.
           </p>
         </div>
       </div>

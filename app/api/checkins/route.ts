@@ -1,6 +1,7 @@
 import { NextRequest, NextResponse } from 'next/server'
 import { createSupabaseServerClient } from '@/lib/db/supabase-server'
 import { checkinSchema } from '@/lib/validations'
+import { writeAuditLog } from '@/lib/analytics/audit'
 
 export async function POST(req: NextRequest) {
   const supabase = await createSupabaseServerClient()
@@ -36,6 +37,12 @@ export async function POST(req: NextRequest) {
     .select().single()
 
   if (error) { console.error('[checkin] DB error', { code: error.code }); return NextResponse.json({ error: { message: 'Failed to save check-in' } }, { status: 500 }) }
+  await writeAuditLog({
+    userId: user.id,
+    action: 'growth.checkin.completed',
+    resource: 'daily_checkin',
+    resourceId: checkin.id,
+  })
   return NextResponse.json({ data: checkin })
 }
 

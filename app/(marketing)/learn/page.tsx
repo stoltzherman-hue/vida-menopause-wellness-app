@@ -222,7 +222,7 @@ export default function LearnPage() {
           Always discuss symptoms and treatment options with a qualified healthcare provider.
         </p>
         <p style={{ fontSize: 12, color: 'rgba(255,255,255,0.32)', marginTop: 24 }}>
-          © 2026 Vida Health Ltd · <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.32)' }}>Privacy</Link> · <Link href="/terms" style={{ color: 'rgba(255,255,255,0.32)' }}>Terms</Link>
+          © 2026 Vida Wellness · <Link href="/privacy" style={{ color: 'rgba(255,255,255,0.32)' }}>Privacy</Link> · <Link href="/terms" style={{ color: 'rgba(255,255,255,0.32)' }}>Terms</Link>
         </p>
       </footer>
     </div>

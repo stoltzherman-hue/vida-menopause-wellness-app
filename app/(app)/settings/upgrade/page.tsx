@@ -191,7 +191,7 @@ export default function UpgradePage() {
       </div>
 
       <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.32)', textAlign: 'center' }}>
-        Questions? <Link href="/learn" style={{ color: '#c4b8e0', fontWeight: 300 }}>Visit our knowledge hub</Link> or email us at hello@vida.health
+        Questions? <Link href="/learn" style={{ color: '#c4b8e0', fontWeight: 300 }}>Visit our knowledge hub</Link> or email us at support@vidaapp.co.za
       </p>
 
       <style>{`@keyframes spin { to { transform: rotate(360deg); } }`}</style>

@@ -54,7 +54,7 @@ export function AppShell({ children }: { children: React.ReactNode }) {
       }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
         <img
-          src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp"
+          src="/0f6O-Dn9Qrme3fztiJ5JmQ.webp"
           alt=""
           style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }}
         />

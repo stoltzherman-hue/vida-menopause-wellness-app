@@ -19,7 +19,7 @@ interface Props {
 
 const FREE_LIMIT = 10
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
-const PORTRAIT_URL = 'https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp'
+const PORTRAIT_URL = '/0f6O-Dn9Qrme3fztiJ5JmQ.webp'
 const SPEAKING_LINGER_MS = 3500 // how long to keep animation after reply arrives
 
 const SPEAKING_CSS = `

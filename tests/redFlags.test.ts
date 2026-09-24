@@ -21,7 +21,7 @@ describe('detectRedFlags', () => {
   it('flags self-harm', () => {
     const result = detectRedFlags('I want to hurt myself')
     expect(result.flagged).toBe(true)
-    expect(result.escalationMessage).toContain('988')
+    expect(result.escalationMessage).toContain('0800 567 567')
   })
 
   it('does not flag normal wellness conversation', () => {

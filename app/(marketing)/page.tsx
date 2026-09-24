@@ -23,15 +23,6 @@ const stats = [
   { value: 'yours', label: 'data, always' },
 ]
 
-const testimonials = [
-  { quote: 'I finally have something to show my GP. After 6 months of dismissal, I walked in with my Vida symptom report and got HRT the same day.', name: 'Sarah', age: 51, duration: '8 months with Vida', initial: 'S' },
-  { quote: 'The brain fog was so bad I thought I had early dementia. Seeing it mapped to my sleep quality made it make sense. I felt less scared.', name: 'Claire', age: 47, duration: '5 months with Vida', initial: 'C' },
-  { quote: 'The community is everything. Women who actually get it — no one telling me to just try yoga. I don\'t feel alone anymore.', name: 'Yvonne', age: 53, duration: '11 months with Vida', initial: 'Y' },
-  { quote: 'I identified that alcohol — even one glass — was triggering my worst night sweats. I wouldn\'t have made that connection without the tracker.', name: 'Marisol', age: 49, duration: '4 months with Vida', initial: 'M' },
-  { quote: 'The AI companion mode where you prepare for a doctor visit is genuinely brilliant. It turned my anxious notes into something clear and confident.', name: 'Diane', age: 55, duration: '14 months with Vida', initial: 'D' },
-  { quote: 'I\'m perimenopausal and everyone kept saying I was \'too young\'. Vida helped me document what was happening so I could say — no, this is real.', name: 'Priya', age: 42, duration: '6 months with Vida', initial: 'P' },
-]
-
 const steps = [
   { step: '01', title: 'Log your day in 2 minutes', body: 'Rate how you feel, tap the symptoms you experienced, note what helped or made things harder. It takes under 2 minutes and builds a powerful longitudinal record.' },
   { step: '02', title: 'Watch your patterns emerge', body: 'After a few weeks, trend charts reveal the connections between your sleep, mood, triggers, and symptoms that are invisible day-to-day.' },
@@ -72,7 +63,7 @@ export default function MarketingHomePage() {
         WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
       }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+        <img src="/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
       </div>
 
       {/* ── Navigation ── */}
@@ -82,6 +73,9 @@ export default function MarketingHomePage() {
             vida<span style={{ color: '#9b7cc8' }}>.</span>
           </Link>
           <nav style={{ display: 'flex', alignItems: 'center', gap: 8 }}>
+            <Link href="/learn" style={{ fontFamily: DM, fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.45)', padding: '8px 12px', borderRadius: 10, textDecoration: 'none' }}>
+              Learn
+            </Link>
             <Link href="/login" style={{ fontFamily: DM, fontSize: 13, fontWeight: 300, color: 'rgba(255,255,255,0.45)', padding: '8px 16px', borderRadius: 10, textDecoration: 'none', transition: 'color 0.18s' }}>
               Sign in
             </Link>
@@ -400,30 +394,29 @@ export default function MarketingHomePage() {
         </Reveal>
       </section>
 
-      {/* ── Testimonials grid ── */}
+      {/* ── Founding community ── */}
       <section style={{ maxWidth: 1160, margin: '0 auto', padding: 'clamp(72px, 10vw, 112px) 32px 0', position: 'relative', zIndex: 1 }}>
         <Reveal>
-        <div style={{ textAlign: 'center', marginBottom: 52 }}>
-          <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>What women say</p>
-          <h2 style={{ fontFamily: PF, fontSize: 'clamp(26px, 4vw, 44px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15 }}>
-            Real women, real results
-          </h2>
-        </div>
-
-        <div style={{ display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', gap: 16 }}>
-          {testimonials.map(({ quote, name, age, duration, initial }) => (
-            <div key={name} className="m-lift" style={{ ...glass, borderRadius: 22, padding: '26px 22px' }}>
-              <div style={{ fontFamily: PF, fontSize: 32, color: 'rgba(155,124,200,0.25)', lineHeight: 1, marginBottom: 12, fontWeight: 300 }}>&ldquo;</div>
-              <p style={{ fontSize: 13, color: 'rgba(255,255,255,0.5)', lineHeight: 1.75, marginBottom: 22, fontWeight: 300 }}>{quote}</p>
-              <div style={{ display: 'flex', alignItems: 'center', gap: 11 }}>
-                <div style={{ width: 36, height: 36, borderRadius: '50%', background: 'rgba(139,109,181,0.15)', border: '1px solid rgba(139,109,181,0.28)', display: 'flex', alignItems: 'center', justifyContent: 'center', color: 'rgba(196,184,224,0.7)', fontFamily: PF, fontSize: 14, fontWeight: 300, flexShrink: 0 }}>{initial}</div>
-                <div>
-                  <p style={{ fontWeight: 300, fontSize: 13, color: 'rgba(255,255,255,0.7)', margin: 0 }}>{name}, {age}</p>
-                  <p style={{ fontSize: 11, color: 'rgba(255,255,255,0.28)', margin: '2px 0 0', fontWeight: 300 }}>{duration}</p>
-                </div>
+        <div style={{ ...glass, borderRadius: 30, padding: 'clamp(36px, 6vw, 64px)', display: 'grid', gridTemplateColumns: 'repeat(auto-fit, minmax(280px, 1fr))', alignItems: 'center', gap: 36 }}>
+          <div>
+            <p style={{ fontSize: 11, fontWeight: 400, color: 'rgba(155,124,200,0.7)', textTransform: 'uppercase', letterSpacing: '0.12em', marginBottom: 14 }}>Vida is early — by design</p>
+            <h2 style={{ fontFamily: PF, fontSize: 'clamp(27px, 4vw, 44px)', fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.025em', lineHeight: 1.15, marginBottom: 18 }}>
+              Help shape the menopause companion you wish existed.
+            </h2>
+            <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.42)', lineHeight: 1.75, fontWeight: 300 }}>
+              We are building Vida with its founding community. Start free, use the tracker in real life, and tell us what would make the experience genuinely useful for you.
+            </p>
+          </div>
+          <div style={{ display: 'flex', flexDirection: 'column', alignItems: 'flex-start', gap: 14 }}>
+            {['No invented success stories', 'No sold health data', 'No pressure to upgrade'].map((text) => (
+              <div key={text} style={{ display: 'flex', gap: 10, alignItems: 'center', color: 'rgba(255,255,255,0.55)', fontSize: 13 }}>
+                <span style={{ color: '#9b7cc8' }}>✓</span>{text}
               </div>
-            </div>
-          ))}
+            ))}
+            <Link href="/signup" className="btn-primary" style={{ marginTop: 10, fontSize: 14, padding: '13px 28px', height: 'auto', textDecoration: 'none' }}>
+              Become a founding member
+            </Link>
+          </div>
         </div>
         </Reveal>
       </section>
@@ -444,12 +437,12 @@ export default function MarketingHomePage() {
                 Built on what actually works
               </h2>
               <p style={{ fontSize: 15, color: 'rgba(255,255,255,0.38)', lineHeight: 1.75, marginBottom: 32, maxWidth: 480, fontWeight: 300 }}>
-                Everything in Vida — from check-in questions to AI companion responses — is grounded in research on menopause symptom management, CBT, and behaviour change.
+                Vida uses recognised menopause guidance and research to inform its educational content. It supports reflection and appointment preparation; it does not diagnose or replace medical care.
               </p>
               <div style={{ display: 'flex', flexDirection: 'column', gap: 14 }}>
                 {[
                   'Wellness tools based on CBT for menopause — an approach some women find helps reduce hot flush distress',
-                  'Pattern language drawn from NICE guidelines and peer-reviewed menopause research',
+                  'Educational guidance informed by NICE, NHS, WHO and ACOG resources',
                   'Doctor Report format designed to give GPs the symptom data they need',
                   'Privacy-first: your health data is never sold, always encrypted, and fully deletable',
                 ].map((text) => (
@@ -461,12 +454,15 @@ export default function MarketingHomePage() {
                   </div>
                 ))}
               </div>
+              <Link href="/learn" style={{ display: 'inline-flex', marginTop: 24, color: '#9b7cc8', fontSize: 13, textDecoration: 'none' }}>
+                Read the guides and source links →
+              </Link>
             </div>
             <div style={{ display: 'flex', flexWrap: 'wrap', gap: 14 }}>
               {[
                 { stat: 'CBT', label: 'techniques that may help some women manage hot flush distress' },
-                { stat: 'Many', label: 'women find tracking helps them have more confident GP conversations' },
-                { stat: 'NICE', label: 'guidelines and peer-reviewed research inform every feature' },
+                { stat: 'Clear', label: 'structured records help you prepare for healthcare conversations' },
+                { stat: 'Open', label: 'sources are linked so you can review the guidance yourself' },
                 { stat: '100%', label: 'of your data stays private — never sold, always deletable' },
               ].map(({ stat, label }) => (
                 <div key={stat} style={{ flex: '1 1 160px', background: 'rgba(255,255,255,0.03)', border: '1px solid rgba(255,255,255,0.07)', borderRadius: 18, padding: '20px 18px' }}>
@@ -502,7 +498,7 @@ export default function MarketingHomePage() {
       <footer style={{ borderTop: '1px solid rgba(255,255,255,0.06)', padding: '52px 32px', textAlign: 'center', marginTop: 'clamp(72px, 10vw, 112px)', position: 'relative', zIndex: 1 }}>
         <p style={{ fontFamily: PF, fontSize: 26, fontWeight: 300, color: 'rgba(255,255,255,0.75)', marginBottom: 22, letterSpacing: '-0.02em' }}>vida<span style={{ color: '#9b7cc8' }}>.</span></p>
         <div style={{ display: 'flex', flexWrap: 'wrap', gap: '8px 28px', justifyContent: 'center', marginBottom: 22 }}>
-          {[['Privacy', '/privacy'], ['Terms', '/terms'], ['Refunds', '/refund-policy'], ['Community', '/community']].map(([label, href]) => (
+          {[['Learn', '/learn'], ['Privacy', '/privacy'], ['Terms', '/terms'], ['Refunds', '/refund-policy'], ['Community', '/community']].map(([label, href]) => (
             <Link key={href} href={href} style={{ fontSize: 13, color: 'rgba(255,255,255,0.25)', fontWeight: 300, textDecoration: 'none' }}>{label}</Link>
           ))}
         </div>

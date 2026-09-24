@@ -3,6 +3,7 @@ import { useState } from 'react'
 import { createBrowserClient } from '@/lib/db/client'
 import { signUpSchema } from '@/lib/validations'
 import Link from 'next/link'
+import { track } from '@vercel/analytics'
 
 const inputStyle: React.CSSProperties = {
   width: '100%', height: 50, borderRadius: 14,
@@ -31,6 +32,7 @@ export default function SignupPage() {
     setError('')
     const parsed = signUpSchema.safeParse({ email, password, displayName })
     if (!parsed.success) { setError(parsed.error.issues[0].message); return }
+    track('signup_started')
     setLoading(true)
     const supabase = createBrowserClient()
     const { error: authError } = await supabase.auth.signUp({
@@ -40,6 +42,7 @@ export default function SignupPage() {
     })
     setLoading(false)
     if (authError) { setError(authError.message); return }
+    track('signup_submitted')
     setDone(true)
   }
 
@@ -55,7 +58,7 @@ export default function SignupPage() {
         WebkitMaskImage: 'linear-gradient(to right, transparent 0%, black 28%, black 82%, transparent 100%)',
       }}>
         {/* eslint-disable-next-line @next/next/no-img-element */}
-        <img src="https://media.craiyon.com/2025-05-26/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
+        <img src="/0f6O-Dn9Qrme3fztiJ5JmQ.webp" alt="" aria-hidden="true" style={{ width: '100%', height: '100%', objectFit: 'cover', objectPosition: 'center top' }} />
       </div>
     </>
   )
@@ -87,7 +90,7 @@ export default function SignupPage() {
           <Link href="/" style={{ fontFamily: 'var(--font-playfair), Georgia, serif', fontSize: 38, fontWeight: 300, color: 'rgba(255,255,255,0.88)', letterSpacing: '-0.02em', textDecoration: 'none' }}>
             vida<span style={{ color: '#9b7cc8' }}>.</span>
           </Link>
-          <p style={{ color: 'rgba(255,255,255,0.55)', marginTop: 10, fontSize: 14, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>Join thousands of women navigating menopause</p>
+          <p style={{ color: 'rgba(255,255,255,0.55)', marginTop: 10, fontSize: 14, fontFamily: 'var(--font-dm-sans), system-ui, sans-serif' }}>Join Vida&apos;s founding menopause community</p>
         </div>
 
         {/* Card */}

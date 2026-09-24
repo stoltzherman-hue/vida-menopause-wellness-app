@@ -5,6 +5,7 @@ export type AuditAction =
   | 'data.exported' | 'subscription.created' | 'subscription.updated' | 'subscription.canceled'
   | 'medication.created' | 'medication.updated' | 'medication.deleted'
   | 'ai.conversation.started' | 'community.post.reported'
+  | 'growth.onboarding.completed' | 'growth.checkin.completed'
   | 'admin.user.viewed' | 'admin.user.suspended'
 
 export async function writeAuditLog({

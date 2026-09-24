@@ -6,7 +6,7 @@ function initWebPush() {
   const pub = process.env.NEXT_PUBLIC_VAPID_PUBLIC_KEY
   const priv = process.env.VAPID_PRIVATE_KEY
   if (pub && priv) {
-    webpush.setVapidDetails('mailto:hello@vida.health', pub, priv)
+    webpush.setVapidDetails('mailto:support@vidaapp.co.za', pub, priv)
   }
 }
 

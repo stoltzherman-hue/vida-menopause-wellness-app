@@ -16,19 +16,19 @@ const FAQS = [
   },
   {
     q: 'Is HRT (hormone replacement therapy) safe?',
-    a: 'Current evidence from large-scale studies suggests that for most healthy women under 60 who are within 10 years of their last period, the benefits of HRT outweigh the risks. The picture is more nuanced for some health histories. This is a conversation to have with your GP or menopause specialist, ideally armed with your symptom data. Vida can help you prepare a clear summary for that appointment.',
+    a: 'For many people with menopause symptoms, the benefits of HRT may outweigh the risks, but the balance depends on age, symptoms, medical history, formulation and route. This is a conversation to have with a qualified healthcare professional. Vida can help you prepare a clear symptom summary for that appointment.',
   },
   {
     q: 'Can lifestyle changes actually help with menopause symptoms?',
-    a: 'Yes, meaningfully so. Evidence supports: regular weight-bearing exercise (reduces hot flush frequency and supports bone density), reducing alcohol and caffeine (both can trigger hot flushes and disrupt sleep), a diet rich in phytoestrogens (soy, flaxseed, legumes), stress reduction (the nervous system directly affects how the body responds to hormonal shifts), and prioritising sleep hygiene. Tracking which changes help is where Vida adds the most value.',
+    a: 'Lifestyle changes can support general health and may help some symptoms, but responses differ. Regular movement supports bone, heart and mental health; reducing personal triggers such as alcohol or caffeine may help some people; and sleep routines can support rest. Tracking helps you notice what changes coincide with improvement for you.',
   },
   {
     q: 'How long does menopause last?',
-    a: 'The entire transition — perimenopause through the post-menopausal settling period — typically spans 7–14 years, though the most symptomatic phase is usually 2–5 years around your final period. Symptoms often ease significantly by 2–3 years after your last period, though some women (particularly with hot flushes) experience symptoms for longer. Post-menopause brings its own health considerations, especially around bone and heart health.',
+    a: 'The menopause transition and its symptoms vary widely. Perimenopause can last several years, and some symptoms continue after the final period. There is no single timeline that applies to everyone, so seek healthcare advice if symptoms are persistent, severe or affecting daily life.',
   },
   {
     q: 'Is it normal to feel anxious and low during menopause?',
-    a: 'Extremely common — and vastly under-recognised. Oestrogen plays a role in serotonin regulation, so its fluctuation can directly affect mood. Many women experience their first episodes of anxiety or depression during perimenopause, even with no prior history. Brain fog, irritability, and emotional sensitivity are also widely reported. Importantly, these are hormonal responses — not a reflection of your mental strength or character.',
+    a: 'Mood changes, anxiety, irritability and difficulty concentrating are reported during the menopause transition. They can also have other causes, and depression or severe anxiety deserves proper assessment and support. These symptoms are not a reflection of personal weakness.',
   },
   {
     q: 'Will I gain weight during menopause?',
