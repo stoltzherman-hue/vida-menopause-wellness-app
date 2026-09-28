@@ -3,6 +3,7 @@ import { MarketingFAQ } from '@/components/marketing/MarketingFAQ'
 import { InstallBanner } from '@/components/marketing/InstallBanner'
 import { Reveal } from '@/components/marketing/Reveal'
 import { ParallaxTilt } from '@/components/marketing/ParallaxTilt'
+import { CampaignAttributionCapture } from '@/components/marketing/CampaignAttributionCapture'
 
 const DM = 'var(--font-dm-sans), system-ui, sans-serif'
 const PF = 'var(--font-playfair), Georgia, serif'
@@ -43,6 +44,8 @@ export default function MarketingHomePage() {
 
   return (
     <div style={{ minHeight: '100vh', background: '#09070e', fontFamily: DM, position: 'relative', overflowX: 'hidden' }}>
+
+      <CampaignAttributionCapture />
 
       {/* Top glow line */}
       <div style={{ position: 'fixed', top: 0, left: 0, right: 0, height: 1, background: 'linear-gradient(90deg, transparent 0%, rgba(139,109,181,0.35) 40%, rgba(196,184,224,0.2) 70%, transparent 100%)', pointerEvents: 'none', zIndex: 100 }} />
