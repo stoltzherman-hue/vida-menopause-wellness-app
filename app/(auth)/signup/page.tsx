@@ -33,11 +33,13 @@ export default function SignupPage() {
     const parsed = signUpSchema.safeParse({ email, password, displayName })
     if (!parsed.success) { setError(parsed.error.issues[0].message); return }
     const searchParams = new URLSearchParams(window.location.search)
+    const readAttribution = (key: string) =>
+      searchParams.get(key) ?? sessionStorage.getItem(`vida_${key}`) ?? ''
     const attribution = {
-      utm_source: searchParams.get('utm_source') ?? '',
-      utm_medium: searchParams.get('utm_medium') ?? '',
-      utm_campaign: searchParams.get('utm_campaign') ?? '',
-      utm_content: searchParams.get('utm_content') ?? '',
+      utm_source: readAttribution('utm_source'),
+      utm_medium: readAttribution('utm_medium'),
+      utm_campaign: readAttribution('utm_campaign'),
+      utm_content: readAttribution('utm_content'),
     }
     const analyticsAttribution = Object.fromEntries(Object.entries(attribution).filter(([, value]) => value))
     track('signup_started', analyticsAttribution)
