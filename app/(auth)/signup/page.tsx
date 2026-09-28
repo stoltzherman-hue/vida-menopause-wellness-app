@@ -1,6 +1,5 @@
 'use client'
 import { useState } from 'react'
-import { useSearchParams } from 'next/navigation'
 import { createBrowserClient } from '@/lib/db/client'
 import { signUpSchema } from '@/lib/validations'
 import Link from 'next/link'
@@ -27,21 +26,20 @@ export default function SignupPage() {
   const [error, setError] = useState('')
   const [loading, setLoading] = useState(false)
   const [done, setDone] = useState(false)
-  const searchParams = useSearchParams()
-
-  const attribution = {
-    utm_source: searchParams.get('utm_source') ?? '',
-    utm_medium: searchParams.get('utm_medium') ?? '',
-    utm_campaign: searchParams.get('utm_campaign') ?? '',
-    utm_content: searchParams.get('utm_content') ?? '',
-  }
-  const analyticsAttribution = Object.fromEntries(Object.entries(attribution).filter(([, value]) => value))
 
   async function handleSubmit(e: React.FormEvent) {
     e.preventDefault()
     setError('')
     const parsed = signUpSchema.safeParse({ email, password, displayName })
     if (!parsed.success) { setError(parsed.error.issues[0].message); return }
+    const searchParams = new URLSearchParams(window.location.search)
+    const attribution = {
+      utm_source: searchParams.get('utm_source') ?? '',
+      utm_medium: searchParams.get('utm_medium') ?? '',
+      utm_campaign: searchParams.get('utm_campaign') ?? '',
+      utm_content: searchParams.get('utm_content') ?? '',
+    }
+    const analyticsAttribution = Object.fromEntries(Object.entries(attribution).filter(([, value]) => value))
     track('signup_started', analyticsAttribution)
     setLoading(true)
     const supabase = createBrowserClient()
