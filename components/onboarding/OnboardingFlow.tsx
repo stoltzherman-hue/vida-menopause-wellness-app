@@ -46,6 +46,7 @@ export function OnboardingFlow() {
   const [step, setStep] = useState<Step>('stage')
   const [data, setData] = useState<OnboardingData>(INITIAL)
   const [saving, setSaving] = useState(false)
+  const [saveError, setSaveError] = useState('')
 
   const stepIndex = STEPS.indexOf(step)
   const progress = Math.round((stepIndex / (STEPS.length - 1)) * 100)
@@ -66,14 +67,24 @@ export function OnboardingFlow() {
 
   async function submit() {
     setSaving(true)
+    setSaveError('')
     try {
-      await fetch('/api/onboarding', {
+      const res = await fetch('/api/onboarding', {
         method: 'POST',
         headers: { 'Content-Type': 'application/json' },
         body: JSON.stringify(data),
       })
+      if (!res.ok) {
+        const json = await res.json().catch(() => ({}))
+        setSaveError(json?.error?.message ?? 'We could not save your onboarding details. Please try again.')
+        return
+      }
       next()
-    } finally { setSaving(false) }
+    } catch {
+      setSaveError('Network error — please check your connection and try again.')
+    } finally {
+      setSaving(false)
+    }
   }
 
   const commonProps = { data, update, onNext: next, onBack: back }
@@ -117,6 +128,11 @@ export function OnboardingFlow() {
         {step === 'lifestyle' && <StepLifestyle {...commonProps} />}
         {step === 'goals' && <StepGoals {...commonProps} />}
         {step === 'consent' && <StepConsent {...commonProps} onSubmit={submit} saving={saving} />}
+        {step === 'consent' && saveError && (
+          <div role="alert" style={{ marginTop: 16, background: 'rgba(217,95,95,0.07)', border: '1px solid rgba(217,95,95,0.22)', borderRadius: 12, padding: '12px 16px', fontFamily: DM, fontSize: 13, color: 'rgba(232,160,160,0.9)' }}>
+            {saveError}
+          </div>
+        )}
         {step === 'plan' && <StepWellnessPlan data={data} onFinish={() => router.push('/dashboard')} />}
 
         {step !== 'plan' && (
